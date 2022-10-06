@@ -12,3 +12,7 @@ El jugador lanzará dos dados por cada turno de juego siendo la suma de los núm
 
 La Oca es un juego de dos o más jugadores, en el cual el jugador deberá avanzar por un recorrido en forma de caracol formado por 63 casillas. El objetivo del juego es ser el primer jugador en llegar a la última casilla.  
 El jugador lanzará un dado por cada turno, debiendo avanzar tantos movimientos como el dado indique. A lo largo de este recorrido, se encontrará con distintos tipos de casillas, algunas con eventos especiales. Estos eventos suelen comprender la transportación de la ficha a otra casilla, su congelación durante varios turnos o reinicio del recorrido. La duración aproximada suele ser de unos 30 minutos.
+
+# Documento de Requisitos y Análisis del Sistema
+
+https://docs.google.com/document/d/1nHaRBn8AE6_TVO6kOFaHDRv2aABwXyyg/edit?usp=sharing&ouid=113499080085204643420&rtpof=true&sd=true
