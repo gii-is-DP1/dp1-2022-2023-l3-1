@@ -3,7 +3,7 @@
 https://user-images.githubusercontent.com/72879701/193100883-057ed34a-16fa-4cc6-8069-7687777b1601.mp4
 
 
-# Descripción general de, proyecto
+# Descripción general del proyecto
 
 Este proyecto consta de dos juegos tradicionales como lo son el Parchís y la Oca. Implementaremos ambos juegos en una aplicación web, en la que el jugador podrá iniciar sesión, elegir juego y crear partidas. 
 
