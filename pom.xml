@@ -31,7 +31,37 @@
         <spring-format.version>0.0.19</spring-format.version>
 
     </properties>
-
+<developers>
+    <developer>
+       <id>Leo</id>
+       <name> Leonardo </name>
+       <email> leo@tmht.com </email>
+       <url> http://www.tmht.com/leo</url>
+       <roles>
+          <role> leader </role>
+       </roles>
+       <properties>
+            <picUrl>
+            
+            </picUrl>
+       </properties>
+    </developer>
+<developer>
+       <id> Donnie </id>
+       <name> Donatello </name>
+       <email> donnie@tmht.com </email>
+       <url> http://www.tmht.com/donnie </url>
+       <roles>
+         <role> tech master </role >
+       </roles>
+       <properties>
+         <picUrl>
+          
+   </picUrl>
+       </properties >
+     </developer >
+    <!-- More developers... -->
+</developers>
     <dependencies>
         <!-- Spring and Spring Boot dependencies -->
         <dependency>
