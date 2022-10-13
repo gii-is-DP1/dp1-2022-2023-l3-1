@@ -1,5 +1,5 @@
 -- One admin user, named admin1 with passwor 4dm1n and authority admin
-INSERT INTO users(username,password,enabled) VALUES ('admin1','4dm1n',TRUE);
+INSERT INTO users(username,password,enabled) VALUES ('admin1','4dm1n',TRUE);    
 INSERT INTO authorities(id,username,authority) VALUES (1,'admin1','admin');
 -- One owner user, named owner1 with passwor 0wn3r
 INSERT INTO users(username,password,enabled) VALUES ('owner1','0wn3r',TRUE);
@@ -63,3 +63,10 @@ INSERT INTO visits(id,pet_id,visit_date,description) VALUES (2, 8, '2013-01-02',
 INSERT INTO visits(id,pet_id,visit_date,description) VALUES (3, 8, '2013-01-03', 'neutered');
 INSERT INTO visits(id,pet_id,visit_date,description) VALUES (4, 7, '2013-01-04', 'spayed');
 
+
+INSERT INTO game(id,tipo,creator,winner) VALUES (1,'parchis','alvcarber1','alvcarber1');
+
+INSERT INTO achievement(id,name,description,threshold,badge_image) 
+    VALUES (1,'Viciado','Si juegas <THRESHOLD> partidas o más, consideramos que ya estás enganchado.',10.0,'https://bit.ly/certifiedGamer');
+INSERT INTO achievement(id,name,description,threshold,badge_image)
+    VALUES(2,'Triunfador','Si ganas <THRESHOLD> o  más partidas es que eres todo un triunfador.',20.0,'https://bit.ly/proGamer');
