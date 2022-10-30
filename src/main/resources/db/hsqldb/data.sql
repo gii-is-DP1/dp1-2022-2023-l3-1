@@ -70,3 +70,11 @@ INSERT INTO achievement(id,name,description,threshold,badge_image)
     VALUES (1,'Viciado','Si juegas <THRESHOLD> partidas o más, consideramos que ya estás enganchado.',10.0,'https://bit.ly/certifiedGamer');
 INSERT INTO achievement(id,name,description,threshold,badge_image)
     VALUES(2,'Triunfador','Si ganas <THRESHOLD> o  más partidas es que eres todo un triunfador.',20.0,'https://bit.ly/proGamer');
+
+INSERT INTO players ( id , first_name , last_name , username ) VALUES (1,'Alvaro','Carrera','owner1');
+INSERT INTO players ( id , first_name , last_name , username ) VALUES (2,'Javier','Ruiz','owner1');
+
+insert into PLAYERS_ACHIEVEMENTS ( player_id , achievements_id ) values (1,1);
+insert into PLAYERS_ACHIEVEMENTS ( player_id , achievements_id ) values (1,2);
+
+
