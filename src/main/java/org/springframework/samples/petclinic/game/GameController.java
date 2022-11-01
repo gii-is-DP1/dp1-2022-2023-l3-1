@@ -12,6 +12,8 @@ public class GameController {
     
     private final String GAMES_LISTING_VIEW = "/games/GamesListing";
     private final String GAME_CREATE_VIEW = "games/CreateGameForm";
+    private final String GAME_INSTRUCTIONS_VIEW = "games/GameInstruction";
+    private final String GAME_INSTRUCTIONS_VIEW1 = "games/GameInstructionOca";
     private GameService service;
 
     @Autowired
@@ -31,6 +33,18 @@ public class GameController {
         ModelAndView result = new ModelAndView(GAME_CREATE_VIEW);
         result.addObject("game", new Game()); //necesaria para represetar los atributos de la partida
         result.addObject("gameType", service.findAllGameTypes());
+        return result;
+    }
+
+    @GetMapping("/instructions")
+    public ModelAndView instructions(){
+        ModelAndView result = new ModelAndView(GAME_INSTRUCTIONS_VIEW);
+        return result;
+    }
+
+    @GetMapping("/instructions/oca")
+    public ModelAndView instructionsOca(){
+        ModelAndView result = new ModelAndView(GAME_INSTRUCTIONS_VIEW1);
         return result;
     }
 }
