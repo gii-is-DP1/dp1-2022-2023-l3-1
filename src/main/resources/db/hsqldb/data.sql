@@ -64,7 +64,11 @@ INSERT INTO visits(id,pet_id,visit_date,description) VALUES (3, 8, '2013-01-03',
 INSERT INTO visits(id,pet_id,visit_date,description) VALUES (4, 7, '2013-01-04', 'spayed');
 
 
-INSERT INTO game(id,tipo,creator,winner) VALUES (1,'parchis','alvcarber1','alvcarber1');
+INSERT INTO game_type(id, name) VALUES
+(1, 'Parchis'),
+(2, 'Oca');
+
+INSERT INTO game(id,creator,winner, jugadores, game_type_id) VALUES (1,'alvcarber1','alvcarber1',4,1);
 
 INSERT INTO achievement(id,name,description,threshold,badge_image) 
     VALUES (1,'Viciado','Si juegas <THRESHOLD> partidas o más, consideramos que ya estás enganchado.',10.0,'https://bit.ly/certifiedGamer');

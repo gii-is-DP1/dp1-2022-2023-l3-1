@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class GameController {
     
     private final String GAMES_LISTING_VIEW = "/games/GamesListing";
+    private final String GAME_CREATE_VIEW = "games/CreateGameForm";
     private GameService service;
 
     @Autowired
@@ -23,5 +24,13 @@ public class GameController {
         result.addObject("games", service.getGames());
         return result;
         
+    }
+
+    @GetMapping("/create")
+    public ModelAndView createProduct(){
+        ModelAndView result = new ModelAndView(GAME_CREATE_VIEW);
+        result.addObject("game", new Game()); //necesaria para represetar los atributos de la partida
+        result.addObject("gameType", service.findAllGameTypes());
+        return result;
     }
 }
