@@ -7,9 +7,15 @@
 <petclinic:layout pageName="home">
     <h2><fmt:message key="welcome"/></h2>
     <div class="row">
-        <div class="col-md-12">
-            <spring:url value="/resources/images/pets.png" htmlEscape="true" var="petsImage"/>
+        <div class="col text-center">
+            <spring:url value="/resources/images/logo-oca.png" htmlEscape="true" var="petsImage"/>
             <img class="img-responsive" src="${petsImage}"/>
+        </div>
+        <div class="col text-center">
+            <a class="btn btn-default" href='<spring:url value="/games/instructions" htmlEscape="true"/>'>Como Jugar</a>
+        </div>
+        <div class="col text-center">
+            <a class="btn btn-default" href='<spring:url value="/games/create" htmlEscape="true"/>'>Start</a>
         </div>
     </div>
 </petclinic:layout>

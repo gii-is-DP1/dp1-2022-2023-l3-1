@@ -13,7 +13,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-
 @Entity
 @Table(name = "game_type")
 public class GameType extends BaseEntity{
