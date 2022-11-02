@@ -1,10 +1,10 @@
 package org.springframework.samples.petclinic.game;
 
 import java.util.List;
-
-
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.player.Player;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,8 +23,13 @@ public class GameService {
 
     @Transactional(readOnly = true)
     public List<GameType> findAllGameTypes() {
-        return repository.findAllGameTypes();
+        return repository.getAllGameTypes();
     }
+
+    // public Set<Player> getJugadores() {
+    //     return repository.getJugadores();
+    // }
+
 }
 
 

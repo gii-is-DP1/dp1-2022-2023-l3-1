@@ -81,4 +81,7 @@ INSERT INTO players ( id , first_name , last_name , username ) VALUES (2,'Javier
 insert into PLAYERS_ACHIEVEMENTS ( player_id , achievements_id ) values (1,1);
 insert into PLAYERS_ACHIEVEMENTS ( player_id , achievements_id ) values (1,2);
 
+-- INSERT INTO GAME_players (game_id, players_id) values (1,1);
+-- INSERT INto GAME_players (game_id, players_id) values (1,2);
+
 

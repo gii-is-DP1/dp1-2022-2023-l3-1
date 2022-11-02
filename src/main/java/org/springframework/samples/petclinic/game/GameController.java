@@ -20,10 +20,11 @@ public class GameController {
     public GameController(GameService service){
         this.service = service;
     }
-    @GetMapping("/")
+    @GetMapping("/list")
     public ModelAndView showGames(){
         ModelAndView result = new ModelAndView(GAMES_LISTING_VIEW);
         result.addObject("games", service.getGames());
+        //result.addObject("jugadores", service.getJugadores());
         return result;
         
     }
@@ -31,8 +32,8 @@ public class GameController {
     @GetMapping("/create")
     public ModelAndView createProduct(){
         ModelAndView result = new ModelAndView(GAME_CREATE_VIEW);
-        result.addObject("game", new Game()); //necesaria para represetar los atributos de la partida
-        result.addObject("gameType", service.findAllGameTypes());
+        result.addObject("game", new Game()); 
+        result.addObject("gameTypes", service.findAllGameTypes());
         return result;
     }
 
@@ -47,4 +48,5 @@ public class GameController {
         ModelAndView result = new ModelAndView(GAME_INSTRUCTIONS_VIEW1);
         return result;
     }
+
 }
