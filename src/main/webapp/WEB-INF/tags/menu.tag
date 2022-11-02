@@ -34,20 +34,29 @@
 					<span>Find owners</span>
 				</petclinic:menuItem>
 
-				<petclinic:menuItem active="${name eq 'games'}" url="/games/create"
-					title="New Game">
-					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-					<span>New Game</span>
-				</petclinic:menuItem>
 				<petclinic:menuItem active="${name eq 'achievements'}" url="/statistics/achievements"
 					title="Achievements" dropdown="${true}">										
 						<ul class="dropdown-menu">
-							<li>
-								<a href="<c:url value="/statistics/achievements/" />">Achievements listing</a>		
+							<li> 
+								<a href="<c:url value="/statistics/achievements/" />"> <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Achievements listing</a>		
 							</li>
 							<li class="divider"></li>
 							<li>								
-								<a href="<c:url value="/statistics/achievements/" />">My Achievements <span class="glyphicon glyphicon-certificate" aria-hidden="true"></span></a>		
+								<a href="<c:url value="/statistics/achievements/" />"> <span class="glyphicon glyphicon-certificate" aria-hidden="true"></span> My Achievements </a>		
+
+							</li>
+						</ul>					
+				</petclinic:menuItem>
+
+				<petclinic:menuItem active="${name eq 'games'}" url="/games/create"
+					title="Games" dropdown="${true}">										
+						<ul class="dropdown-menu">
+							<li>
+								<a href="<c:url value="/games/list/" />"> <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Games listing</a>		
+							</li>
+							<li class="divider"></li>
+							<li>								
+								<a href="<c:url value="/games/create/" />"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Game </a>		
 
 							</li>
 						</ul>					

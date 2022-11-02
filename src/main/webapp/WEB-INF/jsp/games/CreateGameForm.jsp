@@ -15,7 +15,7 @@
             <div class="form-group has-feedback">
                 <petclinic:inputField label="Numero de Jugadores" name="jugadores" />
                 <div class="control-group">
-                    <petclinic:selectField name="gameType" label="Game Type" names="${gameType}" size="3" />
+                    <petclinic:selectField name="gameType" label="Game Type" names="${gameTypes}" size="3" />
                 </div>
             </div>
             <div class="form-group">

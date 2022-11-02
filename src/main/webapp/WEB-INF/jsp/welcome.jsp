@@ -8,7 +8,7 @@
     <h2><fmt:message key="welcome"/></h2>
     <div class="row">
         <div class="col text-center">
-            <spring:url value="/resources/images/logo-oca.png" htmlEscape="true" var="petsImage"/>
+            <spring:url value="/resources/images/fondo-oca-web.png" htmlEscape="true" var="petsImage"/>
             <img class="img-responsive" src="${petsImage}"/>
         </div>
         <div class="col text-center">

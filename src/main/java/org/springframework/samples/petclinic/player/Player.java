@@ -36,8 +36,7 @@ public class Player extends Person {
     @OneToMany
     private Set<Achievement> achievements;
 
-    @OneToMany
-    private List<Game> games;
+    
 
     
    
