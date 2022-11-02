@@ -22,6 +22,11 @@ public class GameService {
     }
 
     @Transactional(readOnly = true)
+    public GameType getGameType(String name) {
+        return repository.findGameType(name);
+    }
+
+    @Transactional(readOnly = true)
     public List<GameType> findAllGameTypes() {
         return repository.getAllGameTypes();
     }
