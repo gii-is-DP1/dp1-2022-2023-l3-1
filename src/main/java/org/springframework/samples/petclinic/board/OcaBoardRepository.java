@@ -4,6 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TableroRepository extends CrudRepository<board,Integer> {
+public interface OcaBoardRepository extends CrudRepository<OcaBoard,Integer> {
     
 }

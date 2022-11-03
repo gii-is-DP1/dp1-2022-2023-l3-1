@@ -1,5 +1,5 @@
 
-<%@ attribute name="ocaBoard" required="false" rtexprvalue="true" type="org.springframework.samples.petclinic.board.board" description="Gameboard to be rendered" %>
+<%@ attribute name="ocaBoard" required="false" rtexprvalue="true" type="org.springframework.samples.petclinic.board.OcaBoard" description="Oca Board to be rendered" %>
 
 
 <canvas id="canvas" width="${ocaBoard.width}" height="${ocaBoard.height}"></canvas>

@@ -2,6 +2,7 @@ package org.springframework.samples.petclinic.board;
 
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.Positive;
 
 
@@ -17,7 +18,8 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class board extends BaseEntity {
+@Table(name = "oca_boards")
+public class OcaBoard extends BaseEntity {
 
 
     String background;
@@ -28,7 +30,7 @@ public class board extends BaseEntity {
     @Positive
     int height;
 
-    public board(){
+    public OcaBoard(){
 
         this.background  = "resources/images/tablero-oca.jpg";
 

@@ -6,11 +6,9 @@
 
 <!-- %@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %-->  
 
-<game:layout pageName="home">
+<game:layout pageName="Parchis Board">
 
     <h2 style="text-align: center;">Parchis Board</h2>
-    <p>	
-    <h2><c:out value="${now}"/></h2>
 
     <div class="row" style="text-align: center;">
         <div class="col-md-12">

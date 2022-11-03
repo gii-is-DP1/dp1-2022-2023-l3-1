@@ -4,13 +4,13 @@
 <%@ taglib prefix="game" tagdir="/WEB-INF/tags" %>  
 
 
-<game:layout pageName = "Board">
+<game:layout pageName = "Oca Board">
     
-    <h2><c:out value = "${now}"/></h2>
+    <h2 style="text-align: center;">Oca Board</h2>
 
-    <div class = "row">
+    <div class = "row" style="text-align: center;">
         <div class ="col-md-12">
-            <game:board ocaBoard = "${ocaBoard}"></game:board>
+            <game:ocaBoard ocaBoard = "${ocaBoard}"></game:ocaBoard>
         </div>
     </div>
 </game:layout> 
