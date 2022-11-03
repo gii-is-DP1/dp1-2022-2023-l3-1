@@ -10,25 +10,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class TableroController {
-
+public class OcaBoardController {
 
     @Autowired
-    TableroService ts;
+    OcaBoardService ts;
 
-    // @GetMapping("/oca")
-    // public ModelAndView createProduct(){
-    //     ModelAndView result = new ModelAndView(BOARD_VIEW);
-    //     result.addObject("ocaBoard", ts.findById(1)); //necesaria para represetar los atributos del producto
-    //     return result;
-    // }
-
-    @GetMapping({"/oca"})
+    @GetMapping({"/ocaBoard"})
     public String board(Map<String, Object> model, HttpServletResponse response){
         model.put("now", new Date());
         model.put("ocaBoard", ts.findById(1));
-        return "boards/board";
+        return "boards/ocaBoard";
     }
-
 
 }

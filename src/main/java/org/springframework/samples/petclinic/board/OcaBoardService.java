@@ -5,18 +5,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class TableroService {
+public class OcaBoardService {
     
    
-    TableroRepository repo ; 
+    OcaBoardRepository repo ; 
 
     @Autowired
-    public TableroService (TableroRepository repo){
+    public OcaBoardService (OcaBoardRepository repo){
         this.repo = repo;
     }
 
     @Transactional(readOnly = true)
-    public board findById(Integer id){
+    public OcaBoard findById(Integer id){
         return repo.findById(id).get();
     }
     
