@@ -16,7 +16,7 @@ public class ParchisBoardService {
         this.parchisBoardRepo = parchisBoardRepo;
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public Optional<ParchisBoard> findById(Integer id){
 		return parchisBoardRepo.findById(id);
 	}

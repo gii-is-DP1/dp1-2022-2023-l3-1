@@ -19,7 +19,6 @@ public class ParchisBoardController {
 	  @GetMapping({"/parchisBoard"})
 	  public String welcome(Map<String, Object> model, HttpServletResponse response) {	    
 		//response.addHeader("Refresh", "1");
-		model.put("now", new Date());
 		model.put("parchisBoard", parchisBoardService.findById(1).get());
 	    return "parchisBoard";
 	  }

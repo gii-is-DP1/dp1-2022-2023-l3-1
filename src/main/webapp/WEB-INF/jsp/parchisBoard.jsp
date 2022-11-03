@@ -8,13 +8,11 @@
 
 <game:layout pageName="home">
 
-
-    <h2><fmt:message key="parchisBoard"/></h2>
-    
+    <h2 style="text-align: center;">Parchis Board</h2>
     <p>	
     <h2><c:out value="${now}"/></h2>
 
-    <div class="row">
+    <div class="row" style="text-align: center;">
         <div class="col-md-12">
             <game:parchisBoard parchisBoard="${parchisBoard}">
             </game:parchisBoard>
