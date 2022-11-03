@@ -15,4 +15,5 @@ El jugador lanzará un dado por cada turno, debiendo avanzar tantos movimientos 
 
 # Documento de Requisitos y Análisis del Sistema
 
-https://docs.google.com/document/d/1nHaRBn8AE6_TVO6kOFaHDRv2aABwXyyg/edit?usp=sharing&ouid=113499080085204643420&rtpof=true&sd=true
+[DP1-2022-Documento_de_Requisitos_y_Analisis_del_sistema_2.pdf](https://github.com/gii-is-DP1/dp1-2022-2023-l3-1/files/9766936/DP1-2022-Documento_de_Requisitos_y_Analisis_del_sistema_2.pdf)
+
