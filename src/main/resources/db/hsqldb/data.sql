@@ -87,4 +87,4 @@ insert into PLAYERS_ACHIEVEMENTS ( player_id , achievements_id ) values (1,2);
 INSERT INTO oca_boards (id, background, height, width) VALUES (1,'resources/images/tablero-oca.jpg', 800,800);
 INSERT INTO parchis_boards (id,background,height,width) VALUES (1,'resources/images/ParchisBoard.png',800,800);
 
-
+INSERT INTO oca_pieces(id,color,x_position,y_position,oca_board_id) VALUES (1,'RED',0,0,1);
