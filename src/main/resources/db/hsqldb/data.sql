@@ -84,4 +84,6 @@ insert into PLAYERS_ACHIEVEMENTS ( player_id , achievements_id ) values (1,2);
 -- INSERT INTO GAME_players (game_id, players_id) values (1,1);
 -- INSERT INto GAME_players (game_id, players_id) values (1,2);
 
+INSERT INTO parchis_boards (id,background,height,width) VALUES (1,'resources/images/ParchisBoard.png',800,800);
+
 
