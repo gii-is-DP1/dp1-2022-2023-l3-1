@@ -84,4 +84,4 @@ insert into PLAYERS_ACHIEVEMENTS ( player_id , achievements_id ) values (1,2);
 -- INSERT INTO GAME_players (game_id, players_id) values (1,1);
 -- INSERT INto GAME_players (game_id, players_id) values (1,2);
 
-
+INSERT INTO board(id, background, height, width) VALUES (1,'resources/images/tablero-oca.jpg', 800,800);
