@@ -22,8 +22,11 @@ import lombok.Setter;
 
 
 @Entity
+@Getter
+@Setter
 public class TableroOca extends BaseEntity {
     private String background;
+    @OneToMany
     private List<PlayerOca> jugador;
  
     public List<Integer> casillas(){

@@ -11,7 +11,9 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/players")
 public class PlayerController {
     
+    @Autowired
     private PlayerService service;
+    
     private final String  PLAYERS_LISTING_VIEW="/players/PlayersListing";
 
     @Autowired
