@@ -1,10 +1,16 @@
 package org.springframework.samples.petclinic.board;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Positive;
 
 import org.springframework.samples.petclinic.model.BaseEntity;
+import org.springframework.samples.petclinic.piece.ParchisPiece;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -28,4 +34,7 @@ public class ParchisBoard extends BaseEntity {
         this.width=800;
         this.height=800;
     }
+
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "parchisBoard",fetch = FetchType.EAGER)
+    List<ParchisPiece> pieces; 
 }
