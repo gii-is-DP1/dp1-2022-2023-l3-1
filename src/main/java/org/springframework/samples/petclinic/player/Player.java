@@ -27,17 +27,11 @@ import lombok.Setter;
 @Table(name = "players")
 public class Player extends Person {
 
-
-    
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "username", referencedColumnName = "username")
 	private User user;
 
     @OneToMany
     private Set<Achievement> achievements;
-
-    
-
-    
    
 }
