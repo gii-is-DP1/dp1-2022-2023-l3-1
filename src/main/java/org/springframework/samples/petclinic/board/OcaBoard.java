@@ -1,13 +1,18 @@
 package org.springframework.samples.petclinic.board;
 
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Positive;
 
 
 import org.springframework.samples.petclinic.model.BaseEntity;
-
+import org.springframework.samples.petclinic.piece.OcaPiece;
 
 import lombok.Getter;
 
@@ -30,6 +35,9 @@ public class OcaBoard extends BaseEntity {
     @Positive
     int height;
 
+    
+
+
     public OcaBoard(){
 
         this.background  = "resources/images/tablero-oca.jpg";
@@ -39,6 +47,8 @@ public class OcaBoard extends BaseEntity {
         this.height = 800;
     
     }  
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "ocaBoard",fetch = FetchType.EAGER)
+    List<OcaPiece> pieces; 
 }
 
 
