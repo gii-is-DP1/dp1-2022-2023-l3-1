@@ -2,6 +2,7 @@ package org.springframework.samples.petclinic.player;
 
 
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -11,6 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.springframework.samples.petclinic.game.Game;
 import org.springframework.samples.petclinic.model.Person;
 import org.springframework.samples.petclinic.statistics.Achievement;
 import org.springframework.samples.petclinic.user.User;
@@ -33,6 +35,8 @@ public class Player extends Person {
 
     @OneToMany
     private Set<Achievement> achievements;
+
+    
 
     
    

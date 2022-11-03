@@ -13,6 +13,7 @@
             <th>Creador</th>
             <th>Ganador</th>
             <th>Juego</th>
+            <th>Jugadores</th>
         </tr>
         </thead>
         <tbody>
@@ -26,13 +27,19 @@
                 </td>
                 
                 <td>       
-                    <c:out value="${game.tipo} "/>
+                    <c:out value="${game.gameType.name} "/>
                 </td>
+                
 
 
             </tr>
         </c:forEach>
         </tbody>
     </table>
+
+    <p> &nbsp </p>
+        <div class="col text-center">
+            <a class="btn btn-default" href='<spring:url value="/" htmlEscape="true"/>'>Volver</a>
+        </div>
 
 </petclinic:layout>

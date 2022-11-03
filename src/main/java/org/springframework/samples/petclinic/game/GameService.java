@@ -1,9 +1,12 @@
 package org.springframework.samples.petclinic.game;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.player.Player;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class GameService {
@@ -17,4 +20,21 @@ public class GameService {
     List<Game> getGames(){
         return repository.findAll();
     }
+
+    @Transactional(readOnly = true)
+    public GameType getGameType(String name) {
+        return repository.findGameType(name);
+    }
+
+    @Transactional(readOnly = true)
+    public List<GameType> findAllGameTypes() {
+        return repository.getAllGameTypes();
+    }
+
+    // public Set<Player> getJugadores() {
+    //     return repository.getJugadores();
+    // }
+
 }
+
+
