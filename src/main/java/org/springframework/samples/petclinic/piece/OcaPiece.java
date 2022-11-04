@@ -29,12 +29,12 @@ public class OcaPiece extends BaseEntity {
     @ManyToOne
     OcaBoard ocaBoard;
 
-    public Integer getPositionXInPixels(Integer size){
-        return (xPosition)*size;
+    public Integer getPositionXInPixels(Integer size) {
+    	return (xPosition)*size;
     }
-
-    public Integer getPositionYInPixels(Integer size){
-        return (xPosition)*size;
+    
+    public Integer getPositionYInPixels(Integer size) {
+    	return (yPosition)*size;
     }
 
 }
