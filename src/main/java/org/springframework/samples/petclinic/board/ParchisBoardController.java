@@ -1,5 +1,7 @@
 package org.springframework.samples.petclinic.board;
 
+
+import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
@@ -16,7 +18,7 @@ public class ParchisBoardController {
 
 	  @GetMapping({"/parchisBoard"})
 	  public String welcome(Map<String, Object> model, HttpServletResponse response) {	    
-		//response.addHeader("Refresh", "1");
+		response.addHeader("Refresh","2");
 		model.put("parchisBoard", parchisBoardService.findById(1).get());
 	    return "boards/parchisBoard";
 	  }
