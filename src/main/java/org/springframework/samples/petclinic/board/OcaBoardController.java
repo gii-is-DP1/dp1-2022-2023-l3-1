@@ -17,7 +17,7 @@ public class OcaBoardController {
 
     @GetMapping({"/ocaBoard"})
     public String board(Map<String, Object> model, HttpServletResponse response){
-        model.put("now", new Date());
+        response.addHeader("Refresh","2");
         model.put("ocaBoard", ts.findById(1));
         return "boards/ocaBoard";
     }
