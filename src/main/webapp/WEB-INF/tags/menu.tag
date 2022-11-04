@@ -28,10 +28,18 @@
 					<span>Home</span>
 				</petclinic:menuItem>
 
-				<petclinic:menuItem active="${name eq 'owners'}" url="/owners/find"
-					title="find owners">
-					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-					<span>Find owners</span>
+				<petclinic:menuItem active="${name eq 'players'}" url="/players"
+					title="Players" dropdown="${true}">
+					<ul class="dropdown-menu">
+							<li> 
+								<a href="<c:url value="/players/find" />"> <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Find Player</a>		
+							</li>
+							<li class="divider"></li>
+							<li>								
+								<a href="<c:url value="/players/list" />"> <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Players List </a>		
+
+							</li>
+						</ul>		
 				</petclinic:menuItem>
 
 				<petclinic:menuItem active="${name eq 'achievements'}" url="/statistics/achievements"

@@ -12,10 +12,13 @@
             <img class="img-responsive" src="${petsImage}"/>
         </div>
         <div class="col text-center">
-            <a class="btn btn-default" href='<spring:url value="/games/instructions" htmlEscape="true"/>'>Como Jugar</a>
+            <a class="btn btn-warning btn-lg active" href='/games/instructions'>Como Jugar</a>
         </div>
+        <p>&nbsp</p>
+
         <div class="col text-center">
-            <a class="btn btn-default" href='<spring:url value="/games/create" htmlEscape="true"/>'>Start</a>
+            <a href="/games/create" class="btn btn-warning btn-lg active">Start</a>
+            <!-- <a class="btn btn-default" href='<spring:url value="/games/create" htmlEscape="true"/>'>Start</a> -->
         </div>
     </div>
 </petclinic:layout>
