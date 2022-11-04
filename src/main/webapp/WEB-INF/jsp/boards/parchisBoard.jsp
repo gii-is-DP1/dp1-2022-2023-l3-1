@@ -13,6 +13,9 @@
     <div class="row" style="text-align: center;">
         <div class="col-md-12">
             <game:parchisBoard parchisBoard="${parchisBoard}">
+                <c:forEach items="${parchisBoard.pieces}" var="piece">
+                    <game:parchisPiece size="100" piece="${piece}"/>            	
+                </c:forEach> 
             </game:parchisBoard>
         </div>
     </div>

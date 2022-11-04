@@ -91,23 +91,23 @@ INSERT INTO parchis_boards (id,background,height,width) VALUES (1,'resources/ima
 
 INSERT INTO oca_pieces(id,color,x_position,y_position,oca_board_id) VALUES (1,'RED',0,0,1);
 
-INSERT INTO parchis_pieces(id,color,x_position,y_position,parchis_board_id) VALUES (1,'RED',1,1,1);
-INSERT INTO parchis_pieces(id,color,x_position,y_position,parchis_board_id) VALUES (2,'RED',1,2,1);
-INSERT INTO parchis_pieces(id,color,x_position,y_position,parchis_board_id) VALUES (3,'RED',1,2,1);
-INSERT INTO parchis_pieces(id,color,x_position,y_position,parchis_board_id) VALUES (4,'RED',1,2,1);
+INSERT INTO parchis_pieces(id,colour,x_position,y_position,parchis_board_id) VALUES (1,'RED',0,0,1);
+INSERT INTO parchis_pieces(id,colour,x_position,y_position,parchis_board_id) VALUES (2,'RED',0,1,1);
+INSERT INTO parchis_pieces(id,colour,x_position,y_position,parchis_board_id) VALUES (3,'RED',1,0,1);
+INSERT INTO parchis_pieces(id,colour,x_position,y_position,parchis_board_id) VALUES (4,'RED',1,1,1);
 
-INSERT INTO parchis_pieces(id,color,x_position,y_position,parchis_board_id) VALUES (5,'BLUE',3,1,1);
-INSERT INTO parchis_pieces(id,color,x_position,y_position,parchis_board_id) VALUES (6,'BLUE',3,2,1);
-INSERT INTO parchis_pieces(id,color,x_position,y_position,parchis_board_id) VALUES (7,'BLUE',3,2,1);
-INSERT INTO parchis_pieces(id,color,x_position,y_position,parchis_board_id) VALUES (8,'BLUE',3,2,1);
+INSERT INTO parchis_pieces(id,colour,x_position,y_position,parchis_board_id) VALUES (5,'BLUE',7,0,1);
+INSERT INTO parchis_pieces(id,colour,x_position,y_position,parchis_board_id) VALUES (6,'BLUE',7,1,1);
+INSERT INTO parchis_pieces(id,colour,x_position,y_position,parchis_board_id) VALUES (7,'BLUE',6,0,1);
+INSERT INTO parchis_pieces(id,colour,x_position,y_position,parchis_board_id) VALUES (8,'BLUE',6,1,1);
 
-INSERT INTO parchis_pieces(id,color,x_position,y_position,parchis_board_id) VALUES (9,'GREEN',5,1,1);
-INSERT INTO parchis_pieces(id,color,x_position,y_position,parchis_board_id) VALUES (10,'GREEN',5,2,1);
-INSERT INTO parchis_pieces(id,color,x_position,y_position,parchis_board_id) VALUES (11,'GREEN',5,2,1);
-INSERT INTO parchis_pieces(id,color,x_position,y_position,parchis_board_id) VALUES (12,'GREEN',5,2,1);
+INSERT INTO parchis_pieces(id,colour,x_position,y_position,parchis_board_id) VALUES (9,'GREEN',0,6,1);
+INSERT INTO parchis_pieces(id,colour,x_position,y_position,parchis_board_id) VALUES (10,'GREEN',0,7,1);
+INSERT INTO parchis_pieces(id,colour,x_position,y_position,parchis_board_id) VALUES (11,'GREEN',1,6,1);
+INSERT INTO parchis_pieces(id,colour,x_position,y_position,parchis_board_id) VALUES (12,'GREEN',1,7,1);
 
-INSERT INTO parchis_pieces(id,color,x_position,y_position,parchis_board_id) VALUES (13,'YELLOW',7,1,1);
-INSERT INTO parchis_pieces(id,color,x_position,y_position,parchis_board_id) VALUES (14,'YELLOW',7,2,1);
-INSERT INTO parchis_pieces(id,color,x_position,y_position,parchis_board_id) VALUES (15,'YELLOW',7,2,1);
-INSERT INTO parchis_pieces(id,color,x_position,y_position,parchis_board_id) VALUES (16,'YELLOW',7,2,1);
+INSERT INTO parchis_pieces(id,colour,x_position,y_position,parchis_board_id) VALUES (13,'YELLOW',7,6,1);
+INSERT INTO parchis_pieces(id,colour,x_position,y_position,parchis_board_id) VALUES (14,'YELLOW',7,7,1);
+INSERT INTO parchis_pieces(id,colour,x_position,y_position,parchis_board_id) VALUES (15,'YELLOW',6,6,1);
+INSERT INTO parchis_pieces(id,colour,x_position,y_position,parchis_board_id) VALUES (16,'YELLOW',6,7,1);
 
