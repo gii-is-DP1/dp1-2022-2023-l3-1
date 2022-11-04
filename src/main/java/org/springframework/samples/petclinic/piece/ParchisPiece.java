@@ -1,6 +1,8 @@
 package org.springframework.samples.petclinic.piece;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -17,7 +19,7 @@ import lombok.Setter;
 @Table(name = "parchis_pieces")
 public class ParchisPiece extends BaseEntity {
 
-    String color;
+    String colour;
 
     @Range(min=0,max=18)
     int xPosition;
@@ -37,3 +39,4 @@ public class ParchisPiece extends BaseEntity {
     }
     
 }
+
