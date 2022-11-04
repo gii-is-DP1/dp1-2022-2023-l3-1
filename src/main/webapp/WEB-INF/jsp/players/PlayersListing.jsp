@@ -7,7 +7,7 @@
 <petclinic:layout pageName="players">
     <h2>Players</h2>
 
-    <table id="playersTaable" class="table table-striped">
+    <table id="playersTable" class="table table-striped">
         <thead>
         <tr>
             <th>firstName</th>

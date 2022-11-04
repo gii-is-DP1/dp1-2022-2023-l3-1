@@ -9,11 +9,13 @@
     
     <h2 style="text-align: center;">Oca Board</h2>
 
+
+
     <div class = "row" style="text-align: center;">
         <div class ="col-md-12">
             <game:ocaBoard ocaBoard = "${ocaBoard}">
                 <c:forEach items = "${ocaBoard.pieces}" var ="piece">
-                    <game:ocaPiece size = "100" piece = "${piece}"/>
+                    <game:ocaPiece  size = "100" piece = "${piece}"/>
                 </c:forEach>  
             </game:ocaBoard>
         </div>
