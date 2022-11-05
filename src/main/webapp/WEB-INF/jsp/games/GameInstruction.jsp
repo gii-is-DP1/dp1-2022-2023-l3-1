@@ -5,12 +5,13 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
+<%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 
 
 <petclinic:layout pageName="gamesInstruction">
     <jsp:body>
-        <h1> Instrucciones Parchis </h1>
-        <h2>Como Jugar:</h2>
+        <h1> Instrucciones Parchís </h1>
+        <h2>Cómo Jugar:</h2>
         <p>Tradicionalmente en el parchís participan 4 jugadores, cada uno de ellos utilizando un color diferente: amarillo, azul, rojo y verde. Se emplean 4 fichas de cada color, y cada jugador utiliza un dado.</p>
         <p>El tablero de parchís tiene varias zonas diferenciadas:</p>
         <ul>
