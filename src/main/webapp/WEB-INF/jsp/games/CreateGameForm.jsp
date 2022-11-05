@@ -14,7 +14,7 @@
         </h2>
         <form:form modelAttribute="game" class="form-horizontal" id="add-game-form">
             <div class="form-group has-feedback">
-                <petclinic:inputFieldc label="Numero de Jugadores" name="jugadores" />
+                <petclinic:inputField label="Numero de Jugadores" name="jugadores" />
                 <div class="control-group">
                     <petclinic:selectField name="gameType" label="Game Type" names="${gameTypes}" size="3" />
                 </div>

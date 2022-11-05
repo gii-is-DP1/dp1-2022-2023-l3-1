@@ -1,4 +1,4 @@
-<%@ attribute name="parchisBoard" required="false" rtexprvalue="true" type="org.springframework.samples.petclinic.board.ParchisBoard"
+<%@ attribute name="parchisBoard" required="false" rtexprvalue="true" type="org.springframework.samples.parchisoca.board.ParchisBoard"
  description="ParchisBoard to be rendered" %>
 <canvas id="canvas" width="${parchisBoard.width}" height="${parchisBoard.height}"></canvas>
 <img id="source" src="${parchisBoard.background}" style="display:none">
