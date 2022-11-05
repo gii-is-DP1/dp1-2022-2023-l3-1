@@ -30,8 +30,7 @@ public class Player extends Person {
     @Column(unique = true)
     private String email;
 
-
     @OneToMany
     private Set<Achievement> achievements;
-   
+
 }
