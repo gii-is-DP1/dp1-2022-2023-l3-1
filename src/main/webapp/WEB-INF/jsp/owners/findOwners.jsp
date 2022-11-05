@@ -7,6 +7,7 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <!--  >%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%-->
+<%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 
 <petclinic:layout pageName="owners">
 

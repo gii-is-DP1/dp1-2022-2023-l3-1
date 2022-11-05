@@ -1,4 +1,4 @@
-package org.springframework.samples.petclinic.statistics;
+package org.springframework.samples.petclinic.statistic;
 
 import java.util.List;
 
