@@ -1,12 +1,11 @@
-package org.springframework.samples.petclinic.dado;
+package org.springframework.samples.parchisoca.dado;
 
-import javax.persistence.Entity;
-
-import org.springframework.samples.petclinic.model.BaseEntity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.samples.parchisoca.model.BaseEntity;
 
+import javax.persistence.Entity;
 
 @Entity
 @Getter

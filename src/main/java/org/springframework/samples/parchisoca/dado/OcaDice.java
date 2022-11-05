@@ -1,8 +1,8 @@
-package org.springframework.samples.petclinic.dado;
+package org.springframework.samples.parchisoca.dado;
 
 import javax.persistence.Entity;
 
-import org.springframework.samples.petclinic.model.BaseEntity;
+import org.springframework.samples.parchisoca.model.BaseEntity;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,8 +11,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class OcaDice extends BaseEntity {
-
+public class OcaDice extends BaseEntity{
     private Integer dice;
     private final Integer MAX = 6;
 
@@ -20,4 +19,5 @@ public class OcaDice extends BaseEntity {
 
         this.dice = (int) (Math.random() * MAX ) + 1;
     }
+
 }
