@@ -3,6 +3,7 @@ package org.springframework.samples.petclinic.player;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -25,6 +26,10 @@ public class Player extends Person {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "username", referencedColumnName = "username")
 	private User user;
+
+    @Column(unique = true)
+    private String email;
+
 
     @OneToMany
     private Set<Achievement> achievements;

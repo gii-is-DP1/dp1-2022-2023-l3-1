@@ -77,8 +77,8 @@ INSERT INTO achievement(id,name,description,threshold,badge_image)
 
 INSERT INTO users(username,password,enabled) VALUES ('usuario2','1234',TRUE);
 
-INSERT INTO players ( id , first_name , last_name , username ) VALUES (1,'Alvaro','Carrera','owner1');
-INSERT INTO players ( id , first_name , last_name , username ) VALUES (2,'Javier','Ruiz','usuario2');
+INSERT INTO players ( id,email, first_name , last_name , username ) VALUES (1,'Alvaro','alvaro@gmail.com','Carrera','owner1');
+INSERT INTO players ( id,email, first_name , last_name , username ) VALUES (2,'Javier','javi@gmailcom','Ruiz','usuario2');
 
 insert into PLAYERS_ACHIEVEMENTS ( player_id , achievements_id ) values (1,1);
 insert into PLAYERS_ACHIEVEMENTS ( player_id , achievements_id ) values (1,2);
