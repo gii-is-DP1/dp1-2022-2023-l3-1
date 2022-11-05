@@ -5,11 +5,12 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
+<%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 
 <petclinic:layout pageName="agmes">
     <jsp:body>
         <h1> Instrucciones Oca </h1>
-        <h2>Como Jugar:</h2>
+        <h2>Cómo Jugar:</h2>
         <ul>
         <li><span>El Juego de la Oca es un juego de mesa en el que pueden participar de dos a cuatro jugadores cada uno con fichas de un color distinto.</span></li>
         <li><span>El tablero en forma de espiral consta de 63 casillas numeradas del 1 al 63 con diferentes dibujos. Dependiendo de la casilla en la que caigas puedes avanzar, retroceder o sufrir una penalización.</span></li>
