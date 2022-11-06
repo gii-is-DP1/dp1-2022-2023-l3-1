@@ -1,5 +1,6 @@
 package org.springframework.samples.parchisoca.player;
 
+
 import java.util.Map;
 import java.util.Optional;
 
@@ -9,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -40,7 +40,7 @@ public class PlayerController {
     //Falta la evaluacion del resultado del find
 
 
-    @GetMapping("list")
+    @GetMapping("/list")
     public ModelAndView showPlayers(){
         ModelAndView result = new ModelAndView(PLAYERS_LISTING_VIEW);
         result.addObject("players", playerService.getPlayers());
@@ -63,7 +63,7 @@ public class PlayerController {
 		else {
 			//creating owner, user and authorities
 			this.playerService.savePlayer(player);
-			return "redirect:/welcome";
+			return "redirect:/login";
 		}
 	}
 

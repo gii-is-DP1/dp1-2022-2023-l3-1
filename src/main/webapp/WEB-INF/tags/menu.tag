@@ -60,11 +60,13 @@
 					title="Games" dropdown="${true}">										
 						<ul class="dropdown-menu">
 							<li>
-								<a href="<c:url value="/games/list" />"> <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Games listing</a>
+
+								<a href="<c:url value="/games/list" />"> <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Games listing</a>		
 							</li>
 							<li class="divider"></li>
 							<li>								
-								<a href="<c:url value="/games/create" />"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Game </a>
+								<a href="<c:url value="/games/create" />"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Game </a>		
+
 
 							</li>
 						</ul>					
