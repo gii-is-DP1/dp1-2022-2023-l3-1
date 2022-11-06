@@ -49,7 +49,7 @@ public class PlayerService {
 
     @Transactional
 	public void savePlayer(Player player) {
-		//creating owner
+		//creating player
 		playerRepository.save(player);
 		//creating user
 		userService.saveUser(player.getUser());

@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Range;
@@ -18,18 +19,18 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
+@Table(name = "games")
 public class Game extends BaseEntity {
     
-    //private String tipo; //fuera un set -> parchis o oca
     private String creator;
     private String winner;
 
     @Range(min = 1, max = 4)
-    private Integer jugadores;
+    private Integer players;
 
     @ManyToOne(optional = false)
     @NotNull
-    @JoinColumn(name = "game_type_id") //sirve para darle nombre a la columna del script
+    @JoinColumn(name = "game_type_id")
     GameType gameType;
 
     // @OneToMany

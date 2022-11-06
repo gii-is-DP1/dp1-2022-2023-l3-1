@@ -1,7 +1,5 @@
 package org.springframework.samples.parchisoca.player;
 
-
-import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
 
@@ -9,8 +7,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,7 +24,7 @@ public class PlayerController {
     private final String  PLAYERS_LISTING_VIEW="/players/PlayersListing";
     private final String CREATE_PLAYERS = "/players/createPlayerForm";
     private final String MESSAGE = "message";
-    private final String PLAYER_NOT_FOUND = "Jugador no encontrado";
+    private final String PLAYER_NOT_FOUND = "Player not found";
 
     @Autowired
     public PlayerController(PlayerService playerService){

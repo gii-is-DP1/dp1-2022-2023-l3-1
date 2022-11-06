@@ -14,7 +14,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "game_type")
+@Table(name = "game_types")
 public class GameType extends BaseEntity{
 
     // @Id
