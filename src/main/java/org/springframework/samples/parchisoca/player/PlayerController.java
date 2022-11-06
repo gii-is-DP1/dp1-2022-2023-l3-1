@@ -79,5 +79,26 @@ public class PlayerController {
         return mav;
     }
 
+    @GetMapping()
+    public String findPlayers(Player player, BindingResult result, ModelMap modelMap){
+        String view = "players/playersListing";
+        if(player.getUser().getUsername() == ""){
+            Iterable<Player> results = playerService.getPlayers();
+            modelMap.addAttribute("players", results);
+            return view;
+        }
+        Collection<Player> results = playerService.findPlayerByUsername(player.getUser().getUsername());
+        if(results.isEmpty()){
+            result.rejectValue("username", "notFound", "not found");
+            return "players/findPlayer";
+        }else if(results.size() == 1){
+            player = results.iterator().next();
+            return "redirect:/players/" + player.getId();
+        }else{
+            modelMap.put("selections", results);
+            return view;
+        }
+    }
+
 
 }
