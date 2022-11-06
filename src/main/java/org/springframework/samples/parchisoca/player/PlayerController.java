@@ -2,6 +2,7 @@ package org.springframework.samples.parchisoca.player;
 
 
 import java.util.Map;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -16,14 +17,14 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/players")
 public class PlayerController {
-    
+
     @Autowired
     private PlayerService playerService;
-    
+
     private final String  PLAYERS_LISTING_VIEW="/players/PlayersListing";
-
     private final String CREATE_PLAYERS = "/players/createPlayerForm";
-
+    private final String MESSAGE = "message";
+    private final String PLAYER_NOT_FOUND = "Player not found";
 
     @Autowired
     public PlayerController(PlayerService playerService){
@@ -45,7 +46,7 @@ public class PlayerController {
         result.addObject("players", playerService.getPlayers());
         return result;
 
-    } 
+    }
 
     @GetMapping("/create")
     public ModelAndView createPlayer(){
@@ -66,6 +67,38 @@ public class PlayerController {
 		}
 	}
 
-    
+    @GetMapping("/{playerId}")
+        public ModelAndView showPlayer(@PathVariable("playerId") int playerId){
+        ModelAndView mav = new ModelAndView("players/playerProfiles");
+        Optional<Player> player = this.playerService.findPlayerById(playerId);
+        if(player.isPresent()){
+            mav.addObject(player.get());
+        }else{
+            mav.addObject(MESSAGE, PLAYER_NOT_FOUND);
+        }
+        return mav;
+    }
+
+    @GetMapping()
+    public String findPlayers(Player player, BindingResult result, ModelMap modelMap){
+        String view = "players/playersListing";
+        if(player.getUser().getUsername() == ""){
+            Iterable<Player> results = playerService.getPlayers();
+            modelMap.addAttribute("players", results);
+            return view;
+        }
+        Collection<Player> results = playerService.findPlayerByUsername(player.getUser().getUsername());
+        if(results.isEmpty()){
+            result.rejectValue("username", "notFound", "not found");
+            return "players/findPlayer";
+        }else if(results.size() == 1){
+            player = results.iterator().next();
+            return "redirect:/players/" + player.getId();
+        }else{
+            modelMap.put("selections", results);
+            return view;
+        }
+    }
+
 
 }

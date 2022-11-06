@@ -20,8 +20,8 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.parchisoca.owner.Owner;
-import org.springframework.samples.parchisoca.owner.OwnerService;
+import org.springframework.samples.parchisoca.player.Player;
+import org.springframework.samples.parchisoca.player.PlayerService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -38,13 +38,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class UserController {
 
-	private static final String VIEWS_OWNER_CREATE_FORM = "users/createOwnerForm";
+	private static final String VIEWS_PLAYER_CREATE_FORM = "players/createPlayerForm";
 
-	private final OwnerService ownerService;
+	private final PlayerService playerService;
 
 	@Autowired
-	public UserController(OwnerService clinicService) {
-		this.ownerService = clinicService;
+	public UserController(PlayerService playerService) {
+		this.playerService = playerService;
 	}
 
 	@InitBinder
@@ -54,19 +54,19 @@ public class UserController {
 
 	@GetMapping(value = "/users/new")
 	public String initCreationForm(Map<String, Object> model) {
-		Owner owner = new Owner();
-		model.put("owner", owner);
-		return VIEWS_OWNER_CREATE_FORM;
+		Player player = new Player();
+		model.put("player", player);
+		return VIEWS_PLAYER_CREATE_FORM;
 	}
 
 	@PostMapping(value = "/users/new")
-	public String processCreationForm(@Valid Owner owner, BindingResult result) {
+	public String processCreationForm(@Valid Player player, BindingResult result) {
 		if (result.hasErrors()) {
-			return VIEWS_OWNER_CREATE_FORM;
+			return VIEWS_PLAYER_CREATE_FORM;
 		}
 		else {
 			//creating owner, user, and authority
-			this.ownerService.saveOwner(owner);
+			this.playerService.savePlayer(player);
 			return "redirect:/";
 		}
 	}
