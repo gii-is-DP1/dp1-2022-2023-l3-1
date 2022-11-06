@@ -28,7 +28,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	DataSource dataSource;
-	
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
@@ -40,11 +40,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/oca/**").hasAnyAuthority("admin")
 				.antMatchers("/admin/**").hasAnyAuthority("admin")
 				.antMatchers("/statistics/**").hasAnyAuthority("admin")
-				.antMatchers("/players/list").hasAnyAuthority("admin")
+				.antMatchers("/players/**").hasAnyAuthority("player","admin")
 				.antMatchers("/players/create").permitAll()
 				.antMatchers("/games/list").hasAnyAuthority("player", "admin")
 				.antMatchers("/games/create").hasAnyAuthority("player", "admin")
-				.antMatchers("/owners/**").hasAnyAuthority("owner","admin")			
+				.antMatchers("/owners/**").hasAnyAuthority("owner","admin")
 				.antMatchers("/vets/**").authenticated()
 				.anyRequest().denyAll()
 				.and()
@@ -53,8 +53,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				 	.failureUrl("/login-error")
 				.and()
 					.logout()
-						.logoutSuccessUrl("/"); 
-                // Configuración para que funcione la consola de administración 
+						.logoutSuccessUrl("/");
+                // Configuración para que funcione la consola de administración
                 // de la BD H2 (deshabilitar las cabeceras de protección contra
                 // ataques de tipo csrf y habilitar los framesets si su contenido
                 // se sirve desde esta misma página.
@@ -73,16 +73,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	      .authoritiesByUsernameQuery(
 	       "select username, authority "
 	        + "from authorities "
-	        + "where username = ?")	      	      
-	      .passwordEncoder(passwordEncoder());	
+	        + "where username = ?")
+	      .passwordEncoder(passwordEncoder());
 	}
-	
+
 	@Bean
-	public PasswordEncoder passwordEncoder() {	    
+	public PasswordEncoder passwordEncoder() {
 		PasswordEncoder encoder =  NoOpPasswordEncoder.getInstance();
 	    return encoder;
 	}
-	
+
 }
 
 
