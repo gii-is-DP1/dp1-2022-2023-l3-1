@@ -8,19 +8,16 @@ import java.util.Locale;
 
 
 import org.springframework.format.Formatter;
-import org.springframework.samples.parchisoca.game.GameService;
+
 
 
 @Component
 public class PlayerFormatter implements Formatter<Player> {
     
-    @Autowired
-    private GameService gs;
 
     @Override
-    public String print(Player object, Locale locale) {
-        String nombre = object.getFirstName();
-        return nombre;
+    public String print(Player player, Locale locale) {
+        return player.getFirstName();
     }
 
     @Override

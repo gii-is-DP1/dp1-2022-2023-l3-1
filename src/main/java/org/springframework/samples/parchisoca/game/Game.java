@@ -1,6 +1,9 @@
 package org.springframework.samples.parchisoca.game;
 
 
+import java.util.List;
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -26,15 +29,15 @@ public class Game extends BaseEntity {
     private String winner;
 
     @Range(min = 1, max = 4)
-    private Integer players;
+    private Integer jugadores;
 
     @ManyToOne(optional = false)
     @NotNull
     @JoinColumn(name = "game_type_id")
     GameType gameType;
 
-    // @OneToMany
-    // private Set<Player> players; //relación para poder meter jugadores dentro de una partida
+    @OneToMany
+    private List<Player> players; //relación para poder meter jugadores dentro de una partida
     
 
 }
