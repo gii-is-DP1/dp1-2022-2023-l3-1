@@ -68,7 +68,8 @@ INSERT INTO game_type(id, name) VALUES
 (1, 'Parchis'),
 (2, 'Oca');
 
-INSERT INTO game(id,creator,winner, jugadores, game_type_id) VALUES (1,'alvcarber1','alvcarber1',4,1);
+
+
 
 INSERT INTO achievement(id,name,description,threshold,badge_image) 
     VALUES (1,'Viciado','Si juegas <THRESHOLD> partidas o más, consideramos que ya estás enganchado.',10.0,'https://bit.ly/certifiedGamer');
@@ -83,8 +84,10 @@ INSERT INTO players ( id,email, first_name , last_name , username ) VALUES (2,'J
 insert into PLAYERS_ACHIEVEMENTS ( player_id , achievements_id ) values (1,1);
 insert into PLAYERS_ACHIEVEMENTS ( player_id , achievements_id ) values (1,2);
 
--- INSERT INTO GAME_players (game_id, players_id) values (1,1);
--- INSERT INto GAME_players (game_id, players_id) values (1,2);
+INSERT INTO game(id,creator,winner, jugadores, game_type_id) VALUES (1,'alvcarber1','alvcarber1',4,1);
+
+INSERT INTO GAME_PLAYERS(game_id, players_id) VALUES (1,1);
+INSERT INTO GAME_PLAYERS(game_id, players_id) VALUES (1,2);
 
 INSERT INTO oca_boards (id, background, height, width) VALUES (1,'resources/images/tablero-oca.jpg', 800,800);
 

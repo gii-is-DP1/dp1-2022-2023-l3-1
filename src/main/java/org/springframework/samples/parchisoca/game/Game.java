@@ -1,6 +1,9 @@
 package org.springframework.samples.parchisoca.game;
 
 
+import java.util.List;
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -32,8 +35,8 @@ public class Game extends BaseEntity {
     @JoinColumn(name = "game_type_id") //sirve para darle nombre a la columna del script
     GameType gameType;
 
-    // @OneToMany
-    // private Set<Player> players; //relación para poder meter jugadores dentro de una partida
+    @OneToMany
+    private Set<Player> players; //relación para poder meter jugadores dentro de una partida
     
 
 }

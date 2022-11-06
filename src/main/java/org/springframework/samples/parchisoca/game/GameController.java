@@ -14,6 +14,7 @@ public class GameController {
     private final String GAME_CREATE_VIEW = "games/CreateGameForm";
     private final String GAME_INSTRUCTIONS_VIEW = "games/GameInstruction";
     private final String GAME_INSTRUCTIONS_VIEW1 = "games/GameInstructionOca";
+
     private GameService service;
 
     @Autowired
@@ -24,7 +25,6 @@ public class GameController {
     public ModelAndView showGames(){
         ModelAndView result = new ModelAndView(GAMES_LISTING_VIEW);
         result.addObject("games", service.getGames());
-        //result.addObject("jugadores", service.getJugadores());
         return result;
         
     }
