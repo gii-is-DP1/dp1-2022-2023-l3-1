@@ -34,4 +34,5 @@ public class Player extends Person {
     @Column(name = "players_achievements")
     private Set<Achievement> achievements;
 
+    
 }
