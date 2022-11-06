@@ -30,18 +30,7 @@
                 <td>       
                     <c:out value="${game.gameType.name} "/>
                 </td>
-                <td>
-                    <c:choose>
-                        <c:when test="${game.players.isEmpty()}">
-                            <p>None</p>
-                            
-                        </c:when>
-                        <c:otherwise>
-                            ${game.players}
-                            <br/>
-                        </c:otherwise>
-                    </c:choose>
-                </td>
+                
 
 
             </tr>

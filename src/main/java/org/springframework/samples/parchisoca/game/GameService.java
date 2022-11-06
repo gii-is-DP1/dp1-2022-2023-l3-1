@@ -29,6 +29,10 @@ public class GameService {
         return repository.getAllGameTypes();
     }
 
+    // public Set<Player> getJugadores() {
+    //     return repository.getJugadores();
+    // }
+
 }
 
 

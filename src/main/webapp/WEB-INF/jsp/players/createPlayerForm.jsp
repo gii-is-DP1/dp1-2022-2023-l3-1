@@ -4,20 +4,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="game" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 
-<game:layout pageName="players">
+<petclinic:layout pageName="players">
     <h2>
         <c:if test="${player ['new']}">New </c:if> Player
     </h2>
     <form:form modelAttribute="player" class="form-horizontal" id="add-player-form">
         <div class="form-group has-feedback">
-            <game:inputField label="First Name" name="firstName"/>
-            <game:inputField label="Last Name" name="lastName"/>
-            <game:inputField label="Email" name = "email"/>
-            <game:inputField label="Username" name="user.username"/>
-            <game:inputField label="Password" name="user.password"/>
+            <petclinic:inputField label="First Name" name="firstName"/>
+            <petclinic:inputField label="Last Name" name="lastName"/>
+            <petclinic:inputField label="Username" name="user.username"/>
+            <petclinic:inputField label="Password" name="user.password"/>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
@@ -29,4 +28,4 @@
             </div>
         </div>
     </form:form>
-</game:layout>
+</petclinic:layout>
