@@ -21,18 +21,19 @@ import lombok.Setter;
 public class ParchisPiece extends BaseEntity {
 
     @NotNull
-    String colour;
+    @Enumerated(EnumType.STRING)
+    private Colour colour;
 
     @Range(min=0,max=18)
     @NotNull
-    int xPosition;
+    private int xPosition;
 
     @Range(min=0,max=18)
     @NotNull
-    int yPosition;
+    private int yPosition;
 
     @ManyToOne
-    ParchisBoard parchisBoard;
+    private ParchisBoard parchisBoard;
 
     public Integer getPositionXInPixels(Integer size) {
     	return (xPosition)*size;
