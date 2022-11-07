@@ -6,8 +6,8 @@ import org.springframework.samples.parchisoca.piece.ParchisPiece;
 
 public class BoxesParchis {
 
-    List<ParchisPiece> parchisPieces;
-    SpecialBoxesParchis posicionActual;
+    //List<ParchisPiece> parchisPieces;
+    //SpecialBoxesParchis posicionActual;
 
 
 }

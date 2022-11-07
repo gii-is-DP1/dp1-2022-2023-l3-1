@@ -26,9 +26,9 @@ public class ParchisBoard extends BaseEntity {
     
     String background;
 
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    private BoxesParchis casillasParchis; 
+    // @NotNull
+    // @Enumerated(EnumType.STRING)
+    // private BoxesParchis casillasParchis; 
 
     public void restriccionesCasillas() {
         

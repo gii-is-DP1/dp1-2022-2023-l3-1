@@ -3,12 +3,15 @@ package org.springframework.samples.parchisoca.player;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.parchisoca.user.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.samples.parchisoca.statistic.Achievement;
+import org.springframework.samples.parchisoca.statistic.AchievementRepository;
 import org.springframework.samples.parchisoca.user.AuthoritiesService;
 
 @Service
@@ -65,5 +68,10 @@ public class PlayerService {
         userService.saveUser(player.getUser());
         // creating authorities
         authoritiesService.saveAuthorities(player.getUser().getUsername(), "player");
+    }
+
+    @Transactional
+    public Set<Achievement> getUserAchievments(String firstName){
+        return playerRepository.findUserAchievements(firstName);
     }
 }
