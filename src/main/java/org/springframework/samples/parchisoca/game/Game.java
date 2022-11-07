@@ -39,5 +39,25 @@ public class Game extends BaseEntity {
     @OneToMany
     private List<Player> players; //relación para poder meter jugadores dentro de una partida
     
+    public static String generatePassword(){
 
+        char[] letters = {'A','B','C','D','E','F','G','H','I'};
+        char[] number = {'1','2','3','5','6','7','8','9','0'};
+
+        StringBuilder res = new StringBuilder();
+        res.append(letters);
+        res.append(number);
+        StringBuilder contraseña = new StringBuilder();
+        for (int i = 0; i < 6 ; i++ ){
+            int cantidadCarac = res.length();
+            int numeroRandom = (int) (Math.random()*cantidadCarac);
+            contraseña.append((res.toString().charAt(numeroRandom)));
+        } 
+
+        return contraseña.toString();
+
+
+    }
+    
+    
 }
