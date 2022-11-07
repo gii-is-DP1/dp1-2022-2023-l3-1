@@ -4,9 +4,12 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 import org.springframework.samples.parchisoca.model.BaseEntity;
@@ -22,6 +25,14 @@ import lombok.Setter;
 public class ParchisBoard extends BaseEntity {
     
     String background;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private BoxesParchis casillasParchis; 
+
+    public void restriccionesCasillas() {
+        
+    }
 
     @Positive
     int width;
