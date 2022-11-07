@@ -39,9 +39,6 @@ public class PlayerController {
 		return "players/findPlayer";
 	}
 
-    //Falta la evaluacion del resultado del find
-
-
     @GetMapping("/list")
     public ModelAndView showPlayers(){
         ModelAndView result = new ModelAndView(PLAYERS_LISTING_VIEW);

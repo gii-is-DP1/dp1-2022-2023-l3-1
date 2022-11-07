@@ -35,8 +35,6 @@ public class OcaBoard extends BaseEntity {
     @Positive
     int height;
 
-    
-
 
     public OcaBoard(){
 
