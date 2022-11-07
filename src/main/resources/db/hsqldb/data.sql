@@ -21,7 +21,10 @@ INSERT INTO achievements(id,name,description,threshold,badge_image)
 
 INSERT INTO users(username,password,enabled) VALUES ('usuario2','1234',TRUE);
 
-INSERT INTO players(id,email,first_name,last_name,username) VALUES (1,'alvaro@gmail.com','Alvaro','Carrera','owner1');
+INSERT INTO users(username,password,enabled) VALUES ('alvaro1','1234',TRUE); 
+INSERT INTO players(id,email,first_name,last_name,username) VALUES (1,'alvaro@gmail.com','Alvaro','Carrera','alvaro1');
+INSERT INTO authorities(id,username,authority) VALUES (4,'alvaro1','player');
+
 INSERT INTO players(id,email,first_name,last_name,username) VALUES (2,'javi@gmail.com','Javier','Ruiz','usuario2');
 
 insert into players_achievements(player_id,achievements_id) values (1,1);
