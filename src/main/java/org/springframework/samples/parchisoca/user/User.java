@@ -25,14 +25,14 @@ public class User{
 	@NotNull
 	@NotEmpty
 	@Length(min = 4, max = 15)
-	String username;
+	private String username;
 	
 	@NotNull
 	@NotEmpty
 	@Length(min = 4, max = 15)
-	String password;
+	private String password;
 	
-	boolean enabled;
+	private boolean enabled;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
 	private Set<Authorities> authorities;

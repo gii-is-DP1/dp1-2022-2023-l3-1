@@ -34,7 +34,7 @@ public class Game extends BaseEntity {
     @ManyToOne(optional = false)
     @NotNull
     @JoinColumn(name = "game_type_id")
-    GameType gameType;
+    private GameType gameType;
 
     @OneToMany
     private List<Player> players; //relación para poder meter jugadores dentro de una partida

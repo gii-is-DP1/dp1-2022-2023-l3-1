@@ -1,6 +1,8 @@
 package org.springframework.samples.parchisoca.piece;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -20,7 +22,8 @@ import lombok.Setter;
 public class OcaPiece extends BaseEntity {
     
     @NotNull
-    String color; 
+    @Enumerated(EnumType.STRING)
+    private Colour colour;
     
     @Range(min = 0, max = 7)
     @NotNull
