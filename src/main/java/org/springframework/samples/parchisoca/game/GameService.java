@@ -28,6 +28,10 @@ public class GameService {
     public List<GameType> findAllGameTypes() {
         return repository.getAllGameTypes();
     }
+    @Transactional
+    public Game save(Game g){
+        return repository.save(g);
+    }
 
     // public Set<Player> getJugadores() {
     //     return repository.getJugadores();
