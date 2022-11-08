@@ -34,8 +34,19 @@
                                 <div class="col-sm-6">
                                     <petclinic:selectField name="gameType" label="Game Type" names="${gameTypes}" size="3" />
                                 </div>
+                            </div>
+                            <div class = "row">
+                                <label class="col-sm-2 control-label" for="privacity">Privacity</label>
+                           
+                                <select id="privacity-input" name="privacity" class="selectpicker">
+                                    <option value="PUBLIC">PUBLIC</option>
+                                    <option value="PRIVATE">PRIVATE</option>
+                                    
+                                </select>
                             </div>    
                         <input type="hidden" name="code" id="code" value = "${game.generatePassword()}"/>
+                        <input type="hidden" name="id" id="id" value = "${game.id}"/>
+                        <%-- <input type="hidden" name="creator" id="creator"/> --%>
                     </div>
                 </div>
             </div>

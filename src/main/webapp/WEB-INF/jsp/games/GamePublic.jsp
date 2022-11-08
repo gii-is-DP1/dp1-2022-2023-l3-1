@@ -11,37 +11,28 @@
     <table id="gamesTable" class="table table-striped">
         <thead>
         <tr>
-            <th>Creador</th>
-            <th>Ganador</th>
-            <th>Juego</th>
-            <th>Jugadores</th>
+            <th>Game</th>
+            <th>Creator</th>
+            <th>Players</th>
+            <th>Join</th>
         </tr>
         </thead>
         <tbody>
         <c:forEach items="${games}" var="game">
             <tr>
                 <td>
-                    <c:out value="${game.creator.user.username}"/>
+                    <c:out value="${game.gameType.name}"/>
                 </td>
                 <td>                    
-                      <c:out value="${game.winner} "/>                                        
+                      <c:out value="${game.creator.user.username}"/>                                        
+                </td>
+                <td>                    
+                      <c:out value="${game.numberOfPlayers}"/>                               
                 </td>
                 
                 <td>       
-                    <c:out value="${game.gameType.name} "/>
+                    <a class="btn btn-default" href=''>Join</a>
                 </td>
-                <%-- <td>
-                    ${game.players}
-                </td> --%>
-                <td>       
-                    <c:forEach var="item" items="${game.players}" >
-                        ${item.user.username}
-                        </br>
-                    </c:forEach>
-                </td>
-                
-
-
             </tr>
         </c:forEach>
         </tbody>
