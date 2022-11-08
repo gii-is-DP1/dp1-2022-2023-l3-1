@@ -31,6 +31,9 @@ public class Game extends BaseEntity {
     @Range(min = 1, max = 4)
     private Integer jugadores;
 
+    @NotNull
+    private String name;
+
     @ManyToOne(optional = false)
     @NotNull
     @JoinColumn(name = "game_type_id")
@@ -39,6 +42,8 @@ public class Game extends BaseEntity {
     @OneToMany
     private List<Player> players; //relación para poder meter jugadores dentro de una partida
     
+    @NotNull
+    private String code;
     public static String generatePassword(){
 
         char[] letters = {'A','B','C','D','E','F','G','H','I'};

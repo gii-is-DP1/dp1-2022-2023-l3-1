@@ -32,7 +32,7 @@ insert into players_achievements(player_id,achievements_id) values (1,2);
 
 
 
-INSERT INTO games(id,creator,winner, jugadores, game_type_id) VALUES (1,'alvcarber1','alvcarber1',4,1);
+INSERT INTO games(id,creator,winner,name, jugadores,code, game_type_id) VALUES (1,'alvcarber1','alvcarber1','prueba',4,'ASDFG',1);
 
 INSERT INTO games_players (game_id, players_id) values (1,1);
 INSERT INto games_players (game_id, players_id) values (1,2);
