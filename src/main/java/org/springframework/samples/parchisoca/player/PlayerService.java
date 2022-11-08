@@ -71,7 +71,17 @@ public class PlayerService {
     }
 
     @Transactional
-    public Set<Achievement> getUserAchievments(String firstName){
+    public List<Player> getUserAchievments(String firstName){
         return playerRepository.findUserAchievements(firstName);
+    }
+
+    @Transactional
+    public Integer getUserByName(String name){
+        return playerRepository.findByName(name);
+    }
+
+    @Transactional
+    public Player getUserAchievement(int id){
+        return playerRepository.findUserAchievementsId(id);
     }
 }

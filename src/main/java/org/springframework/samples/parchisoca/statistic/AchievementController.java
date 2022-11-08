@@ -6,8 +6,10 @@ import java.security.Principal;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.parchisoca.player.Player;
 import org.springframework.samples.parchisoca.player.PlayerService;
-
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
@@ -46,10 +48,13 @@ public class AchievementController {
     }
 
     @GetMapping("/user")
-    public ModelAndView showUserAchievments(Principal auth){
-        String nombre = auth.getName();
+    public ModelAndView showUserAchievments(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        Integer id = playerService.getUserByName(username);
+        
         ModelAndView result = new ModelAndView(ACHIVEMENTES_LISTING_USER);
-        result.addObject("achievements", playerService.getUserAchievments(nombre));
+        result.addObject("players", playerService.getUserAchievement(id));
         return result;
         
     }
