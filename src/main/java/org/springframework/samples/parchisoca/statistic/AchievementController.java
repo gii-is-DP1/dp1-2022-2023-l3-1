@@ -59,7 +59,11 @@ public class AchievementController {
         
     }
 
-    //AHORA MISMO NO DEVUELVE NADA
+    @RequestMapping("/accessdenied")
+    public String accessdenied(Achievement model) {
+        return "denegado";
+    }
+
 
    
     @Transactional()
