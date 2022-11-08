@@ -31,6 +31,9 @@ public class Player extends Person {
     private String email;
 
     @OneToMany
+    @Column(name = "players_achievements")
     private Set<Achievement> achievements;
+
+    
 
 }
