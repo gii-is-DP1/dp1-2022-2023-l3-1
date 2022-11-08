@@ -6,7 +6,7 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 
 <petclinic:layout pageName="games">
-    <h2>Games</h2>
+    <h2>Public Games</h2>
 
     <table id="gamesTable" class="table table-striped">
         <thead>

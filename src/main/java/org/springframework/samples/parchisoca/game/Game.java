@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -49,6 +51,7 @@ public class Game extends BaseEntity {
     @NotNull
     private String code;
 
+    @Enumerated(EnumType.STRING)
     private Privacity privacity;
 
     public static String generatePassword(){
