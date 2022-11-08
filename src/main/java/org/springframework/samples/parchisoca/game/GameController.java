@@ -1,9 +1,15 @@
 package org.springframework.samples.parchisoca.game;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.parchisoca.player.Player;
+import org.springframework.samples.parchisoca.player.PlayerService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -21,13 +27,14 @@ public class GameController {
     private final String GAME_INSTRUCTIONS_VIEW = "games/GameInstruction";
     private final String GAME_INSTRUCTIONS_VIEW1 = "games/GameInstructionOca";
     private final String LOBBY = "/lobbys/createLobby";
-
-    private GameService service;
+    private final String PUBLIC_GAMES = "games/GamePublic";
 
     @Autowired
-    public GameController(GameService service){
-        this.service = service;
-    }
+    private GameService service;
+    @Autowired
+    private PlayerService playerService;
+
+   
     @GetMapping("/list")
     public ModelAndView showGames(){
         ModelAndView result = new ModelAndView(GAMES_LISTING_VIEW);
@@ -46,16 +53,35 @@ public class GameController {
     }
     @PostMapping("/create")
     public String saveGame(@Valid Game game, BindingResult result, ModelMap modelMap) {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        Integer id = playerService.getUserByName(username);
+        Player currentPlayer = playerService.getById(id);
+        
         if (result.hasErrors()) {
             modelMap.addAttribute("game", game);
             return LOBBY;
         }else{
+            game.addPlayer(currentPlayer);
+            game.setCreator(currentPlayer);
             this.service.save(game);
             
         }
 
-        return "redirect:/welcome";
+        return "redirect:/games/lobby/"+game.getCode();
     }   
+
+
+    @GetMapping("/lobbys")
+    public ModelAndView publicGames(){
+        ModelAndView result = new ModelAndView(PUBLIC_GAMES);
+        result.addObject("games", service.getGames());
+        return result;
+    }
+
+
+
 
     @GetMapping("/instructions")
     public ModelAndView instructions(){

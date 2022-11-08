@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.samples.parchisoca.player.Player;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -22,6 +23,12 @@ public interface GameRepository extends CrudRepository<Game,Integer> {
 
     // @Query("SELECT p FROM GAME_PLAYERS p ")
     // Set<Player> getJugadores();
+
+    // @Query("UPDATE PLAYERS p SET ")
+    // List<Player> addPlayerinPlayers(Player player);
+
+
+
 
 
 

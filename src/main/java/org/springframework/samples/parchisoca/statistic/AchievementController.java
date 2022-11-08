@@ -52,7 +52,7 @@ public class AchievementController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         Integer id = playerService.getUserByName(username);
-        
+       
         ModelAndView result = new ModelAndView(ACHIVEMENTES_LISTING_USER);
         result.addObject("players", playerService.getUserAchievement(id));
         return result;

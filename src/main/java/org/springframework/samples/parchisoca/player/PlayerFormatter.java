@@ -17,7 +17,7 @@ public class PlayerFormatter implements Formatter<Player> {
 
     @Override
     public String print(Player player, Locale locale) {
-        return player.getFirstName();
+        return player.getUser().getUsername();
     }
 
     @Override
