@@ -24,7 +24,13 @@ public interface PlayerRepository extends CrudRepository<Player,Integer> {
     public Collection<Player> findByLastName(@Param("lastName") String lastName);
 
 
-    @Query("SELECT p FROM Player p LEFT JOIN p.achievements o WHERE p.firstName LIKE :firstName%")
-    Set<Achievement> findUserAchievements(@Param("firstName") String firstName);
+    @Query("SELECT p FROM Player p LEFT JOIN p.achievements o WHERE p.user.username =?1")
+    List<Player> findUserAchievements(@Param("username") String username);
+
+    @Query("SELECT p FROM Player p LEFT JOIN p.achievements o WHERE p.id =?1")
+    Player findUserAchievementsId(int id);
+
+    @Query("SELECT p.id FROM Player p WHERE p.user.username =?1")
+    Integer findByName(String name);
 
 }
