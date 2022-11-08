@@ -1,10 +1,8 @@
 package org.springframework.samples.parchisoca.game;
 
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.parchisoca.player.Player;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +27,10 @@ public class GameService {
     @Transactional(readOnly = true)
     public List<GameType> findAllGameTypes() {
         return repository.getAllGameTypes();
+    }
+    @Transactional
+    public Game save(Game g){
+        return repository.save(g);
     }
 
     // public Set<Player> getJugadores() {

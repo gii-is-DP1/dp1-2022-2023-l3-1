@@ -1,4 +1,4 @@
-package org.springframework.samples.parchisoca.dado;
+package org.springframework.samples.parchisoca.dice;
 
 
 import lombok.Getter;

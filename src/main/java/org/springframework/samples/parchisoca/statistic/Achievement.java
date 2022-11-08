@@ -12,10 +12,10 @@ import lombok.Setter;
 @Setter
 @Getter
 @Entity
-@Table(name = "achievement")
+@Table(name = "achievements")
 public class Achievement extends NamedEntity {
     
-    protected double  threshold;
+    protected double threshold;
 
     protected String description;
 

@@ -1,8 +1,11 @@
 package org.springframework.samples.parchisoca.piece;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Range;
 import org.springframework.samples.parchisoca.board.OcaBoard;
@@ -18,12 +21,16 @@ import lombok.Setter;
 @Table(name = "oca_pieces")
 public class OcaPiece extends BaseEntity {
     
-    String color; 
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private Colour colour;
     
     @Range(min = 0, max = 7)
+    @NotNull
     int xPosition;
 
     @Range(min = 0, max = 7)
+    @NotNull
     int yPosition;
 
     @ManyToOne

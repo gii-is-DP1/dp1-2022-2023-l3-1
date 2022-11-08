@@ -5,6 +5,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Range;
 import org.springframework.samples.parchisoca.board.ParchisBoard;
@@ -19,16 +20,20 @@ import lombok.Setter;
 @Table(name = "parchis_pieces")
 public class ParchisPiece extends BaseEntity {
 
-    String colour;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private Colour colour;
 
     @Range(min=0,max=18)
-    int xPosition;
+    @NotNull
+    private int xPosition;
 
     @Range(min=0,max=18)
-    int yPosition;
+    @NotNull
+    private int yPosition;
 
     @ManyToOne
-    ParchisBoard parchisBoard;
+    private ParchisBoard parchisBoard;
 
     public Integer getPositionXInPixels(Integer size) {
     	return (xPosition)*size;
