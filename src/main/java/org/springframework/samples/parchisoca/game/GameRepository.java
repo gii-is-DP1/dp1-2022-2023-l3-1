@@ -24,10 +24,9 @@ public interface GameRepository extends CrudRepository<Game,Integer> {
     // @Query("SELECT p FROM GAME_PLAYERS p ")
     // Set<Player> getJugadores();
 
-    // @Query("UPDATE PLAYERS p SET ")
-    // List<Player> addPlayerinPlayers(Player player);
-
-
+    @Query("SELECT g FROM Game g WHERE g.privacity LIKE 'PUBLIC' ")
+    List<Game> getPublicGames();
+    
 
 
 

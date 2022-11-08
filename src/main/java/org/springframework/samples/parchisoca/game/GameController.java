@@ -76,7 +76,7 @@ public class GameController {
     @GetMapping("/lobbys")
     public ModelAndView publicGames(){
         ModelAndView result = new ModelAndView(PUBLIC_GAMES);
-        result.addObject("games", service.getGames());
+        result.addObject("games", service.findPublicGames());
         return result;
     }
 
