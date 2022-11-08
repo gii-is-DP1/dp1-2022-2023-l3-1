@@ -25,8 +25,8 @@ public class PlayerController {
     @Autowired
     private PlayerService playerService;
 
-    private final String  PLAYERS_LISTING_VIEW= "/players/playersListing";
-    private final String CREATE_PLAYERS = "/players/createPlayerForm";
+    private final String  PLAYERS_LISTING_VIEW= "players/playersListing";
+    private final String CREATE_PLAYERS = "players/createPlayerForm";
     private final String MESSAGE = "message";
     private final String PLAYER_NOT_FOUND = "Jugador no encontrado";
 
