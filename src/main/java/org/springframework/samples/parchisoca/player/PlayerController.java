@@ -7,6 +7,8 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -23,10 +25,10 @@ public class PlayerController {
     @Autowired
     private PlayerService playerService;
 
-
-    private final String  PLAYERS_LISTING_VIEW="players/playersListing";
+    private final String  PLAYERS_LISTING_VIEW= "players/playersListing";
     private final String CREATE_PLAYERS = "players/createPlayerForm";
-
+    private final String LOGGED_USER_VIEW = "players/myProfile";
+    private final String PLAYER_PROFILES = "players/playerProfiles";
     private final String MESSAGE = "message";
     private final String PLAYER_NOT_FOUND = "Player not found";
 
@@ -46,7 +48,6 @@ public class PlayerController {
         ModelAndView result = new ModelAndView(PLAYERS_LISTING_VIEW);
         result.addObject("players", playerService.getPlayers());
         return result;
-
     }
 
     @GetMapping("/create")
@@ -70,8 +71,27 @@ public class PlayerController {
 
     @GetMapping("/{playerId}")
         public ModelAndView showPlayer(@PathVariable("playerId") int playerId){
-        ModelAndView mav = new ModelAndView("players/playerProfiles");
+        ModelAndView mav = new ModelAndView(PLAYER_PROFILES);
         Optional<Player> player = this.playerService.findPlayerById(playerId);
+        if(player.isPresent()){
+            mav.addObject(player.get());
+        }else{
+            mav.addObject(MESSAGE, PLAYER_NOT_FOUND);
+        }
+        return mav;
+    }
+
+    /**
+     * Muestra la vista de perfil para el usuario logueado. Solo para roles "player".
+     * @return
+     */
+    @GetMapping("/myProfile")
+    public ModelAndView showLoggedUser(){
+        ModelAndView mav = new ModelAndView(LOGGED_USER_VIEW);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        Integer id = this.playerService.getUserIdByName(username);
+        Optional<Player> player = this.playerService.findPlayerById(id);
         if(player.isPresent()){
             mav.addObject(player.get());
         }else{
@@ -82,13 +102,12 @@ public class PlayerController {
 
     @GetMapping()
     public String findPlayers(Player player, BindingResult result, ModelMap modelMap){
-        String view = "players/playersListing";
         if(player.getUser().getUsername() == ""){
             Iterable<Player> results = playerService.getPlayers();
             modelMap.addAttribute("players", results);
-            return view;
+            return PLAYERS_LISTING_VIEW;
         }
-        Collection<Player> results = playerService.findPlayerByUsername(player.getUser().getUsername());
+        Collection<Player> results = playerService.findPlayersByUsername(player.getUser().getUsername());
         if(results.isEmpty()){
             result.rejectValue("username", "notFound", "not found");
             return "players/findPlayer";
@@ -97,7 +116,7 @@ public class PlayerController {
             return "redirect:/players/" + player.getId();
         }else{
             modelMap.put("selections", results);
-            return view;
+            return PLAYERS_LISTING_VIEW;
         }
     }
 
