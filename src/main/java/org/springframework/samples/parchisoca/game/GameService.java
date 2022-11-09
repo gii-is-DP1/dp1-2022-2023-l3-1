@@ -33,9 +33,14 @@ public class GameService {
         return repository.save(g);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Game> findPublicGames(){
         return repository.getPublicGames();
+    }
+
+    @Transactional(readOnly = true)
+    public Game findGameByCode(String code) {
+        return repository.getGameByCode(code);
     }
 
 }

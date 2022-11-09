@@ -31,7 +31,7 @@
                 </td>
                 
                 <td>       
-                    <a class="btn btn-default" href=''>Join</a>
+                    <a class="btn btn-default" href='/games/lobby/${game.code}'>Join</a>
                 </td>
             </tr>
         </c:forEach>

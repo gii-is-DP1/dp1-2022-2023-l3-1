@@ -3,15 +3,12 @@ package org.springframework.samples.parchisoca.player;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.parchisoca.user.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.samples.parchisoca.statistic.Achievement;
-import org.springframework.samples.parchisoca.statistic.AchievementRepository;
 import org.springframework.samples.parchisoca.user.AuthoritiesService;
 
 @Service
@@ -41,7 +38,7 @@ public class PlayerService {
     }
 
     @Transactional(readOnly = true)
-    public Collection<Player> findPlayerByUsername(String username) throws DataAccessException {
+    public Collection<Player> findPlayersByUsername(String username) throws DataAccessException {
         return playerRepository.findByUsername(username);
     }
 
@@ -76,12 +73,13 @@ public class PlayerService {
     }
 
     @Transactional
-    public Integer getUserByName(String name){
-        return playerRepository.findByName(name);
+    public Integer getUserIdByName(String name){
+        return playerRepository.findIdByName(name);
     }
 
     @Transactional
     public Player getUserAchievement(int id){
         return playerRepository.findUserAchievementsId(id);
     }
+
 }
