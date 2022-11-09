@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Range;
 import org.springframework.samples.parchisoca.board.OcaBoard;
+import org.springframework.samples.parchisoca.board.SpecialBoxesOca;
 import org.springframework.samples.parchisoca.model.BaseEntity;
 
 import lombok.Getter;
@@ -21,6 +22,8 @@ import lombok.Setter;
 @Table(name = "oca_pieces")
 public class OcaPiece extends BaseEntity {
     
+
+
     @NotNull
     @Enumerated(EnumType.STRING)
     private Colour colour;
@@ -35,6 +38,8 @@ public class OcaPiece extends BaseEntity {
 
     @ManyToOne
     OcaBoard ocaBoard;
+
+
 
     public Integer getPositionXInPixels(Integer size) {
     	return (xPosition)*size;

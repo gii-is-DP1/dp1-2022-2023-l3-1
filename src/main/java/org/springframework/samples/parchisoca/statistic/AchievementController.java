@@ -48,6 +48,7 @@ public class AchievementController {
     public ModelAndView showUserAchievments(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
+
         Integer id = playerService.getUserIdByName(username);
 
         ModelAndView result = new ModelAndView(ACHIVEMENTES_LISTING_USER);
@@ -56,7 +57,11 @@ public class AchievementController {
 
     }
 
-    //AHORA MISMO NO DEVUELVE NADA
+    @RequestMapping("/accessdenied")
+    public String accessdenied(Achievement model) {
+        return "denegado";
+    }
+
 
 
     @Transactional()

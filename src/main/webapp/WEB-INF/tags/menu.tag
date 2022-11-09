@@ -8,6 +8,7 @@
 	description="Name of the active menu: home, owners, vets or error"%>
 
 <nav class="navbar navbar-default" role="navigation">
+
         <div class="container">
             <div class="navbar-header">
                 <a class="navbar-brand"
@@ -106,6 +107,7 @@
                                     </div>
                                 </li>
                                 <li class="divider"></li>
+
 <!-- 							
                             <li> 
 								<div class="navbar-login navbar-login-session">
