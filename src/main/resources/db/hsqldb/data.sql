@@ -38,6 +38,7 @@ INSERT INTO games(id,creator_id,winner,name, jugadores,code,privacity, game_type
 INSERT INTO games_players (game_id, players_id) values (1,1);
 INSERT INto games_players (game_id, players_id) values (1,2);
 
+
 INSERT INTO oca_boards (id, background, height, width) VALUES (1,'resources/images/tablero-oca.jpg', 800,800);
 
 
