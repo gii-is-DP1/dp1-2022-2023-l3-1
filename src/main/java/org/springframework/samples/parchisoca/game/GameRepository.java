@@ -30,4 +30,5 @@ public interface GameRepository extends CrudRepository<Game,Integer> {
     @Query("SELECT g FROM Game g WHERE g.code=?1")
     Game getGameByCode(String code);
     
+
 }

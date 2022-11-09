@@ -54,7 +54,7 @@ public class GameController {
         result.addObject("gameTypes", gameService.findAllGameTypes());
         return result;
     }
-
+    
     @PostMapping("/create")
     public String saveGame(@Valid Game game, BindingResult result, ModelMap modelMap) {
 
@@ -95,12 +95,40 @@ public class GameController {
 
         if (!currentGame.getPlayers().contains(currentPlayer)) {
             currentGame.addPlayer(currentPlayer);
+            
             return "redirect:/welcome";
         } else {
             return "redirect:/error";
         }
     }
 
+    // @GetMapping("/lobby/{code}")
+    // public ModelAndView joinGame(@PathVariable ("code") String code){
+    //     ModelAndView result = new ModelAndView(PUBLIC_GAMES);
+    //     result.addObject("game", gameService.findGameByCode(code));
+    //     return result;
+
+    // }
+
+    // @PostMapping("/lobby/{code}")
+    // public String lobby(@PathVariable("code") String code, ModelMap model, HttpServletRequest request, HttpServletResponse response) {
+
+    //     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    //     String username = auth.getName();
+    //     Integer id = playerService.getUserIdByName(username);
+    //     Player currentPlayer = playerService.getById(id);
+    //     Game currentGame = gameService.findGameByCode(code);
+
+    //     if (!currentGame.getPlayers().contains(currentPlayer)) {
+    //         gameService.connect(currentPlayer, currentGame);
+    //         return "redirect:/welcome";
+    //     } else {
+    //         return "redirect:/error";
+    //     }
+    // } 
+
+   
+  
 
     @GetMapping("/instructions")
     public ModelAndView instructions(){

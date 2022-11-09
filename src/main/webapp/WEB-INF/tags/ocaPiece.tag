@@ -3,6 +3,6 @@
  <%@ attribute name="piece" required="true" rtexprvalue="true" type="org.springframework.samples.parchisoca.piece.OcaPiece"
  description="Piece to be rendered" %>
  
- image = document.getElementById('${piece.color}');
+ image = document.getElementById('${piece.colour}');
  ctx.drawImage(image,${piece.getPositionXInPixels(size)},${piece.getPositionYInPixels(size)},${size},${size});
 
