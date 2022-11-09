@@ -24,7 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/games")
 public class GameController {
-    
+
     private final String GAMES_LISTING_VIEW = "/games/GamesListing";
     private final String GAME_CREATE_VIEW = "games/CreateGameForm";
     private final String GAME_INSTRUCTIONS_VIEW = "games/GameInstruction";
@@ -37,20 +37,20 @@ public class GameController {
     @Autowired
     private PlayerService playerService;
 
-   
+
     @GetMapping("/list")
     public ModelAndView showGames(){
         ModelAndView result = new ModelAndView(GAMES_LISTING_VIEW);
         result.addObject("games", gameService.getGames());
         //result.addObject("jugadores", service.getJugadores());
         return result;
-        
+
     }
 
     @GetMapping("/create")
     public ModelAndView createProduct(){
         ModelAndView result = new ModelAndView(LOBBY);
-        result.addObject("game", new Game()); 
+        result.addObject("game", new Game());
         result.addObject("gameTypes", gameService.findAllGameTypes());
         return result;
     }
@@ -60,9 +60,9 @@ public class GameController {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
-        Integer id = playerService.getUserByName(username);
+        Integer id = playerService.getUserIdByName(username);
         Player currentPlayer = playerService.getById(id);
-        
+
         if (result.hasErrors()) {
             modelMap.addAttribute("game", game);
             return LOBBY;
@@ -70,11 +70,11 @@ public class GameController {
             game.addPlayer(currentPlayer);
             game.setCreator(currentPlayer);
             this.gameService.save(game);
-            
+
         }
 
         return "redirect:/games/lobby/"+game.getCode();
-    }   
+    }
 
 
     @GetMapping("/lobbys")
@@ -86,10 +86,10 @@ public class GameController {
 
     @GetMapping("/lobby/{code}")
     public String lobby(@PathVariable("code") String code, ModelMap model, HttpServletRequest request, HttpServletResponse response) {
-        
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
-        Integer id = playerService.getUserByName(username);
+        Integer id = playerService.getUserIdByName(username);
         Player currentPlayer = playerService.getById(id);
         Game currentGame = gameService.findGameByCode(code);
 
@@ -114,6 +114,6 @@ public class GameController {
         return result;
     }
 
-   
+
 
 }

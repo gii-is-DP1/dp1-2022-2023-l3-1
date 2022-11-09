@@ -29,6 +29,7 @@ public class PlayerController {
     private final String CREATE_PLAYERS = "players/createPlayerForm";
     private final String LOGGED_USER_VIEW = "players/myProfile";
     private final String PLAYER_PROFILES = "players/playerProfiles";
+    private final String FIND_PLAYER_VIEW = "players/findPlayer";
     private final String MESSAGE = "message";
     private final String PLAYER_NOT_FOUND = "Player not found";
 
@@ -103,14 +104,12 @@ public class PlayerController {
     @GetMapping()
     public String findPlayers(Player player, BindingResult result, ModelMap modelMap){
         if(player.getUser().getUsername() == ""){
-            Iterable<Player> results = playerService.getPlayers();
-            modelMap.addAttribute("players", results);
-            return PLAYERS_LISTING_VIEW;
+            return FIND_PLAYER_VIEW;
         }
         Collection<Player> results = playerService.findPlayersByUsername(player.getUser().getUsername());
         if(results.isEmpty()){
             result.rejectValue("username", "notFound", "not found");
-            return "players/findPlayer";
+            return FIND_PLAYER_VIEW;
         }else if(results.size() == 1){
             player = results.iterator().next();
             return "redirect:/players/" + player.getId();
