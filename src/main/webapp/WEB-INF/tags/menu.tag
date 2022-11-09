@@ -51,8 +51,9 @@
                                 </li>
                                 <li class="divider"></li>
                                 <li>
+                                <sec:authorize access="hasAuthority('player')">
                                     <a href="<c:url value="/statistics/achievements/user" />"> <span class="glyphicon glyphicon-certificate" aria-hidden="true"></span> My Achievements </a>
-
+                                </sec:authorize>
                                 </li>
                             </ul>
                     </petclinic:menuItem>
@@ -61,7 +62,9 @@
                         title="Games" dropdown="${true}">
                             <ul class="dropdown-menu">
                                 <li>
+                                <sec:authorize access="hasAuthority('admin')">
                                     <a href="<c:url value="/games/list" />"> <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Games listing</a>
+                                </sec:authorize>
                                 </li>
                                 <li class="divider"></li>
                                 <li>
