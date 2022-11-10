@@ -44,6 +44,11 @@ public class GameService {
         return repository.getGameByCode(code);
     }
 
+    @Transactional
+    public void joinPlayerGame(List<Player> ls , Integer id){
+        repository.joinGame(ls, id);
+    }
+
 
 
 }
