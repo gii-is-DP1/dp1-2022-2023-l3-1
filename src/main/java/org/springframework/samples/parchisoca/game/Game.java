@@ -32,6 +32,7 @@ public class Game extends BaseEntity {
     
     @OneToOne
     private Player creator;
+    
     private String winner;
 
     @Range(min = 1, max = 4)
