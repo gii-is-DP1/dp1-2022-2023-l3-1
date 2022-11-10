@@ -75,6 +75,11 @@
                                     <a href="<c:url value="/games/create" />"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Game </a>
                                 </sec:authorize>
                                 </li>
+                                <li>
+                                <sec:authorize access="hasAuthority('player')">
+                                    <a href="<c:url value="/games/lobbys" />"><span class="glyphicon glyphicon-list" aria-hidden="true"></span> Public Games </a>
+                                </sec:authorize>
+                                </li>
                             </ul>
                     </petclinic:menuItem>
 

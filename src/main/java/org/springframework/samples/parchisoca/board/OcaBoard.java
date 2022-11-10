@@ -80,8 +80,6 @@ public class OcaBoard extends BaseEntity {
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "ocaBoard",fetch = FetchType.EAGER)
     List<OcaPiece> pieces; 
 
-    // @OneToMany
-    // List<BoxesOca> boxesOcaNormal; 
 }
 
 
