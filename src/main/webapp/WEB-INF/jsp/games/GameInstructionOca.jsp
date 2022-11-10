@@ -4,10 +4,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="parchisoca" tagdir="/WEB-INF/tags" %>
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 
-<petclinic:layout pageName="agmes">
+<parchisoca:layout pageName="agmes">
     <jsp:body>
         <h1> Instrucciones Oca </h1>
         <h2>Cómo Jugar:</h2>
@@ -35,5 +35,5 @@
             <a class="btn btn-default" href='<spring:url value="/games/instructions" htmlEscape="true"/>'>Volver</a>
         </div>
     </jsp:body>
-</petclinic:layout>
+</parchisoca:layout>
 

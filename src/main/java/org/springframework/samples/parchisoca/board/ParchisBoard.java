@@ -1,5 +1,6 @@
 package org.springframework.samples.parchisoca.board;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -23,16 +24,11 @@ import lombok.Setter;
 @Setter
 @Table(name = "parchis_boards")
 public class ParchisBoard extends BaseEntity {
+
+    @OneToMany
+    private List<BoxesParchis> normalBoxesParchis;
     
     String background;
-
-    // @NotNull
-    // @Enumerated(EnumType.STRING)
-    // private BoxesParchis casillasParchis; 
-
-    public void restriccionesCasillas() {
-        
-    }
 
     @Positive
     int width;
@@ -45,6 +41,16 @@ public class ParchisBoard extends BaseEntity {
         this.width=1900;
         this.height=1900;
     }
+
+    // public void actualPositionParchis() {
+    //     normalBoxesParchis = new ArrayList<BoxesParchis>(68);
+    //     for (int i=0; i<68; i++) {
+    //         BoxesParchis res;
+    //         if (i==3 || i==20 || i==37 || i==54){
+
+    //         }
+    //     }
+    // }
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "parchisBoard",fetch = FetchType.EAGER)
     List<ParchisPiece> pieces; 
