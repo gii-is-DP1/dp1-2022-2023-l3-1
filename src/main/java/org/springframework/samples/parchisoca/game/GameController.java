@@ -10,6 +10,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.parchisoca.board.OcaBoard;
+import org.springframework.samples.parchisoca.board.OcaBoardController;
 import org.springframework.samples.parchisoca.board.OcaBoardService;
 import org.springframework.samples.parchisoca.board.ParchisBoard;
 import org.springframework.samples.parchisoca.board.ParchisBoardService;
@@ -52,7 +53,8 @@ public class GameController {
     private OcaBoardService ocaBoardService;
     @Autowired
     private OcaPieceService ocaPieceService;
-
+    @Autowired
+    OcaBoardController ocaBoardController;
 
     @GetMapping("/list")
     public ModelAndView showGames(){
@@ -142,15 +144,7 @@ public class GameController {
         if (currentGameType.getName().equals("PARCHIS")) {
             return "redirect:/boards/parchisBoard/{code}";
         } else {
-            OcaBoard newOcaBoard = new OcaBoard();
-            OcaPiece newOcaPiece =  new OcaPiece();
-            newOcaPiece.setColour(Colour.RED);
-            ocaPieceService.save(newOcaPiece);
-            List<OcaPiece> ocaPieces = new ArrayList<>();
-            ocaPieces.add(newOcaPiece);
-
-            newOcaBoard.setPieces(ocaPieces);
-            ocaBoardService.save(newOcaBoard);
+            OcaBoard newOcaBoard = ocaBoardController.initBoard();
             int id = newOcaBoard.getId();
             return "redirect:/boards/ocaBoard/"+id;
         }
@@ -168,5 +162,7 @@ public class GameController {
         return result;
     }
 
+
+    
 
 }
