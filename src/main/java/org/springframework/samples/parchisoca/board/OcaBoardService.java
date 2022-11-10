@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class OcaBoardService {
     
    
-    OcaBoardRepository repo ; 
+    OcaBoardRepository repo; 
 
     @Autowired
     public OcaBoardService (OcaBoardRepository repo){
@@ -18,6 +18,11 @@ public class OcaBoardService {
     @Transactional(readOnly = true)
     public OcaBoard findById(Integer id){
         return repo.findById(id).get();
+    }
+
+    @Transactional
+    public void save(OcaBoard ocaBoard) {
+        repo.save(ocaBoard);
     }
     
 

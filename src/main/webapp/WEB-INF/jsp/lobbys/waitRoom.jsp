@@ -10,6 +10,7 @@
 <petclinic:layout pageName="waitRoom">
     <jsp:body>
             <h2>Wait Room - ${games.name} - ${games.code}</h2> 
+            <h3>${creator.user.username}</h3>
         <table id="gameTable" class="table table-striped">
             <thead>
             <tr>
@@ -26,6 +27,10 @@
             </c:forEach>
             </tbody>
         </table>
+        <div class="col text-center">
+            <a href="/games/lobby/${games.code}/board" class="btn btn-warning btn-lg active">Start</a>
+        </div>
+            
     </jsp:body>
 
 </petclinic:layout>

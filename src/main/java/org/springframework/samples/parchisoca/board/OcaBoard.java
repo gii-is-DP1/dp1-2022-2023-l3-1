@@ -80,6 +80,18 @@ public class OcaBoard extends BaseEntity {
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "ocaBoard",fetch = FetchType.EAGER)
     List<OcaPiece> pieces; 
 
+    public void addPiece(OcaPiece piece) {
+        if(getPieces() == null){
+            List<OcaPiece> ls = new ArrayList<>();
+            ls.add(piece);
+            setPieces(ls);
+        }else{
+            List<OcaPiece> ls = getPieces();
+            ls.add(piece);
+            setPieces(ls);
+        }
+    }
+
 }
 
 
