@@ -1,14 +1,21 @@
 package org.springframework.samples.parchisoca.game;
 
-import java.security.Provider.Service;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.parchisoca.board.OcaBoard;
+import org.springframework.samples.parchisoca.board.OcaBoardService;
+import org.springframework.samples.parchisoca.board.ParchisBoard;
+import org.springframework.samples.parchisoca.board.ParchisBoardService;
+import org.springframework.samples.parchisoca.piece.Colour;
+import org.springframework.samples.parchisoca.piece.OcaPiece;
+import org.springframework.samples.parchisoca.piece.OcaPieceService;
 import org.springframework.samples.parchisoca.player.Player;
 import org.springframework.samples.parchisoca.player.PlayerService;
 import org.springframework.security.core.Authentication;
@@ -32,11 +39,19 @@ public class GameController {
     private final String GAME_INSTRUCTIONS_VIEW1 = "games/GameInstructionOca";
     private final String LOBBY = "/lobbys/createLobby";
     private final String PUBLIC_GAMES = "games/GamePublic";
+    private final String PARCHIS_BOARD = "boards/parchisBoard";
+    private final String OCA_BOARD = "boards/ocaBoard";
 
     @Autowired
     private GameService gameService;
     @Autowired
     private PlayerService playerService;
+    @Autowired
+    private ParchisBoardService parchisBoardService;
+    @Autowired
+    private OcaBoardService ocaBoardService;
+    @Autowired
+    private OcaPieceService ocaPieceService;
 
 
     @GetMapping("/list")
@@ -71,9 +86,7 @@ public class GameController {
             game.addPlayer(currentPlayer);
             game.setCreator(currentPlayer);
             this.gameService.save(game);
-
         }
-
         return "redirect:/lobby/"+game.getCode()+"/waitRoom";
     }
 
@@ -113,9 +126,34 @@ public class GameController {
     @GetMapping("/lobby/{code}/waitRoom")
     public ModelAndView waitRoom(@PathVariable("code") String code){
         Game currentGame = gameService.findGameByCode(code);
+        int currentGameCreatorId = currentGame.getCreator().getId();
+        Player currentCreator = gameService.findPlayerById(currentGameCreatorId);
         ModelAndView result = new ModelAndView(GAME_WAIT_ROOM);
         result.addObject("games", currentGame);
+        result.addObject("creator", currentCreator);
         return result;
+    }
+
+    @GetMapping("/lobby/{code}/board")
+    public String gameRoom(@PathVariable("code") String code, Map<String, Object> model){
+        Game currentGame = gameService.findGameByCode(code);
+        GameType currentGameType = currentGame.getGameType();
+
+        if (currentGameType.getName().equals("PARCHIS")) {
+            return "redirect:/boards/parchisBoard/{code}";
+        } else {
+            OcaBoard newOcaBoard = new OcaBoard();
+            OcaPiece newOcaPiece =  new OcaPiece();
+            newOcaPiece.setColour(Colour.RED);
+            ocaPieceService.save(newOcaPiece);
+            List<OcaPiece> ocaPieces = new ArrayList<>();
+            ocaPieces.add(newOcaPiece);
+
+            newOcaBoard.setPieces(ocaPieces);
+            ocaBoardService.save(newOcaBoard);
+            int id = newOcaBoard.getId();
+            return "redirect:/boards/ocaBoard/"+id;
+        }
     }
 
     @GetMapping("/instructions")

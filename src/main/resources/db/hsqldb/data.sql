@@ -9,8 +9,8 @@ INSERT INTO users(username,password,enabled) VALUES ('vet1','v3t',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (3,'vet1','veterinarian');
 
 INSERT INTO game_types(id, name) VALUES
-(1, 'Parchis'),
-(2, 'Oca');
+(1, 'PARCHIS'),
+(2, 'OCA');
 
 
 
@@ -34,7 +34,9 @@ insert into players_achievements(player_id,achievements_id) values (1,2);
 
 INSERT INTO games(id,creator_id,winner,name, jugadores,code,privacity, game_type_id) VALUES (1,1,'alvcarber1','prueba',4,'ASDFG','PUBLIC',1);
 INSERT INTO games(id,creator_id,winner,name, jugadores,code,privacity, game_type_id) VALUES (2,2,'javiruiz','prueba',4,'ASDFG','PRIVATE',1);
-INSERT INTO games(id,name,code,privacity,game_type_id) VALUES (3,'partida vacía','JDSKL','PUBLIC',1);
+INSERT INTO games(id,creator_id,name,code,privacity,game_type_id) VALUES (3,2,'partida vacia parchis','JDSKL','PUBLIC',1);
+INSERT INTO games(id,creator_id,name,code,privacity,game_type_id) VALUES (4,2,'partida vacia oca','JDSDF','PUBLIC',2);
+
 
 INSERT INTO games_players (game_id, players_id) values (1,1);
 INSERT INto games_players (game_id, players_id) values (1,2);

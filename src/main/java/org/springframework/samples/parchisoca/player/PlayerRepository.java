@@ -31,4 +31,6 @@ public interface PlayerRepository extends CrudRepository<Player,Integer> {
     @Query("SELECT p.id FROM Player p WHERE p.user.username =?1")
     Integer findIdByName(String name);
 
+    @Query("SELECT p FROM Player p WHERE p.id=?1")
+    Player findPlayerById(int id);
 }
