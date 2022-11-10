@@ -7,7 +7,16 @@
 
 <petclinic:layout pageName="games">
     <h2>Public Games</h2>
+    
 
+        <p>
+            Buscar partida privada:
+            </br>
+            <input placeholder ="Inserte un código" type="text" name="code" id="code"  />
+            <input type="button" value="Search" onclick="privateGame()" />
+        </p>
+        </br>
+    
     <table id="gamesTable" class="table table-striped">
         <thead>
         <tr>
@@ -43,4 +52,15 @@
             <a class="btn btn-default" href='<spring:url value="/" htmlEscape="true"/>'>Volver</a>
         </div>
 
+
+
+    <script>
+        const f = document.getElementById('form');
+        const q = document.getElementById('query');
+        function privateGame(){
+            window.location="/games/lobby/"+document.getElementById("code").value;
+        }
+    
+
+    </script>
 </petclinic:layout>
