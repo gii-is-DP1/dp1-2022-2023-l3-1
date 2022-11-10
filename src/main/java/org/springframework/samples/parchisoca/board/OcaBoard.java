@@ -13,6 +13,7 @@ import javax.validation.constraints.Positive;
 
 
 import org.springframework.samples.parchisoca.model.BaseEntity;
+import org.springframework.samples.parchisoca.piece.Colour;
 import org.springframework.samples.parchisoca.piece.OcaPiece;
 
 import lombok.Getter;
@@ -40,10 +41,13 @@ public class OcaBoard extends BaseEntity {
 
 
     public OcaBoard(){
-        this.background  = "resources/images/tablero-oca.jpg";
+        this.background  = "/resources/images/tablero-oca.jpg";
         this.width = 800;
         this.height = 800;
+        
     }  
+
+    
 
     public void  initPositionOca() {
         normalBoxesOca = new ArrayList<BoxesOca>(63);
@@ -74,7 +78,7 @@ public class OcaBoard extends BaseEntity {
     }
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "ocaBoard",fetch = FetchType.EAGER)
-    List<OcaPiece> pieces; 
+    List<OcaPiece> pieces = new ArrayList<>(); 
 
     public void addPiece(OcaPiece piece) {
         if(getPieces() == null){
@@ -87,6 +91,7 @@ public class OcaBoard extends BaseEntity {
             setPieces(ls);
         }
     }
+    
 
 }
 
