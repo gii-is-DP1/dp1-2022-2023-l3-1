@@ -85,86 +85,30 @@ public class GameController {
         return result;
     }
 
-    // @GetMapping("/lobby/{code}")
-    // public String lobby(@PathVariable("code") String code, ModelMap model, HttpServletRequest request, HttpServletResponse response) {
+    @GetMapping("/lobby/{code}")
+    public String lobby(@PathVariable("code") String code, ModelMap model, HttpServletRequest request, HttpServletResponse response) {
 
-    //     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    //     String username = auth.getName();
-    //     Integer id = playerService.getUserIdByName(username);
-    //     Player currentPlayer = playerService.getById(id);
-    //     Game currentGame = gameService.findGameByCode(code);
-    //     List<Player> ls = currentGame.getPlayers();
-    //     System.out.println("N"+currentGame.getNumberOfPlayers());
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        Integer id = playerService.getUserIdByName(username);
+        Player currentPlayer = playerService.getById(id);
+        Game currentGame = gameService.findGameByCode(code);
+        List<Player> ls = currentGame.getPlayers();
+        System.out.println("N"+currentGame.getNumberOfPlayers());
 
 
-    //     if (!currentGame.getPlayers().contains(currentPlayer)) {
-    //         ls.add(currentPlayer);
-    //         gameService.joinPlayerGame(ls,currentGame.getId());
-    //        //currentGame.setPlayers(ls);
-    //         System.out.println("N"+currentGame.getNumberOfPlayers());
+        if (!currentGame.getPlayers().contains(currentPlayer)) {
+            ls.add(currentPlayer);
+            //
+            currentGame.setPlayers(ls);
+            System.out.println("N"+currentGame.getNumberOfPlayers());
+            gameService.save(currentGame);
             
-    //         return "redirect:/welcome";
-    //     } else {
-    //         return "redirect:/error";
-    //     }
-    // }
-
-    // @GetMapping("/lobby/{code}")
-    // public ModelAndView joinLobby(@PathVariable("code") String code){
-    //     ModelAndView result = new ModelAndView(PUBLIC_GAMES);
-    //     return result;
-    // }
-
-
-    // @PostMapping("/lobby/{code}")
-    // public String joinLobby(@PathVariable("code") String code,ModelMap model, BindingResult result){
-    //     if (result.hasErrors()) {
-    //         return PUBLIC_GAMES;
-    //     }else{
-
-    //         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    //         String username = auth.getName();
-    //         Integer id = playerService.getUserIdByName(username);
-    //         Player currentPlayer = playerService.getById(id)
-    //         Game currentGame  = gameService.findGameByCode(code);
-
-    //         List<Player> ls = currentGame.getPlayers();
-    //         ls.add(currentPlayer);
-    //         currentGame.setPlayers(ls);
-    //         System.out.println("N"+ currentGame.getNumberOfPlayers());
-    //         return PUBLIC_GAMES;
-            
-    //     }
-        
-    // }
-
-    // @GetMapping("/lobby/{code}")
-    // public ModelAndView joinGame(@PathVariable ("code") String code){
-    //     ModelAndView result = new ModelAndView(PUBLIC_GAMES);
-    //     result.addObject("game", gameService.findGameByCode(code));
-    //     return result;
-
-    // }
-
-    // @PostMapping("/lobby/{code}")
-    // public String lobby(@PathVariable("code") String code, ModelMap model, HttpServletRequest request, HttpServletResponse response) {
-
-    //     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    //     String username = auth.getName();
-    //     Integer id = playerService.getUserIdByName(username);
-    //     Player currentPlayer = playerService.getById(id);
-    //     Game currentGame = gameService.findGameByCode(code);
-
-    //     if (!currentGame.getPlayers().contains(currentPlayer)) {
-    //         gameService.connect(currentPlayer, currentGame);
-    //         return "redirect:/welcome";
-    //     } else {
-    //         return "redirect:/error";
-    //     }
-    // } 
-
-   
-  
+            return "redirect:/welcome";
+        } else {
+            return "redirect:/error";
+        }
+    }
 
     @GetMapping("/instructions")
     public ModelAndView instructions(){
@@ -177,7 +121,5 @@ public class GameController {
         ModelAndView result = new ModelAndView(GAME_INSTRUCTIONS_VIEW1);
         return result;
     }
-
-
 
 }
