@@ -1,7 +1,6 @@
 
 <%@ attribute name="ocaBoard" required="false" rtexprvalue="true" type="org.springframework.samples.parchisoca.board.OcaBoard" description="Oca Board to be rendered" %>
 
-
 <canvas id="canvas" width="${ocaBoard.width}" height="${ocaBoard.height}"></canvas>
 <img id="source" src="${ocaBoard.background}" style="display:none">
 <img id="RED" src="resources/images/RED.png" style="display:none">
