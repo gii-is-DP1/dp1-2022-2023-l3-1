@@ -28,7 +28,7 @@ import lombok.Setter;
 public class OcaBoard extends BaseEntity {
 
     @OneToMany
-    private List<BoxesOca> boxesOcaNormal;
+    private List<BoxesOca> normalBoxesOca;
 
     String background;
 
@@ -40,17 +40,13 @@ public class OcaBoard extends BaseEntity {
 
 
     public OcaBoard(){
-
         this.background  = "resources/images/tablero-oca.jpg";
-
         this.width = 800;
-
         this.height = 800;
-    
     }  
 
-    public void  posicionActual() {
-        boxesOcaNormal = new ArrayList<BoxesOca>(63);
+    public void  initPositionOca() {
+        normalBoxesOca = new ArrayList<BoxesOca>(63);
         for (int i=0; i<63; i++){
             BoxesOca res;
             if(i==5 || i==9 || i==14 || i==18 || i== 23 || i==27 
@@ -73,7 +69,7 @@ public class OcaBoard extends BaseEntity {
             } else {
                 res = new BoxesOca(SpecialBoxesOca.NORMAL);
             }
-            boxesOcaNormal.add(res);
+            normalBoxesOca.add(res);
         }
     }
 

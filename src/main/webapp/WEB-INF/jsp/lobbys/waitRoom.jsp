@@ -4,10 +4,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="parchisoca" tagdir="/WEB-INF/tags" %>
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 
-<petclinic:layout pageName="waitRoom">
+<parchisoca:layout pageName="waitRoom">
     <jsp:body>
             <h2>Wait Room - ${games.name} - ${games.code}</h2> 
         <table id="gameTable" class="table table-striped">
@@ -28,4 +28,4 @@
         </table>
     </jsp:body>
 
-</petclinic:layout>
+</parchisoca:layout>

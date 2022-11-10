@@ -4,10 +4,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="parchisoca" tagdir="/WEB-INF/tags" %>
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 
-<petclinic:layout pageName="games">
+<parchisoca:layout pageName="games">
     <jsp:body>
         <h2 style = "text-align:center">
             <c:if test="${game['new']}">New </c:if> Game
@@ -20,14 +20,14 @@
                     <div class="col-md-12">
                             <div class="row">
                                 
-                                <petclinic:inputField label="Name of room" name="name" /> 
+                                <parchisoca:inputField label="Name of room" name="name" /> 
                                 
                             </div>
                             
                             </br>
                             <div class = "row">
                                 
-                                <petclinic:selectField name="gameType" label="Game Type" names="${gameTypes}" size="3" />
+                                <parchisoca:selectField name="gameType" label="Game Type" names="${gameTypes}" size="3" />
                                 
                             </div>
                             <div class = "row">
@@ -71,4 +71,4 @@
             </div>
         </form:form>
     </jsp:body>
-</petclinic:layout>
+</parchisoca:layout>
