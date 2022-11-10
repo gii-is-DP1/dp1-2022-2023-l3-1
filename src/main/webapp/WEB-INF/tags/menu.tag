@@ -95,24 +95,18 @@
                             <strong><sec:authentication property="name" /></strong>
                              <span class="glyphicon glyphicon-chevron-down"></span>
                         </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <div class="navbar-login">
-                                        <div class="row">
-                                           <sec:authorize access="hasAuthority('player')">
-                                           <petclinic:menuItem active="${name eq 'myProfile'}" url="players/myProfile" title="myProfile">
-                                                <span class = "glyphicon glyphicon-user" aria-hidden="true"></span>
-                                                <span>Mi perfil</span>
-                                            </petclinic:menuItem>
-                                            </sec:authorize>
-                                                <p class="text-center">
-                                                    <a href="<c:url value="/logout" />"
-                                                        class="btn btn-primary btn-block btn-sm">Cerrar sesion</a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <sec:authorize access="hasAuthority('player')">
+                                    <a href="<c:url value="/players/myProfile" />"> <span class = "glyphicon glyphicon-user" aria-hidden="true"></span> Mi perfil</a>
+                                </sec:authorize>
+                            </li>
+                            <li>
+                                <p class="text-center">
+                                    <a href="<c:url value="/logout" />" class="btn btn-primary btn-block btn-sm">Cerrar sesion</a>
+                                </p>
+                            </li>
+                        </ul>
                                 <li class="divider"></li>
 
 <!-- 							
