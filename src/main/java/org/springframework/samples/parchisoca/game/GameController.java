@@ -27,7 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class GameController {
 
     private final String GAMES_LISTING_VIEW = "/games/GamesListing";
-    private final String GAME_CREATE_VIEW = "games/CreateGameForm";
+    private final String GAME_WAIT_ROOM = "lobbys/waitRoom";
     private final String GAME_INSTRUCTIONS_VIEW = "games/GameInstruction";
     private final String GAME_INSTRUCTIONS_VIEW1 = "games/GameInstructionOca";
     private final String LOBBY = "/lobbys/createLobby";
@@ -74,7 +74,7 @@ public class GameController {
 
         }
 
-        return "redirect:/games/lobby/"+game.getCode();
+        return "redirect:/lobby/"+game.getCode()+"/waitRoom";
     }
 
 
@@ -104,10 +104,18 @@ public class GameController {
             System.out.println("N"+currentGame.getNumberOfPlayers());
             gameService.save(currentGame);
             
-            return "redirect:/welcome";
+            return "redirect:{code}/waitRoom";
         } else {
             return "redirect:/error";
         }
+    }
+
+    @GetMapping("/lobby/{code}/waitRoom")
+    public ModelAndView waitRoom(@PathVariable("code") String code){
+        Game currentGame = gameService.findGameByCode(code);
+        ModelAndView result = new ModelAndView(GAME_WAIT_ROOM);
+        result.addObject("games", currentGame);
+        return result;
     }
 
     @GetMapping("/instructions")
