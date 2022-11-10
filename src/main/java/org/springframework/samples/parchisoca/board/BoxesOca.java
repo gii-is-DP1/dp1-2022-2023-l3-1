@@ -16,6 +16,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class BoxesOca extends BaseEntity {
+    
     int numberBoxes;
     private SpecialBoxesOca specialBoxOca;
 
