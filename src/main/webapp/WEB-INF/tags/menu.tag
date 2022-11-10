@@ -37,8 +37,9 @@
                                 </li>
                                 <li class="divider"></li>
                                 <li>
+                                <sec:authorize access="hasAuthority('admin')">
                                     <a href="<c:url value="/players/list" />"> <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Players List </a>
-
+                                </sec:authorize>
                                 </li>
                             </ul>
                     </petclinic:menuItem>
@@ -47,12 +48,15 @@
                         title="Achievements" dropdown="${true}">
                             <ul class="dropdown-menu">
                                 <li>
+                                <sec:authorize access="hasAuthority('admin')">
                                     <a href="<c:url value="/statistics/achievements/" />"> <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Achievements listing</a>
+                                </sec:authorize>
                                 </li>
                                 <li class="divider"></li>
                                 <li>
+                                <sec:authorize access="hasAuthority('player')">
                                     <a href="<c:url value="/statistics/achievements/user" />"> <span class="glyphicon glyphicon-certificate" aria-hidden="true"></span> My Achievements </a>
-
+                                </sec:authorize>
                                 </li>
                             </ul>
                     </petclinic:menuItem>
@@ -61,12 +65,15 @@
                         title="Games" dropdown="${true}">
                             <ul class="dropdown-menu">
                                 <li>
+                                <sec:authorize access="hasAuthority('admin')">
                                     <a href="<c:url value="/games/list" />"> <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Games listing</a>
+                                </sec:authorize>
                                 </li>
                                 <li class="divider"></li>
                                 <li>
+                                <sec:authorize access="hasAuthority('player')">
                                     <a href="<c:url value="/games/create" />"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Game </a>
-
+                                </sec:authorize>
                                 </li>
                             </ul>
                     </petclinic:menuItem>

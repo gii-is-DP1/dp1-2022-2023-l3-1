@@ -1,5 +1,6 @@
 package org.springframework.samples.parchisoca.game;
 
+import java.security.Provider.Service;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,7 +55,7 @@ public class GameController {
         result.addObject("gameTypes", gameService.findAllGameTypes());
         return result;
     }
-
+    
     @PostMapping("/create")
     public String saveGame(@Valid Game game, BindingResult result, ModelMap modelMap) {
 
@@ -92,15 +93,22 @@ public class GameController {
         Integer id = playerService.getUserIdByName(username);
         Player currentPlayer = playerService.getById(id);
         Game currentGame = gameService.findGameByCode(code);
+        List<Player> ls = currentGame.getPlayers();
+        System.out.println("N"+currentGame.getNumberOfPlayers());
+
 
         if (!currentGame.getPlayers().contains(currentPlayer)) {
-            currentGame.addPlayer(currentPlayer);
+            ls.add(currentPlayer);
+            //
+            currentGame.setPlayers(ls);
+            System.out.println("N"+currentGame.getNumberOfPlayers());
+            gameService.save(currentGame);
+            
             return "redirect:/welcome";
         } else {
             return "redirect:/error";
         }
     }
-
 
     @GetMapping("/instructions")
     public ModelAndView instructions(){
@@ -113,7 +121,6 @@ public class GameController {
         ModelAndView result = new ModelAndView(GAME_INSTRUCTIONS_VIEW1);
         return result;
     }
-
 
 
 }

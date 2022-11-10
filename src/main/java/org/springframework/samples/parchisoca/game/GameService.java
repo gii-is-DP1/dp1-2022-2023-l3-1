@@ -3,6 +3,7 @@ package org.springframework.samples.parchisoca.game;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.parchisoca.player.Player;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,6 +43,13 @@ public class GameService {
     public Game findGameByCode(String code) {
         return repository.getGameByCode(code);
     }
+
+    @Transactional
+    public void joinPlayerGame(List<Player> ls , Integer id){
+        repository.joinGame(ls, id);
+    }
+
+
 
 }
 
