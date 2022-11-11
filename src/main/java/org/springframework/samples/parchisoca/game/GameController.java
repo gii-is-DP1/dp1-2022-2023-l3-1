@@ -1,6 +1,5 @@
 package org.springframework.samples.parchisoca.game;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -12,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.parchisoca.board.OcaBoard;
 import org.springframework.samples.parchisoca.board.OcaBoardController;
 import org.springframework.samples.parchisoca.board.OcaBoardService;
-import org.springframework.samples.parchisoca.board.ParchisBoard;
 import org.springframework.samples.parchisoca.board.ParchisBoardService;
-import org.springframework.samples.parchisoca.piece.Colour;
-import org.springframework.samples.parchisoca.piece.OcaPiece;
 import org.springframework.samples.parchisoca.piece.OcaPieceService;
 import org.springframework.samples.parchisoca.player.Player;
 import org.springframework.samples.parchisoca.player.PlayerService;
@@ -40,19 +36,12 @@ public class GameController {
     private final String GAME_INSTRUCTIONS_VIEW1 = "games/GameInstructionOca";
     private final String LOBBY = "/lobbys/createLobby";
     private final String PUBLIC_GAMES = "games/GamePublic";
-    private final String PARCHIS_BOARD = "boards/parchisBoard";
-    private final String OCA_BOARD = "boards/ocaBoard";
+    private final String GAMES_PLAYED = "games/GamesPlayed";
 
     @Autowired
     private GameService gameService;
     @Autowired
     private PlayerService playerService;
-    @Autowired
-    private ParchisBoardService parchisBoardService;
-    @Autowired
-    private OcaBoardService ocaBoardService;
-    @Autowired
-    private OcaPieceService ocaPieceService;
     @Autowired
     OcaBoardController ocaBoardController;
 
@@ -98,6 +87,13 @@ public class GameController {
     public ModelAndView publicGames(){
         ModelAndView result = new ModelAndView(PUBLIC_GAMES);
         result.addObject("games", gameService.findPublicGamesNotFinished());
+        return result;
+    }
+
+    @GetMapping("/admin/lobbys/played")
+    public ModelAndView gamesPlayed(){
+        ModelAndView result = new ModelAndView(GAMES_PLAYED);
+        result.addObject("games", gameService.findGamesFinished());
         return result;
     }
 

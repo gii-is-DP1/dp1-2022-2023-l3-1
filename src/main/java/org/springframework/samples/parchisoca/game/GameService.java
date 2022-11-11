@@ -54,6 +54,11 @@ public class GameService {
     }
 
     @Transactional(readOnly = true)
+    public List<Game> findGamesFinished(){
+        return repository.getGamesFinished();
+    }
+
+    @Transactional(readOnly = true)
     public Game findGameByCode(String code) {
         return repository.getGameByCode(code);
     }
