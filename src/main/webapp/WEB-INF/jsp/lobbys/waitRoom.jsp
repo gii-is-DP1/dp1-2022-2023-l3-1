@@ -9,8 +9,18 @@
 
 <parchisoca:layout pageName="waitRoom">
     <jsp:body>
-            <h2>Wait Room - ${games.name} - ${games.code}</h2> 
-            <h3>Creator: ${creator.user.username}</h3>
+    <div class = "container">
+        <div class = "row">
+            <div class = "col-sm-4">
+                <h2>Wait Room - ${games.name} - ${games.code}</h2> 
+            </div>
+                <div class = "col-sm-4" >
+            <h3 style = "text-align:center">Creator: ${creator.user.username}</h3>
+                </div>
+            <div class = "col-sm-4">
+                <h3 style="text-align: right;">${games.privacity}</h3>
+            </div>
+        </div>
         <table id="gameTable" class="table table-striped">
             <thead>
             <tr>
@@ -27,13 +37,12 @@
             </c:forEach>
             </tbody>
         </table>
-        <h3 style="text-align: right;">${games.privacity}</h3>
         <div class="col text-center">
             <a href="/games/lobby/${games.code}/board" class="btn btn-warning btn-lg active">Start</a>
-            <a class="btn btn-default" href="/games/lobby/${games.code}/delete">Exit</a>
+            <a class="btn btn-warning btn-lg active" href="/games/lobby/${games.code}/delete">Exit</a>
         </div>
 
-            
+    </div>       
     </jsp:body>
 
 </parchisoca:layout>
