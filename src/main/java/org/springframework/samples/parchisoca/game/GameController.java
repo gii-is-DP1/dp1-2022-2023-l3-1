@@ -124,6 +124,25 @@ public class GameController {
         }
     }
 
+    @GetMapping("/lobby/{code}/delete")
+    public String deletePlayerGame(@PathVariable("code") String code, ModelMap model, HttpServletRequest request,
+            HttpServletResponse response) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        Integer id = playerService.getUserIdByName(username);
+        Player currentPlayer = playerService.getById(id);
+
+        Game currentGame = gameService.findGameByCode(code);
+        List<Player> ls = currentGame.getPlayers();
+
+        ls.remove(currentPlayer);
+        currentGame.setPlayers(ls);
+        gameService.save(currentGame);
+
+        return "redirect:/games/lobbys";
+
+    }
+
     @GetMapping("/lobby/{code}/waitRoom")
     public ModelAndView waitRoom(@PathVariable("code") String code){
         Game currentGame = gameService.findGameByCode(code);

@@ -31,9 +31,5 @@ public interface GameRepository extends CrudRepository<Game,Integer> {
     
     @Query("SELECT g FROM Game g WHERE g.code=?1")
     Game getGameByCode(String code);
-    
-    @Modifying(clearAutomatically = true)
-    @Query("UPDATE Game g SET g.players=:ls WHERE g.id=:id")
-    void joinGame(@Param("ls") List<Player> ls , @Param ("id")Integer id);
 
 }
