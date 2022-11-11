@@ -13,7 +13,6 @@ public class OcaBoardService {
     @Autowired
     OcaBoardRepository repo; 
     
-
     @Autowired
     OcaPieceService ocaPieceService;
     

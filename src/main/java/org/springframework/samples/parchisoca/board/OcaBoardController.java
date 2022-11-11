@@ -18,19 +18,12 @@ public class OcaBoardController {
 
     @Autowired
     OcaBoardService ocaService;
+
     @Autowired
     GameService gameService;
+
     @Autowired
     OcaPieceService ocaPieceService;
-
-    // @GetMapping({"/ocaBoard"})
-    // public String board(Map<String, Object> model, HttpServletResponse response){
-
-    //     //response.addHeader("Refresh","2");
-    //     OcaBoard ocaBoard = ocaService.findById(1);
-    //     model.put("ocaBoard", ocaBoard);
-    //     return "boards/ocaBoard";
-    // }
 
     @GetMapping({"boards/ocaBoard/{id}"})
     public String board(@PathVariable("id") int id, Map<String, Object> model, HttpServletResponse response){

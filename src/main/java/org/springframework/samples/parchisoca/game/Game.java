@@ -16,6 +16,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.cfg.SetSimpleValueTypeSecondPass;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.samples.parchisoca.model.BaseEntity;
 import org.springframework.samples.parchisoca.player.Player;
@@ -85,10 +86,15 @@ public class Game extends BaseEntity {
             ls.add(player);
             setPlayers(ls);
             
-        }
-        
-        
+        }        
     }
+
+    // public void deletePlayer (Player player) {
+    //     List<Player> ls = getPlayers();
+    //     ls.remove(player);
+    //     setPlayers(ls);
+    // }
+
     public Integer getNumberOfPlayers(){
         return players.size();
     }
