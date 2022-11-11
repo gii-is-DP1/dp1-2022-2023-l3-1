@@ -96,7 +96,7 @@ public class GameController {
     @GetMapping("/lobbys")
     public ModelAndView publicGames(){
         ModelAndView result = new ModelAndView(PUBLIC_GAMES);
-        result.addObject("games", gameService.findPublicGames());
+        result.addObject("games", gameService.findPublicGamesNotFinished());
         return result;
     }
 
@@ -114,7 +114,6 @@ public class GameController {
 
         if (!currentGame.getPlayers().contains(currentPlayer)) {
             ls.add(currentPlayer);
-            //
             currentGame.setPlayers(ls);
             System.out.println("N"+currentGame.getNumberOfPlayers());
             gameService.save(currentGame);

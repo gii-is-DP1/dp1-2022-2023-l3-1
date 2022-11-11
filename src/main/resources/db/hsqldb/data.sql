@@ -32,10 +32,10 @@ insert into players_achievements(player_id,achievements_id) values (1,2);
 
 
 
-INSERT INTO games(id,creator_id,winner,name, jugadores,code,privacity, game_type_id) VALUES (1,1,'alvcarber1','prueba',4,'ASDFG','PUBLIC',1);
-INSERT INTO games(id,creator_id,winner,name, jugadores,code,privacity, game_type_id) VALUES (2,2,'javiruiz','prueba',4,'ASDFG','PRIVATE',1);
-INSERT INTO games(id,creator_id,name,code,privacity,game_type_id) VALUES (3,2,'partida vacia parchis','JDSKL','PUBLIC',1);
-INSERT INTO games(id,creator_id,name,code,privacity,game_type_id) VALUES (4,2,'partida vacia oca','JDSDF','PUBLIC',2);
+INSERT INTO games(id,creator_id,winner,name,jugadores,code,privacity,game_type_id, in_progress) VALUES (1,1,'alvcarber1','prueba',4,'ASDFG','PUBLIC',1,FALSE);
+INSERT INTO games(id,creator_id,winner,name,jugadores,code,privacity,game_type_id, in_progress) VALUES (2,2,'javiruiz','prueba',4,'FMNJF','PRIVATE',1,FALSE);
+INSERT INTO games(id,creator_id,name,code,privacity,game_type_id, in_progress) VALUES (3,2,'partida vacia parchis','JDSKL','PUBLIC',1,TRUE);
+INSERT INTO games(id,creator_id,name,code,privacity,game_type_id, in_progress) VALUES (4,2,'partida vacia oca','KFLSO','PUBLIC',2,TRUE);
 
 
 INSERT INTO games_players (game_id, players_id) values (1,1);
