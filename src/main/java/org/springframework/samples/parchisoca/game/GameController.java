@@ -67,7 +67,7 @@ public class GameController {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
-        Integer id = playerService.getUserIdByName(username); //esti no nosdice que va todo mu bien profezo pd el edu no ta haciendona
+        Integer id = playerService.getUserIdByName(username);
         Player currentPlayer = playerService.getById(id);
 
         if (result.hasErrors()) {
