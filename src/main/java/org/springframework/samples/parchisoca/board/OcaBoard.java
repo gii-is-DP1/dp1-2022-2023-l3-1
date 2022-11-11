@@ -8,10 +8,11 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Positive;
 
-
+import org.springframework.samples.parchisoca.game.Game;
 import org.springframework.samples.parchisoca.model.BaseEntity;
 import org.springframework.samples.parchisoca.piece.Colour;
 import org.springframework.samples.parchisoca.piece.OcaPiece;
@@ -47,6 +48,8 @@ public class OcaBoard extends BaseEntity {
         
     }  
 
+ 
+
     
 
     public void  initPositionOca() {
@@ -77,8 +80,13 @@ public class OcaBoard extends BaseEntity {
         }
     }
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "ocaBoard",fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "ocaBoard")
     List<OcaPiece> pieces = new ArrayList<>(); 
+
+
+    @OneToOne
+    private Game game;
+
 
     public void addPiece(OcaPiece piece) {
         if(getPieces() == null){

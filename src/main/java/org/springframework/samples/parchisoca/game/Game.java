@@ -19,6 +19,8 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.cfg.SetSimpleValueTypeSecondPass;
 import org.hibernate.validator.constraints.Range;
+import org.springframework.samples.parchisoca.board.OcaBoard;
+import org.springframework.samples.parchisoca.board.ParchisBoard;
 import org.springframework.samples.parchisoca.model.BaseEntity;
 import org.springframework.samples.parchisoca.player.Player;
 
@@ -60,6 +62,12 @@ public class Game extends BaseEntity {
 
     @NotNull
     private boolean inProgress;
+
+    @OneToOne
+    private OcaBoard ocaBoard;
+
+    @OneToOne
+    private ParchisBoard parchisBoard;
 
     public static String generatePassword() {
 
