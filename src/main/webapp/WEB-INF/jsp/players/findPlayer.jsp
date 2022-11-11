@@ -33,6 +33,8 @@
 
     </form:form>
 
-    <br/> 
+    <div class="col text-center">
+        <a class="btn btn-default" href='<spring:url value="/" htmlEscape="true"/>'>Exit</a>
+    </div>
 	
 </parchisoca:layout>

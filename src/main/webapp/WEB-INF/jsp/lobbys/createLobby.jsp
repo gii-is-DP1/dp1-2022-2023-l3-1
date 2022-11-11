@@ -65,10 +65,14 @@
                             </div>  
                         <input type="hidden" name="code" id="code" value = "${game.generatePassword()}"/>
                         <input type="hidden" name="id" id="id" value = "${game.id}"/>
-                        <%-- <input type="hidden" name="creator" id="creator"/> --%>
+                        <input type="hidden" name="id" id="id" value = "${game.inProgress}"/>
                     </div>
                 </div>
             </div>
         </form:form>
+
+        <div class="col text-center">
+            <a class="btn btn-default" href='<spring:url value="/" htmlEscape="true"/>'>Exit</a>
+        </div>
     </jsp:body>
 </parchisoca:layout>
