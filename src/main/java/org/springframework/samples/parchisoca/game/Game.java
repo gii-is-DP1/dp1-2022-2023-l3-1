@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -34,29 +35,33 @@ public class Game extends BaseEntity {
     @OneToOne
     private Player creator;
     
-    private String winner;
-
     @Range(min = 1, max = 4)
     private Integer jugadores;
-
-    @NotNull
-    private String name;
-
+    
     @ManyToOne(optional = false)
     @NotNull
     @JoinColumn(name = "game_type_id")
     private GameType gameType;
 
+    @NotNull
+    private String name;
+
+    @NotNull
+    @Column(unique = true)
+    private String code;
+
     @ManyToMany
     private List<Player> players; //relación para poder meter jugadores dentro de una partida
     
-    @NotNull
-    private String code;
+    private String winner;
 
     @Enumerated(EnumType.STRING)
     private Privacity privacity;
 
-    public static String generatePassword(){
+    @NotNull
+    private boolean inProgress;
+
+    public static String generatePassword() {
 
         char[] letters = {'A','B','C','D','E','F','G','H','I'};
         char[] number = {'1','2','3','5','6','7','8','9','0'};
@@ -65,35 +70,28 @@ public class Game extends BaseEntity {
         res.append(letters);
         res.append(number);
         StringBuilder contraseña = new StringBuilder();
-        for (int i = 0; i < 6 ; i++ ){
+        for (int i = 0; i < 6 ; i++ ) {
             int cantidadCarac = res.length();
             int numeroRandom = (int) (Math.random()*cantidadCarac);
             contraseña.append((res.toString().charAt(numeroRandom)));
         } 
 
         return contraseña.toString();
-
-
     }
     
-    public void addPlayer (Player player){
-        if(getPlayers() == null){
+    public void addPlayer (Player player) {
+        if (getPlayers() == null) {
             List<Player> ls = new ArrayList<>();
             ls.add(player);
             setPlayers(ls);
-        }else{
+        } else {
             List<Player> ls = getPlayers();
             ls.add(player);
             setPlayers(ls);
-            
         }        
     }
 
-    // public void deletePlayer (Player player) {
-    //     List<Player> ls = getPlayers();
-    //     ls.remove(player);
-    //     setPlayers(ls);
-    // }
+
 
     public Integer getNumberOfPlayers(){
         return players.size();
