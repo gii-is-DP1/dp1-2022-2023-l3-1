@@ -66,18 +66,22 @@
                             <ul class="dropdown-menu">
                                 <li>
                                 <sec:authorize access="hasAuthority('admin')">
-                                    <a href="<c:url value="/games/list" />"> <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Games listing</a>
-                                </sec:authorize>
-                                </li>
-                                <li class="divider"></li>
-                                <li>
-                                <sec:authorize access="hasAuthority('player')">
-                                    <a href="<c:url value="/games/create" />"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Game </a>
+                                    <a href="<c:url value="/games/list" />"> <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Games Listing</a>
                                 </sec:authorize>
                                 </li>
                                 <li>
+                                <sec:authorize access="hasAuthority('admin')"> 
+                                    <a href="<c:url value="/games/admin/lobbys/played" />"> <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Played Games Listing</a>
+                                </sec:authorize>
+                                </li>
+                                <li>
                                 <sec:authorize access="hasAuthority('player')">
-                                    <a href="<c:url value="/games/lobbys" />"><span class="glyphicon glyphicon-list" aria-hidden="true"></span> Public Games </a>
+                                    <a href="<c:url value="/games/create" />"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Game</a>
+                                </sec:authorize>
+                                </li>
+                                <li>
+                                <sec:authorize access="hasAuthority('player')">
+                                    <a href="<c:url value="/games/lobbys" />"><span class="glyphicon glyphicon-list" aria-hidden="true"></span> Public Games</a>
                                 </sec:authorize>
                                 </li>
                             </ul>
