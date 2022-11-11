@@ -78,7 +78,7 @@ public class GameController {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
-        Integer id = playerService.getUserIdByName(username);
+        Integer id = playerService.getUserIdByName(username); //esti no nosdice que va todo mu bien profezo pd el edu no ta haciendona
         Player currentPlayer = playerService.getById(id);
 
         if (result.hasErrors()) {
@@ -87,9 +87,10 @@ public class GameController {
         }else{
             game.addPlayer(currentPlayer);
             game.setCreator(currentPlayer);
+            game.setInProgress(true);
             this.gameService.save(game);
         }
-        return "redirect:/lobby/"+game.getCode()+"/waitRoom";
+        return "redirect:/games/lobby/"+game.getCode()+"/waitRoom";
     }
 
 
