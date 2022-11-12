@@ -90,10 +90,12 @@
                             </ul>
                     </parchisoca:menuItem>
 
+                    <parchisoca:menuItem active="${name eq 'Instructions'}" url="/games/instructions"
+                        title="Instructions page">
+                        <span>How to play</span>
+                    </parchisoca:menuItem>
+
                 </ul>
-
-
-
 
                 <ul class="nav navbar-nav navbar-right">
                     <sec:authorize access="!isAuthenticated()">

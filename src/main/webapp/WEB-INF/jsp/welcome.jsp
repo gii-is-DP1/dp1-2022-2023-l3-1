@@ -6,24 +6,12 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 
 <parchisoca:layout pageName="home">
-    <h2><fmt:message key="welcome"/></h2>
     <div class="row">
         <div class="col text-center">
-            <spring:url value="/resources/images/fondo-oca-web.png" htmlEscape="true" var="petsImage"/>
-            <img class="img-responsive" src="${petsImage}"/>
-        </div>
-        <div class="col text-center">
-            <sec:authorize access="hasAuthority('player')">
-                <a class="btn btn-warning btn-lg active" href='/games/instructions'>Cómo Jugar</a>
-            </sec:authorize>
-        </div>
-        <p>&nbsp</p>
-
-        <div class="col text-center">
-            <sec:authorize access="hasAuthority('player')">
-                <a href="/games/create" class="btn btn-warning btn-lg active">Start</a>
-            <!-- <a class="btn btn-default" href='<spring:url value="/games/create" htmlEscape="true"/>'>Start</a> -->
-            </sec:authorize>
+            <a href="/games/create">
+                <spring:url value="/resources/images/fondo-oca-web.png" htmlEscape="true" var="petsImage"/>
+                <img class="img-responsive" src="${petsImage}"/>
+            </a>
         </div>
     </div>
 </parchisoca:layout>
