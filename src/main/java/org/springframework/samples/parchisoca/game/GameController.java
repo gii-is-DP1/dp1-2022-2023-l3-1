@@ -43,7 +43,9 @@ public class GameController {
     @Autowired
     private PlayerService playerService;
     @Autowired
-    OcaBoardController ocaBoardController;
+    private OcaBoardService ocaBoardService;
+    @Autowired
+    private OcaBoardController ocaBoardController;
 
     @GetMapping("/list")
     public ModelAndView showGames(){
