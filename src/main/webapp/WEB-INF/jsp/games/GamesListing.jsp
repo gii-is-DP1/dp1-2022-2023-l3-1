@@ -11,10 +11,10 @@
     <table id="gamesTable" class="table table-striped">
         <thead>
         <tr>
-            <th>Creador</th>
-            <th>Ganador</th>
-            <th>Juego</th>
-            <th>Jugadores</th>
+            <th>Creator</th>
+            <th>Winner</th>
+            <th>Game</th>
+            <th>Players</th>
         </tr>
         </thead>
         <tbody>
@@ -40,9 +40,6 @@
                     </c:forEach>
                     
                 </td>
-                
-
-
             </tr>
         </c:forEach>
         </tbody>
@@ -50,7 +47,7 @@
 
     <p> &nbsp </p>
         <div class="col text-center">
-            <a class="btn btn-default" href='<spring:url value="/" htmlEscape="true"/>'>Volver</a>
+            <a class="btn btn-default" href='<spring:url value="/" htmlEscape="true"/>'>Go Back</a>
         </div>
 
 </parchisoca:layout>
