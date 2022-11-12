@@ -6,11 +6,19 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 
 <parchisoca:layout pageName="players">
-    <h2>Información del jugador</h2>
+    <div class="row"> 
+        <div class = "col-sm-6">
+            <h2>Player Information </h2>
+        </div>
+        <div class = "col-sm-6" style="text-align: right;" >
+        <a class="btn btn-default" href='<spring:url value="/" htmlEscape="true"/>'>✎</a>
+        <a class="btn btn-default" href='<spring:url value="/" htmlEscape="true"/>'>🗑</a>
+        </div>
+    </div>
 
     <table class="table table-striped">
         <tr>
-            <th>Nombre</th>
+            <th>Name</th>
             <td><b><c:out value="${player.firstName} ${player.lastName}"/></b></td>
         </tr>
         <tr>
@@ -18,7 +26,7 @@
             <td><b><c:out value="${player.user.username}"/></b></td>
         </tr>
         <tr>
-            <th>Logros</th>
+            <th>Achievements</th>
             <td>
                 <c:choose>
                     <c:when test="${player.achievements.isEmpty()}">
@@ -32,5 +40,9 @@
             </td>
         </tr>
     </table>
+
+    <div class="col text-center">
+            <a class="btn btn-default" href='<spring:url value="/players/list" htmlEscape="true"/>'>Go Back</a>
+        </div>
 
 </parchisoca:layout>

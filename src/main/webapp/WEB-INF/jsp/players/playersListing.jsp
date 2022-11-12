@@ -12,10 +12,10 @@
     <table id="playersTable" class="table table-striped">
         <thead>
         <tr>
-            <th>firstName</th>
-            <th>lastName</th>
-            <th>username</th>
-            <th>achievements</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Username</th>
+            <th>Achievements</th>
         </tr>
         </thead>
         <tbody>
@@ -49,5 +49,9 @@
         </c:forEach>
         </tbody>
     </table>
+
+    <div class="col text-center">
+            <a class="btn btn-default" href='<spring:url value="/" htmlEscape="true"/>'>Go Back</a>
+        </div>
     
 </parchisoca:layout>
