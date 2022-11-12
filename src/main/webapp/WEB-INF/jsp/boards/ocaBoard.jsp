@@ -22,5 +22,5 @@
             </game:ocaBoard>
         </div>
     </div>
-    <a style="text-align:center" class="btn btn-warning btn-lg active" href="/games/lobby/${ocaBoard.game.code}/exit">Exit</a>
+    <a style="text-align:center" class="btn btn-warning btn-lg active" href="/games/lobby/${ocaBoard.game.code}/exit">Exit</a> 
 </game:layout> 

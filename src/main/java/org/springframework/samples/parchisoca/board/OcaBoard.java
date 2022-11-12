@@ -71,7 +71,6 @@ public class OcaBoard extends BaseEntity {
         }
     }
 
-
     
     
 

@@ -89,29 +89,30 @@ public class OcaBoardController {
     public List<BoxesOca>  initBoxes() {
         List<BoxesOca> normalBoxesOca = new ArrayList<BoxesOca>(63);
         for (int i=0; i<63; i++){
-            BoxesOca res;
+            BoxesOca res = new BoxesOca();
             if(i==5 || i==9 || i==14 || i==18 || i== 23 || i==27 
             || i== 32 || i==36 || i==41 || i==45 || i==50 || i==54 || i== 59){
-                res = new BoxesOca(SpecialBoxesOca.OCA);
+                res.setSpecialBoxOca(SpecialBoxesOca.OCA);
             } else if (i==6 || i==12) {
-                res = new BoxesOca(SpecialBoxesOca.BRIDGE);
+                res.setSpecialBoxOca(SpecialBoxesOca.BRIDGE);;
             } else if (i==26 || i==53) {
-                res = new BoxesOca(SpecialBoxesOca.DICES);
+                res.setSpecialBoxOca(SpecialBoxesOca.DICES);
             } else if (i==19) {
-                res = new BoxesOca(SpecialBoxesOca.HOSTAL);
+                res.setSpecialBoxOca(SpecialBoxesOca.HOSTAL);
             } else if (i==31) {
-                res = new BoxesOca(SpecialBoxesOca.WELL);
+                res.setSpecialBoxOca(SpecialBoxesOca.WELL);
             } else if (i==42) {
-                res = new BoxesOca(SpecialBoxesOca.LABYRINTH);
+                res.setSpecialBoxOca(SpecialBoxesOca.LABYRINTH);
             } else if (i==58) {
-                res = new BoxesOca(SpecialBoxesOca.DEATH);
+                res.setSpecialBoxOca(SpecialBoxesOca.DEATH);
             } else if (i==63) {
-                res = new BoxesOca(SpecialBoxesOca.GOAL);
+                res.setSpecialBoxOca(SpecialBoxesOca.GOAL);
             } else {
-                res = new BoxesOca(SpecialBoxesOca.NORMAL);
+                res.setSpecialBoxOca(SpecialBoxesOca.NORMAL);
             }
             normalBoxesOca.add(res);
             boService.save(res);
+
 
         }
         return normalBoxesOca;
