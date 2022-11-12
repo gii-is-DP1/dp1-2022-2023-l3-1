@@ -31,6 +31,9 @@ public interface GameRepository extends CrudRepository<Game,Integer> {
 
     @Query("SELECT g FROM Game g WHERE g.inProgress LIKE 'FALSE'")
     List<Game> getGamesFinished();
+
+    @Query("SELECT g FROM Game g WHERE g.inProgress LIKE 'TRUE'")
+    List<Game> getGamesInProgress();
     
     @Query("SELECT g FROM Game g WHERE g.code=?1")
     Game getGameByCode(String code);
