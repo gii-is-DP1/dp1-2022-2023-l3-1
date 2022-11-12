@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.cfg.SetSimpleValueTypeSecondPass;
@@ -37,7 +39,7 @@ public class Game extends BaseEntity {
     @OneToOne
     private Player creator;
     
-    @Range(min = 1, max = 4)
+    @Range(min = 2, max = 4)
     private Integer jugadores;
     
     @ManyToOne(optional = false)
