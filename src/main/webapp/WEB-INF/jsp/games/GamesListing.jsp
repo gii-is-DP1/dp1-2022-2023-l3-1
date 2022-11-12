@@ -24,7 +24,7 @@
                     <c:out value="${game.creator.user.username}"/>
                 </td>
                 <td>                    
-                      <c:out value="${game.winner} "/>                                        
+                      <c:out value="${game.winner.user.username} "/>                                        
                 </td>
                 
                 <td>       

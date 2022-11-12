@@ -12,10 +12,11 @@
         <thead>
         <tr>
             <th>Game</th>
+            <th>Privacity</th>
             <th>Name</th>
             <th>Creator</th>
             <th>Players</th>
-            <th>Privacity</th>
+            <th>Winner</th>
         </tr>
         </thead>
         <tbody>
@@ -23,6 +24,9 @@
             <tr>
                 <td>
                     <c:out value="${game.gameType.name}"/>
+                </td>
+                <td>                    
+                      <c:out value="${game.privacity}"/>                               
                 </td>
                 <td>
                     <c:out value="${game.name}"/>
@@ -37,7 +41,7 @@
                     </c:forEach>                              
                 </td>
                 <td>                    
-                      <c:out value="${game.privacity}"/>                               
+                      <c:out value="${game.winner.user.username}"/>                               
                 </td>
             </tr>
         </c:forEach>

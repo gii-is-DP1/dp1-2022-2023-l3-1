@@ -52,7 +52,8 @@ public class Game extends BaseEntity {
     @ManyToMany
     private List<Player> players;
     
-    private String winner;
+    @OneToOne
+    private Player winner;
 
     @Enumerated(EnumType.STRING)
     private Privacity privacity;
