@@ -9,8 +9,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Range;
+import org.springframework.samples.parchisoca.Oca.SpecialBoxesOca;
 import org.springframework.samples.parchisoca.board.OcaBoard;
-import org.springframework.samples.parchisoca.board.SpecialBoxesOca;
 import org.springframework.samples.parchisoca.model.BaseEntity;
 
 import lombok.Getter;
