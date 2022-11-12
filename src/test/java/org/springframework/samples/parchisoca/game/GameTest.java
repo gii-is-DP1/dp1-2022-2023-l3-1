@@ -41,7 +41,7 @@ public class GameTest {
         "You are not constraining "+ "players can not be null");
 
         Game g2 = new Game();
-        g2.setId(4);
+        g2.setId(9);
         g2.setJugadores(5);
         assertThrows(ConstraintViolationException.class,() -> gr.save(g2),
         "You are not constraining "+ "players can not be more than 4");

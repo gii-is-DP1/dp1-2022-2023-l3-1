@@ -2,6 +2,7 @@ package org.springframework.samples.parchisoca.player;
 
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -26,8 +27,9 @@ public class PlayerServiceTest {
 
     @Test
     void shouldFindPlayersById(){
+        
         Optional<Player> players = this.ps.findPlayerById(1);
-        assertThat(players.isPresent());
+        assertTrue(players.isPresent());
     }
 
     @Test

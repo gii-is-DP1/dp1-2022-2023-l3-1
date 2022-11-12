@@ -22,7 +22,7 @@ public class UserServiceTest {
 
     @Test
 	@Transactional
-	public void shouldCreateNewUser() {
+	public void shouldCreateNewUserAndFindUser() {
 
         User u1 = new User();
         u1.setUsername("usuario10");
@@ -32,5 +32,6 @@ public class UserServiceTest {
 		Optional<User> user = us.findUser("usuario10");
 		assertThat(user.isPresent());
 	}
+    
     
 }
