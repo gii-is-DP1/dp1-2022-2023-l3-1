@@ -35,7 +35,6 @@
                                 <li>
                                     <a href="<c:url value="/players/find" />"> <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Find Player</a>
                                 </li>
-                                <li class="divider"></li>
                                 <li>
                                 <sec:authorize access="hasAuthority('admin')">
                                     <a href="<c:url value="/players/list" />"> <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Players List </a>
@@ -52,7 +51,6 @@
                                     <a href="<c:url value="/statistics/achievements/" />"> <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Achievements listing</a>
                                 </sec:authorize>
                                 </li>
-                                <li class="divider"></li>
                                 <li>
                                 <sec:authorize access="hasAuthority('player')">
                                     <a href="<c:url value="/statistics/achievements/user" />"> <span class="glyphicon glyphicon-certificate" aria-hidden="true"></span> My Achievements </a>
@@ -72,6 +70,11 @@
                                 <li>
                                 <sec:authorize access="hasAuthority('admin')"> 
                                     <a href="<c:url value="/games/admin/lobbys/played" />"> <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Played Games Listing</a>
+                                </sec:authorize>
+                                </li>
+                                <li>
+                                <sec:authorize access="hasAuthority('admin')"> 
+                                    <a href="<c:url value="/games/admin/lobbys/inProgress" />"> <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> In Progress Games Listing</a>
                                 </sec:authorize>
                                 </li>
                                 <li>
@@ -116,23 +119,6 @@
                                 </p>
                             </li>
                         </ul>
-                                <li class="divider"></li>
-
-<!-- 							
-                            <li> 
-								<div class="navbar-login navbar-login-session">
-									<div class="row">
-										<div class="col-lg-12">
-											<p>
-												<a href="#" class="btn btn-primary btn-block">My Profile</a>
-												<a href="#" class="btn btn-danger btn-block">Change
-													Password</a>
-											</p>
-										</div>
-									</div>
-								</div>
-							</li>
--->
 						</ul></li>
 				</sec:authorize>
 			</ul>
