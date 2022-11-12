@@ -37,6 +37,7 @@ public class GameController {
     private final String LOBBY = "/lobbys/createLobby";
     private final String PUBLIC_GAMES = "games/GamePublic";
     private final String GAMES_PLAYED = "games/GamesPlayed";
+    private final String GAMES_IN_PROGRESS = "games/GamesInProgress";
 
     @Autowired
     private GameService gameService;
@@ -84,7 +85,6 @@ public class GameController {
         return "redirect:/games/lobby/"+game.getCode()+"/waitRoom";
     }
 
-
     @GetMapping("/lobbys")
     public ModelAndView publicGames(){
         ModelAndView result = new ModelAndView(PUBLIC_GAMES);
@@ -96,6 +96,13 @@ public class GameController {
     public ModelAndView gamesPlayed(){
         ModelAndView result = new ModelAndView(GAMES_PLAYED);
         result.addObject("games", gameService.findGamesFinished());
+        return result;
+    }
+
+    @GetMapping("/admin/lobbys/inProgress")
+    public ModelAndView gamesInProgress(){
+        ModelAndView result = new ModelAndView(GAMES_IN_PROGRESS);
+        result.addObject("games", gameService.findGamesInProgress());
         return result;
     }
 
