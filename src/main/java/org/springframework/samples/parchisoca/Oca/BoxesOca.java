@@ -25,10 +25,6 @@ public class BoxesOca extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private SpecialBoxesOca specialBoxOca;
 
-    public BoxesOca(SpecialBoxesOca oca) {
-        this.specialBoxOca = oca;
-    }
 
-    
     
 }
