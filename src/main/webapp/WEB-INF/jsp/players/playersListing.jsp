@@ -12,10 +12,10 @@
     <table id="playersTable" class="table table-striped">
         <thead>
         <tr>
-            <th>firstName</th>
-            <th>lastName</th>
-            <th>username</th>
-            <th>achievements</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Username</th>
+            <th>Achievements</th>
         </tr>
         </thead>
         <tbody>
@@ -37,7 +37,6 @@
                     <c:choose>
                         <c:when test="${player.achievements.isEmpty()}">
                             <p>None</p>
-                            
                         </c:when>
                         <c:otherwise>
                             ${player.achievements}
