@@ -6,39 +6,38 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 
 <parchisoca:layout pageName="games">
-    <h2>Games</h2>
-
+    <h2>Games In Progress</h2>
+    
     <table id="gamesTable" class="table table-striped">
         <thead>
         <tr>
-            <th>Creator</th>
-            <th>Winner</th>
             <th>Game</th>
+            <th>Name</th>
+            <th>Creator</th>
             <th>Players</th>
+            <th>Privacity</th>
         </tr>
         </thead>
         <tbody>
         <c:forEach items="${games}" var="game">
             <tr>
                 <td>
-                    <c:out value="${game.creator.user.username}"/>
+                    <c:out value="${game.gameType.name}"/>
+                </td>
+                <td>
+                    <c:out value="${game.name}"/>
                 </td>
                 <td>                    
-                      <c:out value="${game.winner} "/>                                        
+                    <c:out value="${game.creator.user.username}"/>                                        
                 </td>
-                
-                <td>       
-                    <c:out value="${game.gameType.name} "/>
-                </td>
-                <%-- <td>
-                    ${game.players}
-                </td> --%>
-                <td>       
+                <td>                    
                     <c:forEach var="item" items="${game.players}" >
                         ${item.user.username}
                         </br>
-                    </c:forEach>
-                    
+                    </c:forEach>                              
+                </td>
+                <td>                    
+                    <c:out value="${game.privacity}"/>                               
                 </td>
             </tr>
         </c:forEach>
@@ -47,7 +46,6 @@
 
     <p> &nbsp </p>
         <div class="col text-center">
-            <a class="btn btn-default" href='<spring:url value="/" htmlEscape="true"/>'>Go Back</a>
+            <a class="btn btn-default" href='<spring:url value="/" htmlEscape="true"/>'>Exit</a>
         </div>
-
 </parchisoca:layout>

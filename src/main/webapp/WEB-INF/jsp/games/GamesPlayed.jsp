@@ -28,10 +28,13 @@
                     <c:out value="${game.name}"/>
                 </td>
                 <td>                    
-                      <c:out value="${game.creator.user.username}"/>                                        
+                    <c:out value="${game.creator.user.username}"/>                                        
                 </td>
                 <td>                    
-                      <c:out value="${game.numberOfPlayers}"/>                               
+                    <c:forEach var="item" items="${game.players}" >
+                        ${item.user.username}
+                        </br>
+                    </c:forEach>                              
                 </td>
                 <td>                    
                       <c:out value="${game.privacity}"/>                               
