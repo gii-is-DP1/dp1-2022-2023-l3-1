@@ -13,6 +13,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Range;
@@ -52,7 +54,8 @@ public class Game extends BaseEntity {
     @ManyToMany
     private List<Player> players;
     
-    private String winner;
+    @OneToOne
+    private Player winner;
 
     @Enumerated(EnumType.STRING)
     private Privacity privacity;

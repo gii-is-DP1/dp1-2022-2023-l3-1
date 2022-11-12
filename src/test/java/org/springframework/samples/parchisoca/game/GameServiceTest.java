@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.samples.parchisoca.player.Player;
+import org.springframework.samples.parchisoca.player.PlayerService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +24,9 @@ public class GameServiceTest {
     @Autowired
     GameService gs;
 
+    @Autowired
+    PlayerService ps;
+
     @Test
 	@Transactional
 	public void shouldCreateNewUser() {
@@ -31,10 +35,12 @@ public class GameServiceTest {
         ge.setId(1);
         ge.setName("PARCHIS");
 
+        Optional<Player> p = ps.findPlayerById(1);
+       
 
         Game g1 = new Game();
         g1.setId(12);
-        g1.setWinner("ganador");
+        g1.setWinner(p.get());
         g1.setName("PartidaTest");
         g1.setJugadores(4);
         g1.setCode("ABCDF");
@@ -48,5 +54,7 @@ public class GameServiceTest {
 
 		assertTrue(gameLs.size() == 1);
 	}
+
+
     
 }

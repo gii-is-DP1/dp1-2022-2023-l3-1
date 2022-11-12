@@ -37,7 +37,6 @@
                     <c:choose>
                         <c:when test="${player.achievements.isEmpty()}">
                             <p>None</p>
-                            
                         </c:when>
                         <c:otherwise>
                             ${player.achievements}
