@@ -12,6 +12,7 @@ import org.springframework.samples.parchisoca.board.OcaBoard;
 import org.springframework.samples.parchisoca.board.OcaBoardController;
 import org.springframework.samples.parchisoca.board.OcaBoardService;
 import org.springframework.samples.parchisoca.board.ParchisBoardService;
+import org.springframework.samples.parchisoca.dice.OcaDice;
 import org.springframework.samples.parchisoca.piece.OcaPieceService;
 import org.springframework.samples.parchisoca.player.Player;
 import org.springframework.samples.parchisoca.player.PlayerService;
@@ -155,8 +156,8 @@ public class GameController {
             newOcaBoard.setGame(currentGame);
             ocaBoardService.save(newOcaBoard);
             gameService.save(currentGame);
-            int id = newOcaBoard.getId();
-            return "redirect:/boards/ocaBoard/"+id;
+            int ocaBoardId = newOcaBoard.getId();
+            return "redirect:/boards/ocaBoard/"+ocaBoardId;
         }
     }
 
