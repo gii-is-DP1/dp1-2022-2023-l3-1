@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.Positive;
 
 import org.springframework.samples.parchisoca.Oca.BoxesOca;
+import org.springframework.samples.parchisoca.dice.OcaDice;
 import org.springframework.samples.parchisoca.game.Game;
 import org.springframework.samples.parchisoca.model.BaseEntity;
 import org.springframework.samples.parchisoca.piece.Colour;
@@ -29,8 +30,6 @@ import lombok.Setter;
 @Setter
 @Table(name = "oca_boards")
 public class OcaBoard extends BaseEntity {
-
-
 
     String background;
 
@@ -57,6 +56,9 @@ public class OcaBoard extends BaseEntity {
 
     @OneToMany
     private List<BoxesOca> boxes;
+
+    @OneToOne
+    private OcaDice ocaDice;
 
 
     public void addPiece(OcaPiece piece) {

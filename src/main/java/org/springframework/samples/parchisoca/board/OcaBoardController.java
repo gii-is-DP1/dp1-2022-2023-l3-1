@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.parchisoca.Oca.BoxesOca;
 import org.springframework.samples.parchisoca.Oca.BoxesOcaService;
 import org.springframework.samples.parchisoca.Oca.SpecialBoxesOca;
+import org.springframework.samples.parchisoca.dice.OcaDice;
+import org.springframework.samples.parchisoca.dice.OcaDiceService;
 import org.springframework.samples.parchisoca.game.Game;
 import org.springframework.samples.parchisoca.game.GameService;
 import org.springframework.samples.parchisoca.piece.Colour;
@@ -29,7 +31,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class OcaBoardController {
 
     @Autowired
-    OcaBoardService ocaService;
+    OcaBoardService ocaBoardService;
 
     @Autowired
     GameService gameService;
@@ -38,15 +40,17 @@ public class OcaBoardController {
     OcaPieceService ocaPieceService;
 
     @Autowired
+    OcaDiceService ocaDiceService;
+
+    @Autowired
     PlayerService playerService;
 
     @Autowired
     BoxesOcaService boService;
 
-    @GetMapping({"boards/ocaBoard/{id}"})
-    public String board(@PathVariable("id") int id, Map<String, Object> model, HttpServletResponse response){
-        // response.addHeader("Refresh","2");
-        OcaBoard newOcaBoard = ocaService.findById(id);
+    @GetMapping({"boards/ocaBoard/{ocaBoardId}"})
+    public String board(@PathVariable("ocaBoardId") int ocaBoardId, Map<String, Object> model, HttpServletResponse response){
+        OcaBoard newOcaBoard = ocaBoardService.findById(ocaBoardId);
         model.put("ocaBoard", newOcaBoard); 
         return "boards/ocaBoard";
     }
@@ -70,17 +74,30 @@ public class OcaBoardController {
 
     }
 
+    @GetMapping({"boards/ocaBoard/{ocaBoardId}/dice"})
+    public String rollDice(@PathVariable("ocaBoardId") int ocaBoardId, Map<String, Object> model, HttpServletResponse response){
+        OcaBoard currentOcaBoard = ocaBoardService.findById(ocaBoardId);
+        OcaDice dice = currentOcaBoard.getOcaDice();
+        dice.rollDice();
+        Integer number = dice.getNumber();
+        model.put("number", number);
+        model.put("ocaBoard", currentOcaBoard);
+        return "redirect:/boards/ocaBoard/"+ocaBoardId;       
+    }
 
-    public  OcaBoard initBoard(){
 
+    public OcaBoard initBoard(){
         OcaBoard oca = new OcaBoard();
         OcaPiece piece = new OcaPiece();
+        OcaDice dice = new OcaDice();
+        ocaDiceService.save(dice);
+        oca.setOcaDice(dice);
         piece.setColour(Colour.RED);
         piece.setOcaBoard(oca); 
         oca.addPiece(piece);
         List<BoxesOca> ls = initBoxes();
         oca.setBoxes(ls);
-        ocaService.save(oca);
+        ocaBoardService.save(oca);
         ocaPieceService.save(piece);
         return oca;
 
