@@ -26,6 +26,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class OcaBoardController {
@@ -47,6 +48,8 @@ public class OcaBoardController {
 
     @Autowired
     BoxesOcaService boService;
+
+    private final String OCABOARD = "boards/ocaBoard";
 
     @GetMapping({"boards/ocaBoard/{ocaBoardId}"})
     public String board(@PathVariable("ocaBoardId") int ocaBoardId, Map<String, Object> model, HttpServletResponse response){
@@ -74,15 +77,29 @@ public class OcaBoardController {
 
     }
 
+    // @GetMapping({"boards/ocaBoard/{ocaBoardId}/dice"})
+    // public String rollDice(@PathVariable("ocaBoardId") int ocaBoardId, Map<String, Object> model, HttpServletResponse response){
+    //     OcaBoard currentOcaBoard = ocaBoardService.findById(ocaBoardId);
+    //     OcaDice dice = currentOcaBoard.getOcaDice();
+    //     dice.rollDice();
+    //     Integer number = dice.getNumber();
+    //     model.put("number", number);
+    //     model.put("ocaBoard", currentOcaBoard);
+    //     return "redirect:/boards/ocaBoard/"+ocaBoardId;       
+    // }
+
+    
     @GetMapping({"boards/ocaBoard/{ocaBoardId}/dice"})
-    public String rollDice(@PathVariable("ocaBoardId") int ocaBoardId, Map<String, Object> model, HttpServletResponse response){
+    public ModelAndView rollDice(@PathVariable("ocaBoardId") int ocaBoardId, HttpServletResponse response){
+        ModelAndView mav = new ModelAndView(OCABOARD);
         OcaBoard currentOcaBoard = ocaBoardService.findById(ocaBoardId);
         OcaDice dice = currentOcaBoard.getOcaDice();
         dice.rollDice();
         Integer number = dice.getNumber();
-        model.put("number", number);
-        model.put("ocaBoard", currentOcaBoard);
-        return "redirect:/boards/ocaBoard/"+ocaBoardId;       
+        mav.addObject("ocaBoard", currentOcaBoard);
+        mav.addObject("number", number);
+        return mav;
+               
     }
 
 
