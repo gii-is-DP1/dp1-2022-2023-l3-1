@@ -7,16 +7,9 @@
 
 
 <parchisoca:layout pageName="achievements">
-    <jsp:attribute name="customScript">
-        <script>
-            $(function () {
-                $("#birthDate").datepicker({dateFormat: 'yy/mm/dd'});
-            });
-        </script>
-    </jsp:attribute>
     <jsp:body>
         <h2>
-            <c:if test="${achievement['new']}">New </c:if> Pet
+            <c:if test="${achievement['new']}">New </c:if> Achievement
         </h2>
         <form:form modelAttribute="achievement"
                    class="form-horizontal">
