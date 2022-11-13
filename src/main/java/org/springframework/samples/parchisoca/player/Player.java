@@ -30,7 +30,7 @@ public class Player extends Person {
     @Column(unique = true)
     private String email;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @Column(name = "players_achievements")
     private Set<Achievement> achievements;
 

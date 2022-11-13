@@ -11,8 +11,12 @@
             <h2>Player Information </h2>
         </div>
         <div class = "col-sm-6" style="text-align: right;" >
-        <a class="btn btn-default" href='<spring:url value="/" htmlEscape="true"/>'>✎</a>
-        <a class="btn btn-default" href='<spring:url value="/" htmlEscape="true"/>'>🗑</a>
+        <a href="/players/${player.id}/edit"> 
+            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>                            
+        </a> 
+        <a href="/players/${player.id}/delete"> 
+            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>                            
+        </a> 
         </div>
     </div>
 
