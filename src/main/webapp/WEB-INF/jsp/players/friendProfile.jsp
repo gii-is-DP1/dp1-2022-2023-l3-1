@@ -6,25 +6,15 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
-<parchisoca:layout pageName="players">
+<parchisoca:layout pageName="friend">
     <div class="row"> 
         <div class = "col-sm-6">
-            <h2>Player Information </h2>
+            <h2>Friend Information </h2>
         </div>
-        <sec:authorize access="hasAuthority('admin')">
-            <div class = "col-sm-6" style="text-align: right;" >
-                <a href="/admin/${player.id}/edit"> 
-                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>                            
-                </a> 
-                <a href="/admin/${player.id}/delete"> 
-                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>                            
-                </a> 
-            </div>
-        </sec:authorize>
         <sec:authorize access="hasAuthority('player')">
             <div class = "col-sm-6" style="text-align: right;" >
-                <a href="/players/${player.id}/add"> 
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>                            
+                <a href="/players/friends/${player.id}/delete"> 
+                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>                            
                 </a> 
             </div>
         </sec:authorize>

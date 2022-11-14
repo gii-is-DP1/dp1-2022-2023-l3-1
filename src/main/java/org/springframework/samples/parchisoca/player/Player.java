@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -31,11 +32,12 @@ public class Player extends Person {
     @Column(unique = true)
     private String email;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    // If it was OneToMany only one player could own the achievement
+    @ManyToMany(cascade = CascadeType.ALL)
     @Column(name = "players_achievements")
     private Set<Achievement> achievements;
 
-    @OneToMany
+    @ManyToMany
     private List<Player> friends;
 
 }
