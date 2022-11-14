@@ -84,4 +84,6 @@ public class PlayerService {
         return playerRepository.findUserAchievementsId(id);
     }
 
+    public void save(Player player) { playerRepository.save(player); }
+
 }
