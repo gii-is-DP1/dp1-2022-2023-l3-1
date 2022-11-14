@@ -5,8 +5,12 @@
 <%@ taglib prefix="parchisoca" tagdir="/WEB-INF/tags" %>
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 
+
 <parchisoca:layout pageName="players">
-    <h2>Mi perfil</h2>
+    <h1>Mi perfil</h1>
+    <a href="/players/${player.id}/edit">
+        Editar mi perfil
+    </a>
 
     <table class="table table-striped">
          <tr>
@@ -30,6 +34,7 @@
                         </c:otherwise>
                     </c:choose>
                 </td>
+        </tr>
     </table>
 
     <h3>Mis amigos (nº)</h3>
@@ -39,5 +44,4 @@
             <th>Username</th>
         </tr>
     </table>
-
 </parchisoca:layout>

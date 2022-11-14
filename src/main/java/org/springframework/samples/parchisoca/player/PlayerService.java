@@ -38,7 +38,7 @@ public class PlayerService {
     }
 
     @Transactional(readOnly = true)
-    public Collection<Player> findPlayersByUsername(String username) throws DataAccessException {
+    public Player findPlayersByUsername(String username) throws DataAccessException {
         return playerRepository.findByUsername(username);
     }
 
@@ -83,5 +83,7 @@ public class PlayerService {
     public Player getUserAchievement(int id){
         return playerRepository.findUserAchievementsId(id);
     }
+
+    public void save(Player player) { playerRepository.save(player); }
 
 }
