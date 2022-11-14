@@ -1,6 +1,6 @@
 package org.springframework.samples.parchisoca.player;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/players")
 public class PlayerController {
 
     @Autowired
@@ -35,53 +34,69 @@ public class PlayerController {
     private final String CREATE_PLAYERS = "players/createPlayerForm";
     private final String EDIT_PLAYER = "players/editPlayer";
     private final String LOGGED_USER_VIEW = "players/myProfile";
-    private final String PLAYER_PROFILES = "players/playerProfiles";
+    private final String PLAYER_PROFILE = "players/playerProfile";
     private final String FIND_PLAYER_VIEW = "players/findPlayer";
-    private final String EDIT_MY_PROFILE = "players/editMyProfile";
+
     private final String MESSAGE = "message";
     private final String ERROR = "error";
     private final String PLAYER_NOT_FOUND = "Player not found";
+
 
     @Autowired
     public PlayerController(PlayerService playerService){
         this.playerService = playerService;
     }
 
-    @GetMapping(value = "/find")
+    @GetMapping(value = "/players/find")
 	public String initFindForm(Map<String, Object> model) {
 		model.put("player", new Player());
 		return FIND_PLAYER_VIEW;
 	}
 
-    @GetMapping("/list")
+    @GetMapping("/players/find/{username}")
+    public ModelAndView findPlayer(@PathVariable("username") String username) {
+        ModelAndView mav = new ModelAndView();
+        Player player = playerService.findPlayersByUsername(username);
+        String direction;
+        if (player==null) {
+            direction = "redirect:/error";
+        } else {
+            direction = PLAYER_PROFILE;
+        }
+        mav = new ModelAndView(direction);
+        mav.addObject("player", player);
+        return mav;
+    }
+
+    @GetMapping("/players/list")
     public ModelAndView showPlayers(){
         ModelAndView result = new ModelAndView(PLAYERS_LISTING_VIEW);
-        result.addObject("players", playerService.getPlayers());
+        List<Player> players = playerService.getPlayers();
+        result.addObject("players", players);
         return result;
     }
 
-    @GetMapping("/create")
+    @GetMapping("/players/create")
     public ModelAndView createPlayer(){
         ModelAndView result = new ModelAndView(CREATE_PLAYERS);
         result.addObject("player", new Player());
         return result;
     }
 
-    @PostMapping(value = "/create")
+    @PostMapping(value = "/players/create")
 	public String processCreationForm(@Valid Player player, BindingResult result) {
 		if (result.hasErrors()) {
 			return CREATE_PLAYERS;
 		}
 		else {
-			//creating owner, user and authorities
 			this.playerService.savePlayer(player);
 			return "redirect:/welcome";
 		}
 	}
 
-    @GetMapping("/{playerId}")
+    @GetMapping("/players/{playerId}")
         public ModelAndView showPlayer(@PathVariable("playerId") int playerId) {
-        ModelAndView mav = new ModelAndView(PLAYER_PROFILES);
+        ModelAndView mav = new ModelAndView(PLAYER_PROFILE);
         Optional<Player> player = this.playerService.findPlayerById(playerId);
         if (player.isPresent()) {
             mav.addObject(player.get());
@@ -91,10 +106,57 @@ public class PlayerController {
         return mav;
     }
 
-    @GetMapping("/{playerId}/edit")
-    public ModelAndView editPlayer(@PathVariable("playerId") int playerId) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        ModelAndView result = null;
+//    @GetMapping("/{playerId}/edit")
+//    public ModelAndView editPlayer(@PathVariable("playerId") int playerId) {
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        ModelAndView result = null;
+//        Player player = playerService.getById(playerId);
+//        if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("admin"))){
+//            result = new ModelAndView(EDIT_PLAYER);
+//            result.addObject("player", player);
+//            return result;
+//        }
+//        String username = auth.getName();
+//        Integer id = this.playerService.getUserIdByName(username);
+//        Player loggedPlayer = this.playerService.findPlayerById(id).get();
+//        if ((loggedPlayer == player) || auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("admin"))) {
+//            result = new ModelAndView(EDIT_PLAYER);
+//            result.addObject("player", player);
+//            return result;
+//        } else {
+//            result.addObject(MESSAGE, PLAYER_NOT_FOUND);
+//            return result;
+//        }
+//
+//    }
+//
+//    @PostMapping("/{playerId}/edit")
+//    public String savePlayer(@PathVariable("playerId") int playerId, Player player){
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        if (!auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("admin"))){
+//            String username = auth.getName();
+//            Integer id = this.playerService.getUserIdByName(username);
+//            Player loggedPlayer = this.playerService.findPlayerById(id).get();
+//            Player playerToBeUpdated = playerService.getById(playerId);
+//            BeanUtils.copyProperties(player,playerToBeUpdated,"id","achievements", "user");
+//            playerService.savePlayer(playerToBeUpdated);
+//            if (loggedPlayer == playerToBeUpdated){
+//                return "redirect:/players/myProfile";
+//            }else{
+//                return "redirect:/players/{playerId}";
+//            }
+//        }else {
+//            Player playerToBeUpdated = playerService.getById(playerId);
+//            BeanUtils.copyProperties(player,playerToBeUpdated,"id","achievements", "user");
+//            playerService.savePlayer(playerToBeUpdated);
+//            return "redirect:/players/{playerId}";
+//        }
+//
+//    }
+
+    @GetMapping("/admin/{playerId}/edit")
+    public ModelAndView editPlayer(@PathVariable("playerId") int playerId){
+
         Player player = playerService.getById(playerId);
         if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("admin"))){
             result = new ModelAndView(EDIT_PLAYER);
@@ -115,7 +177,7 @@ public class PlayerController {
 
     }
 
-    @PostMapping("/{playerId}/edit")
+    @PostMapping("/admin/{playerId}/edit")
     public String savePlayer(@PathVariable("playerId") int playerId, Player player){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (!auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("admin"))){
@@ -139,11 +201,12 @@ public class PlayerController {
 
     }
 
-    @GetMapping("/{playerId}/delete")
+    @GetMapping("/players/{playerId}/delete")
     public String deletePlayer(@PathVariable("playerId") int playerId) {
         playerService.deletePlayerById(playerId);
         return "redirect:/players/list";
     }
+
 
     @GetMapping("/myProfile")
     public ModelAndView showLoggedUser(){
@@ -158,25 +221,6 @@ public class PlayerController {
             mav.addObject(MESSAGE, PLAYER_NOT_FOUND);
         }
         return mav;
-    }
-
-    @GetMapping()
-    public String findPlayers(Player player, BindingResult result, ModelMap modelMap){
-        if(player.getUser().getUsername() == "") {
-
-            return FIND_PLAYER_VIEW;
-        }
-        Collection<Player> results = playerService.findPlayersByUsername(player.getUser().getUsername());
-        if(results.isEmpty()){
-            result.rejectValue("username", "notFound", "not found");
-            return FIND_PLAYER_VIEW;
-        }else if(results.size() == 1) {
-            player = results.iterator().next();
-            return "redirect:/players/" + player.getId();
-        } else {
-            modelMap.put("selections", results);
-            return PLAYERS_LISTING_VIEW;
-        }
     }
 
 

@@ -11,23 +11,16 @@
 
 <parchisoca:layout pageName="players">
 
-    <h2>Find Players</h2>
-
-    
     <form:form modelAttribute="player" action="/players" method="get" class="form-horizontal"
                id="search-player-form">
-        <div class="form-group">
-            <div class="control-group" id="username">
-                <label class="col-sm-2 control-label">Username </label>
-                <div class="col-sm-10">
-                    <form:input class="form-control" path="user.username" size="30" maxlength="80"/>
-                    <span class="help-inline"><form:errors path="*"/></span>
-                </div>
+            <div>
+                <h2>Find Players</h2>
             </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-default">Find Player</button>
+        <div class="row">
+            <div class = "col-sm-12">
+                Search player:
+                <input placeholder ="Insert an username" type="text" name="username" id="username"/>
+                <input type="button" value="Search" onclick="findPlayer()" />
             </div>
         </div>
 
@@ -36,5 +29,11 @@
     <div class="col text-center">
         <a class="btn btn-default" href='<spring:url value="/" htmlEscape="true"/>'>Exit</a>
     </div>
+
+    <script>
+        function findPlayer(){
+            window.location="/players/find/"+document.getElementById("username").value;
+        }
+    </script>
 	
 </parchisoca:layout>

@@ -8,9 +8,9 @@
 <parchisoca:layout pageName="games">
     <h2>Public Games</h2>
         <p>
-            Buscar partida privada:
+            Search private game:
             </br>
-            <input placeholder ="Inserte un código" type="text" name="code" id="code"/>
+            <input placeholder ="Insert a code" type="text" name="code" id="code"/>
             <input type="button" value="Search" onclick="privateGame()" />
         </p>
         </br>

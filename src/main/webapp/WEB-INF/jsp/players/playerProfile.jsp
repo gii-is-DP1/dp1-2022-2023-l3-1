@@ -4,20 +4,24 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="parchisoca" tagdir="/WEB-INF/tags" %>
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <parchisoca:layout pageName="players">
     <div class="row"> 
         <div class = "col-sm-6">
             <h2>Player Information </h2>
         </div>
-        <div class = "col-sm-6" style="text-align: right;" >
-        <a href="/players/${player.id}/edit"> 
-            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>                            
-        </a> 
-        <a href="/players/${player.id}/delete"> 
-            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>                            
-        </a> 
-        </div>
+        <sec:authorize access="hasAuthority('admin')">
+            <div class = "col-sm-6" style="text-align: right;" >
+                <a href="/admin/${player.id}/edit"> 
+                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>                            
+                </a> 
+                <a href="/admin/${player.id}/delete"> 
+                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>                            
+                </a> 
+            </div>
+        </sec:authorize>
+        
     </div>
 
     <table class="table table-striped">

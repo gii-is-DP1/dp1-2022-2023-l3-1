@@ -1,5 +1,6 @@
 package org.springframework.samples.parchisoca.player;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -34,6 +35,7 @@ public class Player extends Person {
     @Column(name = "players_achievements")
     private Set<Achievement> achievements;
 
-    
+    @OneToMany
+    private List<Player> friends;
 
 }
