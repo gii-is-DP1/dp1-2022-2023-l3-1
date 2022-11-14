@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface OcaDiceRepository extends CrudRepository<OcaDice, Integer>{
-    
+
 }

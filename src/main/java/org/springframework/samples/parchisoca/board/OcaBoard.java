@@ -12,7 +12,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Positive;
 
+import org.springframework.samples.parchisoca.Oca.Action;
 import org.springframework.samples.parchisoca.Oca.BoxesOca;
+import org.springframework.samples.parchisoca.Oca.SpecialBoxesOca;
 import org.springframework.samples.parchisoca.dice.OcaDice;
 import org.springframework.samples.parchisoca.game.Game;
 import org.springframework.samples.parchisoca.model.BaseEntity;
@@ -71,6 +73,33 @@ public class OcaBoard extends BaseEntity {
             ls.add(piece);
             setPieces(ls);
         }
+    }
+
+
+    public Integer action(BoxesOca box,OcaBoard ocaBoard) {
+        Integer pos =0;
+        SpecialBoxesOca specialBox = box.getSpecialBoxOca();
+        if(specialBox.equals(SpecialBoxesOca.BRIDGE)){
+            pos = Action.bridge(box.getId(),ocaBoard);
+        }else if(specialBox.equals(SpecialBoxesOca.DEATH)){
+            pos = Action.death(box.getId());
+        }else if(specialBox.equals(SpecialBoxesOca.DICES)){
+            pos = Action.dices(box.getId(),ocaBoard);
+        }else if(specialBox.equals(SpecialBoxesOca.GOAL)){
+
+        }else if(specialBox.equals(SpecialBoxesOca.HOSTAL)){
+
+        }else if(specialBox.equals(SpecialBoxesOca.LABYRINTH)){
+
+        }else if(specialBox.equals(SpecialBoxesOca.OCA)){
+
+        }else if(specialBox.equals(SpecialBoxesOca.PRISON)){
+
+        }else{
+
+        }
+        return pos;
+
     }
 
     
