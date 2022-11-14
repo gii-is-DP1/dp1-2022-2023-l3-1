@@ -11,9 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.parchisoca.board.OcaBoard;
 import org.springframework.samples.parchisoca.board.OcaBoardController;
 import org.springframework.samples.parchisoca.board.OcaBoardService;
-import org.springframework.samples.parchisoca.board.ParchisBoardService;
-import org.springframework.samples.parchisoca.dice.OcaDice;
-import org.springframework.samples.parchisoca.piece.OcaPieceService;
 import org.springframework.samples.parchisoca.player.Player;
 import org.springframework.samples.parchisoca.player.PlayerService;
 import org.springframework.security.core.Authentication;
@@ -49,14 +46,15 @@ public class GameController {
     @Autowired
     private OcaBoardController ocaBoardController;
 
+    // Shows the games list
     @GetMapping("/list")
     public ModelAndView showGames(){
         ModelAndView result = new ModelAndView(GAMES_LISTING_VIEW);
         result.addObject("games", gameService.getGames());
-        //result.addObject("jugadores", service.getJugadores());
         return result;
     }
 
+    // Shows the form for creating a game
     @GetMapping("/create")
     public ModelAndView createProduct(){
         ModelAndView result = new ModelAndView(LOBBY);
@@ -65,9 +63,9 @@ public class GameController {
         return result;
     }
     
+    // Supports the creation of a game
     @PostMapping("/create")
     public String saveGame(@Valid Game game, BindingResult result, ModelMap modelMap) {
-
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         Integer id = playerService.getUserIdByName(username);
@@ -76,7 +74,7 @@ public class GameController {
         if (result.hasErrors()) {
             modelMap.addAttribute("game", game);
             return LOBBY;
-        }else{
+        } else {
             game.addPlayer(currentPlayer);
             game.setCreator(currentPlayer);
             game.setInProgress(true);
@@ -85,30 +83,33 @@ public class GameController {
         return "redirect:/games/lobby/"+game.getCode()+"/waitRoom";
     }
 
+    // Shows public games
     @GetMapping("/lobbys")
-    public ModelAndView publicGames(){
+    public ModelAndView publicGames() {
         ModelAndView result = new ModelAndView(PUBLIC_GAMES);
         result.addObject("games", gameService.findPublicGamesNotFinished());
         return result;
     }
 
+    // Shows the games that have been played (ADMIN)
     @GetMapping("/admin/lobbys/played")
-    public ModelAndView gamesPlayed(){
+    public ModelAndView gamesPlayed() {
         ModelAndView result = new ModelAndView(GAMES_PLAYED);
         result.addObject("games", gameService.findGamesFinished());
         return result;
     }
 
+    // Shows the games that are currently being played (ADMIN)
     @GetMapping("/admin/lobbys/inProgress")
-    public ModelAndView gamesInProgress(){
+    public ModelAndView gamesInProgress() {
         ModelAndView result = new ModelAndView(GAMES_IN_PROGRESS);
         result.addObject("games", gameService.findGamesInProgress());
         return result;
     }
 
+    // Adds the player to this game and redirects this player to its wait room
     @GetMapping("/lobby/{code}")
     public String lobby(@PathVariable("code") String code, ModelMap model, HttpServletRequest request, HttpServletResponse response) {
-
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         Integer id = playerService.getUserIdByName(username);
@@ -123,15 +124,15 @@ public class GameController {
             currentGame.setPlayers(ls);
             System.out.println("N"+currentGame.getNumberOfPlayers());
             gameService.save(currentGame);
-            
             return "redirect:{code}/waitRoom";
         } else {
             return "redirect:/error";
         }
     }
 
+    // Shows the wait room of the game
     @GetMapping("/lobby/{code}/waitRoom")
-    public ModelAndView waitRoom(@PathVariable("code") String code){
+    public ModelAndView waitRoom(@PathVariable("code") String code) {
         Game currentGame = gameService.findGameByCode(code);
         int currentGameCreatorId = currentGame.getCreator().getId();
         Player currentCreator = gameService.findPlayerById(currentGameCreatorId);
@@ -141,8 +142,9 @@ public class GameController {
         return result;
     }
 
+    // Creates the parchis board or the oca board depending on the game type
     @GetMapping("/lobby/{code}/board")
-    public String gameRoom(@PathVariable("code") String code, Map<String, Object> model){
+    public String gameRoom(@PathVariable("code") String code, Map<String, Object> model) {
         Game currentGame = gameService.findGameByCode(code);
         GameType currentGameType = currentGame.getGameType();
 
@@ -159,6 +161,7 @@ public class GameController {
         }
     }
 
+    // Exit the player from the wait room, therefore it will be deleted from the game too
     @GetMapping("/lobby/{code}/exitWaitRoom")
     public String exitPlayerGame(@PathVariable("code") String code, ModelMap model, HttpServletRequest request,
             HttpServletResponse response) {
@@ -166,31 +169,27 @@ public class GameController {
         String username = auth.getName();
         Integer id = playerService.getUserIdByName(username);
         Player currentPlayer = playerService.getById(id);
-
         Game currentGame = gameService.findGameByCode(code);
         List<Player> ls = currentGame.getPlayers();
 
         ls.remove(currentPlayer);
         currentGame.setPlayers(ls);
         gameService.save(currentGame);
-
         return "redirect:/games/lobbys";
-
     }
 
+    // Shows parchis instructions
     @GetMapping("/instructions/parchisInstructions")
     public ModelAndView instructions(){
         ModelAndView result = new ModelAndView(PARCHIS_INSTRUCTIONS_VIEW);
         return result;
     }
 
+    // Shows oca instructions
     @GetMapping("/instructions/ocaInstructions")
     public ModelAndView instructionsOca(){
         ModelAndView result = new ModelAndView(OCA_INSTRUCTIONS_VIEW);
         return result;
     }
-
-
-    
 
 }
