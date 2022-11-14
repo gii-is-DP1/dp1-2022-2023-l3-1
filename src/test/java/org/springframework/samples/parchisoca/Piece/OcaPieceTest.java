@@ -1,4 +1,4 @@
-package org.springframework.samples.parchisoca.Piece;
+package org.springframework.samples.parchisoca.piece;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 

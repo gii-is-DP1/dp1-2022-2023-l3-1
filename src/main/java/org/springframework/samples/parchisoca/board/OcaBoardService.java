@@ -3,11 +3,11 @@ package org.springframework.samples.parchisoca.board;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.parchisoca.Oca.BoxesOca;
 import org.springframework.samples.parchisoca.dice.OcaDice;
 import org.springframework.samples.parchisoca.dice.OcaDiceService;
 import org.springframework.samples.parchisoca.game.Game;
 import org.springframework.samples.parchisoca.game.GameService;
+import org.springframework.samples.parchisoca.oca.BoxesOca;
 import org.springframework.samples.parchisoca.piece.OcaPiece;
 import org.springframework.samples.parchisoca.piece.OcaPieceService;
 import org.springframework.stereotype.Service;
@@ -51,11 +51,11 @@ public class OcaBoardService {
         return ocaPiece;
     }
 
-    public Integer nextPosition(OcaBoard ocaBoard,OcaPiece ocaPece,Integer position){
+    public Integer nextPosition(OcaBoard ocaBoard,OcaPiece ocaPiece,Integer position){
         
         List<BoxesOca> ls = ocaBoard.getBoxes();
         BoxesOca box = ls.get(position-1);
-        Integer  newPosition = ocaBoard.action(box);
+        Integer  newPosition = ocaBoard.action(box,ocaPiece);
         return newPosition;
     }
     

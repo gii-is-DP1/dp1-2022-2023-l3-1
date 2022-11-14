@@ -1,4 +1,4 @@
-package org.springframework.samples.parchisoca.Piece;
+package org.springframework.samples.parchisoca.piece;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;

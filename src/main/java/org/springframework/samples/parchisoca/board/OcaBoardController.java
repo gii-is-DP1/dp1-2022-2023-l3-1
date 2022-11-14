@@ -8,13 +8,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.parchisoca.Oca.BoxesOca;
-import org.springframework.samples.parchisoca.Oca.BoxesOcaService;
-import org.springframework.samples.parchisoca.Oca.SpecialBoxesOca;
 import org.springframework.samples.parchisoca.dice.OcaDice;
 import org.springframework.samples.parchisoca.dice.OcaDiceService;
 import org.springframework.samples.parchisoca.game.Game;
 import org.springframework.samples.parchisoca.game.GameService;
+import org.springframework.samples.parchisoca.oca.BoxesOca;
+import org.springframework.samples.parchisoca.oca.BoxesOcaService;
+import org.springframework.samples.parchisoca.oca.SpecialBoxesOca;
 import org.springframework.samples.parchisoca.piece.Colour;
 import org.springframework.samples.parchisoca.piece.OcaPiece;
 import org.springframework.samples.parchisoca.piece.OcaPieceService;
@@ -76,21 +76,10 @@ public class OcaBoardController {
         return "redirect:/games/lobbys";
 
     }
-
-    // @GetMapping({"boards/ocaBoard/{ocaBoardId}/dice"})
-    // public String rollDice(@PathVariable("ocaBoardId") int ocaBoardId, Map<String, Object> model, HttpServletResponse response){
-    //     OcaBoard currentOcaBoard = ocaBoardService.findById(ocaBoardId);
-    //     OcaDice dice = currentOcaBoard.getOcaDice();
-    //     dice.rollDice();
-    //     Integer number = dice.getNumber();
-    //     model.put("number", number);
-    //     model.put("ocaBoard", currentOcaBoard);
-    //     return "redirect:/boards/ocaBoard/"+ocaBoardId;       
-    // }
-
     
     @GetMapping({"boards/ocaBoard/{ocaBoardId}/dice"})
     public ModelAndView rollDice(@PathVariable("ocaBoardId") int ocaBoardId, HttpServletResponse response){
+
         ModelAndView mav = new ModelAndView(OCABOARD);
         OcaBoard currentOcaBoard = ocaBoardService.findById(ocaBoardId);
         OcaDice dice = currentOcaBoard.getOcaDice();
@@ -99,16 +88,25 @@ public class OcaBoardController {
         for(OcaPiece op:currentOcaBoard.getPieces()){
             ocaPieceId = op.getId();
         }
-        ocaBoardService.actualPosition( ocaBoardId, ocaPieceId);
-        OcaPiece ocaPiece=ocaPieceService.findOcaPieceById(ocaPieceId);
-        Integer number = dice.getNumber();
-        mav.addObject("ocaBoard", currentOcaBoard);
-        mav.addObject("ocaPiece", ocaPiece);
-        mav.addObject("number", number);
+        OcaPiece ocaPiece = ocaPieceService.findOcaPieceById(ocaPieceId);
+        Integer turn = ocaPiece.getPenalizationTurn();
+        if(turn !=0){
+            mav.addObject("ocaBoard", currentOcaBoard);
+            mav.addObject("ocaPiece", ocaPiece);
+            ocaPiece.setPenalizationTurn(turn-1);
+            ocaPieceService.save(ocaPiece);
+
+        }else{
+            ocaBoardService.actualPosition(ocaBoardId, ocaPieceId);
+            Integer number = dice.getNumber();
+            mav.addObject("ocaBoard", currentOcaBoard);
+            mav.addObject("ocaPiece", ocaPiece);
+            mav.addObject("number", number);
+        }
         return mav;
+        
                
     }
-
 
     public OcaBoard initBoard(){
         OcaBoard oca = new OcaBoard();
