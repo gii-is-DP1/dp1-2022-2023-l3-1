@@ -39,12 +39,13 @@ public class OcaBoardService {
         ocaBoardRepository.save(ocaBoard);
     }
 
-   
+   //calculating actual position on board
     public OcaPiece actualPosition(int ocaBoardId, int pieceId){
         OcaBoard ocaBoard = ocaBoardRepository.findById(ocaBoardId).get();
         Integer diceNumber = ocaBoard.getOcaDice().getNumber();
         OcaPiece ocaPiece = ocaPieceService.findOcaPieceById(pieceId);
-        Integer position = ocaPiece.getPosition()+ diceNumber;
+        Integer suma = ocaPiece.getPosition()+ diceNumber;
+        Integer position = ocaBoard.reboteTirada(suma);
         Integer newPosition = nextPosition(ocaBoard, ocaPiece, position);
         ocaPiece.setPosition(newPosition);
         ocaPieceService.save(ocaPiece);

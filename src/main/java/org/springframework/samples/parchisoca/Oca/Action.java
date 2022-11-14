@@ -58,8 +58,9 @@ public class Action {
 
         if(position == 59){
             pos = position;
+        }else{
+            pos =ocasList.get(ocasList.indexOf(position) +1);
         }
-        pos =ocasList.get(ocasList.indexOf(position) +1);
         return pos;
     }
 
@@ -70,6 +71,10 @@ public class Action {
 
     public Integer well(Integer position, OcaPiece ocaPiece) {
         ocaPiece.setPenalizationTurn(4);
+        return position;
+    }
+
+    public Integer goal(Integer position) {
         return position;
     }
 

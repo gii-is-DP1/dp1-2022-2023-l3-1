@@ -21,6 +21,7 @@ import org.springframework.samples.parchisoca.oca.BoxesOca;
 import org.springframework.samples.parchisoca.oca.SpecialBoxesOca;
 import org.springframework.samples.parchisoca.piece.Colour;
 import org.springframework.samples.parchisoca.piece.OcaPiece;
+import org.springframework.samples.parchisoca.player.Player;
 
 import lombok.Getter;
 
@@ -76,7 +77,7 @@ public class OcaBoard extends BaseEntity {
         }
     }
 
-
+    
     public Integer action(BoxesOca box,OcaPiece ocaPiece) {
         Action action = new Action();
         Integer pos =0;
@@ -88,7 +89,8 @@ public class OcaBoard extends BaseEntity {
         }else if(specialBox.equals(SpecialBoxesOca.DICES)){
             pos = action.dices(box.getId());
         }else if(specialBox.equals(SpecialBoxesOca.GOAL)){
-            pos = box.getId();
+            pos = action.goal(box.getId());
+            
         }else if(specialBox.equals(SpecialBoxesOca.HOSTAL)){
             pos = action.hostal(box.getId(),ocaPiece);
         }else if(specialBox.equals(SpecialBoxesOca.LABYRINTH)){
@@ -106,9 +108,13 @@ public class OcaBoard extends BaseEntity {
 
     }
 
+    public Integer reboteTirada(Integer position){  
+        if( position > 63){
+            position = 2* 63 - position ;
+        }
+        return position;
+    }
     
-    
-
 }
 
 
