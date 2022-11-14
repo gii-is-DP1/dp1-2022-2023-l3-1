@@ -33,8 +33,8 @@ public class GameController {
 
     private final String GAMES_LISTING_VIEW = "/games/GamesListing";
     private final String GAME_WAIT_ROOM = "lobbys/waitRoom";
-    private final String GAME_INSTRUCTIONS_VIEW = "games/GameInstruction";
-    private final String GAME_INSTRUCTIONS_VIEW1 = "games/GameInstructionOca";
+    private final String PARCHIS_INSTRUCTIONS_VIEW = "games/ParchisInstructions";
+    private final String OCA_INSTRUCTIONS_VIEW = "games/OcaInstructions";
     private final String LOBBY = "/lobbys/createLobby";
     private final String PUBLIC_GAMES = "games/GamePublic";
     private final String GAMES_PLAYED = "games/GamesPlayed";
@@ -55,7 +55,6 @@ public class GameController {
         result.addObject("games", gameService.getGames());
         //result.addObject("jugadores", service.getJugadores());
         return result;
-
     }
 
     @GetMapping("/create")
@@ -131,7 +130,6 @@ public class GameController {
         }
     }
 
-
     @GetMapping("/lobby/{code}/waitRoom")
     public ModelAndView waitRoom(@PathVariable("code") String code){
         Game currentGame = gameService.findGameByCode(code);
@@ -161,15 +159,15 @@ public class GameController {
         }
     }
 
-    @GetMapping("/instructions")
+    @GetMapping("/instructions/parchisInstructions")
     public ModelAndView instructions(){
-        ModelAndView result = new ModelAndView(GAME_INSTRUCTIONS_VIEW);
+        ModelAndView result = new ModelAndView(PARCHIS_INSTRUCTIONS_VIEW);
         return result;
     }
 
-    @GetMapping("/instructions/oca")
+    @GetMapping("/instructions/ocaInstructions")
     public ModelAndView instructionsOca(){
-        ModelAndView result = new ModelAndView(GAME_INSTRUCTIONS_VIEW1);
+        ModelAndView result = new ModelAndView(OCA_INSTRUCTIONS_VIEW);
         return result;
     }
 

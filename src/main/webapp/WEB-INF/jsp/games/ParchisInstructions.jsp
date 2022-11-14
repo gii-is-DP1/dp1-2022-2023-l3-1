@@ -7,11 +7,11 @@
 <%@ taglib prefix="parchisoca" tagdir="/WEB-INF/tags" %>
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 
-
-<parchisoca:layout pageName="gamesInstruction">
+<parchisoca:layout pageName="parchisInstructions">
     <jsp:body>
         <h1> Instrucciones Parchís </h1>
         <h2>Cómo Jugar:</h2>
+        <ul>
         <p>Tradicionalmente en el parchís participan 4 jugadores, cada uno de ellos utilizando un color diferente: amarillo, azul, rojo y verde. Se emplean 4 fichas de cada color, y cada jugador utiliza un dado.</p>
         <p>El tablero de parchís tiene varias zonas diferenciadas:</p>
         <ul>
@@ -89,13 +89,9 @@
             </ul>
         </section>
 
-        <p> &nbsp </p>
         <div class="col text-center">
-            <a class="btn btn-default" href='<spring:url value="/games/instructions/oca" htmlEscape="true"/>'>Siguiente</a>
-        </div>
-        <p> &nbsp </p>
-        <div class="col text-center">
-            <a class="btn btn-default" href='<spring:url value="/" htmlEscape="true"/>'>Volver</a>
+            <a class="btn btn-default" href='<spring:url value="/games/instructions/ocaInstructions" htmlEscape="true"/>'>Oca</a>
+            <a class="btn btn-default" href='<spring:url value="/" htmlEscape="true"/>'>Exit</a>
         </div>
 
     </jsp:body>

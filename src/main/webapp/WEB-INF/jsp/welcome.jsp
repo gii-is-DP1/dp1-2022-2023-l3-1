@@ -9,8 +9,8 @@
     <div class="row">
         <div class="col text-center">
             <a href="/games/create">
-                <spring:url value="/resources/images/fondo-oca-web.png" htmlEscape="true" var="petsImage"/>
-                <img class="img-responsive" src="${petsImage}"/>
+                <spring:url value="/resources/images/fondo-oca-web.png" htmlEscape="true" var="logoImage"/>
+                <img class="img-responsive" src="${logoImage}"/>
             </a>
         </div>
     </div>
