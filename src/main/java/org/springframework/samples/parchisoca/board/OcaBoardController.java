@@ -95,8 +95,15 @@ public class OcaBoardController {
         OcaBoard currentOcaBoard = ocaBoardService.findById(ocaBoardId);
         OcaDice dice = currentOcaBoard.getOcaDice();
         dice.rollDice();
+        int ocaPieceId = 0;
+        for(OcaPiece op:currentOcaBoard.getPieces()){
+            ocaPieceId = op.getId();
+        }
+        ocaBoardService.actualPosition( ocaBoardId, ocaPieceId);
+        OcaPiece ocaPiece=ocaPieceService.findOcaPieceById(ocaPieceId);
         Integer number = dice.getNumber();
         mav.addObject("ocaBoard", currentOcaBoard);
+        mav.addObject("ocaPiece", ocaPiece);
         mav.addObject("number", number);
         return mav;
                
@@ -122,7 +129,7 @@ public class OcaBoardController {
 
     public List<BoxesOca>  initBoxes() {
         List<BoxesOca> normalBoxesOca = new ArrayList<BoxesOca>(63);
-        for (int i=0; i<63; i++){
+        for (int i=1; i<=63; i++){
             BoxesOca res = new BoxesOca();
             if(i==5 || i==9 || i==14 || i==18 || i== 23 || i==27 
             || i== 32 || i==36 || i==41 || i==45 || i==50 || i==54 || i== 59){
