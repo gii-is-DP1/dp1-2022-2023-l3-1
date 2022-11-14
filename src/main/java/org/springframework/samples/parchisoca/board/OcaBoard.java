@@ -13,12 +13,12 @@ import javax.persistence.Table;
 import javax.swing.text.Position;
 import javax.validation.constraints.Positive;
 
-import org.springframework.samples.parchisoca.Oca.Action;
-import org.springframework.samples.parchisoca.Oca.BoxesOca;
-import org.springframework.samples.parchisoca.Oca.SpecialBoxesOca;
 import org.springframework.samples.parchisoca.dice.OcaDice;
 import org.springframework.samples.parchisoca.game.Game;
 import org.springframework.samples.parchisoca.model.BaseEntity;
+import org.springframework.samples.parchisoca.oca.Action;
+import org.springframework.samples.parchisoca.oca.BoxesOca;
+import org.springframework.samples.parchisoca.oca.SpecialBoxesOca;
 import org.springframework.samples.parchisoca.piece.Colour;
 import org.springframework.samples.parchisoca.piece.OcaPiece;
 
@@ -77,28 +77,28 @@ public class OcaBoard extends BaseEntity {
     }
 
 
-    public Integer action(BoxesOca box) {
+    public Integer action(BoxesOca box,OcaPiece ocaPiece) {
+        Action action = new Action();
         Integer pos =0;
         SpecialBoxesOca specialBox = box.getSpecialBoxOca();
         if(specialBox.equals(SpecialBoxesOca.BRIDGE)){
-            pos = Action.bridge(box.getId());
+            pos = action.bridge(box.getId());
         }else if(specialBox.equals(SpecialBoxesOca.DEATH)){
-            pos = Action.death(box.getId());
+            pos = action.death(box.getId());
         }else if(specialBox.equals(SpecialBoxesOca.DICES)){
-            pos = Action.dices(box.getId());
+            pos = action.dices(box.getId());
         }else if(specialBox.equals(SpecialBoxesOca.GOAL)){
             pos = box.getId();
         }else if(specialBox.equals(SpecialBoxesOca.HOSTAL)){
-            pos = Action.hostal(box.getId());
+            pos = action.hostal(box.getId(),ocaPiece);
         }else if(specialBox.equals(SpecialBoxesOca.LABYRINTH)){
-            pos = Action.labyrinth(box.getId());
+            pos = action.labyrinth(box.getId());
         }else if(specialBox.equals(SpecialBoxesOca.OCA)){
-            pos = Action.oca(box.getId());
+            pos = action.oca(box.getId());
         }else if(specialBox.equals(SpecialBoxesOca.PRISON)){
-        
-
+            pos = action.prison(box.getId(),ocaPiece);
         }else if (specialBox.equals(SpecialBoxesOca.WELL)){
-            pos = box.getId();
+            pos = action.well(box.getId(),ocaPiece);
         }else{
             pos = box.getId();
         }

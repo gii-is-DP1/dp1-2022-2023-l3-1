@@ -9,9 +9,9 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Range;
-import org.springframework.samples.parchisoca.Oca.SpecialBoxesOca;
 import org.springframework.samples.parchisoca.board.OcaBoard;
 import org.springframework.samples.parchisoca.model.BaseEntity;
+import org.springframework.samples.parchisoca.oca.SpecialBoxesOca;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -41,6 +41,8 @@ public class OcaPiece extends BaseEntity {
     OcaBoard ocaBoard;
 
     Integer position=1;
+
+    Integer penalizationTurn = 0;
 
     public Integer getPositionXInPixels(Integer size) {
     	return (xPosition)*size;
