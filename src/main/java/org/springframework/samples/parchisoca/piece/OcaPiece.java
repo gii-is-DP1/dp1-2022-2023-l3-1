@@ -38,10 +38,9 @@ public class OcaPiece extends BaseEntity {
     int yPosition;
 
     @ManyToOne
-    
     OcaBoard ocaBoard;
 
-
+    Integer position=1;
 
     public Integer getPositionXInPixels(Integer size) {
     	return (xPosition)*size;
