@@ -16,6 +16,7 @@ import org.springframework.samples.parchisoca.player.PlayerService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +37,7 @@ public class GameController {
     private final String PUBLIC_GAMES = "games/GamePublic";
     private final String GAMES_PLAYED = "games/GamesPlayed";
     private final String GAMES_IN_PROGRESS = "games/GamesInProgress";
+    private final String GAMES_FINISHED = "games/GameFinished";
 
     @Autowired
     private GameService gameService;
@@ -140,6 +142,15 @@ public class GameController {
         result.addObject("games", currentGame);
         result.addObject("creator", currentCreator);
         return result;
+    }
+
+    // Shows the player winner of the game
+    @GetMapping("/lobby/{code}/winner")
+    public ModelAndView gameWinner(@PathVariable("code") String code) {
+        Game currentGame = gameService.findGameByCode(code);
+        ModelAndView mav = new ModelAndView(GAMES_FINISHED);
+        mav.addObject("game", currentGame);
+        return mav;
     }
 
     // Creates the parchis board or the oca board depending on the game type
