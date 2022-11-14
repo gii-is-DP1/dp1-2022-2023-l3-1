@@ -41,9 +41,10 @@ public class Player extends Person {
 
     @OneToMany(mappedBy = "player", cascade = CascadeType.ALL)
     private List<OcaPiece> ocaPiece;
-
+    
     @ManyToMany
     private List<Player> friends;
+
 
 
 }
