@@ -38,8 +38,8 @@
             </tbody>
         </table>
         <div class="col text-center">
-            <a href="/games/lobby/${games.code}/board" class="btn btn-warning btn-lg active">Start</a>
-            <a class="btn btn-warning btn-lg active" href="/games/lobby/${games.code}/delete">Exit</a>
+            <a class="btn btn-default" href='<spring:url value="/games/lobby/${games.code}/board" htmlEscape="true"/>'>Start</a>
+            <a class="btn btn-default" href='<spring:url value="/games/lobby/${games.code}/exitWaitRoom" htmlEscape="true"/>'>Exit</a>
         </div>
 
     </div>       
