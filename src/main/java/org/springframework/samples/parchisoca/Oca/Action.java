@@ -1,5 +1,7 @@
 package org.springframework.samples.parchisoca.Oca;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.parchisoca.board.OcaBoard;
 import org.springframework.samples.parchisoca.dice.OcaDice;
@@ -10,22 +12,17 @@ import org.springframework.stereotype.Component;
 public class Action {
 
     
-
     @Autowired
     OcaPieceService ocaPieceService;
 
-    public static Integer bridge(Integer postion,OcaBoard ocaBoard){
-        OcaDice dice = ocaBoard.getOcaDice();
-        Integer nDice = 0;
+    static List<Integer> ocasList = List.of(5,9,14,18,23,27,32,36,41,45,50,54,59);
+
+    public static Integer bridge(Integer postion){
         Integer pos;
         if (postion.equals(6)){
-            nDice = 12;
-            dice.rollDice();
-            pos = dice.getNumber() + nDice;
+            pos = 12;
         } else{
-            nDice = 6;
-            dice.rollDice();
-            pos = dice.getNumber() + nDice;
+            pos = 6;
         }
         return pos;
     }
@@ -34,24 +31,38 @@ public class Action {
         return 1;
     }
 
-    public static Integer dices(Integer position,OcaBoard ocaBoard) {
+    public static Integer dices(Integer position) {
         Integer pos =0;
-        OcaDice dice = ocaBoard.getOcaDice();
 
-        int nDice;
         if(position.equals(26)){
-            nDice = 53;
-            dice.rollDice();
-            pos =dice.getNumber() +nDice;
+            pos = 53;
+           
         }else{
-            nDice = 23;
-            dice.rollDice();
-            pos =dice.getNumber() +nDice;
-            
+            pos = 23;
+ 
         }
         return pos;
     }
 
+    public static Integer hostal(Integer position) {
+        return position;
+    }
+
+    public static Integer labyrinth(Integer position) {
+        return 30;
+    }
+
+    public static Integer oca(Integer position) {
+        Integer pos;
+
+        if(position == 59){
+            pos = position;
+        }
+        pos =ocasList.get(ocasList.indexOf(position) +1);
+        return pos;
+    }
+
+    
     
     
 }
