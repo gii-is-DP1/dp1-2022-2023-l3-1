@@ -26,6 +26,7 @@
 
     </form:form>
 
+    <p> &nbsp </p>
     <div class="col text-center">
         <a class="btn btn-default" href='<spring:url value="/" htmlEscape="true"/>'>Exit</a>
     </div>

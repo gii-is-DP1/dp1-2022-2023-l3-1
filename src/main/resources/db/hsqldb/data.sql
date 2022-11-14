@@ -1,36 +1,31 @@
 -- One admin user, named admin1 with passwor 4dm1n and authority admin
 INSERT INTO users(username,password,enabled) VALUES ('admin1','4dm1n',TRUE);    
 INSERT INTO authorities(id,username,authority) VALUES (1,'admin1','admin');
--- One owner user, named owner1 with passwor 0wn3r
-INSERT INTO users(username,password,enabled) VALUES ('owner1','0wn3r',TRUE);
-INSERT INTO authorities(id,username,authority) VALUES (2,'owner1','owner');
--- One vet user, named vet1 with passwor v3t
-INSERT INTO users(username,password,enabled) VALUES ('vet1','v3t',TRUE);
-INSERT INTO authorities(id,username,authority) VALUES (3,'vet1','veterinarian');
 
-INSERT INTO game_types(id, name) VALUES
-(1, 'PARCHIS'),
-(2, 'OCA');
+INSERT INTO game_types(id,name) VALUES (1, 'PARCHIS');
+INSERT INTO game_types(id,name) VALUES (2, 'OCA');
 
+INSERT INTO achievements(id,name,description,threshold,badge_image) VALUES (1,'Viciado','Si juegas <THRESHOLD> partidas o más, consideramos que ya estás enganchado.',10.0,'https://bit.ly/certifiedGamer');
+INSERT INTO achievements(id,name,description,threshold,badge_image) VALUES (2,'Triunfador','Si ganas <THRESHOLD> o  más partidas es que eres todo un triunfador.',20.0,'https://bit.ly/proGamer');
 
-
-INSERT INTO achievements(id,name,description,threshold,badge_image) 
-    VALUES (1,'Viciado','Si juegas <THRESHOLD> partidas o más, consideramos que ya estás enganchado.',10.0,'https://bit.ly/certifiedGamer');
-INSERT INTO achievements(id,name,description,threshold,badge_image)
-    VALUES(2,'Triunfador','Si ganas <THRESHOLD> o  más partidas es que eres todo un triunfador.',20.0,'https://bit.ly/proGamer');
-
-INSERT INTO users(username,password,enabled) VALUES ('usuario2','1234',TRUE);
+INSERT INTO users(username,password,enabled) VALUES ('pajaro','1234',TRUE);
+INSERT INTO players(id,email,first_name,last_name,username) VALUES (2,'javi@gmail.com','Javier','Ruiz','pajaro');
+INSERT INTO authorities(id,username,authority) VALUES (5,'pajaro','player');
 
 INSERT INTO users(username,password,enabled) VALUES ('alvaro1','1234',TRUE); 
 INSERT INTO players(id,email,first_name,last_name,username) VALUES (1,'alvaro@gmail.com','Alvaro','Carrera','alvaro1');
 INSERT INTO authorities(id,username,authority) VALUES (4,'alvaro1','player');
 
-INSERT INTO players(id,email,first_name,last_name,username) VALUES (2,'javi@gmail.com','Javier','Ruiz','usuario2');
+INSERT INTO users(username,password,enabled) VALUES ('TheKroth','1234',TRUE); 
+INSERT INTO players(id,email,first_name,last_name,username) VALUES (3,'thekroth@gmail.com','John','Rodriguez','TheKroth');
+INSERT INTO authorities(id,username,authority) VALUES (6,'TheKroth','player');
 
-insert into players_achievements(player_id,achievements_id) values (1,1);
-insert into players_achievements(player_id,achievements_id) values (1,2);
+INSERT INTO players_achievements(player_id,achievements_id) VALUES (1,1);
+INSERT INTO players_achievements(player_id,achievements_id) VALUES (1,2);
+INSERT INTO players_achievements(player_id,achievements_id) VALUES (2,2);
 
-
+INSERT INTO players_friends(player_id,friends_id) VALUES (1,2);
+INSERT INTO players_friends(player_id,friends_id) VALUES (3,2);
 
 INSERT INTO games(id,creator_id,winner_id,name,jugadores,code,privacity,game_type_id, in_progress) VALUES (1,1,1,'prueba',4,'ASDFG','PUBLIC',1,FALSE);
 INSERT INTO games(id,creator_id,winner_id,name,jugadores,code,privacity,game_type_id, in_progress) VALUES (2,2,2,'prueba',4,'FMNJF','PRIVATE',1,FALSE);
@@ -38,10 +33,10 @@ INSERT INTO games(id,creator_id,name,code,privacity,game_type_id, in_progress) V
 INSERT INTO games(id,creator_id,name,code,privacity,game_type_id, in_progress) VALUES (4,2,'partida vacia oca','KFLSO','PRIVATE',2,TRUE);
 
 
-INSERT INTO games_players (game_id, players_id) values (1,1);
-INSERT INto games_players (game_id, players_id) values (1,2);
-INSERT INto games_players (game_id, players_id) values (2,2);
-INSERT INto games_players (game_id, players_id) values (3,2);
+INSERT INTO games_players (game_id, players_id) VALUES (1,1);
+INSERT INTO games_players (game_id, players_id) VALUES (1,2);
+INSERT INTO games_players (game_id, players_id) VALUES (2,2);
+INSERT INTO games_players (game_id, players_id) VALUES (3,2);
 
 
 INSERT INTO oca_boards (id, background, height, width) VALUES (1,'resources/images/tablero-oca.jpg', 800,800);

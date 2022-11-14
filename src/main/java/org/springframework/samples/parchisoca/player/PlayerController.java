@@ -15,7 +15,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -29,8 +28,9 @@ public class PlayerController {
     private final String EDIT_PLAYER = "players/editPlayer";
     private final String LOGGED_USER_VIEW = "players/myProfile";
     private final String PLAYER_PROFILE = "players/playerProfile";
+    private final String FRIEND_PROFILE = "players/friendProfile";
     private final String FIND_PLAYER_VIEW = "players/findPlayer";
-
+    private final String PLAYER_FRIENDS = "players/myFriends";
     private final String MESSAGE = "message";
     private final String PLAYER_NOT_FOUND = "Player not found";
 
@@ -126,18 +126,71 @@ public class PlayerController {
      * @return
      */
     @GetMapping("/players/myProfile")
-    public ModelAndView showLoggedUser(){
+    public ModelAndView showLoggedUser() {
         ModelAndView mav = new ModelAndView(LOGGED_USER_VIEW);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         Integer id = this.playerService.getUserIdByName(username);
         Optional<Player> player = this.playerService.findPlayerById(id);
-        if(player.isPresent()){
+        if (player.isPresent()) {
             mav.addObject(player.get());
-        }else{
+        } else {
             mav.addObject(MESSAGE, PLAYER_NOT_FOUND);
         }
         return mav;
     }
+
+    @GetMapping("/players/myFriends") 
+    public ModelAndView showPlayersFriends() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        Integer playerId = this.playerService.getUserIdByName(username);
+        Player currentPlayer = playerService.getById(playerId);
+
+        List<Player> friends = currentPlayer.getFriends();
+        ModelAndView mav = new ModelAndView(PLAYER_FRIENDS);
+        mav.addObject("friends", friends);
+        return mav;
+    }
+
+    @GetMapping("players/{playerId}/viewFriend")
+    public ModelAndView viewPlayerProfile(@PathVariable("playerId") Integer playerId) {
+        Player player = playerService.getById(playerId);
+        ModelAndView mav = new ModelAndView(FRIEND_PROFILE);
+        mav.addObject("player", player);
+        return mav;
+
+    }
+
+    @GetMapping("/players/{playerId}/add")
+    public String addFriend(@PathVariable("playerId") Integer playerId) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        Integer currentPlayerId = this.playerService.getUserIdByName(username);
+        Player currentPlayer = playerService.getById(currentPlayerId);
+
+        Player playerToAdd = playerService.getById(playerId);
+        if (!currentPlayer.getFriends().contains(playerToAdd)) {
+            currentPlayer.getFriends().add(playerToAdd);
+            playerService.savePlayer(currentPlayer);
+        } 
+        return "redirect:/players/myFriends";
+    } 
+
+    @GetMapping("/players/friends/{playerId}/delete")
+    public String deleteFriend(@PathVariable("playerId") Integer playerId) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        Integer currentPlayerId = this.playerService.getUserIdByName(username);
+        Player currentPlayer = playerService.getById(currentPlayerId);
+
+        Player playerToDelete = playerService.getById(playerId);
+        if (currentPlayer.getFriends().contains(playerToDelete)) {
+            currentPlayer.getFriends().remove(playerToDelete);
+            playerService.savePlayer(currentPlayer);
+        } 
+        return "redirect:/players/myFriends";
+    }
+
 
 }
