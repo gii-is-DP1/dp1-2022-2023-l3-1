@@ -39,12 +39,12 @@ public class Player extends Person {
     @Column(name = "players_achievements")
     private Set<Achievement> achievements;
 
-<<<<<<< HEAD
     @OneToMany(mappedBy = "player", cascade = CascadeType.ALL)
     private List<OcaPiece> ocaPiece;
-=======
+    
     @ManyToMany
     private List<Player> friends;
->>>>>>> master
+
+
 
 }
