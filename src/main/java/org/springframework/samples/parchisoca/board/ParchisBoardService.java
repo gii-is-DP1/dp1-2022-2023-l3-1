@@ -20,4 +20,9 @@ public class ParchisBoardService {
     public Optional<ParchisBoard> findById(Integer id){
 		return parchisBoardRepo.findById(id);
 	}
+
+    @Transactional
+    public void save(ParchisBoard parchisBoard) {
+        parchisBoardRepo.save(parchisBoard);
+    }
 }
