@@ -3,13 +3,14 @@ package org.springframework.samples.parchisoca.piece;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Range;
+import org.springframework.samples.parchisoca.Oca.SpecialBoxesOca;
 import org.springframework.samples.parchisoca.board.OcaBoard;
-import org.springframework.samples.parchisoca.board.SpecialBoxesOca;
 import org.springframework.samples.parchisoca.model.BaseEntity;
 
 import lombok.Getter;
@@ -39,7 +40,7 @@ public class OcaPiece extends BaseEntity {
     @ManyToOne
     OcaBoard ocaBoard;
 
-
+    Integer position=1;
 
     public Integer getPositionXInPixels(Integer size) {
     	return (xPosition)*size;

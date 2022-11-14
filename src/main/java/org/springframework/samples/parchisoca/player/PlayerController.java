@@ -31,8 +31,9 @@ public class PlayerController {
     @Autowired
     private PlayerService playerService;
 
-    private final String  PLAYERS_LISTING_VIEW= "players/playersListing";
+    private final String PLAYERS_LISTING_VIEW= "players/playersListing";
     private final String CREATE_PLAYERS = "players/createPlayerForm";
+    private final String EDIT_PLAYER = "players/editPlayer";
     private final String LOGGED_USER_VIEW = "players/myProfile";
     private final String PLAYER_PROFILES = "players/playerProfiles";
     private final String FIND_PLAYER_VIEW = "players/findPlayer";
@@ -49,7 +50,7 @@ public class PlayerController {
     @GetMapping(value = "/find")
 	public String initFindForm(Map<String, Object> model) {
 		model.put("player", new Player());
-		return "players/findPlayer";
+		return FIND_PLAYER_VIEW;
 	}
 
     @GetMapping("/list")
@@ -79,15 +80,37 @@ public class PlayerController {
 	}
 
     @GetMapping("/{playerId}")
-        public ModelAndView showPlayer(@PathVariable("playerId") int playerId){
+        public ModelAndView showPlayer(@PathVariable("playerId") int playerId) {
         ModelAndView mav = new ModelAndView(PLAYER_PROFILES);
         Optional<Player> player = this.playerService.findPlayerById(playerId);
-        if(player.isPresent()){
+        if (player.isPresent()) {
             mav.addObject(player.get());
-        }else{
+        } else {
             mav.addObject(MESSAGE, PLAYER_NOT_FOUND);
         }
         return mav;
+    }
+
+    @GetMapping("/{playerId}/edit")
+    public ModelAndView editPlayer(@PathVariable("playerId") int playerId){
+        Player player = playerService.getById(playerId);
+        ModelAndView result=new ModelAndView(EDIT_PLAYER);
+        result.addObject("player", player);
+        return result;
+    }
+
+    @PostMapping("/{playerId}/edit")
+    public String savePlayer(@PathVariable("playerId") int playerId, Player player){
+        Player playerToBeUpdated = playerService.getById(playerId);
+        BeanUtils.copyProperties(player,playerToBeUpdated,"id","achievements","user");
+        playerService.savePlayer(playerToBeUpdated);
+        return "redirect:/players/{playerId}";
+    }
+
+    @GetMapping("/{playerId}/delete")
+    public String deletePlayer(@PathVariable("playerId") int playerId) {
+        playerService.deletePlayerById(playerId);
+        return "redirect:/list";
     }
 
     @GetMapping("/myProfile")
@@ -205,18 +228,19 @@ public class PlayerController {
 //     }
 
     @GetMapping()
-    public String findPlayers(@NotNull Player player, BindingResult result, ModelMap modelMap){
-        if(player.getUser().getUsername() == ""){
+    public String findPlayers(Player player, BindingResult result, ModelMap modelMap){
+        if(player.getUser().getUsername() == "") {
+
             return FIND_PLAYER_VIEW;
         }
         Collection<Player> results = playerService.findPlayersByUsername(player.getUser().getUsername());
         if(results.isEmpty()){
             result.rejectValue("username", "notFound", "not found");
             return FIND_PLAYER_VIEW;
-        }else if(results.size() == 1){
+        }else if(results.size() == 1) {
             player = results.iterator().next();
             return "redirect:/players/" + player.getId();
-        }else{
+        } else {
             modelMap.put("selections", results);
             return PLAYERS_LISTING_VIEW;
         }

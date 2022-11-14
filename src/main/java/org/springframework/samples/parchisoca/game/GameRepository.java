@@ -14,26 +14,28 @@ public interface GameRepository extends CrudRepository<Game,Integer> {
 
     List<Game> findAll();
 
+    @Query("SELECT g FROM Game g WHERE g.id =?1")
+    Game getGameById(int id);
+
     @Query("SELECT p FROM GameType p")
-
     List<GameType> getAllGameTypes();
-
-    //GameType findByName(String name);
     
     @Query("SELECT p FROM GameType p WHERE p.name=?1")
     GameType findGameType(String nombre);
 
-    // @Query("SELECT p FROM GAME_PLAYERS p ")
-    // Set<Player> getJugadores();
-
     @Query("SELECT g FROM Game g WHERE g.privacity LIKE 'PUBLIC' ")
     List<Game> getPublicGames();
+
+    @Query("SELECT g FROM Game g WHERE g.privacity LIKE 'PUBLIC' AND g.inProgress LIKE 'TRUE'")
+    List<Game> getPublicGamesNotFinished();
+
+    @Query("SELECT g FROM Game g WHERE g.inProgress LIKE 'FALSE'")
+    List<Game> getGamesFinished();
+
+    @Query("SELECT g FROM Game g WHERE g.inProgress LIKE 'TRUE'")
+    List<Game> getGamesInProgress();
     
     @Query("SELECT g FROM Game g WHERE g.code=?1")
     Game getGameByCode(String code);
-    
-    @Modifying(clearAutomatically = true)
-    @Query("UPDATE Game g SET g.players=:ls WHERE g.id=:id")
-    void joinGame(@Param("ls") List<Player> ls , @Param ("id")Integer id);
 
 }

@@ -8,10 +8,12 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
+import org.springframework.samples.parchisoca.game.Game;
 import org.springframework.samples.parchisoca.model.BaseEntity;
 import org.springframework.samples.parchisoca.piece.ParchisPiece;
 
@@ -26,13 +28,10 @@ public class ParchisBoard extends BaseEntity {
     
     String background;
 
-    // @NotNull
-    // @Enumerated(EnumType.STRING)
-    // private BoxesParchis casillasParchis; 
+    @Enumerated(EnumType.STRING)
+    private SpecialBoxesParchis casillasParchis; 
 
-    public void restriccionesCasillas() {
-        
-    }
+    // public void restriccionesCasillas() {}
 
     @Positive
     int width;
@@ -46,6 +45,10 @@ public class ParchisBoard extends BaseEntity {
         this.height=1900;
     }
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "parchisBoard",fetch = FetchType.EAGER)
+  
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "parchisBoard")
     List<ParchisPiece> pieces; 
+
+    @OneToOne
+    private Game game;
 }

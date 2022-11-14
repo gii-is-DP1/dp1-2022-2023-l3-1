@@ -1,9 +1,11 @@
 package org.springframework.samples.parchisoca.player;
 
-
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.samples.parchisoca.user.User;
+import org.springframework.samples.parchisoca.user.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,10 +27,14 @@ public class PlayerServiceTest {
     @Autowired(required = false)
     PlayerService ps;
 
+    @Autowired(required = false)
+    UserService us;
+
     @Test
     void shouldFindPlayersById(){
+        
         Optional<Player> players = this.ps.findPlayerById(1);
-        assertThat(players.isPresent());
+        assertTrue(players.isPresent());
     }
 
     @Test
@@ -46,28 +53,39 @@ public class PlayerServiceTest {
     }
 
     @Test
-	@Transactional
 	void shouldCreateNewPlayer() {
 
         User u1 = new User();
-        u1.setUsername("usuario6");
+        u1.setUsername("usuarioTest");
         u1.setEnabled(true);
         u1.setPassword("1234");
-
+        u1.setAuthorities(null);   
         
-        
-		Player p2 = new Player();
-        p2.setId(9);
-        p2.setFirstName("Juan");
-        p2.setLastName("Martinez");
-        p2.setEmail("prueba@gmail.com");
-        p2.setUser(u1);
+		Player p3 = new Player();
+        p3.setFirstName("Juan");
+        p3.setLastName("Martinez");
+        p3.setEmail("prueba@gmail.com");
+        p3.setUser(u1);
 
-		ps.savePlayer(p2);
+        ps.savePlayer(p3);
+        Optional<Player> pNew = ps.findPlayerById(p3.getId());
+        List<Player> ls = new ArrayList<>();
+        ls.add(pNew.get());
+        assertThat(ls.size()==1);
 
-		Optional<Player> player = this.ps.findPlayerById(9);
-		assertThat(player.isPresent());
-	}
+    }
+
+    @Test
+    void shouldDeletePlayer(){
+        Optional<Player> p = this.ps.findPlayerById(1);
+        if(p.isPresent()){
+            ps.deletePlayerById(p.get().getId());
+            assertThat(ps.findPlayerById(1)).isEmpty();
+        }else{
+            System.out.println("Player not found");
+        }
+
+    }
 
     
 }

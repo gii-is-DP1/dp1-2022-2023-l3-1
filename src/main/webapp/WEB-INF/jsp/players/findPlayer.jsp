@@ -3,13 +3,13 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="parchisoca" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <!--  >%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%-->
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 
-<petclinic:layout pageName="players">
+<parchisoca:layout pageName="players">
 
     <h2>Find Players</h2>
 
@@ -33,6 +33,8 @@
 
     </form:form>
 
-    <br/> 
+    <div class="col text-center">
+        <a class="btn btn-default" href='<spring:url value="/" htmlEscape="true"/>'>Exit</a>
+    </div>
 	
-</petclinic:layout>
+</parchisoca:layout>

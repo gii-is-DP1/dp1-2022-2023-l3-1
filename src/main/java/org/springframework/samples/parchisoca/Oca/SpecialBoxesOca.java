@@ -1,4 +1,4 @@
-package org.springframework.samples.parchisoca.board;
+package org.springframework.samples.parchisoca.Oca;
 
 public enum SpecialBoxesOca {
     OCA,
@@ -6,7 +6,7 @@ public enum SpecialBoxesOca {
     DICES,
     HOSTAL,
     PRISON,
-    WELL, //pozo
+    WELL, 
     LABYRINTH,
     DEATH,
     GOAL,

@@ -2,17 +2,15 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="parchisoca" tagdir="/WEB-INF/tags" %>
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 
-<petclinic:layout pageName="games">
+<parchisoca:layout pageName="games">
     <h2>Public Games</h2>
-    
-
         <p>
             Buscar partida privada:
             </br>
-            <input placeholder ="Inserte un código" type="text" name="code" id="code"  />
+            <input placeholder ="Inserte un código" type="text" name="code" id="code"/>
             <input type="button" value="Search" onclick="privateGame()" />
         </p>
         </br>
@@ -21,6 +19,7 @@
         <thead>
         <tr>
             <th>Game</th>
+            <th>Name</th>
             <th>Creator</th>
             <th>Players</th>
             <th>Join</th>
@@ -31,6 +30,9 @@
             <tr>
                 <td>
                     <c:out value="${game.gameType.name}"/>
+                </td>
+                <td>
+                    <c:out value="${game.name}"/>
                 </td>
                 <td>                    
                       <c:out value="${game.creator.user.username}"/>                                        
@@ -49,18 +51,14 @@
 
     <p> &nbsp </p>
         <div class="col text-center">
-            <a class="btn btn-default" href='<spring:url value="/" htmlEscape="true"/>'>Volver</a>
+            <a class="btn btn-default" href='<spring:url value="/" htmlEscape="true"/>'>Exit</a>
         </div>
 
 
 
     <script>
-        const f = document.getElementById('form');
-        const q = document.getElementById('query');
         function privateGame(){
             window.location="/games/lobby/"+document.getElementById("code").value;
         }
-    
-
     </script>
-</petclinic:layout>
+</parchisoca:layout>

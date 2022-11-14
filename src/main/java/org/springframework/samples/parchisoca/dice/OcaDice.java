@@ -12,12 +12,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class OcaDice extends BaseEntity{
-    private Integer dice;
     private final Integer MAX = 6;
+    
+    private Integer number;
 
     public void rollDice() {
-
-        this.dice = (int) (Math.random() * MAX ) + 1;
+        this.number = (int) (Math.random() * MAX ) + 1;
     }
 
 }

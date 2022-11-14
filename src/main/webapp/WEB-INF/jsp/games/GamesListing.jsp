@@ -2,19 +2,19 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="parchisoca" tagdir="/WEB-INF/tags" %>
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 
-<petclinic:layout pageName="games">
+<parchisoca:layout pageName="games">
     <h2>Games</h2>
 
     <table id="gamesTable" class="table table-striped">
         <thead>
         <tr>
-            <th>Creador</th>
-            <th>Ganador</th>
-            <th>Juego</th>
-            <th>Jugadores</th>
+            <th>Creator</th>
+            <th>Winner</th>
+            <th>Game</th>
+            <th>Players</th>
         </tr>
         </thead>
         <tbody>
@@ -24,7 +24,7 @@
                     <c:out value="${game.creator.user.username}"/>
                 </td>
                 <td>                    
-                      <c:out value="${game.winner} "/>                                        
+                      <c:out value="${game.winner.user.username} "/>                                        
                 </td>
                 
                 <td>       
@@ -40,9 +40,6 @@
                     </c:forEach>
                     
                 </td>
-                
-
-
             </tr>
         </c:forEach>
         </tbody>
@@ -50,7 +47,7 @@
 
     <p> &nbsp </p>
         <div class="col text-center">
-            <a class="btn btn-default" href='<spring:url value="/" htmlEscape="true"/>'>Volver</a>
+            <a class="btn btn-default" href='<spring:url value="/" htmlEscape="true"/>'>Go Back</a>
         </div>
 
-</petclinic:layout>
+</parchisoca:layout>

@@ -58,12 +58,14 @@ public class PlayerService {
     }
 
     @Transactional
+    public void deletePlayerById(int id) {
+        playerRepository.deleteById(id);
+    }
+
+    @Transactional
     public void savePlayer(Player player) {
-        // creating player
         playerRepository.save(player);
-        // creating user
         userService.saveUser(player.getUser());
-        // creating authorities
         authoritiesService.saveAuthorities(player.getUser().getUsername(), "player");
     }
 
@@ -84,6 +86,4 @@ public class PlayerService {
 
     public void save(Player player) { playerRepository.save(player); }
 
-    public void deletePlayerById(int id) {  playerRepository.deleteById(id);
-    }
 }

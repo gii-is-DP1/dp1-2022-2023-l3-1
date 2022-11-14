@@ -16,7 +16,7 @@
     </jsp:attribute>
     <jsp:body>
         <h2>
-            <c:if test="${achievement['new']}">New </c:if> Pet
+            <c:if test="${achievement['new']}">New </c:if> Achievement
         </h2>
         <form:form modelAttribute="achievement"
                    class="form-horizontal">
@@ -42,3 +42,4 @@
         </form:form>        
     </jsp:body>
 </parchisoca:layout>
+

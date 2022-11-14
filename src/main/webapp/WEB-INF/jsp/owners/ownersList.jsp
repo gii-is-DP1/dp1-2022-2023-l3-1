@@ -3,10 +3,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="parchisoca" tagdir="/WEB-INF/tags" %>
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 
-<petclinic:layout pageName="owners">
+<parchisoca:layout pageName="owners">
     <h2>Owners</h2>
 
     <table id="ownersTable" class="table table-striped">
@@ -57,4 +57,4 @@
         </c:forEach>
         </tbody>
     </table>
-</petclinic:layout>
+</parchisoca:layout>
