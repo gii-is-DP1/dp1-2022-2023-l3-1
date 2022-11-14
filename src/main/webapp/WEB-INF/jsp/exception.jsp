@@ -5,11 +5,13 @@
 
 <parchisoca:layout pageName="error">
 
-    <spring:url value="/resources/images/pets.png" var="petsImage"/>
-    <img src="${petsImage}"/>
-
-    <h2>Something happened...</h2>
-
+    <spring:url value="/resources/images/error.gif" var="errorImage"/>
+    <div class="col text-center"> 
+        <h2> Something was wrong... </h2>
+        <img src="${errorImage}" width="204"/>
+        <p> &nbsp </p>
+        <a class="btn btn-default" href='/'>Exit</a>
+    </div>
     <p>${exception.message}</p>
 
 </parchisoca:layout>
