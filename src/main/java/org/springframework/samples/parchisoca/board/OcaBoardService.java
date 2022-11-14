@@ -44,7 +44,7 @@ public class OcaBoardService {
         OcaBoard ocaBoard = ocaBoardRepository.findById(ocaBoardId).get();
         Integer diceNumber = ocaBoard.getOcaDice().getNumber();
         OcaPiece ocaPiece = ocaPieceService.findOcaPieceById(pieceId);
-        Integer position = ocaPiece.getPosition()+ 5;
+        Integer position = ocaPiece.getPosition()+ diceNumber;
         Integer newPosition = nextPosition(ocaBoard, ocaPiece, position);
         ocaPiece.setPosition(newPosition);
         ocaPieceService.save(ocaPiece);
@@ -55,7 +55,7 @@ public class OcaBoardService {
         
         List<BoxesOca> ls = ocaBoard.getBoxes();
         BoxesOca box = ls.get(position-1);
-        Integer  newPosition = ocaBoard.action(box,ocaBoard);
+        Integer  newPosition = ocaBoard.action(box);
         return newPosition;
     }
     

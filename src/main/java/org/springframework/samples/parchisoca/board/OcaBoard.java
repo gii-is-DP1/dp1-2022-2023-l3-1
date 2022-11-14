@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.swing.text.Position;
 import javax.validation.constraints.Positive;
 
 import org.springframework.samples.parchisoca.Oca.Action;
@@ -76,27 +77,30 @@ public class OcaBoard extends BaseEntity {
     }
 
 
-    public Integer action(BoxesOca box,OcaBoard ocaBoard) {
+    public Integer action(BoxesOca box) {
         Integer pos =0;
         SpecialBoxesOca specialBox = box.getSpecialBoxOca();
         if(specialBox.equals(SpecialBoxesOca.BRIDGE)){
-            pos = Action.bridge(box.getId(),ocaBoard);
+            pos = Action.bridge(box.getId());
         }else if(specialBox.equals(SpecialBoxesOca.DEATH)){
             pos = Action.death(box.getId());
         }else if(specialBox.equals(SpecialBoxesOca.DICES)){
-            pos = Action.dices(box.getId(),ocaBoard);
+            pos = Action.dices(box.getId());
         }else if(specialBox.equals(SpecialBoxesOca.GOAL)){
-
+            pos = box.getId();
         }else if(specialBox.equals(SpecialBoxesOca.HOSTAL)){
-
+            pos = Action.hostal(box.getId());
         }else if(specialBox.equals(SpecialBoxesOca.LABYRINTH)){
-
+            pos = Action.labyrinth(box.getId());
         }else if(specialBox.equals(SpecialBoxesOca.OCA)){
-
+            pos = Action.oca(box.getId());
         }else if(specialBox.equals(SpecialBoxesOca.PRISON)){
+        
 
+        }else if (specialBox.equals(SpecialBoxesOca.WELL)){
+            pos = box.getId();
         }else{
-
+            pos = box.getId();
         }
         return pos;
 
