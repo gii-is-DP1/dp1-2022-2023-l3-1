@@ -6,9 +6,9 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 
 
-<petclinic:layout pageName="players">
+<parchisoca:layout pageName="players">
     <h1>Mi perfil</h1>
-    <a href="/players/myProfile/edit">
+    <a href="/players/${player.id}/edit">
         Editar mi perfil
     </a>
 
@@ -44,5 +44,4 @@
             <th>Username</th>
         </tr>
     </table>
-
 </parchisoca:layout>

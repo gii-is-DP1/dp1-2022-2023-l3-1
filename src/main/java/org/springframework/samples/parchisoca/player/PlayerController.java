@@ -92,25 +92,57 @@ public class PlayerController {
     }
 
     @GetMapping("/{playerId}/edit")
-    public ModelAndView editPlayer(@PathVariable("playerId") int playerId){
+    public ModelAndView editPlayer(@PathVariable("playerId") int playerId) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        ModelAndView result = null;
         Player player = playerService.getById(playerId);
-        ModelAndView result=new ModelAndView(EDIT_PLAYER);
-        result.addObject("player", player);
-        return result;
+        if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("admin"))){
+            result = new ModelAndView(EDIT_PLAYER);
+            result.addObject("player", player);
+            return result;
+        }
+        String username = auth.getName();
+        Integer id = this.playerService.getUserIdByName(username);
+        Player loggedPlayer = this.playerService.findPlayerById(id).get();
+        if ((loggedPlayer == player) || auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("admin"))) {
+            result = new ModelAndView(EDIT_PLAYER);
+            result.addObject("player", player);
+            return result;
+        } else {
+            result.addObject(MESSAGE, PLAYER_NOT_FOUND);
+            return result;
+        }
+
     }
 
     @PostMapping("/{playerId}/edit")
     public String savePlayer(@PathVariable("playerId") int playerId, Player player){
-        Player playerToBeUpdated = playerService.getById(playerId);
-        BeanUtils.copyProperties(player,playerToBeUpdated,"id","achievements","user");
-        playerService.savePlayer(playerToBeUpdated);
-        return "redirect:/players/{playerId}";
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (!auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("admin"))){
+            String username = auth.getName();
+            Integer id = this.playerService.getUserIdByName(username);
+            Player loggedPlayer = this.playerService.findPlayerById(id).get();
+            Player playerToBeUpdated = playerService.getById(playerId);
+            BeanUtils.copyProperties(player,playerToBeUpdated,"id","achievements", "user");
+            playerService.savePlayer(playerToBeUpdated);
+            if (loggedPlayer == playerToBeUpdated){
+                return "redirect:/players/myProfile";
+            }else{
+                return "redirect:/players/{playerId}";
+            }
+        }else {
+            Player playerToBeUpdated = playerService.getById(playerId);
+            BeanUtils.copyProperties(player,playerToBeUpdated,"id","achievements", "user");
+            playerService.savePlayer(playerToBeUpdated);
+            return "redirect:/players/{playerId}";
+        }
+
     }
 
     @GetMapping("/{playerId}/delete")
     public String deletePlayer(@PathVariable("playerId") int playerId) {
         playerService.deletePlayerById(playerId);
-        return "redirect:/list";
+        return "redirect:/players/list";
     }
 
     @GetMapping("/myProfile")
@@ -128,39 +160,61 @@ public class PlayerController {
         return mav;
     }
 
-   @Transactional(readOnly = true)
-   @GetMapping("/myProfile/edit")
-   public ModelAndView editMyProfile(){
-       Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-       String username = auth.getName();
-       Integer id = this.playerService.getUserIdByName(username);
-       Optional<Player> playerOptional = this.playerService.findPlayerById(id);
-       Player player = playerOptional.get();
-       ModelAndView result=new ModelAndView(EDIT_MY_PROFILE);
-       result.addObject("player", player);
-       return result;
-   }
+//    @GetMapping("/myProfile/edit")
+//    public ModelAndView initEditMyProfile(){
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        String username = auth.getName();
+//        Integer id = this.playerService.getUserIdByName(username);
+//        Optional<Player> player = this.playerService.findPlayerById(id);
+//        ModelAndView result = new ModelAndView(EDIT_MY_PROFILE);
+//        result.addObject("player", player);
+//        return result;
+//    }
+//
+//    @PostMapping("/myProfile/edit")
+//    public String processEditMyProfile(Player player){
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        String username = auth.getName();
+//        Integer id = this.playerService.getUserIdByName(username);
+//        Optional<Player> playerToBeUpdated = this.playerService.findPlayerById(id);
+//        BeanUtils.copyProperties(player, playerToBeUpdated, "id", "achievments","user");
+//        playerService.savePlayer(playerToBeUpdated.get());
+//        return "redirect:/players/myProfile";
+//    }
 
-   @Transactional()
-   @PostMapping("/myProfile/edit")
-   public ModelAndView saveMyProfile(Player player, BindingResult br){
-       ModelAndView result = null;
-       if (br.hasErrors()){
-           result = new ModelAndView(LOGGED_USER_VIEW);
-           result.addAllObjects(br.getModel());
-       }else {
-           Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-           String username = auth.getName();
-           Integer id = this.playerService.getUserIdByName(username);
-           Optional<Player> playerOptional = this.playerService.findPlayerById(id);
-           Player playerToUpdate = playerOptional.get();
-           BeanUtils.copyProperties(player, playerToUpdate, "id","email","achievments", "user.id", "user.password", "user.enabled", "user.authorities");
-           playerToUpdate.setId(player.getId());
-           playerService.save(playerToUpdate);
-           result = showLoggedUser();
-       }
-       return result;
-   }
+//   @Transactional(readOnly = true)
+//   @GetMapping("/myProfile/edit")
+//   public ModelAndView editMyProfile(){
+//       Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//       String username = auth.getName();
+//       Integer id = this.playerService.getUserIdByName(username);
+//       Optional<Player> playerOptional = this.playerService.findPlayerById(id);
+//       Player player = playerOptional.get();
+//       ModelAndView result=new ModelAndView(EDIT_MY_PROFILE);
+//       result.addObject("player", player);
+//       return result;
+//   }
+//
+//   @Transactional()
+//   @PostMapping("/myProfile/edit")
+//   public ModelAndView saveMyProfile(Player player, BindingResult br){
+//       ModelAndView result = null;
+//       if (br.hasErrors()){
+//           result = new ModelAndView(LOGGED_USER_VIEW);
+//           result.addAllObjects(br.getModel());
+//       }else {
+//           Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//           String username = auth.getName();
+//           Integer id = this.playerService.getUserIdByName(username);
+//           Optional<Player> playerOptional = this.playerService.findPlayerById(id);
+//           Player playerToUpdate = playerOptional.get();
+//           BeanUtils.copyProperties(player, playerToUpdate, "id","email","achievments","user");
+//           playerToUpdate.setId(player.getId());
+//           playerService.save(playerToUpdate);
+//           result = showLoggedUser();
+//       }
+//       return result;
+//   }
 //    @Transactional(readOnly = true)
 //    @GetMapping(value = "/myProfile/edit")
 //    public String initUpdateProfile(Model model){
