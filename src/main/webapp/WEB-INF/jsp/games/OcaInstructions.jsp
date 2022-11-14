@@ -7,7 +7,7 @@
 <%@ taglib prefix="parchisoca" tagdir="/WEB-INF/tags" %>
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 
-<parchisoca:layout pageName="agmes">
+<parchisoca:layout pageName="ocaInstructions">
     <jsp:body>
         <h1> Instrucciones Oca </h1>
         <h2>Cómo Jugar:</h2>
@@ -32,7 +32,8 @@
 
         <p> &nbsp </p>
         <div class="col text-center">
-            <a class="btn btn-default" href='<spring:url value="/games/instructions" htmlEscape="true"/>'>Volver</a>
+            <a class="btn btn-default" href='<spring:url value="/games/instructions/parchisInstructions" htmlEscape="true"/>'>Parchis</a>
+            <a class="btn btn-default" href='<spring:url value="/" htmlEscape="true"/>'>Exit</a>
         </div>
     </jsp:body>
 </parchisoca:layout>
