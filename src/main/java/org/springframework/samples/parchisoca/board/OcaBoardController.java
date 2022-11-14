@@ -50,14 +50,15 @@ public class OcaBoardController {
     BoxesOcaService boService;
 
     private final String OCABOARD = "boards/ocaBoard";
-
+    private final String GAMES_FINISHED = "games/GameFinished";
+    
     @GetMapping({"boards/ocaBoard/{ocaBoardId}"})
     public String board(@PathVariable("ocaBoardId") int ocaBoardId, Map<String, Object> model, HttpServletResponse response){
         OcaBoard newOcaBoard = ocaBoardService.findById(ocaBoardId);
         model.put("ocaBoard", newOcaBoard); 
         return "boards/ocaBoard";
     }
-
+    //leaving a game
     @GetMapping("games/lobby/{code}/exit")
     public String exitPlayerGame(@PathVariable("code") String code, ModelMap model, HttpServletRequest request,
             HttpServletResponse response) {
@@ -76,7 +77,7 @@ public class OcaBoardController {
         return "redirect:/games/lobbys";
 
     }
-    
+    //throwing a dice
     @GetMapping({"boards/ocaBoard/{ocaBoardId}/dice"})
     public ModelAndView rollDice(@PathVariable("ocaBoardId") int ocaBoardId, HttpServletResponse response){
 
@@ -98,16 +99,21 @@ public class OcaBoardController {
 
         }else{
             ocaBoardService.actualPosition(ocaBoardId, ocaPieceId);
+            if(ocaPiece.getPosition().equals(63)){
+                mav = new ModelAndView(GAMES_FINISHED);
+                Game game = currentOcaBoard.getGame();
+                mav.addObject("game", game);
+                return mav;
+            }
             Integer number = dice.getNumber();
             mav.addObject("ocaBoard", currentOcaBoard);
             mav.addObject("ocaPiece", ocaPiece);
             mav.addObject("number", number);
         }
         return mav;
-        
-               
     }
 
+    //Inititate board, piece and dice
     public OcaBoard initBoard(){
         OcaBoard oca = new OcaBoard();
         OcaPiece piece = new OcaPiece();
@@ -124,7 +130,7 @@ public class OcaBoardController {
         return oca;
 
     }
-
+    //init boxes of a board
     public List<BoxesOca>  initBoxes() {
         List<BoxesOca> normalBoxesOca = new ArrayList<BoxesOca>(63);
         for (int i=1; i<=63; i++){
