@@ -61,7 +61,6 @@ public class AchievementsServiceTest {
     @Test
     void shouldDeleteAchievement(){
         Achievement a = new Achievement();
-        a.setId(3);
         a.setBadgeImage("https://bit.ly/proGamer");
         a.setDescription("Si ganas 50 o más partidas es que eres todo un crack.");
         a.setName("Excelso");
@@ -69,8 +68,8 @@ public class AchievementsServiceTest {
         as.save(a);
 
         
-        Achievement eliminado = as.getById(3);
-        as.deleteAchievementByid(3);
+        Achievement eliminado = as.getById(a.getId());
+        as.deleteAchievementByid(a.getId());
 
         List<Achievement> ls = as.getAchievements();
          

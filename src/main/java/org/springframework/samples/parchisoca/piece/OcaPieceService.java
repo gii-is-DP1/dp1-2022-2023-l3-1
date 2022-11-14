@@ -19,7 +19,7 @@ public class OcaPieceService {
     }
     
     @Transactional(readOnly = true)
-    public OcaPiece findOcaPieceById(Integer id) {
+    public OcaPiece findOcaPieceById(int id) {
         return ocaPieceRepository.findById(id).get();
     }
 
