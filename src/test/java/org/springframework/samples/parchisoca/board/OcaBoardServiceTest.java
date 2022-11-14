@@ -28,12 +28,4 @@ public class OcaBoardServiceTest {
        assertThat(o.getHeight()==800);
     }
 
-    @Test 
-    void shouldRollDice(){
-        OcaDice dice = new OcaDice();
-        for (int i=0; i<100; i++){
-            Integer d = os.rollDice(dice);
-            assertTrue(d>=1 && d<=6);
-        }
-    }
 }
