@@ -2,20 +2,20 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="parchisoca" tagdir="/WEB-INF/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 
-<petclinic:layout pageName="players">
+<parchisoca:layout pageName="players">
     <h2>Players</h2>
 
     <table id="playersTable" class="table table-striped">
         <thead>
         <tr>
-            <th>firstName</th>
-            <th>lastName</th>
-            <th>username</th>
-            <th>achievements</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Username</th>
+            <th>Achievements</th>
         </tr>
         </thead>
         <tbody>
@@ -37,7 +37,6 @@
                     <c:choose>
                         <c:when test="${player.achievements.isEmpty()}">
                             <p>None</p>
-                            
                         </c:when>
                         <c:otherwise>
                             ${player.achievements}
@@ -49,5 +48,9 @@
         </c:forEach>
         </tbody>
     </table>
+
+    <div class="col text-center">
+            <a class="btn btn-default" href='<spring:url value="/" htmlEscape="true"/>'>Go Back</a>
+        </div>
     
-</petclinic:layout>
+</parchisoca:layout>

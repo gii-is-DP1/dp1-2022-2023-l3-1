@@ -6,7 +6,10 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 
 <petclinic:layout pageName="players">
-    <h2>Mi perfil</h2>
+    <h1>Mi perfil</h1>
+    <a href="/players/myProfile/edit">
+        Editar mi perfil
+    </a>
 
     <table class="table table-striped">
          <tr>
@@ -30,6 +33,7 @@
                         </c:otherwise>
                     </c:choose>
                 </td>
+        </tr>
     </table>
 
     <h3>Mis amigos (nº)</h3>
