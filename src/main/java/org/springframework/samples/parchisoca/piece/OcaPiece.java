@@ -12,6 +12,7 @@ import org.hibernate.validator.constraints.Range;
 import org.springframework.samples.parchisoca.board.OcaBoard;
 import org.springframework.samples.parchisoca.model.BaseEntity;
 import org.springframework.samples.parchisoca.oca.SpecialBoxesOca;
+import org.springframework.samples.parchisoca.player.Player;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -43,6 +44,9 @@ public class OcaPiece extends BaseEntity {
     Integer position=1;
 
     Integer penalizationTurn = 0;
+
+    @ManyToOne
+    private Player player;
 
     public Integer getPositionXInPixels(Integer size) {
     	return (xPosition)*size;

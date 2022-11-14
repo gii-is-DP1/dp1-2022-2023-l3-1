@@ -4,6 +4,7 @@ package org.springframework.samples.parchisoca.game;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -50,7 +51,7 @@ public class Game extends BaseEntity {
     @Column(unique = true)
     private String code;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Player> players;
     
     @OneToOne

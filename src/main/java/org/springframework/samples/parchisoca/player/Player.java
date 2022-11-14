@@ -1,5 +1,6 @@
 package org.springframework.samples.parchisoca.player;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -10,7 +11,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.springframework.samples.parchisoca.dice.OcaDice;
 import org.springframework.samples.parchisoca.model.Person;
+import org.springframework.samples.parchisoca.piece.OcaPiece;
 import org.springframework.samples.parchisoca.statistic.Achievement;
 import org.springframework.samples.parchisoca.user.User;
 
@@ -34,6 +37,7 @@ public class Player extends Person {
     @Column(name = "players_achievements")
     private Set<Achievement> achievements;
 
-    
+    @OneToMany(mappedBy = "player", cascade = CascadeType.ALL)
+    private List<OcaPiece> ocaPiece;
 
 }
