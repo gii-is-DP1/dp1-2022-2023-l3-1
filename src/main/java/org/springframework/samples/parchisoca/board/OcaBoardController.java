@@ -77,7 +77,7 @@ public class OcaBoardController {
         return "redirect:/games/lobbys";
 
     }
-    //throwing a dice
+    //Playing the game
     @GetMapping({"boards/ocaBoard/{ocaBoardId}/dice"})
     public ModelAndView rollDice(@PathVariable("ocaBoardId") int ocaBoardId, HttpServletResponse response){
 
@@ -105,6 +105,7 @@ public class OcaBoardController {
                 Game game = currentOcaBoard.getGame();
                 game.setInProgress(false);
                 game.setWinner(winner);
+                gameService.save(game);
                 mav.addObject("game", game);
                 return mav;
             }
@@ -150,7 +151,7 @@ public class OcaBoardController {
             || i== 32 || i==36 || i==41 || i==45 || i==50 || i==54 || i== 59){
                 res.setSpecialBoxOca(SpecialBoxesOca.OCA);
             } else if (i==6 || i==12) {
-                res.setSpecialBoxOca(SpecialBoxesOca.BRIDGE);;
+                res.setSpecialBoxOca(SpecialBoxesOca.BRIDGE);
             } else if (i==26 || i==53) {
                 res.setSpecialBoxOca(SpecialBoxesOca.DICES);
             } else if (i==19) {
@@ -166,6 +167,7 @@ public class OcaBoardController {
             } else {
                 res.setSpecialBoxOca(SpecialBoxesOca.NORMAL);
             }
+            res.setPositionBoard(i);
             normalBoxesOca.add(res);
             boService.save(res);
 
