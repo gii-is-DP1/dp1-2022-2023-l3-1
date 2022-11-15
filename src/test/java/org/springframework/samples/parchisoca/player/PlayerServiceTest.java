@@ -5,13 +5,19 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.samples.parchisoca.statistic.Achievement;
+import org.springframework.samples.parchisoca.statistic.AchievementService;
 import org.springframework.samples.parchisoca.user.User;
 import org.springframework.samples.parchisoca.user.UserService;
 import org.springframework.stereotype.Service;
@@ -30,9 +36,30 @@ public class PlayerServiceTest {
     @Autowired(required = false)
     UserService us;
 
+    @Autowired
+    AchievementService as;
+
+    private Player pTest = new Player();
+    private Achievement aTest = new Achievement();
+
+    @BeforeEach
+    public void setup(){
+        aTest.setName("AchievementTest");
+        aTest.setDescription("Un achievement de test");
+        as.save(aTest);
+
+        Set<Achievement> achievementSet = new HashSet<>();
+        achievementSet.add(aTest);
+
+        pTest.setAchievements(achievementSet);
+        pTest.setFirstName("NomberTest");
+        pTest.setLastName("ApelldioTest");
+        ps.save(pTest);
+
+    }
+
     @Test
-    void shouldFindPlayersById(){
-        
+    void shouldFindPlayersById(){        
         Optional<Player> players = this.ps.findPlayerById(1);
         assertTrue(players.isPresent());
     }
@@ -50,6 +77,20 @@ public class PlayerServiceTest {
         Collection<Player> players = this.ps.findPlayerByLastName("Carrera");
         assertThat(players.size()).isEqualTo(1);
 
+    }
+
+    @Test
+    void shouldGetUserAchievementsById(){
+        Player player = this.ps.getUserAchievement(pTest.getId());
+        assertThat(player.getAchievements().size()==1);
+        Set<Achievement> set = player.getAchievements();
+        Iterator value = set.iterator();
+        Achievement a = null;
+        while (value.hasNext()) {
+            a = (Achievement)value.next();
+        }
+        assertThat(a.getName() == "AchievementTest");
+        
     }
 
     @Test

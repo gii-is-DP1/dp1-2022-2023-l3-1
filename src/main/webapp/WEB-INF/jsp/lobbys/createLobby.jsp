@@ -45,7 +45,6 @@
                                     <label for="jugadores">Number of Players:</label>
                            
                                     <select id="privacity-input" name="jugadores" class="selectpicker">
-                                        <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
                                         <option value="4">4</option>

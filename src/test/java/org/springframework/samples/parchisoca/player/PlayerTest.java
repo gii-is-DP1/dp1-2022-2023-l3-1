@@ -24,15 +24,10 @@ public class PlayerTest {
     @Autowired(required = false)
     PlayerService ps;
 
-    ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        Validator validator = factory.getValidator();
-
     @Test
-    public void testNewPlayer(){
+    public void testPlayerPropierties(){
         testConstraints();
     }
-
- 
 
     void testConstraints(){
         
