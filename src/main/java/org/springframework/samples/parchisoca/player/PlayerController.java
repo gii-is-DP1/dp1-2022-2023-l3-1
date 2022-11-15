@@ -102,10 +102,19 @@ public class PlayerController {
 
     @GetMapping("/players/{playerId}/edit")
     public ModelAndView editLoggedPlayer(@PathVariable("playerId") int playerId) {
-        Player player = playerService.getById(playerId);
-        ModelAndView result = new ModelAndView(EDIT_PLAYER);
-        result.addObject("player", player);
-        return result;
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        Integer loggedId = this.playerService.getUserIdByName(username);
+        if (loggedId == playerId){
+            Player player = playerService.getById(playerId);
+            ModelAndView result = new ModelAndView(EDIT_PLAYER);
+            result.addObject("player", player);
+            return result;
+        }else {
+            ModelAndView result = new ModelAndView(EDIT_PLAYER);
+            result.addObject(MESSAGE, PLAYER_NOT_FOUND);
+            return result;
+        }
     }
 
     @PostMapping("/players/{playerId}/edit")
@@ -154,7 +163,7 @@ public class PlayerController {
         return mav;
     }
 
-    @GetMapping("/players/myFriends") 
+    @GetMapping("/players/myFriends")
     public ModelAndView showPlayersFriends() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
@@ -187,9 +196,9 @@ public class PlayerController {
         if (!currentPlayer.getFriends().contains(playerToAdd)) {
             currentPlayer.getFriends().add(playerToAdd);
             playerService.savePlayer(currentPlayer);
-        } 
+        }
         return "redirect:/players/myFriends";
-    } 
+    }
 
     @GetMapping("/players/friends/{playerId}/delete")
     public String deleteFriend(@PathVariable("playerId") Integer playerId) {
@@ -202,7 +211,7 @@ public class PlayerController {
         if (currentPlayer.getFriends().contains(playerToDelete)) {
             currentPlayer.getFriends().remove(playerToDelete);
             playerService.savePlayer(currentPlayer);
-        } 
+        }
         return "redirect:/players/myFriends";
     }
 
