@@ -37,11 +37,6 @@
         </tr>
     </table>
 
-    <h3>Mis amigos (nº)</h3>
+    <h3><a href="/players/myFriends">Mis amigos (${player.friends.size().toString()})</a></h3>
 
-    <table class="table table-striped">
-        <tr>
-            <th>Username</th>
-        </tr>
-    </table>
 </parchisoca:layout>
