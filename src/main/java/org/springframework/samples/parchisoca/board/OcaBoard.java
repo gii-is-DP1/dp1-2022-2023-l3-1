@@ -42,8 +42,7 @@ public class OcaBoard extends BaseEntity {
 
     @Positive
     int height;
-
-
+    
     public OcaBoard(){
         this.background  = "/resources/images/tablero-oca.jpg";
         this.width = 800;
@@ -54,7 +53,6 @@ public class OcaBoard extends BaseEntity {
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "ocaBoard")
     List<OcaPiece> pieces = new ArrayList<>(); 
 
-
     @OneToOne
     private Game game;
 
@@ -63,7 +61,6 @@ public class OcaBoard extends BaseEntity {
 
     @OneToOne
     private OcaDice ocaDice;
-
 
     public void addPiece(OcaPiece piece) {
         if(getPieces() == null){
@@ -83,26 +80,25 @@ public class OcaBoard extends BaseEntity {
         Integer pos =0;
         SpecialBoxesOca specialBox = box.getSpecialBoxOca();
         if(specialBox.equals(SpecialBoxesOca.BRIDGE)){
-            pos = action.bridge(box.getId());
+            pos = action.bridge(box.getPositionBoard());
         }else if(specialBox.equals(SpecialBoxesOca.DEATH)){
-            pos = action.death(box.getId());
+            pos = action.death(box.getPositionBoard());
         }else if(specialBox.equals(SpecialBoxesOca.DICES)){
-            pos = action.dices(box.getId());
+            pos = action.dices(box.getPositionBoard());
         }else if(specialBox.equals(SpecialBoxesOca.GOAL)){
-            pos = action.goal(box.getId());
-            
+            pos = action.goal(box.getPositionBoard());
         }else if(specialBox.equals(SpecialBoxesOca.HOSTAL)){
-            pos = action.hostal(box.getId(),ocaPiece);
+            pos = action.hostal(box.getPositionBoard(),ocaPiece);
         }else if(specialBox.equals(SpecialBoxesOca.LABYRINTH)){
-            pos = action.labyrinth(box.getId());
+            pos = action.labyrinth(box.getPositionBoard());
         }else if(specialBox.equals(SpecialBoxesOca.OCA)){
-            pos = action.oca(box.getId());
+            pos = action.oca(box.getPositionBoard());
         }else if(specialBox.equals(SpecialBoxesOca.PRISON)){
-            pos = action.prison(box.getId(),ocaPiece);
+            pos = action.prison(box.getPositionBoard(),ocaPiece);
         }else if (specialBox.equals(SpecialBoxesOca.WELL)){
-            pos = action.well(box.getId(),ocaPiece);
+            pos = action.well(box.getPositionBoard(),ocaPiece);
         }else{
-            pos = box.getId();
+            pos = box.getPositionBoard();
         }
         return pos;
 
