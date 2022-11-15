@@ -99,14 +99,10 @@
                         title="How to play" dropdown="${true}">
                             <ul class="dropdown-menu">
                                 <li>
-                                <sec:authorize access="hasAuthority('player')">
                                     <a href="<c:url value="/games/instructions/parchisInstructions" />"> <span class="glyphicon glyphicon-book" aria-hidden="true"></span> Parchis Instructions </a>
-                                </sec:authorize>
                                 </li>
                                 <li>
-                                <sec:authorize access="hasAuthority('player')">
                                     <a href="<c:url value="/games/instructions/ocaInstructions" />"> <span class="glyphicon glyphicon-book" aria-hidden="true"></span> Oca Instructions </a>
-                                </sec:authorize>
                                 </li>
                             </ul>
                     </parchisoca:menuItem>

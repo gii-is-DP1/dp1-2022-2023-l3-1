@@ -45,14 +45,13 @@ public class AchievementsServiceTest {
     @Test
     void shouldCreateNewAchievement(){
         Achievement a = new Achievement();
-        a.setId(3);
         a.setBadgeImage("https://bit.ly/proGamer");
         a.setDescription("Si ganas 50 o más partidas es que eres todo un crack.");
         a.setName("Excelso");
         a.setThreshold(30.0);
 
         as.save(a);
-        Achievement achievement = as.getById(3);
+        Achievement achievement = as.getById(a.getId());
         List<Achievement> ls = new ArrayList<>();
         ls.add(achievement);
         assertThat(ls.size() == 1);
