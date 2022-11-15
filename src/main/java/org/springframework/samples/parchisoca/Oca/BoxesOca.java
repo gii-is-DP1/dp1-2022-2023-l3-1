@@ -25,6 +25,7 @@ public class BoxesOca extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private SpecialBoxesOca specialBoxOca;
 
+    private Integer positionBoard;
 
     
 }
