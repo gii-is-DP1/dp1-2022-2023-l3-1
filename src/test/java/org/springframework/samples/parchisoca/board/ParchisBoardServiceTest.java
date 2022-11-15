@@ -22,20 +22,22 @@ public class ParchisBoardServiceTest {
     @Autowired
     ParchisBoardService ps;
 
-    // @Test
-	// @Transactional
-	// void shouldCreateNewParchisBoard() {
+    @Test
+	@Transactional
+	void shouldCreateNewParchisBoard() {
 
-    //     ParchisBoard p = new ParchisBoard();
-    //     p.setId(15);
-    //     p.setBackground("resources/images/ParchisBoard.png");
-    //     p.setWidth(800);
-    //     p.setHeight(800);
+        ParchisBoard p = new ParchisBoard();
+        p.setBackground("resources/images/ParchisBoard.png");
+        p.setWidth(950);
+        p.setHeight(800);
 
-    //     ps.save(p);
-    //     ParchisBoard newP = ps.findById(1).get();
-    //     assertTrue(newP.getId()==1);
-	// }
+        ps.save(p);
+        ParchisBoard newP = ps.findById(p.getId()).get();
+        List<ParchisBoard> ls = new ArrayList<>();
+        ls.add(newP);
+        assertTrue(ls.size()==1);
+        assertTrue(newP.getWidth() == 950);
+	}
 
     @Test
     void shouldFindBoardById(){
