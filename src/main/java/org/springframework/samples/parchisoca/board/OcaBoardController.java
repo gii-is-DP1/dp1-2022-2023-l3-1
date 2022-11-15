@@ -101,7 +101,10 @@ public class OcaBoardController {
             ocaBoardService.actualPosition(ocaBoardId, ocaPieceId);
             if(ocaPiece.getPosition().equals(63)){
                 mav = new ModelAndView(GAMES_FINISHED);
+                Player winner  = ocaPiece.getPlayer();
                 Game game = currentOcaBoard.getGame();
+                game.setInProgress(false);
+                game.setWinner(winner);
                 mav.addObject("game", game);
                 return mav;
             }
@@ -115,8 +118,16 @@ public class OcaBoardController {
 
     //Inititate board, piece and dice
     public OcaBoard initBoard(){
+
+        //Current User
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        Integer id = playerService.getUserIdByName(username);
+        Player currentPlayer = playerService.getById(id);
+
         OcaBoard oca = new OcaBoard();
         OcaPiece piece = new OcaPiece();
+        piece.setPlayer(currentPlayer);
         OcaDice dice = new OcaDice();
         ocaDiceService.save(dice);
         oca.setOcaDice(dice);

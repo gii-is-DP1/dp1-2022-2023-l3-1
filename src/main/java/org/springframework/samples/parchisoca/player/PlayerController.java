@@ -5,23 +5,16 @@ import java.util.Map;
 import java.util.Optional;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -106,6 +99,7 @@ public class PlayerController {
         return mav;
     }
 
+
     @GetMapping("/players/{playerId}/edit")
     public ModelAndView editLoggedPlayer(@PathVariable("playerId") int playerId) {
         Player player = playerService.getById(playerId);
@@ -160,7 +154,7 @@ public class PlayerController {
         return mav;
     }
 
-    @GetMapping("/players/myFriends")
+    @GetMapping("/players/myFriends") 
     public ModelAndView showPlayersFriends() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
@@ -193,9 +187,9 @@ public class PlayerController {
         if (!currentPlayer.getFriends().contains(playerToAdd)) {
             currentPlayer.getFriends().add(playerToAdd);
             playerService.savePlayer(currentPlayer);
-        }
+        } 
         return "redirect:/players/myFriends";
-    }
+    } 
 
     @GetMapping("/players/friends/{playerId}/delete")
     public String deleteFriend(@PathVariable("playerId") Integer playerId) {
@@ -208,7 +202,7 @@ public class PlayerController {
         if (currentPlayer.getFriends().contains(playerToDelete)) {
             currentPlayer.getFriends().remove(playerToDelete);
             playerService.savePlayer(currentPlayer);
-        }
+        } 
         return "redirect:/players/myFriends";
     }
 

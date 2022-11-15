@@ -10,22 +10,19 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 
 <parchisoca:layout pageName="players">
-
-    <form:form modelAttribute="player" action="/players" method="get" class="form-horizontal"
-               id="search-player-form">
-            <div>
-                <h2>Find Players</h2>
-            </div>
-        <div class="row">
-            <div class = "col-sm-12">
-                Search player:
-                <input placeholder ="Insert an username" type="text" name="username" id="username"/>
-                <input type="button" value="Search" onclick="findPlayer()" />
-            </div>
+          
+    <div>
+        <h2>Find Players</h2>
+    </div>
+    <div class="row">
+        <div class = "col-sm-12">
+            Search player:
+            <input placeholder ="Insert an username" type="text" name="username" id="username"/>
+            <input type="button" value="Search" onclick="findPlayer()" />
         </div>
+    </div>
 
-    </form:form>
-
+    <p> &nbsp </p>
     <div class="col text-center">
         <a class="btn btn-default" href='<spring:url value="/" htmlEscape="true"/>'>Exit</a>
     </div>

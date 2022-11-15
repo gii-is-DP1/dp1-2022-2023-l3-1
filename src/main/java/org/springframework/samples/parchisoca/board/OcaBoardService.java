@@ -44,7 +44,7 @@ public class OcaBoardService {
         OcaBoard ocaBoard = ocaBoardRepository.findById(ocaBoardId).get();
         Integer diceNumber = ocaBoard.getOcaDice().getNumber();
         OcaPiece ocaPiece = ocaPieceService.findOcaPieceById(pieceId);
-        Integer suma = ocaPiece.getPosition()+ diceNumber;
+        Integer suma = ocaPiece.getPosition()+62;
         Integer position = ocaBoard.reboteTirada(suma);
         Integer newPosition = nextPosition(ocaBoard, ocaPiece, position);
         ocaPiece.setPosition(newPosition);

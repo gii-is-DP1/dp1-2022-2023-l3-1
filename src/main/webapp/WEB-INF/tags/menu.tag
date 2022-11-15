@@ -33,11 +33,16 @@
                         title="Players" dropdown="${true}">
                         <ul class="dropdown-menu">
                                 <li>
-                                    <a href="<c:url value="/players/find" />"> <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Find Player</a>
+                                    <a href="<c:url value="/players/find" />"> <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Find Player</a>
                                 </li>
                                 <li>
                                 <sec:authorize access="hasAuthority('admin')">
                                     <a href="<c:url value="/players/list" />"> <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Players List </a>
+                                </sec:authorize>
+                                </li>
+                                <li>
+                                    <sec:authorize access="hasAuthority('player')">
+                                    <a href="<c:url value="/players/myFriends" />"> <span class="glyphicon glyphicon-heart" aria-hidden="true"></span> My friends </a>
                                 </sec:authorize>
                                 </li>
                             </ul>
@@ -53,7 +58,7 @@
                                 </li>
                                 <li>
                                 <sec:authorize access="hasAuthority('player')">
-                                    <a href="<c:url value="/statistics/achievements/user" />"> <span class="glyphicon glyphicon-certificate" aria-hidden="true"></span> My Achievements </a>
+                                    <a href="<c:url value="/statistics/achievements/user" />"> <span class="glyphicon glyphicon-certificate" aria-hidden="true"></span> My achievements </a>
                                 </sec:authorize>
                                 </li>
                             </ul>
