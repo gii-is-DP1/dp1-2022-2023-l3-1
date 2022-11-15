@@ -48,16 +48,31 @@ public class PlayerController {
 
     @GetMapping("/players/find/{username}")
     public ModelAndView findPlayer(@PathVariable("username") String username) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = auth.getName();
+        Player currentPlayer = playerService.findPlayersByUsername(currentUsername);
+        List<Player> currentPlayersFriends = currentPlayer.getFriends();
+
         ModelAndView mav = new ModelAndView();
         Player player = playerService.findPlayersByUsername(username);
+        
         String direction;
+        String message = "";
+
         if (player==null) {
             direction = "redirect:/error";
+        } else if (currentUsername.equals(username)) {
+            direction = FIND_PLAYER_VIEW;
+            message = "You can't search yourself"; 
+        } else if (currentPlayersFriends.contains(player)) {
+            direction = FRIEND_PROFILE;
         } else {
             direction = PLAYER_PROFILE;
         }
+
         mav = new ModelAndView(direction);
         mav.addObject("player", player);
+        mav.addObject("message", message);
         return mav;
     }
 
