@@ -99,6 +99,24 @@ public class PlayerController {
         return mav;
     }
 
+
+    @GetMapping("/players/{playerId}/edit")
+    public ModelAndView editLoggedPlayer(@PathVariable("playerId") int playerId) {
+        Player player = playerService.getById(playerId);
+        ModelAndView result = new ModelAndView(EDIT_PLAYER);
+        result.addObject("player", player);
+        return result;
+    }
+
+    @PostMapping("/players/{playerId}/edit")
+    public String saveLoggedPlayer(@PathVariable("playerId") int playerId, Player player){
+        Player playerToBeUpdated = playerService.getById(playerId);
+        BeanUtils.copyProperties(player,playerToBeUpdated,"id","achievements", "user");
+        playerService.savePlayer(playerToBeUpdated);
+        return "redirect:/players/myProfile";
+
+    }
+
     @GetMapping("/admin/{playerId}/edit")
     public ModelAndView editPlayer(@PathVariable("playerId") int playerId){
         Player player = playerService.getById(playerId);
@@ -121,10 +139,6 @@ public class PlayerController {
         return "redirect:/list";
     }
 
-    /**
-     * Muestra la vista de perfil para el usuario logueado. Solo para roles "player".
-     * @return
-     */
     @GetMapping("/players/myProfile")
     public ModelAndView showLoggedUser() {
         ModelAndView mav = new ModelAndView(LOGGED_USER_VIEW);
