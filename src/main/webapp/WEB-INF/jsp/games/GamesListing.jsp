@@ -30,9 +30,6 @@
                 <td>       
                     <c:out value="${game.gameType.name} "/>
                 </td>
-                <%-- <td>
-                    ${game.players}
-                </td> --%>
                 <td>       
                     <c:forEach var="item" items="${game.players}" >
                         ${item.user.username}

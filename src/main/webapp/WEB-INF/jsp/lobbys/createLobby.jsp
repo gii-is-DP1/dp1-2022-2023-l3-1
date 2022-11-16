@@ -27,7 +27,7 @@
                             </br>
                             <div class = "row">
                                 
-                                <parchisoca:selectField name="gameType" label="Game Type" names="${gameTypes}" size="3" />
+                                <parchisoca:selectField name="gameType" label="Game Type" names="${gameTypes}" size="2"/>
                                 
                             </div>
                             <div class = "row">
@@ -44,7 +44,7 @@
                                     &nbsp 
                                     <label for="jugadores">Number of Players:</label>
                            
-                                    <select id="privacity-input" name="jugadores" class="selectpicker">
+                                    <select id="privacity-input" name="jugadores" class="selectpicker" >
                                         <option value="2">2</option>
                                         <option value="3">3</option>
                                         <option value="4">4</option>
