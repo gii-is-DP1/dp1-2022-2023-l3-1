@@ -1,7 +1,5 @@
 package org.springframework.samples.parchisoca.configuration;
 
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;

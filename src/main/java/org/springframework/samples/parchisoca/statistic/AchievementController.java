@@ -1,7 +1,5 @@
 package org.springframework.samples.parchisoca.statistic;
 
-
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.parchisoca.player.PlayerService;
@@ -20,8 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/statistics/achievements")
 public class AchievementController {
 
-
-
     private final String  ACHIEVEMENTS_LISTING_VIEW="/achievements/AchievementsListing";
     private final String ACHIEVEMENTS_FORM="/achievements/createOrUpdateAchievementForm";
     private final String ACHIVEMENTES_LISTING_USER = "/achievements/AchievementsListingUser";
@@ -38,14 +34,14 @@ public class AchievementController {
 
     @Transactional(readOnly=true)
     @GetMapping ("/")
-    public ModelAndView showAchievements(){
+    public ModelAndView showAchievements() {
         ModelAndView result = new ModelAndView(ACHIEVEMENTS_LISTING_VIEW);
         result.addObject("achievements",service.getAchievements());
         return result;
     }
 
     @GetMapping("/user")
-    public ModelAndView showUserAchievments(){
+    public ModelAndView showUserAchievments() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
 
@@ -54,7 +50,6 @@ public class AchievementController {
         ModelAndView result = new ModelAndView(ACHIVEMENTES_LISTING_USER);
         result.addObject("players", playerService.getUserAchievement(id));
         return result;
-
     }
 
     @RequestMapping("/accessdenied")
@@ -62,22 +57,22 @@ public class AchievementController {
         return "denegado";
     }
 
-
-
     @Transactional()
     @GetMapping("/{id}/delete")
     public ModelAndView deleteAchievement(@PathVariable int id){
         service.deleteAchievementByid(id);
         return showAchievements();
     }
+
     @Transactional(readOnly = true)
     @GetMapping("/{id}/edit")
-    public ModelAndView editAchievement(@PathVariable int id){
+    public ModelAndView editAchievement(@PathVariable int id) {
         Achievement achievement=service.getById(id);
         ModelAndView result=new ModelAndView(ACHIEVEMENTS_FORM);
         result.addObject("achievement", achievement);
         return result;
     }
+
     @Transactional()
     @PostMapping("/{id}/edit")
     public ModelAndView saveAchievement(@PathVariable int id,Achievement achievement){
@@ -105,6 +100,5 @@ public class AchievementController {
         result.addObject("message", "The achievement was created successfully");
         return result;
     }
-
 
 }

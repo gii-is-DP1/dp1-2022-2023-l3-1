@@ -1,6 +1,5 @@
 package org.springframework.samples.parchisoca.board;
 
-
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;

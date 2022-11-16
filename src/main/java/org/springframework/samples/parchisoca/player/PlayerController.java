@@ -34,7 +34,6 @@ public class PlayerController {
     private final String MESSAGE = "message";
     private final String PLAYER_NOT_FOUND = "Player not found";
 
-
     @Autowired
     public PlayerController(PlayerService playerService){
         this.playerService = playerService;
@@ -120,12 +119,12 @@ public class PlayerController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         Integer loggedId = this.playerService.getUserIdByName(username);
-        if (loggedId == playerId){
+        if (loggedId == playerId) {
             Player player = playerService.getById(playerId);
             ModelAndView result = new ModelAndView(EDIT_PLAYER);
             result.addObject("player", player);
             return result;
-        }else {
+        } else {
             ModelAndView result = new ModelAndView(EDIT_PLAYER);
             result.addObject(MESSAGE, PLAYER_NOT_FOUND);
             return result;
@@ -138,7 +137,6 @@ public class PlayerController {
         BeanUtils.copyProperties(player,playerToBeUpdated,"id","achievements", "user");
         playerService.savePlayer(playerToBeUpdated);
         return "redirect:/players/myProfile";
-
     }
 
     @GetMapping("/admin/{playerId}/edit")
@@ -197,7 +195,6 @@ public class PlayerController {
         ModelAndView mav = new ModelAndView(FRIEND_PROFILE);
         mav.addObject("player", player);
         return mav;
-
     }
 
     @GetMapping("/players/{playerId}/add")
@@ -229,6 +226,5 @@ public class PlayerController {
         }
         return "redirect:/players/myFriends";
     }
-
 
 }

@@ -58,7 +58,8 @@ public class OcaBoardController {
         model.put("ocaBoard", newOcaBoard); 
         return "boards/ocaBoard";
     }
-    //leaving a game
+
+    // Leaving the game with that code
     @GetMapping("games/lobby/{code}/exit")
     public String exitPlayerGame(@PathVariable("code") String code, ModelMap model, HttpServletRequest request,
             HttpServletResponse response) {
@@ -77,29 +78,31 @@ public class OcaBoardController {
         return "redirect:/games/lobbys";
 
     }
-    //Playing the game
+
+    // Calls the function that rolls the dice
     @GetMapping({"boards/ocaBoard/{ocaBoardId}/dice"})
     public ModelAndView rollDice(@PathVariable("ocaBoardId") int ocaBoardId, HttpServletResponse response){
-
         ModelAndView mav = new ModelAndView(OCABOARD);
         OcaBoard currentOcaBoard = ocaBoardService.findById(ocaBoardId);
         OcaDice dice = currentOcaBoard.getOcaDice();
         dice.rollDice();
+
         int ocaPieceId = 0;
-        for(OcaPiece op:currentOcaBoard.getPieces()){
+        for (OcaPiece op:currentOcaBoard.getPieces()) {
             ocaPieceId = op.getId();
         }
+
         OcaPiece ocaPiece = ocaPieceService.findOcaPieceById(ocaPieceId);
         Integer turn = ocaPiece.getPenalizationTurn();
-        if(turn !=0){
+        
+        if (turn !=0) {
             mav.addObject("ocaBoard", currentOcaBoard);
             mav.addObject("ocaPiece", ocaPiece);
             ocaPiece.setPenalizationTurn(turn-1);
             ocaPieceService.save(ocaPiece);
-
-        }else{
+        } else {
             ocaBoardService.actualPosition(ocaBoardId, ocaPieceId);
-            if(ocaPiece.getPosition().equals(63)){
+            if (ocaPiece.getPosition().equals(63)) {
                 mav = new ModelAndView(GAMES_FINISHED);
                 Player winner  = ocaPiece.getPlayer();
                 Game game = currentOcaBoard.getGame();
@@ -117,10 +120,9 @@ public class OcaBoardController {
         return mav;
     }
 
-    //Inititate board, piece and dice
+    //Inititate board with piece and dice
     public OcaBoard initBoard(){
 
-        //Current User
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         Integer id = playerService.getUserIdByName(username);
@@ -142,13 +144,14 @@ public class OcaBoardController {
         return oca;
 
     }
-    //init boxes of a board
+
+    // Initiates the boxes of a board
     public List<BoxesOca>  initBoxes() {
         List<BoxesOca> normalBoxesOca = new ArrayList<BoxesOca>(63);
-        for (int i=1; i<=63; i++){
+        for (int i=1; i<=63; i++) {
             BoxesOca res = new BoxesOca();
             if(i==5 || i==9 || i==14 || i==18 || i== 23 || i==27 
-            || i== 32 || i==36 || i==41 || i==45 || i==50 || i==54 || i== 59){
+            || i== 32 || i==36 || i==41 || i==45 || i==50 || i==54 || i== 59) {
                 res.setSpecialBoxOca(SpecialBoxesOca.OCA);
             } else if (i==6 || i==12) {
                 res.setSpecialBoxOca(SpecialBoxesOca.BRIDGE);
@@ -170,12 +173,8 @@ public class OcaBoardController {
             res.setPositionBoard(i);
             normalBoxesOca.add(res);
             boService.save(res);
-
-
         }
         return normalBoxesOca;
     }
-
-
-
+    
 }

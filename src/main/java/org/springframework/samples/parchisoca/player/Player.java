@@ -12,7 +12,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.springframework.samples.parchisoca.dice.OcaDice;
 import org.springframework.samples.parchisoca.model.Person;
 import org.springframework.samples.parchisoca.piece.OcaPiece;
 import org.springframework.samples.parchisoca.statistic.Achievement;
@@ -44,7 +43,5 @@ public class Player extends Person {
     
     @ManyToMany
     private List<Player> friends;
-
-
 
 }
