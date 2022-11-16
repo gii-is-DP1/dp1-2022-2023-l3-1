@@ -3,8 +3,6 @@ package org.springframework.samples.parchisoca.piece;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-
 import javax.validation.ConstraintViolationException;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -14,10 +12,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.samples.parchisoca.piece.Colour;
-import org.springframework.samples.parchisoca.piece.OcaPiece;
-import org.springframework.samples.parchisoca.piece.OcaPieceRepository;
-import org.springframework.samples.parchisoca.piece.OcaPieceService;
 import org.springframework.stereotype.Service;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
