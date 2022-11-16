@@ -10,8 +10,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class GameTypeFormatter implements Formatter<GameType>{
 
-    //el formatter debe mostrar los productos usando la cadena de su nombre, y debe obtener un tipo de producto dado su nombre buscándolo en la BD. Si no se puede formatear debe lanzar una execpcion.
-
     @Autowired
     private GameService gs;
 
@@ -24,9 +22,9 @@ public class GameTypeFormatter implements Formatter<GameType>{
     @Override
     public GameType parse(String text, Locale locale) throws ParseException {
         GameType p = this.gs.getGameType(text);
-        if(p == null){
+        if (p == null) {
             throw new ParseException(text, 0);
-        }else{
+        } else {
             return p;
         }
     }

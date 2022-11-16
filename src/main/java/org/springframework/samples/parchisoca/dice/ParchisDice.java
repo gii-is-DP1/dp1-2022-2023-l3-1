@@ -1,6 +1,5 @@
 package org.springframework.samples.parchisoca.dice;
 
-
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.samples.parchisoca.model.BaseEntity;

@@ -16,7 +16,6 @@ import org.springframework.samples.parchisoca.player.PlayerService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -119,7 +118,6 @@ public class GameController {
         Game currentGame = gameService.findGameByCode(code);
         List<Player> ls = currentGame.getPlayers();
         System.out.println("N"+currentGame.getNumberOfPlayers());
-
 
         if (!currentGame.getPlayers().contains(currentPlayer)) {
             ls.add(currentPlayer);

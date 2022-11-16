@@ -3,9 +3,7 @@ package org.springframework.samples.parchisoca.board;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.parchisoca.dice.OcaDice;
 import org.springframework.samples.parchisoca.dice.OcaDiceService;
-import org.springframework.samples.parchisoca.game.Game;
 import org.springframework.samples.parchisoca.game.GameService;
 import org.springframework.samples.parchisoca.oca.BoxesOca;
 import org.springframework.samples.parchisoca.piece.OcaPiece;
@@ -28,7 +26,6 @@ public class OcaBoardService {
     @Autowired
     GameService gameService;
 
-
     @Transactional(readOnly = true)
     public OcaBoard findById(Integer id){
         return ocaBoardRepository.findById(id).get();
@@ -39,7 +36,7 @@ public class OcaBoardService {
         ocaBoardRepository.save(ocaBoard);
     }
 
-   //calculating actual position on board
+   // Calculates the actual position on board
     public OcaPiece actualPosition(int ocaBoardId, int pieceId){
         OcaBoard ocaBoard = ocaBoardRepository.findById(ocaBoardId).get();
         Integer diceNumber = ocaBoard.getOcaDice().getNumber();
@@ -53,7 +50,6 @@ public class OcaBoardService {
     }
 
     public Integer nextPosition(OcaBoard ocaBoard,OcaPiece ocaPiece,Integer position){
-        
         List<BoxesOca> ls = ocaBoard.getBoxes();
         BoxesOca box = ls.get(position-1);
         Integer  newPosition = ocaBoard.action(box,ocaPiece);

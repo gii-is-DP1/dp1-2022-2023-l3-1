@@ -11,7 +11,6 @@
     <jsp:body>
         <h2 style = "text-align:center">
             <c:if test="${game['new']}">New </c:if> Game
-            
         </h2>
         </br>
         <form:form modelAttribute="game" class="form-horizontal" id="add-game-form">
