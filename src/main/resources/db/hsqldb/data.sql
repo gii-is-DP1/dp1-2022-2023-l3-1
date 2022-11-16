@@ -20,6 +20,10 @@ INSERT INTO users(username,password,enabled) VALUES ('TheKroth','1234',TRUE);
 INSERT INTO players(id,email,first_name,last_name,username) VALUES (3,'thekroth@gmail.com','John','Rodriguez','TheKroth');
 INSERT INTO authorities(id,username,authority) VALUES (6,'TheKroth','player');
 
+INSERT INTO users(username,password,enabled) VALUES ('player1','password1',TRUE);
+INSERT INTO players(id,email,first_name,last_name,username) VALUES (4,'player1@gmail.com','Player','One','player1');
+INSERT INTO authorities(id,username,authority) VALUES (7,'player1','player');
+
 INSERT INTO players_achievements(player_id,achievements_id) VALUES (1,1);
 INSERT INTO players_achievements(player_id,achievements_id) VALUES (1,2);
 INSERT INTO players_achievements(player_id,achievements_id) VALUES (2,2);
