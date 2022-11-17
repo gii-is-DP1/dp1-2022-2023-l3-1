@@ -24,8 +24,6 @@
 	</c:if>
 
         <jsp:doBody/>
-
-        <parchisoca:pivotal/>
     </div>
 </div>
 <parchisoca:footer/>
