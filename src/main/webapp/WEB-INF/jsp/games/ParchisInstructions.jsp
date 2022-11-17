@@ -8,7 +8,8 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 
 <parchisoca:layout pageName="parchisInstructions">
-    <jsp:body>
+
+    <body style ="background-image: url('resources/images/background.png')">
         <h1> Instrucciones Parchís </h1>
         <h2>Cómo Jugar:</h2>
         <ul>
@@ -94,5 +95,5 @@
             <a class="btn btn-default" href='<spring:url value="/" htmlEscape="true"/>'>Exit</a>
         </div>
 
-    </jsp:body>
+    </body>
 </parchisoca:layout>
