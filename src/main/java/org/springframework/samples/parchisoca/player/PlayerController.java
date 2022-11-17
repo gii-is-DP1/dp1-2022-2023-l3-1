@@ -59,10 +59,11 @@ public class PlayerController {
         String message = "";
 
         if (player==null) {
-            direction = "redirect:/error";
+            direction = FIND_PLAYER_VIEW;
+            message = "There is no player known as '" + username+"'."; 
         } else if (currentUsername.equals(username)) {
             direction = FIND_PLAYER_VIEW;
-            message = "You can't search yourself"; 
+            message = "You can't search yourself."; 
         } else if (currentPlayersFriends.contains(player)) {
             direction = FRIEND_PROFILE;
         } else {
