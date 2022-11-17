@@ -31,7 +31,9 @@
                         title="Players" dropdown="${true}">
                         <ul class="dropdown-menu">
                                 <li>
+                                    <sec:authorize access="authenticated">
                                     <a href="<c:url value="/players/find" />"> <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Find Player</a>
+                                    </sec:authorize>
                                 </li>
                                 <li>
                                 <sec:authorize access="hasAuthority('admin')">
