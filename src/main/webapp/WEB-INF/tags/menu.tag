@@ -9,7 +9,7 @@
 
 <nav class="navbar navbar-default" role="navigation">
 
-        <div class="container">
+        <div class="container-fluid">
             <div class="navbar-header">
                 <div style= "margin: 14px">
                     <a href="/">
@@ -142,3 +142,4 @@
 
 	</div>
 </nav>
+
