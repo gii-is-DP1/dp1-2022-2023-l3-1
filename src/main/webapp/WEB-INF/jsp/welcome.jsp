@@ -42,7 +42,7 @@
     .button-info{
         text-align:right;
         position:relative;
-        top:156px; right:300px;
+        top:120px; right:280px;
     }
     .info{
        width: 70px;

@@ -44,7 +44,7 @@ public class OcaBoard extends BaseEntity {
     int height;
     
     public OcaBoard(){
-        this.background  = "/resources/images/tablero-oca.jpg";
+        this.background  = "/resources/images/tablero-oca.png";
         this.width = 800;
         this.height = 800;
     }  

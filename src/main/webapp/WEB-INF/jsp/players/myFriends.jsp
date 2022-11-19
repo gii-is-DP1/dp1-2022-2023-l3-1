@@ -5,11 +5,12 @@
 <%@ taglib prefix="parchisoca" tagdir="/WEB-INF/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
+<link rel="stylesheet" type="text/css" href="/resources/style.css" media="screen" />
 
 <parchisoca:layout pageName="playersFriends">
-    <h2>Friends</h2>
+    <h2 style= "color:white;">Friends</h2>
 
-    <table id="friendsTable" class="table table-striped">
+    <table id="friendsTable" class="table" style ="background: white;">
         <thead>
             <tr>
                 <th>First Name</th>

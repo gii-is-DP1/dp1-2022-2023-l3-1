@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="parchisoca" tagdir="/WEB-INF/tags" %>
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
+<link rel="stylesheet" type="text/css" href="/resources/style.css" media="screen"/>
 
 <parchisoca:layout pageName="games">
     <h2>Public Games</h2>
@@ -15,7 +16,7 @@
         </p>
         </br>
     
-    <table id="gamesTable" class="table table-striped">
+    <table id="gamesTable" class="table" style="background:white">
         <thead>
         <tr>
             <th>Game</th>

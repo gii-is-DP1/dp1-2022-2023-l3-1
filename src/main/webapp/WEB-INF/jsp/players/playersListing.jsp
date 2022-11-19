@@ -9,7 +9,7 @@
 <parchisoca:layout pageName="players">
     <h2>Players</h2>
 
-    <table id="playersTable" class="table table-striped">
+    <table id="playersTable" class="table">
         <thead>
         <tr>
             <th>First Name</th>

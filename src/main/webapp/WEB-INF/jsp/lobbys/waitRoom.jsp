@@ -6,6 +6,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="parchisoca" tagdir="/WEB-INF/tags" %>
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
+<link rel="stylesheet" type="text/css" href="/resources/style.css" media="screen" />
 
 <parchisoca:layout pageName="waitRoom">
     <jsp:body>
@@ -21,7 +22,7 @@
                 <h3 style="text-align: right;">${games.privacity}</h3>
             </div>
         </div>
-        <table id="gameTable" class="table table-striped">
+        <table id="gamesTable" class="table" style = "background:white;">
             <thead>
             <tr>
                 <th>Username</th>

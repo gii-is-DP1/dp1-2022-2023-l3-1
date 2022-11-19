@@ -15,7 +15,7 @@
         <div  class="row" style = "justify-content">
         <div class = "col-md-3"></div>
         <div class= "col-md-6" >
-            <h1 style = "padding:20px">Find Players</h1 >
+            <h1 style = "padding:20px; color : black;">Find Players</h1 >
         
             <div style = "text-align: center;">
 
@@ -39,8 +39,9 @@
 
             <p> &nbsp </p>
             <div class="col text-center">
-                <button class="btn btn-outline-primary" href='<spring:url value="/" htmlEscape="true"/>'> Exit
-             </a>
+                <a href = "/">
+                    <button class = "btn-outline-primary" type="button">Exit</button>
+                </a>
             </div>
         </div>
         <div class = "col-md-3"></div>
@@ -67,10 +68,9 @@
         border-radius: 12px;
         border-width: 8px;
         padding: 50px; padding-top:20px;
-    } 
+    }  
     .btn-outline-primary {
     color: #007bff;
-    background-color: transparent;
     background-image: none;
     border-color: #007bff;
     border-radius: 5px;
