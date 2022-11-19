@@ -35,7 +35,7 @@
                                     <label  for="privacity">Privacity</label>
                            
                                     <select id="privacity-input" name="privacity" class="selectpicker">
-                                        <option value="PUBLIC">PUBLIC</option>
+                                        <option value="PUBLIC">PUBLIC</h3></option>
                                         <option value="PRIVATE">PRIVATE</option>
                                     
                                     </select>
@@ -74,3 +74,9 @@
         </div>
     </jsp:body>
 </parchisoca:layout>
+
+<style>
+    #privacity-input {
+        color: black;
+    }
+</style>
