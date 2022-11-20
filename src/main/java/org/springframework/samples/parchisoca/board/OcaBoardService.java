@@ -55,9 +55,10 @@ public class OcaBoardService {
 
    // Calculates the actual position on board
     public OcaPiece actualPosition(OcaBoard ocaBoard, OcaPiece piece){
-        
-        Integer diceNumber = ocaBoard.getOcaDice().getNumber();
-        Integer suma = piece.getPosition()+diceNumber;
+        Player player = piece.getPlayer();
+        OcaDice dice = ocaBoardRepository.findOcaDiceByPlayer(player, ocaBoard);
+        Integer diceNumber = dice.getNumber();
+        Integer suma = piece.getPosition() + diceNumber;
         Integer position = ocaBoard.reboteTirada(suma);
         Integer newPosition = nextPosition(ocaBoard, piece, position);
         piece.setPosition(newPosition);
@@ -74,12 +75,6 @@ public class OcaBoardService {
     
      //Inititate board with piece and dice
      public OcaBoard initBoard(Game game){
-
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String username = auth.getName();
-        Integer id = playerService.getUserIdByName(username);
-        Player currentPlayer = playerService.getById(id);
-
         OcaBoard oca = new OcaBoard();
         ocaBoardRepository.save(oca);
         List<Player> players = game.getPlayers();
@@ -89,11 +84,15 @@ public class OcaBoardService {
             piece.setColour(Colour.RED);
             piece.setOcaBoard(oca); 
             ocaPieceService.save(piece);
+            OcaDice dice = new OcaDice();
+            ocaDiceService.save(dice);
+            dice.setOcaBoard(oca);
+            p.addDice(dice);
+            dice.setPlayer(p);
+            playerService.save(p);
+            ocaDiceService.save(dice);
         }
         
-        OcaDice dice = new OcaDice();
-        ocaDiceService.save(dice);
-        oca.setOcaDice(dice);
         List<BoxesOca> ls = initBoxes();
         oca.setBoxes(ls);
         ocaBoardRepository.save(oca);

@@ -1,5 +1,6 @@
 package org.springframework.samples.parchisoca.player;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -12,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.springframework.samples.parchisoca.dice.OcaDice;
 import org.springframework.samples.parchisoca.model.Person;
 import org.springframework.samples.parchisoca.piece.OcaPiece;
 import org.springframework.samples.parchisoca.statistic.Achievement;
@@ -40,8 +42,22 @@ public class Player extends Person {
 
     @OneToMany(mappedBy = "player", cascade = CascadeType.ALL)
     private List<OcaPiece> ocaPiece;
-    
+
+    @OneToMany
+    private List<OcaDice> ocaDice;
+
     @ManyToMany
     private List<Player> friends;
 
+    public void addDice (OcaDice ocaDice) {
+        if (getOcaDice() == null) {
+            List<OcaDice> ls = new ArrayList<>();
+            ls.add(ocaDice);
+            setOcaDice(ls);
+        } else {
+            List<OcaDice> ls = getOcaDice();
+            ls.add(ocaDice);
+            setOcaDice(ls);
+        }        
+    }
 }
