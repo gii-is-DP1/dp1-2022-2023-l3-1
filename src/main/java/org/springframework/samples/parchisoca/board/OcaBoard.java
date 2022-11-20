@@ -45,8 +45,8 @@ public class OcaBoard extends BaseEntity {
     
     public OcaBoard(){
         this.background  = "/resources/images/tablero-oca.png";
-        this.width = 800;
-        this.height = 800;
+        this.width = 650;
+        this.height = 650;
     }  
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "ocaBoard")
