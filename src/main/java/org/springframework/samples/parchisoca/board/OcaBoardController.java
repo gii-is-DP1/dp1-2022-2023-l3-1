@@ -61,6 +61,7 @@ public class OcaBoardController {
 
     @GetMapping({"boards/ocaBoard/{ocaBoardId}"})
     public ModelAndView board(@PathVariable("ocaBoardId") int ocaBoardId, HttpServletResponse response){
+        response.addHeader("Refresh", "1");
         OcaBoard newOcaBoard = ocaBoardService.findById(ocaBoardId);
         List<OcaPiece> pieces = newOcaBoard.getPieces();
         Integer number = newOcaBoard.getOcaDice().getNumber();
@@ -160,7 +161,7 @@ public class OcaBoardController {
             model.addAttribute("ocaBoard", currentOcaBoard);
             model.addAttribute("ocaPiece", ocaPiece);
             model.addAttribute("pieces", pieces);
-            return new ModelAndView(OCABOARD, model);
+            return new ModelAndView("redirect:/boards/ocaBoard/"+ocaBoardId, model);
         }
         
 
