@@ -44,8 +44,6 @@ public class GameController {
     private PlayerService playerService;
     @Autowired
     private OcaBoardService ocaBoardService;
-    @Autowired
-    private OcaBoardController ocaBoardController;
 
     // Shows the games list
     @GetMapping("/list")
@@ -133,7 +131,7 @@ public class GameController {
     // Shows the wait room of the game
     @GetMapping("/lobby/{code}/waitRoom")
     public ModelAndView waitRoom(@PathVariable("code") String code, HttpServletResponse response) {
-        response.addHeader("Refresh", "1");
+        // response.addHeader("Refresh", "1");
         Game currentGame = gameService.findGameByCode(code);
         int currentGameCreatorId = currentGame.getCreator().getId();
         Player currentCreator = gameService.findPlayerById(currentGameCreatorId);

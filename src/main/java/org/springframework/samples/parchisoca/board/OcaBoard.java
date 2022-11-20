@@ -58,9 +58,6 @@ public class OcaBoard extends BaseEntity {
     @OneToMany
     private List<BoxesOca> boxes;
 
-    @OneToOne
-    private OcaDice ocaDice;
-
     private Integer turn = 0;
 
     public void addPiece(OcaPiece piece) {
