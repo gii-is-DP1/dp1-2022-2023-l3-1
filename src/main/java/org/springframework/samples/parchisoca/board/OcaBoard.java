@@ -61,6 +61,8 @@ public class OcaBoard extends BaseEntity {
     @OneToOne
     private OcaDice ocaDice;
 
+    private Integer turn = 0;
+
     public void addPiece(OcaPiece piece) {
         if(getPieces() == null){
             List<OcaPiece> ls = new ArrayList<>();
@@ -108,6 +110,7 @@ public class OcaBoard extends BaseEntity {
         }
         return position;
     }
+    
     
 }
 

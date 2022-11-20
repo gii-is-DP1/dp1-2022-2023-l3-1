@@ -160,7 +160,7 @@ public class GameController {
         if (currentGameType.getName().equals("PARCHIS")) {
             return "redirect:/boards/parchisBoard/{code}";
         } else {
-            OcaBoard newOcaBoard = ocaBoardController.initBoard();
+            OcaBoard newOcaBoard = ocaBoardService.initBoard(currentGame);
             currentGame.setOcaBoard(newOcaBoard);
             newOcaBoard.setGame(currentGame);
             ocaBoardService.save(newOcaBoard);
