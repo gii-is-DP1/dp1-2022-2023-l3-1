@@ -1,5 +1,6 @@
 package org.springframework.samples.parchisoca.player;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -8,7 +9,10 @@ import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.parchisoca.user.User;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -34,7 +38,6 @@ public class PlayerController {
     private final String MESSAGE = "message";
     private final String PLAYER_NOT_FOUND = "Player not found";
 
-
     @Autowired
     public PlayerController(PlayerService playerService){
         this.playerService = playerService;
@@ -55,7 +58,7 @@ public class PlayerController {
 
         ModelAndView mav = new ModelAndView();
         Player player = playerService.findPlayersByUsername(username);
-        
+
         String direction;
         String message = "";
 
@@ -63,7 +66,7 @@ public class PlayerController {
             direction = "redirect:/error";
         } else if (currentUsername.equals(username)) {
             direction = FIND_PLAYER_VIEW;
-            message = "You can't search yourself"; 
+            message = "You can't search yourself";
         } else if (currentPlayersFriends.contains(player)) {
             direction = FRIEND_PROFILE;
         } else {
@@ -120,12 +123,12 @@ public class PlayerController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         Integer loggedId = this.playerService.getUserIdByName(username);
-        if (loggedId == playerId){
+        if (loggedId == playerId) {
             Player player = playerService.getById(playerId);
             ModelAndView result = new ModelAndView(EDIT_PLAYER);
             result.addObject("player", player);
             return result;
-        }else {
+        } else {
             ModelAndView result = new ModelAndView(EDIT_PLAYER);
             result.addObject(MESSAGE, PLAYER_NOT_FOUND);
             return result;
@@ -136,9 +139,19 @@ public class PlayerController {
     public String saveLoggedPlayer(@PathVariable("playerId") int playerId, Player player){
         Player playerToBeUpdated = playerService.getById(playerId);
         BeanUtils.copyProperties(player,playerToBeUpdated,"id","achievements", "user");
+        Collection<SimpleGrantedAuthority> nowAuthorities =
+            (Collection<SimpleGrantedAuthority>)SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getAuthorities();
+        UsernamePasswordAuthenticationToken authentication =
+            new UsernamePasswordAuthenticationToken(player.getUser().getUsername(), player.getUser().getPassword(), nowAuthorities);
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+//        playerToBeUpdated.getUser().setUsername(authentication.getName());
+//        playerToBeUpdated.getUser().setAuthorities(((User) authentication.getAuthorities()).getAuthorities());
+//        playerToBeUpdated.setId(playerId);
         playerService.savePlayer(playerToBeUpdated);
         return "redirect:/players/myProfile";
-
     }
 
     @GetMapping("/admin/{playerId}/edit")
@@ -197,7 +210,6 @@ public class PlayerController {
         ModelAndView mav = new ModelAndView(FRIEND_PROFILE);
         mav.addObject("player", player);
         return mav;
-
     }
 
     @GetMapping("/players/{playerId}/add")
@@ -229,6 +241,5 @@ public class PlayerController {
         }
         return "redirect:/players/myFriends";
     }
-
 
 }
