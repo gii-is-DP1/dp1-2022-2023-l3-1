@@ -1,7 +1,5 @@
 package org.springframework.samples.parchisoca.statistic;
 
-
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,8 +36,5 @@ public class AchievementService  {
     public void save(Achievement achievement){
         repo.save(achievement);
     }
-
-    
-
     
 }

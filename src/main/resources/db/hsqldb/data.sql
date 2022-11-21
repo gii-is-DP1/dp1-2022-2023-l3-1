@@ -33,8 +33,8 @@ INSERT INTO players_friends(player_id,friends_id) VALUES (3,2);
 
 INSERT INTO games(id,creator_id,winner_id,name,jugadores,code,privacity,game_type_id, in_progress) VALUES (1,1,1,'prueba',4,'ASDFG','PUBLIC',1,FALSE);
 INSERT INTO games(id,creator_id,winner_id,name,jugadores,code,privacity,game_type_id, in_progress) VALUES (2,2,2,'prueba',4,'FMNJF','PRIVATE',1,FALSE);
-INSERT INTO games(id,creator_id,name,code,privacity,game_type_id, in_progress) VALUES (3,2,'partida vacia parchis','JDSKL','PUBLIC',2,TRUE);
-INSERT INTO games(id,creator_id,name,code,privacity,game_type_id, in_progress) VALUES (4,2,'partida vacia oca','KFLSO','PRIVATE',2,TRUE);
+INSERT INTO games(id,creator_id,name,code,privacity,game_type_id, in_progress,started) VALUES (3,2,'partida vacia parchis','JDSKL','PUBLIC',2,TRUE,FALSE);
+INSERT INTO games(id,creator_id,name,code,privacity,game_type_id, in_progress,started) VALUES (4,2,'partida vacia oca','KFLSO','PRIVATE',2,TRUE,FALSE);
 
 
 INSERT INTO games_players (game_id, players_id) VALUES (1,1);
@@ -43,7 +43,7 @@ INSERT INTO games_players (game_id, players_id) VALUES (2,2);
 INSERT INTO games_players (game_id, players_id) VALUES (3,2);
 
 
-INSERT INTO oca_boards (id, background, height, width) VALUES (1,'resources/images/tablero-oca.jpg', 800,800);
+INSERT INTO oca_boards (id, background, height, width) VALUES (1,'resources/images/tablero-oca.png', 800,800);
 
 
 INSERT INTO parchis_boards (id,background,height,width) VALUES (1,'resources/images/ParchisBoard.png',800,800);

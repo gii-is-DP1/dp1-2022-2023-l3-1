@@ -1,6 +1,5 @@
 package org.springframework.samples.parchisoca.game;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,18 +13,18 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Range;
 import org.springframework.samples.parchisoca.board.OcaBoard;
 import org.springframework.samples.parchisoca.board.ParchisBoard;
-import org.springframework.samples.parchisoca.dice.OcaDice;
 import org.springframework.samples.parchisoca.model.BaseEntity;
 import org.springframework.samples.parchisoca.player.Player;
 
 import lombok.Getter;
 import lombok.Setter;
-
 
 @Getter
 @Setter
@@ -45,6 +44,8 @@ public class Game extends BaseEntity {
     private GameType gameType;
 
     @NotNull
+    @NotBlank
+    @NotEmpty
     private String name;
 
     @NotNull
@@ -69,6 +70,8 @@ public class Game extends BaseEntity {
     @OneToOne
     private ParchisBoard parchisBoard;
 
+    private Boolean started = false;
+
     public static String generatePassword() {
 
         char[] letters = {'A','B','C','D','E','F','G','H','I'};
@@ -82,6 +85,7 @@ public class Game extends BaseEntity {
             int cantidadCarac = res.length();
             int numeroRandom = (int) (Math.random()*cantidadCarac);
             contraseña.append((res.toString().charAt(numeroRandom)));
+
         }
 
         return contraseña.toString();
@@ -98,8 +102,6 @@ public class Game extends BaseEntity {
             setPlayers(ls);
         }
     }
-
-
 
     public Integer getNumberOfPlayers(){
         return players.size();

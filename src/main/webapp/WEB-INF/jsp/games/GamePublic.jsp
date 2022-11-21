@@ -4,18 +4,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="parchisoca" tagdir="/WEB-INF/tags" %>
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
+<link rel="stylesheet" type="text/css" href="/resources/style.css" media="screen"/>
 
 <parchisoca:layout pageName="games">
-    <h2>Public Games</h2>
+    <h1 id = "public">Public Games</h1>
         <p>
             Search private game:
             </br>
             <input placeholder ="Insert a code" type="text" name="code" id="code"/>
-            <input type="button" value="Search" onclick="privateGame()" />
+            <input style = "color:black;" type="button" value="Search" onclick="privateGame()" />
         </p>
         </br>
     
-    <table id="gamesTable" class="table table-striped">
+    <table id="gamesTable" class="table" style="background:white">
         <thead>
         <tr>
             <th>Game</th>

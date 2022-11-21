@@ -3,5 +3,8 @@
 
 <%@ attribute name="menuName" required="true" rtexprvalue="true"
               description="Name of the active menu: home, owners, vets or error" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> 
 
-<parchisoca:menu name="${menuName}"/>
+<sec:authorize access="authenticated">
+    <parchisoca:menu name="${menuName}"/>
+</sec:authorize>

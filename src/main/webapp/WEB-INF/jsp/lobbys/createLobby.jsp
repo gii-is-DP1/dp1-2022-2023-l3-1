@@ -11,7 +11,6 @@
     <jsp:body>
         <h2 style = "text-align:center">
             <c:if test="${game['new']}">New </c:if> Game
-            
         </h2>
         </br>
         <form:form modelAttribute="game" class="form-horizontal" id="add-game-form">
@@ -27,7 +26,7 @@
                             </br>
                             <div class = "row">
                                 
-                                <parchisoca:selectField name="gameType" label="Game Type" names="${gameTypes}" size="3" />
+                                <parchisoca:selectField name="gameType" label="Game Type" names="${gameTypes}" size="2"/>
                                 
                             </div>
                             <div class = "row">
@@ -36,7 +35,7 @@
                                     <label  for="privacity">Privacity</label>
                            
                                     <select id="privacity-input" name="privacity" class="selectpicker">
-                                        <option value="PUBLIC">PUBLIC</option>
+                                        <option value="PUBLIC">PUBLIC</h3></option>
                                         <option value="PRIVATE">PRIVATE</option>
                                     
                                     </select>
@@ -44,7 +43,7 @@
                                     &nbsp 
                                     <label for="jugadores">Number of Players:</label>
                            
-                                    <select id="privacity-input" name="jugadores" class="selectpicker">
+                                    <select id="privacity-input" name="jugadores" class="selectpicker" >
                                         <option value="2">2</option>
                                         <option value="3">3</option>
                                         <option value="4">4</option>
@@ -75,3 +74,9 @@
         </div>
     </jsp:body>
 </parchisoca:layout>
+
+<style>
+    #privacity-input {
+        color: black;
+    }
+</style>

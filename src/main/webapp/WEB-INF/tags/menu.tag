@@ -9,16 +9,14 @@
 
 <nav class="navbar navbar-default" role="navigation">
 
-        <div class="container">
+        <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand"
-                    href="<spring:url value="/" htmlEscape="true" />"><span></span></a>
-                <button type="button" class="navbar-toggle" data-toggle="collapse"
-                    data-target="#main-navbar">
-                    <span class="sr-only"><os-p>Toggle navigation</os-p></span> <span
-                        class="icon-bar"></span> <span class="icon-bar"></span> <span
-                        class="icon-bar"></span>
-                </button>
+                <div style= "margin: 14px">
+                    <a href="/">
+                        <spring:url value="/resources/images/fondo-oca-web.png" var="logo"/>
+                            <img src="${logo}" width="94"/>
+                    </a>
+                </div>
             </div>
             <div class="navbar-collapse collapse" id="main-navbar">
                 <ul class="nav navbar-nav">
@@ -33,7 +31,9 @@
                         title="Players" dropdown="${true}">
                         <ul class="dropdown-menu">
                                 <li>
+                                    <sec:authorize access="authenticated">
                                     <a href="<c:url value="/players/find" />"> <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Find Player</a>
+                                    </sec:authorize>
                                 </li>
                                 <li>
                                 <sec:authorize access="hasAuthority('admin')">
@@ -142,3 +142,4 @@
 
 	</div>
 </nav>
+

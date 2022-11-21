@@ -44,10 +44,9 @@ public class OcaBoard extends BaseEntity {
     int height;
     
     public OcaBoard(){
-        this.background  = "/resources/images/tablero-oca.jpg";
-        this.width = 800;
-        this.height = 800;
-        
+        this.background  = "/resources/images/tablero-oca.png";
+        this.width = 650;
+        this.height = 650;
     }  
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "ocaBoard")
@@ -59,8 +58,7 @@ public class OcaBoard extends BaseEntity {
     @OneToMany
     private List<BoxesOca> boxes;
 
-    @OneToOne
-    private OcaDice ocaDice;
+    private Integer turn = 0;
 
     public void addPiece(OcaPiece piece) {
         if(getPieces() == null){
@@ -101,7 +99,6 @@ public class OcaBoard extends BaseEntity {
             pos = box.getPositionBoard();
         }
         return pos;
-
     }
 
     public Integer reboteTirada(Integer position){  
@@ -110,6 +107,7 @@ public class OcaBoard extends BaseEntity {
         }
         return position;
     }
+    
     
 }
 

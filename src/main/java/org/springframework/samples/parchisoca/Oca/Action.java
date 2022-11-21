@@ -3,15 +3,11 @@ package org.springframework.samples.parchisoca.oca;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.parchisoca.board.OcaBoard;
-import org.springframework.samples.parchisoca.dice.OcaDice;
 import org.springframework.samples.parchisoca.piece.OcaPiece;
 import org.springframework.samples.parchisoca.piece.OcaPieceService;
-import org.springframework.stereotype.Component;
 
 public class Action {
 
-    
     @Autowired
     OcaPieceService ocaPieceService;
 
@@ -19,9 +15,9 @@ public class Action {
 
     public Integer bridge(Integer postion){
         Integer pos;
-        if (postion.equals(6)){
+        if (postion.equals(6)) {
             pos = 12;
-        } else{
+        } else {
             pos = 6;
         }
         return pos;
@@ -34,12 +30,11 @@ public class Action {
     public Integer dices(Integer position) {
         Integer pos =0;
 
-        if(position.equals(26)){
+        if (position.equals(26)) {
             pos = 53;
            
-        }else{
+        } else {
             pos = 23;
- 
         }
         return pos;
     }
@@ -55,10 +50,9 @@ public class Action {
 
     public Integer oca(Integer position) {
         Integer pos;
-
-        if(position == 59){
+        if (position == 59) {
             pos = position;
-        }else{
+        } else {
             pos =ocasList.get(ocasList.indexOf(position) +1);
         }
         return pos;
@@ -77,8 +71,5 @@ public class Action {
     public Integer goal(Integer position) {
         return position;
     }
-
-    
-    
-    
+  
 }

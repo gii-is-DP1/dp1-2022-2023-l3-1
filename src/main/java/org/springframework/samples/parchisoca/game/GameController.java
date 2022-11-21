@@ -16,7 +16,6 @@ import org.springframework.samples.parchisoca.player.PlayerService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,8 +44,6 @@ public class GameController {
     private PlayerService playerService;
     @Autowired
     private OcaBoardService ocaBoardService;
-    @Autowired
-    private OcaBoardController ocaBoardController;
 
     // Shows the games list
     @GetMapping("/list")
@@ -120,7 +117,6 @@ public class GameController {
         List<Player> ls = currentGame.getPlayers();
         System.out.println("N"+currentGame.getNumberOfPlayers());
 
-
         if (!currentGame.getPlayers().contains(currentPlayer)) {
             ls.add(currentPlayer);
             currentGame.setPlayers(ls);
@@ -134,8 +130,11 @@ public class GameController {
 
     // Shows the wait room of the game
     @GetMapping("/lobby/{code}/waitRoom")
-    public ModelAndView waitRoom(@PathVariable("code") String code) {
+    public ModelAndView waitRoom(@PathVariable("code") String code, HttpServletResponse response) {
+        response.addHeader("Refresh", "1");
         Game currentGame = gameService.findGameByCode(code);
+        if(currentGame.getStarted())
+            return new ModelAndView("redirect:/boards/ocaBoard/"+currentGame.getOcaBoard().getId());
         int currentGameCreatorId = currentGame.getCreator().getId();
         Player currentCreator = gameService.findPlayerById(currentGameCreatorId);
         ModelAndView result = new ModelAndView(GAME_WAIT_ROOM);
@@ -162,7 +161,8 @@ public class GameController {
         if (currentGameType.getName().equals("PARCHIS")) {
             return "redirect:/boards/parchisBoard/{code}";
         } else {
-            OcaBoard newOcaBoard = ocaBoardController.initBoard();
+            OcaBoard newOcaBoard = ocaBoardService.initBoard(currentGame);
+            currentGame.setStarted(true);
             currentGame.setOcaBoard(newOcaBoard);
             newOcaBoard.setGame(currentGame);
             ocaBoardService.save(newOcaBoard);

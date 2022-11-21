@@ -8,7 +8,7 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 
 <parchisoca:layout pageName="ocaInstructions">
-    <jsp:body>
+    <body>
         <h1> Instrucciones Oca </h1>
         <h2>Cómo Jugar:</h2>
         <ul>
@@ -35,6 +35,6 @@
             <a class="btn btn-default" href='<spring:url value="/games/instructions/parchisInstructions" htmlEscape="true"/>'>Parchis</a>
             <a class="btn btn-default" href='<spring:url value="/" htmlEscape="true"/>'>Exit</a>
         </div>
-    </jsp:body>
+    </body>
 </parchisoca:layout>
 

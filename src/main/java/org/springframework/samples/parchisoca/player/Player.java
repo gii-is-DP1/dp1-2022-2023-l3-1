@@ -1,5 +1,6 @@
 package org.springframework.samples.parchisoca.player;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -41,10 +42,22 @@ public class Player extends Person {
 
     @OneToMany(mappedBy = "player", cascade = CascadeType.ALL)
     private List<OcaPiece> ocaPiece;
-    
+
+    @OneToMany
+    private List<OcaDice> ocaDice;
+
     @ManyToMany
     private List<Player> friends;
 
-
-
+    public void addDice (OcaDice ocaDice) {
+        if (getOcaDice() == null) {
+            List<OcaDice> ls = new ArrayList<>();
+            ls.add(ocaDice);
+            setOcaDice(ls);
+        } else {
+            List<OcaDice> ls = getOcaDice();
+            ls.add(ocaDice);
+            setOcaDice(ls);
+        }        
+    }
 }

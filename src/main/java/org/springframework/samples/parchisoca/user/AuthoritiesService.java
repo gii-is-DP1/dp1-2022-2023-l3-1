@@ -50,14 +50,14 @@ public class AuthoritiesService {
 	public void saveAuthorities(String username, String role) throws DataAccessException {
 		Authorities authority = new Authorities();
 		Optional<User> user = userService.findUser(username);
-		if(user.isPresent()) {
+		if (user.isPresent()) {
 			authority.setUser(user.get());
 			authority.setAuthority(role);
 			//user.get().getAuthorities().add(authority);
 			authoritiesRepository.save(authority);
-		}else
+		} else {
 			throw new DataAccessException("User '"+username+"' not found!") {};
+		}
 	}
-
 
 }
