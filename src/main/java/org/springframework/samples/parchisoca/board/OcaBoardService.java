@@ -56,7 +56,7 @@ public class OcaBoardService {
    // Calculates the actual position on board
     public OcaPiece actualPosition(OcaBoard ocaBoard, OcaPiece piece){
         Player player = piece.getPlayer();
-        OcaDice dice = ocaBoardRepository.findOcaDiceByPlayer(player, ocaBoard);
+        OcaDice dice = ocaBoardRepository.getOcaDiceByPlayer(player, ocaBoard);
         Integer diceNumber = dice.getNumber();
         Integer suma = piece.getPosition() + diceNumber;
         Integer position = ocaBoard.reboteTirada(suma);
@@ -146,6 +146,11 @@ public class OcaBoardService {
 
     }
 
+    public OcaDice findOcaDiceByPlayer(Player player, OcaBoard ocaBoard) {
+        OcaDice result = ocaBoardRepository.getOcaDiceByPlayer(player, ocaBoard);
+        return result;
+    }
+    
     public Boolean isActualPlayer(Player piecePlayer){
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
