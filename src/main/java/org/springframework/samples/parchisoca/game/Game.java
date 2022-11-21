@@ -70,6 +70,8 @@ public class Game extends BaseEntity {
     @OneToOne
     private ParchisBoard parchisBoard;
 
+    private Boolean started = false;
+
     public static String generatePassword() {
 
         char[] letters = {'A','B','C','D','E','F','G','H','I'};
@@ -102,5 +104,5 @@ public class Game extends BaseEntity {
     public Integer getNumberOfPlayers(){
         return players.size();
     }
-
+ 
 }

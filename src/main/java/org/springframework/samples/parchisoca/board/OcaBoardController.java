@@ -46,6 +46,7 @@ public class OcaBoardController {
 
     private final String OCABOARD = "boards/ocaBoard";
     private final String GAMES_FINISHED = "games/GameFinished";
+    private final String LOOSER = "games/GameLooser";
 
     @GetMapping({"boards/ocaBoard/{ocaBoardId}"})
     public ModelAndView board(@PathVariable("ocaBoardId") int ocaBoardId, HttpServletResponse response){
@@ -69,7 +70,7 @@ public class OcaBoardController {
         mav.addObject("pieces", pieces);
         
         if (newOcaBoard.getGame().getWinner() != null) {
-            mav = new ModelAndView(GAMES_FINISHED);
+            mav = new ModelAndView(LOOSER);
             return mav;
         } else if (!ocaBoardService.isActualPlayer(piecePlayer)){
             mav.addObject("number", number);
