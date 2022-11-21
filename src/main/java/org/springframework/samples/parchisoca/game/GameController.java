@@ -131,8 +131,10 @@ public class GameController {
     // Shows the wait room of the game
     @GetMapping("/lobby/{code}/waitRoom")
     public ModelAndView waitRoom(@PathVariable("code") String code, HttpServletResponse response) {
-        // response.addHeader("Refresh", "1");
+        response.addHeader("Refresh", "1");
         Game currentGame = gameService.findGameByCode(code);
+        if(currentGame.getStarted())
+            return new ModelAndView("redirect:/boards/ocaBoard/"+currentGame.getOcaBoard().getId());
         int currentGameCreatorId = currentGame.getCreator().getId();
         Player currentCreator = gameService.findPlayerById(currentGameCreatorId);
         ModelAndView result = new ModelAndView(GAME_WAIT_ROOM);
@@ -160,6 +162,7 @@ public class GameController {
             return "redirect:/boards/parchisBoard/{code}";
         } else {
             OcaBoard newOcaBoard = ocaBoardService.initBoard(currentGame);
+            currentGame.setStarted(true);
             currentGame.setOcaBoard(newOcaBoard);
             newOcaBoard.setGame(currentGame);
             ocaBoardService.save(newOcaBoard);

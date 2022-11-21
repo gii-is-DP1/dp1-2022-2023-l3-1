@@ -6,7 +6,7 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 
 <parchisoca:layout pageName="games">
-    <h2>You are the winner of the game, CONGRATULATIONS${game.winner.user.username}! </h2>
+    <h2>You are the winner of the game, CONGRATULATIONS ${game.winner.user.username}! </h2>
     
     <spring:url value="/resources/images/winner.gif" var="winner"/>
     
