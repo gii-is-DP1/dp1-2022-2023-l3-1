@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
 public interface OcaBoardRepository extends CrudRepository<OcaBoard,Integer> {
     
     @Query("SELECT d FROM OcaDice d WHERE d.player =?1 AND d.ocaBoard =?2")
-    OcaDice findOcaDiceByPlayer(@Param("player") Player player, @Param("ocaBoard") OcaBoard ocaBoard);
+    OcaDice getOcaDiceByPlayer(@Param("player") Player player, @Param("ocaBoard") OcaBoard ocaBoard);
 
 }

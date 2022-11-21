@@ -27,9 +27,6 @@ import org.springframework.web.servlet.ModelAndView;
 public class OcaBoardController {
 
     @Autowired
-    OcaBoardRepository ocaBoardRepository; 
-
-    @Autowired
     OcaBoardService ocaBoardService;
 
     @Autowired
@@ -49,13 +46,6 @@ public class OcaBoardController {
 
     private final String OCABOARD = "boards/ocaBoard";
     private final String GAMES_FINISHED = "games/GameFinished";
-    
-    // @GetMapping({"boards/ocaBoard/{ocaBoardId}"})
-    // public String board(@PathVariable("ocaBoardId") int ocaBoardId, Map<String, Object> model, HttpServletResponse response){
-    //     OcaBoard newOcaBoard = ocaBoardService.findById(ocaBoardId);
-    //     model.put("ocaBoard", newOcaBoard); 
-    //     return "boards/ocaBoard";
-    // }
 
     @GetMapping({"boards/ocaBoard/{ocaBoardId}"})
     public ModelAndView board(@PathVariable("ocaBoardId") int ocaBoardId, HttpServletResponse response){
@@ -67,7 +57,7 @@ public class OcaBoardController {
         
         OcaBoard newOcaBoard = ocaBoardService.findById(ocaBoardId);
         List<OcaPiece> pieces = newOcaBoard.getPieces();
-        OcaDice dice = ocaBoardRepository.findOcaDiceByPlayer(currentPlayer, newOcaBoard);
+        OcaDice dice = ocaBoardService.findOcaDiceByPlayer(currentPlayer, newOcaBoard);
         Integer number = dice.getNumber();
         ModelAndView mav = new ModelAndView(OCABOARD);
         Integer turn = newOcaBoard.getTurn();
@@ -78,15 +68,20 @@ public class OcaBoardController {
         mav.addObject("ocaBoard", newOcaBoard);
         mav.addObject("pieces", pieces);
         
-        if(!ocaBoardService.isActualPlayer(piecePlayer)){
+        if (newOcaBoard.getGame().getWinner() != null) {
+            mav = new ModelAndView(GAMES_FINISHED);
+            return mav;
+        } else if (!ocaBoardService.isActualPlayer(piecePlayer)){
             mav.addObject("number", number);
             mav.addObject("error", "It is not your turn");
+            return mav;
         } else {
             mav.addObject("number", number);
             mav.addObject("error", "Roll dice!");
+            return mav;
         }
         
-        return mav;
+        
     }
 
 
@@ -171,7 +166,7 @@ public class OcaBoardController {
         
         ModelAndView mav = new ModelAndView("redirect:/boards/ocaBoard/"+ocaBoardId);
         OcaBoard currentOcaBoard = ocaBoardService.findById(ocaBoardId);
-        OcaDice dice = ocaBoardRepository.findOcaDiceByPlayer(currentPlayer, currentOcaBoard);
+        OcaDice dice = ocaBoardService.findOcaDiceByPlayer(currentPlayer, currentOcaBoard);
 
         List<OcaPiece> pieces = currentOcaBoard.getPieces();
         Integer turn = currentOcaBoard.getTurn();
