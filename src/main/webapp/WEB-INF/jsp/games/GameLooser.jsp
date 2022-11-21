@@ -7,7 +7,7 @@
 <link rel="stylesheet" type="text/css" href="/resources/style.css" media="screen"/>
 
 <parchisoca:layout pageName="games">
-    <h2 style  = "text-align:center">Sorry, you loose the game </h2>
+    <h2 style  = "text-align:center">Sorry, you lost the game </h2>
     </br>
     <div class = "row" >
     <div class = "col-md-12" style = "text-align:center">
