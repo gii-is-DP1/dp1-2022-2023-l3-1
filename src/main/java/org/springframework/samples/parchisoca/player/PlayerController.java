@@ -79,7 +79,7 @@ public class PlayerController {
     @GetMapping("/players/list")
     public ModelAndView showPlayers(){
         ModelAndView result = new ModelAndView(PLAYERS_LISTING_VIEW);
-        List<Player> players = playerService.getPlayers();
+        List<Player> players = playerService.findPlayers();
         result.addObject("players", players);
         return result;
     }
@@ -121,7 +121,7 @@ public class PlayerController {
         String username = auth.getName();
         Integer loggedId = this.playerService.getUserIdByName(username);
         if (loggedId == playerId) {
-            Player player = playerService.getById(playerId);
+            Player player = playerService.findById(playerId);
             ModelAndView result = new ModelAndView(EDIT_PLAYER);
             result.addObject("player", player);
             return result;
@@ -134,7 +134,7 @@ public class PlayerController {
 
     @PostMapping("/players/{playerId}/edit")
     public String saveLoggedPlayer(@PathVariable("playerId") int playerId, Player player){
-        Player playerToBeUpdated = playerService.getById(playerId);
+        Player playerToBeUpdated = playerService.findById(playerId);
         BeanUtils.copyProperties(player,playerToBeUpdated,"id","achievements", "user");
         playerService.savePlayer(playerToBeUpdated);
         return "redirect:/players/myProfile";
@@ -142,7 +142,7 @@ public class PlayerController {
 
     @GetMapping("/admin/{playerId}/edit")
     public ModelAndView editPlayer(@PathVariable("playerId") int playerId){
-        Player player = playerService.getById(playerId);
+        Player player = playerService.findById(playerId);
         ModelAndView result=new ModelAndView(EDIT_PLAYER);
         result.addObject("player", player);
         return result;
@@ -150,7 +150,7 @@ public class PlayerController {
 
     @PostMapping("/admin/{playerId}/edit")
     public String savePlayer(@PathVariable("playerId") int playerId, Player player){
-        Player playerToBeUpdated = playerService.getById(playerId);
+        Player playerToBeUpdated = playerService.findById(playerId);
         BeanUtils.copyProperties(player,playerToBeUpdated,"id","achievements","user");
         playerService.savePlayer(playerToBeUpdated);
         return "redirect:/players/{playerId}";
@@ -182,7 +182,7 @@ public class PlayerController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         Integer playerId = this.playerService.getUserIdByName(username);
-        Player currentPlayer = playerService.getById(playerId);
+        Player currentPlayer = playerService.findById(playerId);
 
         List<Player> friends = currentPlayer.getFriends();
         ModelAndView mav = new ModelAndView(PLAYER_FRIENDS);
@@ -192,7 +192,7 @@ public class PlayerController {
 
     @GetMapping("players/{playerId}/viewFriend")
     public ModelAndView viewPlayerProfile(@PathVariable("playerId") Integer playerId) {
-        Player player = playerService.getById(playerId);
+        Player player = playerService.findById(playerId);
         ModelAndView mav = new ModelAndView(FRIEND_PROFILE);
         mav.addObject("player", player);
         return mav;
@@ -203,9 +203,9 @@ public class PlayerController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         Integer currentPlayerId = this.playerService.getUserIdByName(username);
-        Player currentPlayer = playerService.getById(currentPlayerId);
+        Player currentPlayer = playerService.findById(currentPlayerId);
 
-        Player playerToAdd = playerService.getById(playerId);
+        Player playerToAdd = playerService.findById(playerId);
         if (!currentPlayer.getFriends().contains(playerToAdd)) {
             currentPlayer.getFriends().add(playerToAdd);
             playerService.savePlayer(currentPlayer);
@@ -218,9 +218,9 @@ public class PlayerController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         Integer currentPlayerId = this.playerService.getUserIdByName(username);
-        Player currentPlayer = playerService.getById(currentPlayerId);
+        Player currentPlayer = playerService.findById(currentPlayerId);
 
-        Player playerToDelete = playerService.getById(playerId);
+        Player playerToDelete = playerService.findById(playerId);
         if (currentPlayer.getFriends().contains(playerToDelete)) {
             currentPlayer.getFriends().remove(playerToDelete);
             playerService.savePlayer(currentPlayer);

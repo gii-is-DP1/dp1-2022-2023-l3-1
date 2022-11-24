@@ -14,23 +14,23 @@ public interface PlayerRepository extends CrudRepository<Player,Integer> {
     List<Player> findAll();
     
     @Query("SELECT p FROM Player p WHERE p.user.username=?1")
-    public Player findByUsername(@Param("username") String username);
+    public Player getByUsername(@Param("username") String username);
 
     @Query("SELECT p FROM Player p WHERE p.firstName=?1")
-    public Collection<Player> findByFirstName(@Param("firstName") String firstName);
+    public Collection<Player> getByFirstName(@Param("firstName") String firstName);
 
     @Query("SELECT p FROM Player p WHERE p.lastName=?1")
-    public Collection<Player> findByLastName(@Param("lastName") String lastName);
+    public Collection<Player> getByLastName(@Param("lastName") String lastName);
 
     @Query("SELECT p FROM Player p LEFT JOIN p.achievements o WHERE p.user.username=?1")
-    List<Player> findUserAchievements(@Param("username") String username);
+    List<Player> getUserAchievements(@Param("username") String username);
 
     @Query("SELECT p FROM Player p LEFT JOIN p.achievements o WHERE p.id=?1")
-    Player findUserAchievementsId(int id);
+    Player getUserAchievementsId(int id);
 
     @Query("SELECT p.id FROM Player p WHERE p.user.username=?1")
-    Integer findIdByName(String name);
+    Integer getIdByName(String name);
 
     @Query("SELECT p FROM Player p WHERE p.id=?1")
-    Player findPlayerById(int id);
+    Player getPlayerById(int id);
 }
