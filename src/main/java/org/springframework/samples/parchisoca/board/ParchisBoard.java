@@ -41,7 +41,6 @@ public class ParchisBoard extends BaseEntity {
         this.height=1900;
     }
 
-  
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "parchisBoard")
     List<ParchisPiece> pieces; 
 
