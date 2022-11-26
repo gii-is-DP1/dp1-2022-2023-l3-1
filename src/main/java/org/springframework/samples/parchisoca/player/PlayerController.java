@@ -1,5 +1,6 @@
 package org.springframework.samples.parchisoca.player;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -57,10 +58,23 @@ public class PlayerController {
         
         String direction;
         String message = "";
+        List<Player> players = playerService.findPlayers();
+        List<Player> playersFound = new ArrayList<>();
 
         if (player==null) {
             direction = FIND_PLAYER_VIEW;
-            message = "There is no player known as '" + username+"'."; 
+            for (Player p: players) {
+                String userToFind = p.getUser().getUsername();
+                if (userToFind.contains(username)) {
+                    playersFound.add(p);
+                } else {
+                    message = "There is no player known as '" + username+"'."; 
+                }
+            }
+            if (playersFound.size() > 0) {
+                direction = PLAYERS_LISTING_VIEW;
+            }
+            
         } else if (currentUsername.equals(username)) {
             direction = FIND_PLAYER_VIEW;
             message = "You can't search yourself."; 
@@ -71,9 +85,16 @@ public class PlayerController {
         }
 
         mav = new ModelAndView(direction);
-        mav.addObject("player", player);
-        mav.addObject("message", message);
+
+        if (direction == PLAYERS_LISTING_VIEW) {
+            mav.addObject("players", playersFound); 
+        } else {
+            mav.addObject("player", player);
+            mav.addObject("message", message); 
+        }
+        
         return mav;
+        
     }
 
     @GetMapping("/players/list")
