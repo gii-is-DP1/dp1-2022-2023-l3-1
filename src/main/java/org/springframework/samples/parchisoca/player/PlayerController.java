@@ -24,7 +24,8 @@ public class PlayerController {
     @Autowired
     private PlayerService playerService;
 
-    private final String PLAYERS_LISTING_VIEW= "players/playersListing";
+    private final String PLAYERS_LISTING_VIEW = "players/playersListing";
+    private final String PLAYERS_FOUND_LISTING_VIEW = "players/playersFoundListing";
     private final String CREATE_PLAYERS = "players/createPlayerForm";
     private final String EDIT_PLAYER = "players/editPlayer";
     private final String LOGGED_USER_VIEW = "players/myProfile";
@@ -72,7 +73,7 @@ public class PlayerController {
                 }
             }
             if (playersFound.size() > 0) {
-                direction = PLAYERS_LISTING_VIEW;
+                direction = PLAYERS_FOUND_LISTING_VIEW;
             }
             
         } else if (currentUsername.equals(username)) {
@@ -86,7 +87,7 @@ public class PlayerController {
 
         mav = new ModelAndView(direction);
 
-        if (direction == PLAYERS_LISTING_VIEW) {
+        if (direction == PLAYERS_FOUND_LISTING_VIEW) {
             mav.addObject("players", playersFound); 
         } else {
             mav.addObject("player", player);
