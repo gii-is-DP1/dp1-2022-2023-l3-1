@@ -58,6 +58,6 @@ public class Player extends Person {
             List<OcaDice> ls = getOcaDice();
             ls.add(ocaDice);
             setOcaDice(ls);
-        }        
+        }
     }
 }

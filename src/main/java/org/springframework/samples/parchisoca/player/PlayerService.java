@@ -66,7 +66,7 @@ public class PlayerService {
     public void savePlayer(Player player) {
         playerRepository.save(player);
         userService.saveUser(player.getUser());
-        authoritiesService.saveAuthorities(player.getUser().getUsername(), "player");
+       authoritiesService.saveAuthorities(player.getUser().getUsername(), "player");
     }
 
     @Transactional

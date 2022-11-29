@@ -32,6 +32,6 @@ public class UserServiceTest {
 		Optional<User> user = us.findUser("usuario10");
 		assertThat(user.isPresent());
 	}
-    
-    
+
+
 }

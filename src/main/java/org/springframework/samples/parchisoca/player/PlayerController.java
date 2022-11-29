@@ -10,6 +10,7 @@ import javax.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.parchisoca.user.User;
+import org.springframework.samples.parchisoca.user.UserService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -26,6 +27,7 @@ public class PlayerController {
 
     @Autowired
     private PlayerService playerService;
+    private UserService userService;
 
     private final String PLAYERS_LISTING_VIEW= "players/playersListing";
     private final String CREATE_PLAYERS = "players/createPlayerForm";
@@ -142,17 +144,20 @@ public class PlayerController {
     public String saveLoggedPlayer(@PathVariable("playerId") int playerId, Player player){
         Player playerToBeUpdated = playerService.getById(playerId);
         BeanUtils.copyProperties(player,playerToBeUpdated,"id","achievements", "user");
-        Collection<SimpleGrantedAuthority> nowAuthorities =
-            (Collection<SimpleGrantedAuthority>)SecurityContextHolder.getContext()
-                .getAuthentication()
-                .getAuthorities();
-        UsernamePasswordAuthenticationToken authentication =
-            new UsernamePasswordAuthenticationToken(player.getUser().getUsername(), player.getUser().getPassword(), nowAuthorities);
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-//        playerToBeUpdated.getUser().setUsername(authentication.getName());
+//        Collection<SimpleGrantedAuthority> nowAuthorities =
+//            (Collection<SimpleGrantedAuthority>)SecurityContextHolder.getContext()
+//                .getAuthentication()
+//                .getAuthorities();
+//        UsernamePasswordAuthenticationToken authentication =
+//            new UsernamePasswordAuthenticationToken(player.getUser().getUsername(), player.getUser().getPassword(), nowAuthorities);
+//
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
 //        playerToBeUpdated.getUser().setAuthorities(((User) authentication.getAuthorities()).getAuthorities());
 //        playerToBeUpdated.setId(playerId);
+//       userService.saveUser(playerToBeUpdated.getUser());
+//        System.out.println("id: "+playerId);
+        playerToBeUpdated.getUser().setUsername(player.getUser().getUsername());
+        System.out.println("Saving: "+playerToBeUpdated);
         playerService.savePlayer(playerToBeUpdated);
         return "redirect:/players/myProfile";
     }

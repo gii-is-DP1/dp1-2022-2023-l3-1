@@ -1,5 +1,5 @@
 -- One admin user, named admin1 with passwor 4dm1n and authority admin
-INSERT INTO users(username,password,enabled) VALUES ('admin1','4dm1n',TRUE);    
+INSERT INTO users(username,password,enabled) VALUES ('admin1','4dm1n',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (1,'admin1','admin');
 
 INSERT INTO game_types(id,name) VALUES (1, 'PARCHIS');
@@ -12,11 +12,11 @@ INSERT INTO users(username,password,enabled) VALUES ('pajaro','1234',TRUE);
 INSERT INTO players(id,email,first_name,last_name,username) VALUES (2,'javi@gmail.com','Javier','Ruiz','pajaro');
 INSERT INTO authorities(id,username,authority) VALUES (5,'pajaro','player');
 
-INSERT INTO users(username,password,enabled) VALUES ('alvaro1','1234',TRUE); 
+INSERT INTO users(username,password,enabled) VALUES ('alvaro1','1234',TRUE);
 INSERT INTO players(id,email,first_name,last_name,username) VALUES (1,'alvaro@gmail.com','Alvaro','Carrera','alvaro1');
 INSERT INTO authorities(id,username,authority) VALUES (4,'alvaro1','player');
 
-INSERT INTO users(username,password,enabled) VALUES ('TheKroth','1234',TRUE); 
+INSERT INTO users(username,password,enabled) VALUES ('TheKroth','1234',TRUE);
 INSERT INTO players(id,email,first_name,last_name,username) VALUES (3,'thekroth@gmail.com','John','Rodriguez','TheKroth');
 INSERT INTO authorities(id,username,authority) VALUES (6,'TheKroth','player');
 
