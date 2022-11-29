@@ -31,8 +31,8 @@ public class GameService {
     }
 
     @Transactional(readOnly = true)
-    public GameType getGameType(String name) {
-        return repository.findGameType(name);
+    public GameType findGameType(String name) {
+        return repository.getGameType(name);
     }
 
     @Transactional(readOnly = true)
@@ -71,7 +71,7 @@ public class GameService {
 
     @Transactional(readOnly = true)
     public Player findPlayerById(int id) {
-        return playerRepository.findPlayerById(id);
+        return playerRepository.getPlayerById(id);
     }
 
 }

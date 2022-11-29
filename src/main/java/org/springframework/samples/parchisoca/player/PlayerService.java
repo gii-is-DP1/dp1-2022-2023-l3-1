@@ -28,7 +28,7 @@ public class PlayerService {
     }
 
     @Transactional(readOnly = true)
-    List<Player> getPlayers() {
+    List<Player> findPlayers() {
         return playerRepository.findAll();
     }
 
@@ -39,21 +39,21 @@ public class PlayerService {
 
     @Transactional(readOnly = true)
     public Player findPlayersByUsername(String username) throws DataAccessException {
-        return playerRepository.findByUsername(username);
+        return playerRepository.getByUsername(username);
     }
 
     @Transactional(readOnly = true)
     public Collection<Player> findPlayerByFirstName(String firstName) throws DataAccessException {
-        return playerRepository.findByFirstName(firstName);
+        return playerRepository.getByFirstName(firstName);
     }
 
     @Transactional(readOnly = true)
     public Collection<Player> findPlayerByLastName(String lastName) throws DataAccessException {
-        return playerRepository.findByLastName(lastName);
+        return playerRepository.getByLastName(lastName);
     }
 
     @Transactional(readOnly = true)
-    public Player getById(int id) {
+    public Player findById(int id) {
         return playerRepository.findById(id).get();
     }
 
@@ -71,17 +71,17 @@ public class PlayerService {
 
     @Transactional
     public List<Player> getUserAchievments(String firstName){
-        return playerRepository.findUserAchievements(firstName);
+        return playerRepository.getUserAchievements(firstName);
     }
 
     @Transactional
     public Integer getUserIdByName(String name){
-        return playerRepository.findIdByName(name);
+        return playerRepository.getIdByName(name);
     }
 
     @Transactional
     public Player getUserAchievement(int id){
-        return playerRepository.findUserAchievementsId(id);
+        return playerRepository.getUserAchievementsId(id);
     }
 
     public void save(Player player) { playerRepository.save(player); }

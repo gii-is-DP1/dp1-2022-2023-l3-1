@@ -9,7 +9,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.parchisoca.board.OcaBoard;
-import org.springframework.samples.parchisoca.board.OcaBoardController;
 import org.springframework.samples.parchisoca.board.OcaBoardService;
 import org.springframework.samples.parchisoca.player.Player;
 import org.springframework.samples.parchisoca.player.PlayerService;
@@ -68,7 +67,7 @@ public class GameController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         Integer id = playerService.getUserIdByName(username);
-        Player currentPlayer = playerService.getById(id);
+        Player currentPlayer = playerService.findById(id);
 
         if (result.hasErrors()) {
             modelMap.addAttribute("game", game);
@@ -112,7 +111,7 @@ public class GameController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         Integer id = playerService.getUserIdByName(username);
-        Player currentPlayer = playerService.getById(id);
+        Player currentPlayer = playerService.findById(id);
         Game currentGame = gameService.findGameByCode(code);
         List<Player> ls = currentGame.getPlayers();
         System.out.println("N"+currentGame.getNumberOfPlayers());
@@ -179,7 +178,7 @@ public class GameController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         Integer id = playerService.getUserIdByName(username);
-        Player currentPlayer = playerService.getById(id);
+        Player currentPlayer = playerService.findById(id);
         Game currentGame = gameService.findGameByCode(code);
         List<Player> ls = currentGame.getPlayers();
 

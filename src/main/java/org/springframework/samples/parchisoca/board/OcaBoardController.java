@@ -54,7 +54,7 @@ public class OcaBoardController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         Integer id = playerService.getUserIdByName(username);
-        Player currentPlayer = playerService.getById(id);
+        Player currentPlayer = playerService.findById(id);
         
         OcaBoard newOcaBoard = ocaBoardService.findById(ocaBoardId);
         List<OcaPiece> pieces = newOcaBoard.getPieces();
@@ -93,7 +93,7 @@ public class OcaBoardController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         Integer id = playerService.getUserIdByName(username);
-        Player currentPlayer = playerService.getById(id);
+        Player currentPlayer = playerService.findById(id);
 
         Game currentGame = gameService.findGameByCode(code);
         List<Player> ls = currentGame.getPlayers();
@@ -163,7 +163,7 @@ public class OcaBoardController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         Integer id = playerService.getUserIdByName(username);
-        Player currentPlayer = playerService.getById(id);
+        Player currentPlayer = playerService.findById(id);
         
         ModelAndView mav = new ModelAndView("redirect:/boards/ocaBoard/"+ocaBoardId);
         OcaBoard currentOcaBoard = ocaBoardService.findById(ocaBoardId);

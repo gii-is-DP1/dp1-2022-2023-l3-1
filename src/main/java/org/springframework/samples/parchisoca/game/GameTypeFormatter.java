@@ -21,7 +21,7 @@ public class GameTypeFormatter implements Formatter<GameType>{
 
     @Override
     public GameType parse(String text, Locale locale) throws ParseException {
-        GameType p = this.gs.getGameType(text);
+        GameType p = this.gs.findGameType(text);
         if (p == null) {
             throw new ParseException(text, 0);
         } else {

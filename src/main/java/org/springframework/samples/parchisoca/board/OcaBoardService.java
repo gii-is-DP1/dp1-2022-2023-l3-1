@@ -156,7 +156,7 @@ public class OcaBoardService {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         Integer id = playerService.getUserIdByName(username);
-        Player currentPlayer = playerService.getById(id);
+        Player currentPlayer = playerService.findById(id);
 
         return currentPlayer.equals(piecePlayer);
         
