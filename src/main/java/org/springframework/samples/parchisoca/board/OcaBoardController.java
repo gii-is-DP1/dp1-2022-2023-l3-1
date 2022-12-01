@@ -51,7 +51,7 @@ public class OcaBoardController {
     // Generates an oca board 
     @GetMapping({"boards/ocaBoard/{ocaBoardId}"})
     public ModelAndView board(@PathVariable("ocaBoardId") int ocaBoardId, HttpServletResponse response){
-        response.addHeader("Refresh", "2");
+        //response.addHeader("Refresh", "2");
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         Integer id = playerService.getUserIdByName(username);

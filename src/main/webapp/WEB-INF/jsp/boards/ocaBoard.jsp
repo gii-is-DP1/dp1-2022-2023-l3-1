@@ -16,7 +16,7 @@
         <div class ="col-md-12">
             <game:ocaBoard ocaBoard = "${ocaBoard}">
                 <c:forEach items = "${ocaBoard.pieces}" var ="piece">
-                    <game:ocaPiece  size = "100" piece = "${piece}"/>
+                    <game:ocaPiece  size = "5" piece = "${piece}"/>
                 </c:forEach>  
             </game:ocaBoard>
         </div>
