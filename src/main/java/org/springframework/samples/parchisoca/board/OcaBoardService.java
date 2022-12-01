@@ -131,6 +131,8 @@ public class OcaBoardService {
                 res.setSpecialBoxOca(SpecialBoxesOca.DEATH);
             } else if (i==63) {
                 res.setSpecialBoxOca(SpecialBoxesOca.GOAL);
+            }else if (i==52){
+                res.setSpecialBoxOca(SpecialBoxesOca.PRISON);
             } else {
                 res.setSpecialBoxOca(SpecialBoxesOca.NORMAL);
             }
