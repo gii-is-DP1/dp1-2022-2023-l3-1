@@ -6,11 +6,14 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Positive;
 
+import org.springframework.parchis.BoxesParchis;
+import org.springframework.samples.parchisoca.dice.ParchisDice;
 import org.springframework.samples.parchisoca.game.Game;
 import org.springframework.samples.parchisoca.model.BaseEntity;
 import org.springframework.samples.parchisoca.piece.ParchisPiece;
@@ -46,4 +49,15 @@ public class ParchisBoard extends BaseEntity {
 
     @OneToOne
     private Game game;
+
+    Integer turn = 0;
+
+    @OneToMany
+    private List<BoxesParchis> boxes;
+
+    @OneToMany
+    List<ParchisPiece> parchisPieces;
+
+    @ManyToMany
+    List<ParchisDice> parchisDices;
 }
