@@ -29,7 +29,6 @@ import lombok.Setter;
 public class Player extends Person {
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "username", referencedColumnName = "username")
 	private User user;
 
     @Column(unique = true)
@@ -58,6 +57,6 @@ public class Player extends Person {
             List<OcaDice> ls = getOcaDice();
             ls.add(ocaDice);
             setOcaDice(ls);
-        }        
+        }
     }
 }

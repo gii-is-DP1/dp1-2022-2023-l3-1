@@ -1,16 +1,20 @@
 package org.springframework.samples.parchisoca.player;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+
+
+import java.security.Principal;
+import java.util.*;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.parchisoca.user.User;
+import org.springframework.samples.parchisoca.user.UserService;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.samples.parchisoca.badWord.BadWordsService;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -61,7 +65,7 @@ public class PlayerController {
 
         ModelAndView mav = new ModelAndView();
         Player player = playerService.findPlayersByUsername(username);
-        
+
         String direction;
         String message = "";
         List<Player> players = playerService.findPlayers();
@@ -69,21 +73,24 @@ public class PlayerController {
 
         if (player==null) {
             direction = FIND_PLAYER_VIEW;
+
             for (Player p: players) {
                 String userToFind = p.getUser().getUsername();
                 if (userToFind.contains(username)) {
                     playersFound.add(p);
                 } else {
-                    message = "There is no player known as '" + username+"'."; 
+                    message = "There is no player known as '" + username+"'.";
                 }
             }
             if (playersFound.size() > 0) {
                 direction = PLAYERS_FOUND_LISTING_VIEW;
             }
-            
+
         } else if (currentUsername.equals(username)) {
             direction = FIND_PLAYER_VIEW;
-            message = "You can't search yourself."; 
+
+            message = "You can't search yourself.";
+
         } else if (currentPlayersFriends.contains(player)) {
             direction = FRIEND_PROFILE;
         } else {
@@ -92,15 +99,17 @@ public class PlayerController {
 
         mav = new ModelAndView(direction);
 
+
         if (direction == PLAYERS_FOUND_LISTING_VIEW) {
             mav.addObject("players", playersFound); 
+
         } else {
             mav.addObject("player", player);
-            mav.addObject("message", message); 
+            mav.addObject("message", message);
         }
-        
+
         return mav;
-        
+
     }
 
     // Lists all players
@@ -168,9 +177,9 @@ public class PlayerController {
 
 
     @GetMapping("/players/{playerId}/edit")
-    public ModelAndView editLoggedPlayer(@PathVariable("playerId") int playerId) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String username = auth.getName();
+    public ModelAndView editLoggedPlayer(@PathVariable("playerId") int playerId, Principal principal) {
+        String username = principal.getName();
+        System.out.println("nombre usuario principal: " + username);
         Integer loggedId = this.playerService.getUserIdByName(username);
         if (loggedId == playerId) {
             Player player = playerService.findById(playerId);
@@ -185,11 +194,12 @@ public class PlayerController {
     }
 
     @PostMapping("/players/{playerId}/edit")
-    public String saveLoggedPlayer(@PathVariable("playerId") int playerId, Player player) {
+    public String saveLoggedPlayer(@PathVariable("playerId") int playerId, Player player, Principal principal){
         Player playerToBeUpdated = playerService.findById(playerId);
-        BeanUtils.copyProperties(player,playerToBeUpdated,"id","achievements", "user");
+        BeanUtils.copyProperties(player,playerToBeUpdated,"id","achievements","user");
+        playerToBeUpdated.getUser().setUsername(player.getUser().getUsername());
         playerService.savePlayer(playerToBeUpdated);
-        return "redirect:/players/myProfile";
+            return "redirect:/logout";
     }
 
     @GetMapping("/admin/{playerId}/edit")
@@ -204,6 +214,7 @@ public class PlayerController {
     public String savePlayer(@PathVariable("playerId") int playerId, Player player) {
         Player playerToBeUpdated = playerService.findById(playerId);
         BeanUtils.copyProperties(player,playerToBeUpdated,"id","achievements","user");
+        playerToBeUpdated.getUser().setUsername(player.getUser().getUsername());
         playerService.savePlayer(playerToBeUpdated);
         return "redirect:/players/{playerId}";
     }
@@ -215,10 +226,9 @@ public class PlayerController {
     }
 
     @GetMapping("/players/myProfile")
-    public ModelAndView showLoggedUser() {
+    public ModelAndView showLoggedUser(Principal principal) {
         ModelAndView mav = new ModelAndView(LOGGED_USER_VIEW);
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String username = auth.getName();
+        String username = principal.getName();
         Integer id = this.playerService.getUserIdByName(username);
         Optional<Player> player = this.playerService.findPlayerById(id);
         if (player.isPresent()) {
