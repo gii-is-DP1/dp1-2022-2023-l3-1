@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.hibernate.query.criteria.internal.ValueHandlerFactory.LongValueHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.parchisoca.board.OcaBoard;
 import org.springframework.samples.parchisoca.board.OcaBoardService;
@@ -65,22 +66,25 @@ public class GameController {
     
     // Supports the creation of a game
     @PostMapping("/create")
-    public String saveGame(@Valid Game game, BindingResult result, ModelMap modelMap) {
+    public ModelAndView saveGame(@Valid Game game, BindingResult result, ModelMap modelMap) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         Integer id = playerService.getUserIdByName(username);
         Player currentPlayer = playerService.findById(id);
+        List<GameType> gameTypes =  gameService.findAllGameTypes();
 
         if (result.hasErrors()) {
-            modelMap.addAttribute("game", game);
-            return LOBBY;
+            ModelAndView mav = new ModelAndView(LOBBY);
+            mav.addObject("game", game);
+            mav.addObject("gameTypes", gameTypes);
+            return mav;
         } else {
             game.addPlayer(currentPlayer);
             game.setCreator(currentPlayer);
             game.setInProgress(true);
             this.gameService.save(game);
         }
-        return "redirect:/games/lobby/"+game.getCode()+"/waitRoom";
+        return new ModelAndView("redirect:/games/lobby/"+game.getCode()+"/waitRoom");
     }
 
     // Shows public games

@@ -29,6 +29,8 @@
             <tr>
                 <th scope ="col">Player</th>
                 <th scope ="col">Position</th>
+                <th scope = "col">Color</th>
+                <th scope = "col">Penalization</th>
             </tr>
         </thead>
         <tbody>
@@ -36,6 +38,8 @@
                 <tr>
                     <td>${piece.player.user.username}
                     <td>${piece.position} 
+                    <td>${piece.colour}
+                    <td>${piece.penalizationTurn}
                 </tr>
             </c:forEach>
         </tbody>
