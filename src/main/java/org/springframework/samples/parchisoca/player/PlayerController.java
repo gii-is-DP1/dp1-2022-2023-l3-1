@@ -1,13 +1,9 @@
 package org.springframework.samples.parchisoca.player;
 
-<<<<<<< HEAD
-import java.util.Collection;
-=======
-import java.util.ArrayList;
->>>>>>> master
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+
+
+import java.security.Principal;
+import java.util.*;
 
 import javax.validation.Valid;
 
@@ -31,7 +27,6 @@ public class PlayerController {
 
     @Autowired
     private PlayerService playerService;
-    private UserService userService;
 
     private final String PLAYERS_LISTING_VIEW= "players/playersListing";
     private final String CREATE_PLAYERS = "players/createPlayerForm";
@@ -149,9 +144,9 @@ public class PlayerController {
 
 
     @GetMapping("/players/{playerId}/edit")
-    public ModelAndView editLoggedPlayer(@PathVariable("playerId") int playerId) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String username = auth.getName();
+    public ModelAndView editLoggedPlayer(@PathVariable("playerId") int playerId, Principal principal) {
+        String username = principal.getName();
+        System.out.println("nombre usuario principal: " + username);
         Integer loggedId = this.playerService.getUserIdByName(username);
         if (loggedId == playerId) {
             Player player = playerService.findById(playerId);
@@ -166,25 +161,12 @@ public class PlayerController {
     }
 
     @PostMapping("/players/{playerId}/edit")
-    public String saveLoggedPlayer(@PathVariable("playerId") int playerId, Player player){
+    public String saveLoggedPlayer(@PathVariable("playerId") int playerId, Player player, Principal principal){
         Player playerToBeUpdated = playerService.findById(playerId);
-        BeanUtils.copyProperties(player,playerToBeUpdated,"id","achievements", "user");
-//        Collection<SimpleGrantedAuthority> nowAuthorities =
-//            (Collection<SimpleGrantedAuthority>)SecurityContextHolder.getContext()
-//                .getAuthentication()
-//                .getAuthorities();
-//        UsernamePasswordAuthenticationToken authentication =
-//            new UsernamePasswordAuthenticationToken(player.getUser().getUsername(), player.getUser().getPassword(), nowAuthorities);
-//
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
-//        playerToBeUpdated.getUser().setAuthorities(((User) authentication.getAuthorities()).getAuthorities());
-//        playerToBeUpdated.setId(playerId);
-//       userService.saveUser(playerToBeUpdated.getUser());
-//        System.out.println("id: "+playerId);
+        BeanUtils.copyProperties(player,playerToBeUpdated,"id","achievements","user");
         playerToBeUpdated.getUser().setUsername(player.getUser().getUsername());
-        System.out.println("Saving: "+playerToBeUpdated);
         playerService.savePlayer(playerToBeUpdated);
-        return "redirect:/players/myProfile";
+            return "redirect:/logout";
     }
 
     @GetMapping("/admin/{playerId}/edit")
@@ -199,6 +181,7 @@ public class PlayerController {
     public String savePlayer(@PathVariable("playerId") int playerId, Player player){
         Player playerToBeUpdated = playerService.findById(playerId);
         BeanUtils.copyProperties(player,playerToBeUpdated,"id","achievements","user");
+        playerToBeUpdated.getUser().setUsername(player.getUser().getUsername());
         playerService.savePlayer(playerToBeUpdated);
         return "redirect:/players/{playerId}";
     }
@@ -210,10 +193,9 @@ public class PlayerController {
     }
 
     @GetMapping("/players/myProfile")
-    public ModelAndView showLoggedUser() {
+    public ModelAndView showLoggedUser(Principal principal) {
         ModelAndView mav = new ModelAndView(LOGGED_USER_VIEW);
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String username = auth.getName();
+        String username = principal.getName();
         Integer id = this.playerService.getUserIdByName(username);
         Optional<Player> player = this.playerService.findPlayerById(id);
         if (player.isPresent()) {

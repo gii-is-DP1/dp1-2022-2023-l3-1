@@ -1,6 +1,6 @@
 -- One admin user, named admin1 with passwor 4dm1n and authority admin
-INSERT INTO users(username,password,enabled) VALUES ('admin1','4dm1n',TRUE);
-INSERT INTO authorities(id,username,authority) VALUES (1,'admin1','admin');
+INSERT INTO users(id,username,password,enabled) VALUES (1,'admin1','4dm1n',TRUE);
+INSERT INTO authorities(id,user_id,authority) VALUES (1,1,'admin');
 
 INSERT INTO game_types(id,name) VALUES (1, 'PARCHIS');
 INSERT INTO game_types(id,name) VALUES (2, 'OCA');
@@ -8,21 +8,21 @@ INSERT INTO game_types(id,name) VALUES (2, 'OCA');
 INSERT INTO achievements(id,name,description,threshold,badge_image) VALUES (1,'Viciado','Si juegas <THRESHOLD> partidas o más, consideramos que ya estás enganchado.',10.0,'https://bit.ly/certifiedGamer');
 INSERT INTO achievements(id,name,description,threshold,badge_image) VALUES (2,'Triunfador','Si ganas <THRESHOLD> o  más partidas es que eres todo un triunfador.',20.0,'https://bit.ly/proGamer');
 
-INSERT INTO users(username,password,enabled) VALUES ('pajaro','1234',TRUE);
-INSERT INTO players(id,email,first_name,last_name,username) VALUES (2,'javi@gmail.com','Javier','Ruiz','pajaro');
-INSERT INTO authorities(id,username,authority) VALUES (5,'pajaro','player');
+INSERT INTO users(id,username,password,enabled) VALUES (2,'pajaro','1234',TRUE);
+INSERT INTO players(id,email,first_name,last_name,user_id) VALUES (2,'javi@gmail.com','Javier','Ruiz',2);
+INSERT INTO authorities(id,user_id,authority) VALUES (5,2,'player');
 
-INSERT INTO users(username,password,enabled) VALUES ('alvaro1','1234',TRUE);
-INSERT INTO players(id,email,first_name,last_name,username) VALUES (1,'alvaro@gmail.com','Alvaro','Carrera','alvaro1');
-INSERT INTO authorities(id,username,authority) VALUES (4,'alvaro1','player');
+INSERT INTO users(id,username,password,enabled) VALUES (3,'alvaro1','1234',TRUE);
+INSERT INTO players(id,email,first_name,last_name,user_id) VALUES (1,'alvaro@gmail.com','Alvaro','Carrera',3);
+INSERT INTO authorities(id,user_id,authority) VALUES (4,3,'player');
 
-INSERT INTO users(username,password,enabled) VALUES ('TheKroth','1234',TRUE);
-INSERT INTO players(id,email,first_name,last_name,username) VALUES (3,'thekroth@gmail.com','John','Rodriguez','TheKroth');
-INSERT INTO authorities(id,username,authority) VALUES (6,'TheKroth','player');
+INSERT INTO users(id,username,password,enabled) VALUES (4,'TheKroth','1234',TRUE);
+INSERT INTO players(id,email,first_name,last_name,user_id) VALUES (3,'thekroth@gmail.com','John','Rodriguez',4);
+INSERT INTO authorities(id,user_id,authority) VALUES (6,4,'player');
 
-INSERT INTO users(username,password,enabled) VALUES ('TheGrefg','1234',TRUE);
-INSERT INTO players(id,email,first_name,last_name,username) VALUES (4,'thegrefg@gmail.com','David','Canovas','TheGrefg');
-INSERT INTO authorities(id,username,authority) VALUES (7,'TheGrefg','player');
+INSERT INTO users(id,username,password,enabled) VALUES (5,'TheGrefg','1234',TRUE);
+INSERT INTO players(id,email,first_name,last_name,user_id) VALUES (4,'thegrefg@gmail.com','David','Canovas',5);
+INSERT INTO authorities(id,user_id,authority) VALUES (7,5,'player');
 
 INSERT INTO players_achievements(player_id,achievements_id) VALUES (1,1);
 INSERT INTO players_achievements(player_id,achievements_id) VALUES (1,2);

@@ -16,7 +16,6 @@
                 <parchisoca:inputField label="Last Name" name="lastName"/>
                 <parchisoca:inputField label="Email" name="email"/>
                 <parchisoca:inputField label="Username" name="user.username"/>
-            </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                             <button class="btn btn-default" type="submit">Update Player</button>
