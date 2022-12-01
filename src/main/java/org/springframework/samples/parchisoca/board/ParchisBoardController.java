@@ -14,11 +14,11 @@ public class ParchisBoardController {
 	@Autowired
 	ParchisBoardService parchisBoardService;
 
-	  @GetMapping({"/parchisBoard"})
-	  public String welcome(Map<String, Object> model, HttpServletResponse response) {	    
+	@GetMapping({"/parchisBoard"})
+	public String welcome(Map<String, Object> model, HttpServletResponse response) {	    
 		response.addHeader("Refresh","2");
 		model.put("parchisBoard", parchisBoardService.findById(1).get());
 	    return "boards/parchisBoard";
-	  }
+	}
 
 }

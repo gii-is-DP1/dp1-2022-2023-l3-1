@@ -9,6 +9,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.parchisoca.badWord.BadWordsService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,9 @@ public class PlayerController {
 
     @Autowired
     private PlayerService playerService;
+
+    @Autowired
+    private BadWordsService badWordsService;
 
     private final String PLAYERS_LISTING_VIEW = "players/playersListing";
     private final String PLAYERS_FOUND_LISTING_VIEW = "players/playersFoundListing";
@@ -47,6 +51,7 @@ public class PlayerController {
 		return FIND_PLAYER_VIEW;
 	}
 
+    // Finds a player by its username
     @GetMapping("/players/find/{username}")
     public ModelAndView findPlayer(@PathVariable("username") String username) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -98,6 +103,7 @@ public class PlayerController {
         
     }
 
+    // Lists all players
     @GetMapping("/players/list")
     public ModelAndView showPlayers(){
         ModelAndView result = new ModelAndView(PLAYERS_LISTING_VIEW);
@@ -105,6 +111,30 @@ public class PlayerController {
         result.addObject("players", players);
         return result;
     }
+
+    //
+    @GetMapping("/admin/players/create")
+    public ModelAndView createPlayerAdmin(){
+        ModelAndView result = new ModelAndView(CREATE_PLAYERS);
+        result.addObject("player", new Player());
+        return result;
+    }
+
+    @PostMapping(value = "/admin/players/create")
+	public ModelAndView processAdminCreationForm(@Valid Player player, BindingResult result) {
+        if (result.hasErrors()) {
+			ModelAndView mav = new ModelAndView(CREATE_PLAYERS);
+            return mav;
+		} else if (badWordsService.checkPlayerBadWords(player)) {
+            ModelAndView mav = new ModelAndView(CREATE_PLAYERS);
+            String message = "Check your language!";
+            mav.addObject("message", message);
+            return mav;
+        } else {
+			this.playerService.savePlayer(player);
+			return new ModelAndView("redirect:/welcome");
+		}
+	}
 
     @GetMapping("/players/create")
     public ModelAndView createPlayer(){
@@ -155,7 +185,7 @@ public class PlayerController {
     }
 
     @PostMapping("/players/{playerId}/edit")
-    public String saveLoggedPlayer(@PathVariable("playerId") int playerId, Player player){
+    public String saveLoggedPlayer(@PathVariable("playerId") int playerId, Player player) {
         Player playerToBeUpdated = playerService.findById(playerId);
         BeanUtils.copyProperties(player,playerToBeUpdated,"id","achievements", "user");
         playerService.savePlayer(playerToBeUpdated);
@@ -171,7 +201,7 @@ public class PlayerController {
     }
 
     @PostMapping("/admin/{playerId}/edit")
-    public String savePlayer(@PathVariable("playerId") int playerId, Player player){
+    public String savePlayer(@PathVariable("playerId") int playerId, Player player) {
         Player playerToBeUpdated = playerService.findById(playerId);
         BeanUtils.copyProperties(player,playerToBeUpdated,"id","achievements","user");
         playerService.savePlayer(playerToBeUpdated);
