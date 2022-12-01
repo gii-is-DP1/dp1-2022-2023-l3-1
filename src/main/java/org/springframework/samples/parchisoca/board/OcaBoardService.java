@@ -137,7 +137,7 @@ public class OcaBoardService {
 
         List <OcaPiece> pieces  = ocaBoard.getPieces();
         if (turn == pieces.size()-1){
-            ocaBoard.setTurn(0);;
+            ocaBoard.setTurn(0);
         }else{
             turn +=1;
             ocaBoard.setTurn(turn);
