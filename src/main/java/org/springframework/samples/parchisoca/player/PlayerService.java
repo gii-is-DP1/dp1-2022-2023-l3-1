@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.samples.parchisoca.user.Authorities;
 import org.springframework.samples.parchisoca.user.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -66,7 +67,7 @@ public class PlayerService {
     public void savePlayer(Player player) {
         playerRepository.save(player);
         userService.saveUser(player.getUser());
-        authoritiesService.saveAuthorities(player.getUser().getUsername(), "player");
+        authoritiesService.saveAuthorities(player.getUser().getId(), "player", player.getUser().getUsername());
     }
 
     @Transactional

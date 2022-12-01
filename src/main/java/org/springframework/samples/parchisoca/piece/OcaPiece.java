@@ -26,13 +26,11 @@ public class OcaPiece extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Colour colour;
     
-    @Range(min = 0, max = 7)
     @NotNull
-    int xPosition;
+    int xPosition = 100;
 
-    @Range(min = 0, max = 7)
     @NotNull
-    int yPosition;
+    int yPosition = 580;
 
     @ManyToOne
     OcaBoard ocaBoard;
@@ -44,12 +42,10 @@ public class OcaPiece extends BaseEntity {
     @ManyToOne
     private Player player;
 
-    public Integer getPositionXInPixels(Integer size) {
-    	return (xPosition)*size;
+    public int getXPosition(){
+        return xPosition;
     }
-    
-    public Integer getPositionYInPixels(Integer size) {
-    	return (yPosition)*size;
+    public int getYPosition(){
+        return yPosition;
     }
-
 }

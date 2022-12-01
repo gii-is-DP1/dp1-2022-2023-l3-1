@@ -1,9 +1,12 @@
 package org.springframework.samples.parchisoca.oca;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.ManyToOne;
 
+import org.springframework.samples.parchisoca.board.OcaBoard;
 import org.springframework.samples.parchisoca.model.BaseEntity;
 
 import lombok.Getter;
@@ -19,4 +22,10 @@ public class BoxesOca extends BaseEntity {
 
     private Integer positionBoard;
     
+    private Integer xPosition; 
+    
+    private Integer yPosition;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    private OcaBoard ocaBoard;
 }

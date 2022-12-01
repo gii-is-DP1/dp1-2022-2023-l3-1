@@ -17,6 +17,7 @@ package org.springframework.samples.parchisoca.user;
 
 
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -45,18 +46,18 @@ public class AuthoritiesService {
 	public void saveAuthorities(Authorities authorities) throws DataAccessException {
 		authoritiesRepository.save(authorities);
 	}
-	
+
 	@Transactional
-	public void saveAuthorities(String username, String role) throws DataAccessException {
+	public void saveAuthorities(Integer user_id, String role, String username) throws DataAccessException {
 		Authorities authority = new Authorities();
-		Optional<User> user = userService.findUser(username);
+		Optional<User> user = userService.findUser(user_id);
+        user.get().setUsername(username);
 		if (user.isPresent()) {
-			authority.setUser(user.get());
+            authority.setUser(user.get());
 			authority.setAuthority(role);
-			//user.get().getAuthorities().add(authority);
 			authoritiesRepository.save(authority);
 		} else {
-			throw new DataAccessException("User '"+username+"' not found!") {};
+			throw new DataAccessException("User with id: '"+ user_id+"' not found!") {};
 		}
 	}
 

@@ -47,7 +47,7 @@ public class OcaBoard extends BaseEntity {
     @OneToOne
     private Game game;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "ocaBoard")
     private List<BoxesOca> boxes;
 
     private Integer turn = 0;
@@ -95,7 +95,7 @@ public class OcaBoard extends BaseEntity {
 
     public Integer reboteTirada(Integer position) {  
         if (position > 63) {
-            position = 2 * 63 - position ;
+            position = 2 * 63 - position;
         }
         return position;
     }

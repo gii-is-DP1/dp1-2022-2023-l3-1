@@ -27,11 +27,12 @@ public class UserServiceTest {
         User u1 = new User();
         u1.setUsername("usuario10");
         u1.setPassword("1234");
+        u1.setId(20);
 
         us.saveUser(u1);
-		Optional<User> user = us.findUser("usuario10");
+		Optional<User> user = us.findUser(20);
 		assertThat(user.isPresent());
 	}
-    
-    
+
+
 }

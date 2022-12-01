@@ -31,13 +31,13 @@ import lombok.Setter;
 @Entity
 @Table(name = "games")
 public class Game extends BaseEntity {
-    
+
     @OneToOne
     private Player creator;
-    
+
     @Range(min = 2, max = 4)
     private Integer jugadores;
-    
+
     @ManyToOne(optional = false)
     @NotNull
     @JoinColumn(name = "game_type_id")
@@ -54,7 +54,7 @@ public class Game extends BaseEntity {
 
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Player> players;
-    
+
     @OneToOne
     private Player winner;
 
@@ -85,10 +85,12 @@ public class Game extends BaseEntity {
             int cantidadCarac = res.length();
             int numeroRandom = (int) (Math.random()*cantidadCarac);
             contraseña.append((res.toString().charAt(numeroRandom)));
-        } 
+
+        }
+
         return contraseña.toString();
     }
-    
+
     public void addPlayer (Player player) {
         if (getPlayers() == null) {
             List<Player> ls = new ArrayList<>();
@@ -98,11 +100,11 @@ public class Game extends BaseEntity {
             List<Player> ls = getPlayers();
             ls.add(player);
             setPlayers(ls);
-        }        
+        }
     }
 
     public Integer getNumberOfPlayers(){
         return players.size();
     }
- 
+
 }

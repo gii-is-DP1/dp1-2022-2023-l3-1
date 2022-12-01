@@ -4,6 +4,9 @@
 <canvas id="canvas" width="${ocaBoard.width}" height="${ocaBoard.height}"></canvas>
 <img id="source" src="${ocaBoard.background}" style="display:none">
 <img id="RED" src="/resources/images/RED.png" style="display:none">
+<img id="BLUE" src="/resources/images/BLUE.png" style="display:none">
+<img id="YELLOW" src="/resources/images/YELLOW.png" style="display:none">
+<img id="GREEN" src="/resources/images/GREEN.png" style="display:none">
 <script>
 function drawBoard(){ 
     var canvas = document.getElementById("canvas");

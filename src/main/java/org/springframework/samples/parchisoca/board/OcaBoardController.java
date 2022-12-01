@@ -51,7 +51,7 @@ public class OcaBoardController {
     // Generates an oca board 
     @GetMapping({"boards/ocaBoard/{ocaBoardId}"})
     public ModelAndView board(@PathVariable("ocaBoardId") int ocaBoardId, HttpServletResponse response){
-        response.addHeader("Refresh", "2");
+        
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         Integer id = playerService.getUserIdByName(username);
@@ -74,6 +74,7 @@ public class OcaBoardController {
             mav = new ModelAndView(LOOSER);
             return mav;
         } else if (!ocaBoardService.isActualPlayer(piecePlayer)){
+            response.addHeader("Refresh", "2");
             mav.addObject("number", number);
             mav.addObject("error", "It is not your turn");
             return mav;

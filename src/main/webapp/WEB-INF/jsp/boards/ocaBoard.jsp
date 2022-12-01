@@ -16,7 +16,7 @@
         <div class ="col-md-12">
             <game:ocaBoard ocaBoard = "${ocaBoard}">
                 <c:forEach items = "${ocaBoard.pieces}" var ="piece">
-                    <game:ocaPiece  size = "100" piece = "${piece}"/>
+                    <game:ocaPiece  size = "5" piece = "${piece}"/>
                 </c:forEach>  
             </game:ocaBoard>
         </div>
@@ -29,6 +29,8 @@
             <tr>
                 <th scope ="col">Player</th>
                 <th scope ="col">Position</th>
+                <th scope = "col">Color</th>
+                <th scope = "col">Penalization</th>
             </tr>
         </thead>
         <tbody>
@@ -36,6 +38,8 @@
                 <tr>
                     <td>${piece.player.user.username}
                     <td>${piece.position} 
+                    <td>${piece.colour}
+                    <td>${piece.penalizationTurn}
                 </tr>
             </c:forEach>
         </tbody>
