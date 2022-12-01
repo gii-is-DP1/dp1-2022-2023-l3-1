@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.parchisoca.user.User;
 import org.springframework.samples.parchisoca.user.UserService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.samples.parchisoca.badWord.BadWordsService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,7 +29,11 @@ public class PlayerController {
     @Autowired
     private PlayerService playerService;
 
-    private final String PLAYERS_LISTING_VIEW= "players/playersListing";
+    @Autowired
+    private BadWordsService badWordsService;
+
+    private final String PLAYERS_LISTING_VIEW = "players/playersListing";
+    private final String PLAYERS_FOUND_LISTING_VIEW = "players/playersFoundListing";
     private final String CREATE_PLAYERS = "players/createPlayerForm";
     private final String EDIT_PLAYER = "players/editPlayer";
     private final String LOGGED_USER_VIEW = "players/myProfile";
@@ -50,6 +55,7 @@ public class PlayerController {
 		return FIND_PLAYER_VIEW;
 	}
 
+    // Finds a player by its username
     @GetMapping("/players/find/{username}")
     public ModelAndView findPlayer(@PathVariable("username") String username) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -77,7 +83,7 @@ public class PlayerController {
                 }
             }
             if (playersFound.size() > 0) {
-                direction = PLAYERS_LISTING_VIEW;
+                direction = PLAYERS_FOUND_LISTING_VIEW;
             }
 
         } else if (currentUsername.equals(username)) {
@@ -93,8 +99,10 @@ public class PlayerController {
 
         mav = new ModelAndView(direction);
 
-        if (direction == PLAYERS_LISTING_VIEW) {
-            mav.addObject("players", playersFound);
+
+        if (direction == PLAYERS_FOUND_LISTING_VIEW) {
+            mav.addObject("players", playersFound); 
+
         } else {
             mav.addObject("player", player);
             mav.addObject("message", message);
@@ -104,6 +112,7 @@ public class PlayerController {
 
     }
 
+    // Lists all players
     @GetMapping("/players/list")
     public ModelAndView showPlayers(){
         ModelAndView result = new ModelAndView(PLAYERS_LISTING_VIEW);
@@ -111,6 +120,30 @@ public class PlayerController {
         result.addObject("players", players);
         return result;
     }
+
+    //
+    @GetMapping("/admin/players/create")
+    public ModelAndView createPlayerAdmin(){
+        ModelAndView result = new ModelAndView(CREATE_PLAYERS);
+        result.addObject("player", new Player());
+        return result;
+    }
+
+    @PostMapping(value = "/admin/players/create")
+	public ModelAndView processAdminCreationForm(@Valid Player player, BindingResult result) {
+        if (result.hasErrors()) {
+			ModelAndView mav = new ModelAndView(CREATE_PLAYERS);
+            return mav;
+		} else if (badWordsService.checkPlayerBadWords(player)) {
+            ModelAndView mav = new ModelAndView(CREATE_PLAYERS);
+            String message = "Check your language!";
+            mav.addObject("message", message);
+            return mav;
+        } else {
+			this.playerService.savePlayer(player);
+			return new ModelAndView("redirect:/welcome");
+		}
+	}
 
     @GetMapping("/players/create")
     public ModelAndView createPlayer(){
@@ -178,7 +211,7 @@ public class PlayerController {
     }
 
     @PostMapping("/admin/{playerId}/edit")
-    public String savePlayer(@PathVariable("playerId") int playerId, Player player){
+    public String savePlayer(@PathVariable("playerId") int playerId, Player player) {
         Player playerToBeUpdated = playerService.findById(playerId);
         BeanUtils.copyProperties(player,playerToBeUpdated,"id","achievements","user");
         playerToBeUpdated.getUser().setUsername(player.getUser().getUsername());

@@ -39,8 +39,10 @@ public class GameController {
 
     @Autowired
     private GameService gameService;
+
     @Autowired
     private PlayerService playerService;
+
     @Autowired
     private OcaBoardService ocaBoardService;
 
@@ -112,6 +114,7 @@ public class GameController {
         String username = auth.getName();
         Integer id = playerService.getUserIdByName(username);
         Player currentPlayer = playerService.findById(id);
+
         Game currentGame = gameService.findGameByCode(code);
         List<Player> ls = currentGame.getPlayers();
         System.out.println("N"+currentGame.getNumberOfPlayers());
@@ -132,17 +135,21 @@ public class GameController {
     public ModelAndView waitRoom(@PathVariable("code") String code, HttpServletResponse response) {
         response.addHeader("Refresh", "1");
         Game currentGame = gameService.findGameByCode(code);
-        if(currentGame.getStarted())
+
+        if (currentGame.getStarted()) {
             return new ModelAndView("redirect:/boards/ocaBoard/"+currentGame.getOcaBoard().getId());
-        int currentGameCreatorId = currentGame.getCreator().getId();
+        }
+
+        Integer currentGameCreatorId = currentGame.getCreator().getId();
         Player currentCreator = gameService.findPlayerById(currentGameCreatorId);
+
         ModelAndView result = new ModelAndView(GAME_WAIT_ROOM);
         result.addObject("games", currentGame);
         result.addObject("creator", currentCreator);
         return result;
     }
 
-    // Shows the player winner of the game
+    // Screen for the winner of the game
     @GetMapping("/lobby/{code}/winner")
     public ModelAndView gameWinner(@PathVariable("code") String code) {
         Game currentGame = gameService.findGameByCode(code);
@@ -179,6 +186,7 @@ public class GameController {
         String username = auth.getName();
         Integer id = playerService.getUserIdByName(username);
         Player currentPlayer = playerService.findById(id);
+        
         Game currentGame = gameService.findGameByCode(code);
         List<Player> ls = currentGame.getPlayers();
 
