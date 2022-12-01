@@ -12,10 +12,10 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Positive;
 
-import org.springframework.parchis.BoxesParchis;
 import org.springframework.samples.parchisoca.dice.ParchisDice;
 import org.springframework.samples.parchisoca.game.Game;
 import org.springframework.samples.parchisoca.model.BaseEntity;
+import org.springframework.samples.parchisoca.parchis.BoxesParchis;
 import org.springframework.samples.parchisoca.piece.ParchisPiece;
 
 import lombok.Getter;

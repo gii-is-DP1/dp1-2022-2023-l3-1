@@ -1,4 +1,4 @@
-package org.springframework.parchis;
+package org.springframework.samples.parchisoca.parchis;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

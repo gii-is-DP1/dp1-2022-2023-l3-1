@@ -1,4 +1,4 @@
-package org.springframework.parchis;
+package org.springframework.samples.parchisoca.parchis;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;

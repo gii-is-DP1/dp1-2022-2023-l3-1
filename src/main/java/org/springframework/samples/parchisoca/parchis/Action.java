@@ -1,4 +1,4 @@
-package org.springframework.parchis;
+package org.springframework.samples.parchisoca.parchis;
 
 import java.util.List;
 
