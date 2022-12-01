@@ -5,11 +5,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.parchis.BoxesParchis;
+import org.springframework.parchis.BoxesParchisService;
 import org.springframework.samples.parchisoca.dice.ParchisDice;
 import org.springframework.samples.parchisoca.dice.ParchisDiceService;
 import org.springframework.samples.parchisoca.game.Game;
-import org.springframework.samples.parchisoca.parchis.BoxesParchis;
-import org.springframework.samples.parchisoca.parchis.BoxesParchisService;
 import org.springframework.samples.parchisoca.piece.Colour;
 import org.springframework.samples.parchisoca.piece.ParchisPiece;
 import org.springframework.samples.parchisoca.piece.ParchisPieceService;
