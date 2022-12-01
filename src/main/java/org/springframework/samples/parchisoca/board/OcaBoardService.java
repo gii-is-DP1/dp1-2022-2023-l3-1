@@ -62,6 +62,10 @@ public class OcaBoardService {
         Integer position = ocaBoard.reboteTirada(suma);
         Integer newPosition = nextPosition(ocaBoard, piece, position);
         piece.setPosition(newPosition);
+        List<BoxesOca> ls = ocaBoard.getBoxes();
+        BoxesOca boxOca = ls.get(newPosition-1);
+        piece.setXPosition(boxOca.getXPosition());
+        piece.setYPosition(boxOca.getYPosition());
         ocaPieceService.save(piece);
         return piece;
     }
@@ -76,12 +80,15 @@ public class OcaBoardService {
      //Inititate board with piece and dice
      public OcaBoard initBoard(Game game){
         OcaBoard oca = new OcaBoard();
+        List<Colour> colours = List.of(Colour.RED,Colour.BLUE,Colour.YELLOW,Colour.GREEN);
         ocaBoardRepository.save(oca);
         List<Player> players = game.getPlayers();
+        int i = 0;
         for(Player p : players){
             OcaPiece piece = new OcaPiece();
             piece.setPlayer(p);
-            piece.setColour(Colour.RED);
+            Colour color = colours.get(i);
+            piece.setColour(color);
             piece.setOcaBoard(oca); 
             ocaPieceService.save(piece);
             OcaDice dice = new OcaDice();
@@ -91,9 +98,10 @@ public class OcaBoardService {
             dice.setPlayer(p);
             playerService.save(p);
             ocaDiceService.save(dice);
+            i++;
         }
         
-        List<BoxesOca> ls = initBoxes();
+        List<BoxesOca> ls = initBoxes(oca);
         oca.setBoxes(ls);
         ocaBoardRepository.save(oca);
         
@@ -102,7 +110,7 @@ public class OcaBoardService {
     }
 
     // Initiates the boxes of a board
-    public List<BoxesOca>  initBoxes() {
+    public List<BoxesOca>  initBoxes(OcaBoard ocaBoard) {
         List<BoxesOca> normalBoxesOca = new ArrayList<BoxesOca>(63);
         for (int i=1; i<=63; i++) {
             BoxesOca res = new BoxesOca();
@@ -127,17 +135,78 @@ public class OcaBoardService {
                 res.setSpecialBoxOca(SpecialBoxesOca.NORMAL);
             }
             res.setPositionBoard(i);
+            res.setOcaBoard(ocaBoard);
             normalBoxesOca.add(res);
+            boxesOcaService.save(res);
+            res = SetOcaBoxPositionPx(res,i);
             boxesOcaService.save(res);
         }
         return normalBoxesOca;
     }
 
+    private BoxesOca SetOcaBoxPositionPx(BoxesOca res, int position) {
+        
+        if (position == 1){
+            res.setXPosition(100);
+            res.setYPosition(580);
+            return res;  
+        }
+             
+        if(position >= 2 && position <= 8 ){
+            res.setXPosition(225);
+            res.setYPosition(580);
+            res.setXPosition(res.getXPosition() + ((position-2) * 54 ));
+            return res;
+        }
+        if (position >= 9 && position <= 18){
+            res.setXPosition(590);
+            res.setYPosition(550);
+            res.setYPosition(res.getYPosition() - ((position-9) * 54 ));
+        }
+        if (position >= 19 && position <= 28){
+            res.setXPosition(550);
+            res.setYPosition(25);
+            res.setXPosition(res.getXPosition() - ((position-19) * 54 ));
+        }
+        if (position >= 29 && position <= 36){
+            res.setXPosition(30);
+            res.setYPosition(80);
+            res.setYPosition(res.getYPosition() + ((position-29) * 54 ));
+        }
+        if (position >= 37 && position <= 44){
+            res.setXPosition(80);
+            res.setYPosition(500);
+            res.setXPosition(res.getXPosition() + ((position-37) * 54 ));
+        }
+        if (position >= 45 && position <= 50){
+            res.setXPosition(500);
+            res.setYPosition(450);
+            res.setYPosition(res.getYPosition() - ((position-45) * 54 ));
+        }
+        if (position >= 51 && position <= 56){
+            res.setXPosition(450);
+            res.setYPosition(115);
+            res.setXPosition(res.getXPosition() - ((position-51) * 54 ));
+        }  
+        if (position >= 57 && position <= 60){
+            res.setXPosition(120);
+            res.setYPosition(185);
+            res.setYPosition(res.getYPosition() + ((position-57) * 54 ));
+        }   
+        if (position >= 61 && position <= 63){
+            res.setXPosition(180);
+            res.setYPosition(405);
+            res.setXPosition(res.getXPosition() + ((position-61) * 54 ));
+        }   
+        return res;
+    }
+    
+
     public OcaPiece nextTurn(OcaBoard ocaBoard, Integer turn){
 
         List <OcaPiece> pieces  = ocaBoard.getPieces();
         if (turn == pieces.size()-1){
-            ocaBoard.setTurn(0);;
+            ocaBoard.setTurn(0);
         }else{
             turn +=1;
             ocaBoard.setTurn(turn);

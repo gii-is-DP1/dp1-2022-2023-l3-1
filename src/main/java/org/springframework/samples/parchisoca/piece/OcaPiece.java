@@ -29,9 +29,8 @@ public class OcaPiece extends BaseEntity {
     @NotNull
     int xPosition = 100;
 
-    
     @NotNull
-    int yPosition = 570;
+    int yPosition = 580;
 
     @ManyToOne
     OcaBoard ocaBoard;
