@@ -48,6 +48,7 @@ public class OcaBoardController {
     private final String GAMES_FINISHED = "games/GameFinished";
     private final String LOOSER = "games/GameLooser";
 
+    // Generates an oca board 
     @GetMapping({"boards/ocaBoard/{ocaBoardId}"})
     public ModelAndView board(@PathVariable("ocaBoardId") int ocaBoardId, HttpServletResponse response){
         response.addHeader("Refresh", "2");
@@ -86,7 +87,7 @@ public class OcaBoardController {
     }
 
 
-    // Leaving the game with that code
+    // Exits from the game with that code
     @GetMapping("games/lobby/{code}/exit")
     public String exitPlayerGame(@PathVariable("code") String code, ModelMap model, HttpServletRequest request,
             HttpServletResponse response) {
@@ -105,57 +106,6 @@ public class OcaBoardController {
         return "redirect:/games/lobbys";
 
     }
-
-    // // Calls the function that rolls the dice
-    // @GetMapping({"boards/ocaBoard/{ocaBoardId}/dice"})
-    // public ModelAndView rollDice(@PathVariable("ocaBoardId") int ocaBoardId, HttpServletResponse response){
-    //      ModelAndView mav = new ModelAndView(OCABOARD);
-    //     OcaBoard currentOcaBoard = ocaBoardService.findById(ocaBoardId);
-    //     OcaDice dice = currentOcaBoard.getOcaDice();
-    //     dice.rollDice();
-
-    //     List<OcaPiece> pieces = currentOcaBoard.getPieces();
-    //     Integer turn = currentOcaBoard.getTurn();
-    //     OcaPiece ocaPiece  = pieces.get(turn);
-    //     Player piecePlayer = ocaPiece.getPlayer();
-
-    //     if(ocaBoardService.isActualPlayer(piecePlayer)){
-    //         mav.addObject("ocaBoard", currentOcaBoard);
-    //         mav.addObject("ocaPiece", ocaPiece);
-    //         mav.addObject("pieces", pieces);
-    //         return mav;
-    //     }
-        
-
-    //     Integer penalization = ocaPiece.getPenalizationTurn();
-        
-    //     if (penalization !=0) {
-    //         mav.addObject("ocaBoard", currentOcaBoard);
-    //         mav.addObject("ocaPiece", ocaPiece);
-    //         ocaPiece.setPenalizationTurn(penalization-1);
-    //         ocaPieceService.save(ocaPiece);
-    //     } else {
-    //         ocaBoardService.actualPosition(currentOcaBoard, ocaPiece);
-    //         if (ocaPiece.getPosition().equals(63)) {
-    //             mav = new ModelAndView(GAMES_FINISHED);
-    //             Player winner  = ocaPiece.getPlayer();
-    //             Game game = currentOcaBoard.getGame();
-    //             game.setInProgress(false);
-    //             game.setWinner(winner);
-    //             gameService.save(game);
-    //             mav.addObject("game", game);
-    //             return mav;
-    //         }
-    //         Integer number = dice.getNumber();
-    //         mav.addObject("ocaBoard", currentOcaBoard);
-    //         mav.addObject("pieces", pieces);
-    //         mav.addObject("number", number);
-    //     }
-    //     ocaBoardService.nextTurn(currentOcaBoard, turn);
-    //     ocaBoardService.save(currentOcaBoard);
-    //     return mav;
-    // }
-
    
     // Calls the function that rolls the dice
     @GetMapping({"boards/ocaBoard/{ocaBoardId}/dice"})
@@ -179,7 +129,6 @@ public class OcaBoardController {
         }
 
         dice.rollDice();  
-
         Integer penalization = ocaPiece.getPenalizationTurn();
         
         if (penalization !=0) {

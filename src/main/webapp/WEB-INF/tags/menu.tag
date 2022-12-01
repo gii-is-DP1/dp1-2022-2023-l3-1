@@ -41,6 +41,11 @@
                                 </sec:authorize>
                                 </li>
                                 <li>
+                                    <sec:authorize access="hasAuthority('admin')">
+                                    <a href="<c:url value="/admin/players/create" />"> <span class="glyphicon glyphicon-heart" aria-hidden="true"></span> Create player </a>
+                                </sec:authorize>
+                                </li>
+                                <li>
                                     <sec:authorize access="hasAuthority('player')">
                                     <a href="<c:url value="/players/myFriends" />"> <span class="glyphicon glyphicon-heart" aria-hidden="true"></span> My friends </a>
                                 </sec:authorize>
