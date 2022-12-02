@@ -15,7 +15,6 @@ import lombok.Setter;
 @Setter
 public class BoxesParchis extends BaseEntity{
 
-    @Positive
     int numberBoxesParchis;
 
     private Integer positionBoard;

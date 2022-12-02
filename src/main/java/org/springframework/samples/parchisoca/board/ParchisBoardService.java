@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.parchis.BoxesParchis;
-import org.springframework.parchis.BoxesParchisService;
+import org.springframework.samples.parchisoca.parchis.BoxesParchis;
+import org.springframework.samples.parchisoca.parchis.BoxesParchisService;
 import org.springframework.samples.parchisoca.dice.ParchisDice;
 import org.springframework.samples.parchisoca.dice.ParchisDiceService;
 import org.springframework.samples.parchisoca.game.Game;
@@ -46,7 +46,7 @@ public class ParchisBoardService {
     }
 
     @Transactional(readOnly = true)
-    public Optional<ParchisBoard> findById(Integer id){
+    public Optional<ParchisBoard> findById(Integer id) {
 		return parchisBoardRepo.findById(id);
 	}
 
@@ -55,44 +55,47 @@ public class ParchisBoardService {
         parchisBoardRepo.save(parchisBoard);
     }
 
-    //Inititate board with piece and dice
-    public ParchisBoard initBoard(Game game){
-    ParchisBoard parchis = new ParchisBoard();
-    parchisBoardRepo.save(parchis);
-    List<Player> players = game.getPlayers();
-    for(Player p : players){
-        ParchisPiece piece = new ParchisPiece();
-        piece.setPlayer(p);
-        piece.setColour(Colour.RED);
-        piece.setParchisBoard(parchis); 
-        parchisPieceService.save(piece);
-        ParchisDice dice1 = new ParchisDice();
-        ParchisDice dice2 = new ParchisDice();
-        parchisDiceService.save(dice1, dice2);
-        dice1.setParchisBoard(parchis);
-        dice2.setParchisBoard(parchis);
-        p.addDicesParchis(dice1, dice2);
-        dice1.setPlayer(p);
-        dice2.setPlayer(p);
-        playerService.save(p);
-        parchisDiceService.save(dice1, dice2);
+    public ParchisBoard initBoard(Game game) {
+        ParchisBoard parchisBoard = new ParchisBoard(); 
+        List<Colour> colours = List.of(Colour.RED,Colour.BLUE,Colour.YELLOW,Colour.GREEN);
+        parchisBoardRepo.save(parchisBoard);
+        List<Player> players = game.getPlayers();
+        int j = 0;
+        for(Player p: players) {
+            Colour color = colours.get(j);
+            for (int i=0; i < 4; i++) {
+                ParchisPiece piece = new ParchisPiece();
+                p.addPieceParchis(piece);
+                piece.setColour(color);
+                piece.setParchisBoard(parchisBoard);
+                parchisPieceService.save(piece);
+            }
+            ParchisDice parchisDice1 = new ParchisDice();
+            ParchisDice parchisDice2 = new ParchisDice();
+            parchisDiceService.save(parchisDice1, parchisDice2);
+            parchisDice1.setParchisBoard(parchisBoard);
+            parchisDice2.setParchisBoard(parchisBoard);
+            p.addDicesParchis(parchisDice1, parchisDice2);
+            parchisDice1.setPlayer(p);
+            parchisDice2.setPlayer(p);
+            playerService.save(p);
+            parchisDiceService.save(parchisDice1, parchisDice2);
+            j++;
+        }
+
+        List<BoxesParchis> ls = initBoxes(parchisBoard);
+        parchisBoard.setBoxes(ls);
+        parchisBoardRepository.save(parchisBoard);
+
+        return parchisBoard;
     }
     
-    List<BoxesParchis> ls = initBoxes();
-    parchis.setBoxes(ls);
-    parchisBoardRepository.save(parchis);
-    
-    return parchis;
-
-}
-    
-    public List<BoxesParchis> initBoxes() {
-        List<BoxesParchis> normalBoxesParchis = new ArrayList<BoxesParchis>(68);
-        for(int i=0; i<68; i++) {
+    public List<BoxesParchis> initBoxes(ParchisBoard parchisBoard) {
+        List<BoxesParchis> boxesParchis = new ArrayList<BoxesParchis>(68);
+        for(int i=0; i<=68; i++) {
             BoxesParchis box = new BoxesParchis();
             if (i==5 || i==22 || i==39 || i==56) {
                 box.boxesParchis(i, false, true, true);
-                // res.setSpecialBoxesParchis(SpecialBoxesParchis.SAFE);
             } else if (i==12 || i==29 || i==46 || i==63) {
                 box.boxesParchis(i, false, true, false);
             } else if (i==17 || i==34 || i==51 || i==68) {
@@ -100,11 +103,13 @@ public class ParchisBoardService {
             } else {
                 box.boxesParchis(i, false, false, false);
             }
-            
-            normalBoxesParchis.add(box);
+
+            box.setPositionBoard(i);
+            box.setParchisBoard(parchisBoard);
+            boxesParchis.add(box);
             boxesParchisService.save(box);
         }
-        return normalBoxesParchis;
+        return boxesParchis;
     }
 
     @Transactional

@@ -11,6 +11,8 @@ import org.hibernate.query.criteria.internal.ValueHandlerFactory.LongValueHandle
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.parchisoca.board.OcaBoard;
 import org.springframework.samples.parchisoca.board.OcaBoardService;
+import org.springframework.samples.parchisoca.board.ParchisBoard;
+import org.springframework.samples.parchisoca.board.ParchisBoardService;
 import org.springframework.samples.parchisoca.player.Player;
 import org.springframework.samples.parchisoca.player.PlayerService;
 import org.springframework.security.core.Authentication;
@@ -44,6 +46,8 @@ public class GameController {
     private PlayerService playerService;
     @Autowired
     private OcaBoardService ocaBoardService;
+    @Autowired
+    private ParchisBoardService parchisBoardService;
 
     // Shows the games list
     @GetMapping("/list")
@@ -162,7 +166,14 @@ public class GameController {
         GameType currentGameType = currentGame.getGameType();
 
         if (currentGameType.getName().equals("PARCHIS")) {
-            return "redirect:/boards/parchisBoard/{code}";
+            ParchisBoard newParchisBoard = parchisBoardService.initBoard(currentGame);
+            currentGame.setStarted(true);
+            currentGame.setParchisBoard(newParchisBoard);
+            newParchisBoard.setGame(currentGame);
+            parchisBoardService.save(newParchisBoard);
+            gameService.save(currentGame);
+            int parchisBoardId = newParchisBoard.getId();
+            return "redirect:/boards/parchisBoard/"+parchisBoardId;
         } else {
             OcaBoard newOcaBoard = ocaBoardService.initBoard(currentGame);
             currentGame.setStarted(true);

@@ -2,8 +2,10 @@ package org.springframework.samples.parchisoca.piece;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.parchisoca.board.ParchisBoardService;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Service
 public class ParchisPieceService {
     
     @Autowired
