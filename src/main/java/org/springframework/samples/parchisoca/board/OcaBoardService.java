@@ -79,9 +79,9 @@ public class OcaBoardService {
     
      //Inititate board with piece and dice
      public OcaBoard initBoard(Game game){
-        OcaBoard oca = new OcaBoard();
+        OcaBoard ocaBoard = new OcaBoard();
         List<Colour> colours = List.of(Colour.RED,Colour.BLUE,Colour.YELLOW,Colour.GREEN);
-        ocaBoardRepository.save(oca);
+        ocaBoardRepository.save(ocaBoard);
         List<Player> players = game.getPlayers();
         int i = 0;
         for(Player p : players){
@@ -89,11 +89,11 @@ public class OcaBoardService {
             piece.setPlayer(p);
             Colour color = colours.get(i);
             piece.setColour(color);
-            piece.setOcaBoard(oca); 
+            piece.setOcaBoard(ocaBoard); 
             ocaPieceService.save(piece);
             OcaDice dice = new OcaDice();
             ocaDiceService.save(dice);
-            dice.setOcaBoard(oca);
+            dice.setOcaBoard(ocaBoard);
             p.addDice(dice);
             dice.setPlayer(p);
             playerService.save(p);
@@ -101,49 +101,49 @@ public class OcaBoardService {
             i++;
         }
         
-        List<BoxesOca> ls = initBoxes(oca);
-        oca.setBoxes(ls);
-        ocaBoardRepository.save(oca);
+        List<BoxesOca> ls = initBoxes(ocaBoard);
+        ocaBoard.setBoxes(ls);
+        ocaBoardRepository.save(ocaBoard);
         
-        return oca;
+        return ocaBoard;
 
     }
 
     // Initiates the boxes of a board
     public List<BoxesOca>  initBoxes(OcaBoard ocaBoard) {
-        List<BoxesOca> normalBoxesOca = new ArrayList<BoxesOca>(63);
+        List<BoxesOca> boxesOca = new ArrayList<BoxesOca>(63);
         for (int i=1; i<=63; i++) {
-            BoxesOca res = new BoxesOca();
+            BoxesOca box = new BoxesOca();
             if(i==5 || i==9 || i==14 || i==18 || i== 23 || i==27 
             || i== 32 || i==36 || i==41 || i==45 || i==50 || i==54 || i== 59) {
-                res.setSpecialBoxOca(SpecialBoxesOca.OCA);
+                box.setSpecialBoxOca(SpecialBoxesOca.OCA);
             } else if (i==6 || i==12) {
-                res.setSpecialBoxOca(SpecialBoxesOca.BRIDGE);
+                box.setSpecialBoxOca(SpecialBoxesOca.BRIDGE);
             } else if (i==26 || i==53) {
-                res.setSpecialBoxOca(SpecialBoxesOca.DICES);
+                box.setSpecialBoxOca(SpecialBoxesOca.DICES);
             } else if (i==19) {
-                res.setSpecialBoxOca(SpecialBoxesOca.HOSTAL);
+                box.setSpecialBoxOca(SpecialBoxesOca.HOSTAL);
             } else if (i==31) {
-                res.setSpecialBoxOca(SpecialBoxesOca.WELL);
+                box.setSpecialBoxOca(SpecialBoxesOca.WELL);
             } else if (i==42) {
-                res.setSpecialBoxOca(SpecialBoxesOca.LABYRINTH);
+                box.setSpecialBoxOca(SpecialBoxesOca.LABYRINTH);
             } else if (i==58) {
-                res.setSpecialBoxOca(SpecialBoxesOca.DEATH);
+                box.setSpecialBoxOca(SpecialBoxesOca.DEATH);
             } else if (i==63) {
-                res.setSpecialBoxOca(SpecialBoxesOca.GOAL);
+                box.setSpecialBoxOca(SpecialBoxesOca.GOAL);
             }else if (i==52){
-                res.setSpecialBoxOca(SpecialBoxesOca.PRISON);
+                box.setSpecialBoxOca(SpecialBoxesOca.PRISON);
             } else {
-                res.setSpecialBoxOca(SpecialBoxesOca.NORMAL);
+                box.setSpecialBoxOca(SpecialBoxesOca.NORMAL);
             }
-            res.setPositionBoard(i);
-            res.setOcaBoard(ocaBoard);
-            normalBoxesOca.add(res);
-            boxesOcaService.save(res);
-            res = SetOcaBoxPositionPx(res,i);
-            boxesOcaService.save(res);
+            box.setPositionBoard(i);
+            box.setOcaBoard(ocaBoard);
+            boxesOca.add(box);
+            boxesOcaService.save(box);
+            box = SetOcaBoxPositionPx(box,i);
+            boxesOcaService.save(box);
         }
-        return normalBoxesOca;
+        return boxesOca;
     }
 
     private BoxesOca SetOcaBoxPositionPx(BoxesOca res, int position) {

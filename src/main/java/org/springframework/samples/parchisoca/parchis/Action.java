@@ -25,7 +25,7 @@ public class Action {
     public Integer exit(ParchisPiece piece ) {
         Integer pos = 0;
 
-        if(ParchisDice.rollDice1() == 5 || ParchisDice.rollDice2() == 5) {
+        if (ParchisDice.rollDice1() == 5) {
             if(piece.colour.equals(Colour.YELLOW)){
                 pos = 5;
                 piece.setPosition(pos);

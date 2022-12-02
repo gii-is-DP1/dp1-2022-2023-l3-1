@@ -7,7 +7,6 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -53,7 +52,7 @@ public class Player extends Person {
     @ManyToMany
     List<ParchisDice> parchisDice;
 
-    @ManyToMany
+    @OneToMany
     List<ParchisPiece> parchisPieces;
 
     public void addDice (OcaDice ocaDice) {
@@ -79,6 +78,18 @@ public class Player extends Person {
             ls.add(dice1);
             ls.add(dice2);
             setParchisDice(ls);
+        }
+    }
+
+    public void addPieceParchis (ParchisPiece parchisPiece) {
+        if (getParchisPieces() == null) {
+            List<ParchisPiece> ls = new ArrayList<>();
+            ls.add(parchisPiece);
+            setParchisPieces(ls);
+        } else {
+            List<ParchisPiece> ls = getParchisPieces();
+            ls.add(parchisPiece);
+            setParchisPieces(ls);
         }
     }
 }

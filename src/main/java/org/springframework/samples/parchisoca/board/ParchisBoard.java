@@ -2,7 +2,6 @@ package org.springframework.samples.parchisoca.board;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -12,11 +11,10 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Positive;
 
-import org.springframework.parchis.BoxesParchis;
+import org.springframework.samples.parchisoca.parchis.BoxesParchis;
 import org.springframework.samples.parchisoca.dice.ParchisDice;
 import org.springframework.samples.parchisoca.game.Game;
 import org.springframework.samples.parchisoca.model.BaseEntity;
-import org.springframework.samples.parchisoca.parchis.BoxesParchis;
 import org.springframework.samples.parchisoca.piece.ParchisPiece;
 
 import lombok.Getter;
@@ -45,7 +43,7 @@ public class ParchisBoard extends BaseEntity {
         this.height=1900;
     }
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "parchisBoard")
+    @OneToMany
     List<ParchisPiece> pieces; 
 
     @OneToOne
