@@ -43,10 +43,10 @@ INSERT INTO games_players (game_id, players_id) VALUES (2,2);
 INSERT INTO games_players (game_id, players_id) VALUES (3,2);
 
 
-INSERT INTO oca_boards (id, background, height, width) VALUES (1,'resources/images/tablero-oca.png', 800,800);
+INSERT INTO oca_boards (id, background, height, width) VALUES (1,'/resources/images/tablero-oca.png', 800,800);
 
 
-INSERT INTO parchis_boards (id,background,height,width) VALUES (1,'resources/images/ParchisBoard.png',800,800);
+INSERT INTO parchis_boards (id,background,height,width) VALUES (1,'/resources/images/ParchisBoard.png',800,800);
 
 INSERT INTO oca_pieces(id,colour,x_position,y_position,oca_board_id) VALUES (1,'RED',1,7,1);
 

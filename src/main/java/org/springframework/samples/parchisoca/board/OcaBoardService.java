@@ -53,7 +53,7 @@ public class OcaBoardService {
         ocaBoardRepository.save(ocaBoard);
     }
 
-   // Calculates the actual position on board
+    // Calculates the actual position on board
     public OcaPiece actualPosition(OcaBoard ocaBoard, OcaPiece piece){
         Player player = piece.getPlayer();
         OcaDice dice = ocaBoardRepository.getOcaDiceByPlayer(player, ocaBoard);
@@ -70,6 +70,7 @@ public class OcaBoardService {
         return piece;
     }
 
+    @Transactional
     public Integer nextPosition(OcaBoard ocaBoard,OcaPiece ocaPiece,Integer position){
         List<BoxesOca> ls = ocaBoard.getBoxes();
         BoxesOca box = ls.get(position-1);
@@ -77,8 +78,9 @@ public class OcaBoardService {
         return newPosition;
     }
     
-     //Inititate board with piece and dice
-     public OcaBoard initBoard(Game game){
+    //Inititate board with piece and dice
+    @Transactional
+    public OcaBoard initBoard(Game game) {
         OcaBoard ocaBoard = new OcaBoard();
         List<Colour> colours = List.of(Colour.RED,Colour.BLUE,Colour.YELLOW,Colour.GREEN);
         ocaBoardRepository.save(ocaBoard);
@@ -110,6 +112,7 @@ public class OcaBoardService {
     }
 
     // Initiates the boxes of a board
+    @Transactional
     public List<BoxesOca>  initBoxes(OcaBoard ocaBoard) {
         List<BoxesOca> boxesOca = new ArrayList<BoxesOca>(63);
         for (int i=1; i<=63; i++) {
@@ -146,6 +149,7 @@ public class OcaBoardService {
         return boxesOca;
     }
 
+    @Transactional
     private BoxesOca SetOcaBoxPositionPx(BoxesOca res, int position) {
         
         if (position == 1){
@@ -203,7 +207,7 @@ public class OcaBoardService {
         return res;
     }
     
-
+    @Transactional
     public OcaPiece nextTurn(OcaBoard ocaBoard, Integer turn){
 
         List <OcaPiece> pieces  = ocaBoard.getPieces();
@@ -217,11 +221,13 @@ public class OcaBoardService {
 
     }
 
+    @Transactional(readOnly = true)
     public OcaDice findOcaDiceByPlayer(Player player, OcaBoard ocaBoard) {
         OcaDice result = ocaBoardRepository.getOcaDiceByPlayer(player, ocaBoard);
         return result;
     }
     
+    @Transactional(readOnly = true)
     public Boolean isActualPlayer(Player piecePlayer){
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

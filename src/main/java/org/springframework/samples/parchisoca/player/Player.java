@@ -12,6 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.springframework.samples.parchisoca.board.ParchisBoard;
 import org.springframework.samples.parchisoca.dice.OcaDice;
 import org.springframework.samples.parchisoca.dice.ParchisDice;
 import org.springframework.samples.parchisoca.model.Person;
@@ -50,6 +51,9 @@ public class Player extends Person {
     private List<Player> friends;
 
     @ManyToMany
+    private List<ParchisBoard> parchisBoards;
+
+    @ManyToMany
     List<ParchisDice> parchisDice;
 
     @OneToMany
@@ -81,7 +85,7 @@ public class Player extends Person {
         }
     }
 
-    public void addPieceParchis (ParchisPiece parchisPiece) {
+    public void addPiecePlayer (ParchisPiece parchisPiece) {
         if (getParchisPieces() == null) {
             List<ParchisPiece> ls = new ArrayList<>();
             ls.add(parchisPiece);

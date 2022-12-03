@@ -16,7 +16,7 @@
         <div class="col-md-12">
             <game:parchisBoard parchisBoard="${parchisBoard}">
                 <c:forEach items="${parchisBoard.pieces}" var="piece">
-                    <game:parchisPiece size="100" piece="${piece}"/>            	
+                    <game:parchisPiece size="30" piece="${piece}"/>            	
                 </c:forEach> 
             </game:parchisBoard>
         </div>

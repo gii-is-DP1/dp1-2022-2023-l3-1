@@ -32,7 +32,7 @@ public class ParchisBoardServiceTest {
         p.setHeight(800);
 
         ps.save(p);
-        ParchisBoard newP = ps.findById(p.getId()).get();
+        ParchisBoard newP = ps.findById(p.getId());
         List<ParchisBoard> ls = new ArrayList<>();
         ls.add(newP);
         assertTrue(ls.size()==1);
@@ -41,8 +41,8 @@ public class ParchisBoardServiceTest {
 
     @Test
     void shouldFindBoardById(){
-        Optional <ParchisBoard> p = ps.findById(1);
-        assertThat(p.get().getId()==1);
+        ParchisBoard p = ps.findById(1);
+        assertThat(p.getId()==1);
 
     }
     
