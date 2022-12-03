@@ -1,5 +1,6 @@
 package org.springframework.samples.parchisoca.board;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -16,6 +17,7 @@ import org.springframework.samples.parchisoca.dice.ParchisDice;
 import org.springframework.samples.parchisoca.game.Game;
 import org.springframework.samples.parchisoca.model.BaseEntity;
 import org.springframework.samples.parchisoca.piece.ParchisPiece;
+import org.springframework.samples.parchisoca.player.Player;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -38,25 +40,37 @@ public class ParchisBoard extends BaseEntity {
     int height;
 
     public ParchisBoard(){
-        this.background="resources/images/ParchisBoard.png";
-        this.width=1900;
-        this.height=1900;
-    }
-
-    @OneToMany
-    List<ParchisPiece> pieces; 
+        this.background = "/resources/images/ParchisBoard.png";
+        this.width = 650;
+        this.height = 650;
+    } 
 
     @OneToOne
     private Game game;
 
-    Integer turn = 0;
+    @ManyToMany
+    private List<Player> players;
+
+    private Integer turn = 0;
 
     @OneToMany
     private List<BoxesParchis> boxes;
 
     @OneToMany
-    List<ParchisPiece> parchisPieces;
+    private List<ParchisPiece> pieces;
 
     @ManyToMany
-    List<ParchisDice> parchisDices;
+    private List<ParchisDice> parchisDices;
+
+    public void addPieceParchis (ParchisPiece parchisPiece) {
+        if (getPieces() == null) {
+            List<ParchisPiece> ls = new ArrayList<>();
+            ls.add(parchisPiece);
+            setPieces(ls);
+        } else {
+            List<ParchisPiece> ls = getPieces();
+            ls.add(parchisPiece);
+            setPieces(ls);
+        }
+    }
 }

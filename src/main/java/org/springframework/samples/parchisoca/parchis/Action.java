@@ -25,21 +25,21 @@ public class Action {
     public Integer exit(ParchisPiece piece ) {
         Integer pos = 0;
 
-        if (ParchisDice.rollDice1() == 5) {
-            if(piece.colour.equals(Colour.YELLOW)){
-                pos = 5;
-                piece.setPosition(pos);
-            } else if (piece.colour.equals(Colour.BLUE)) {
-                pos = 22;
-                piece.setPosition(pos);
-            } else if (piece.colour.equals(Colour.RED)){
-                pos = 39;
-                piece.setPosition(pos);
-            } else  {
-                pos = 56;
-                piece.setPosition(pos);
-            }
-        }
+        // if (ParchisDice.rollDice() == 5) {
+        //     if(piece.colour.equals(Colour.YELLOW)){
+        //         pos = 5;
+        //         piece.setPosition(pos);
+        //     } else if (piece.colour.equals(Colour.BLUE)) {
+        //         pos = 22;
+        //         piece.setPosition(pos);
+        //     } else if (piece.colour.equals(Colour.RED)){
+        //         pos = 39;
+        //         piece.setPosition(pos);
+        //     } else  {
+        //         pos = 56;
+        //         piece.setPosition(pos);
+        //     }
+        // }
         return pos;
     }
 

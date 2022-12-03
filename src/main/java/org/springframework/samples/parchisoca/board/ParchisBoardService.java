@@ -2,7 +2,6 @@ package org.springframework.samples.parchisoca.board;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.parchisoca.parchis.BoxesParchis;
@@ -15,6 +14,8 @@ import org.springframework.samples.parchisoca.piece.ParchisPiece;
 import org.springframework.samples.parchisoca.piece.ParchisPieceService;
 import org.springframework.samples.parchisoca.player.Player;
 import org.springframework.samples.parchisoca.player.PlayerService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,8 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ParchisBoardService {
-    
-    ParchisBoardRepository parchisBoardRepo;
 
     @Autowired
     ParchisPieceService parchisPieceService;
@@ -40,35 +39,32 @@ public class ParchisBoardService {
     @Autowired
     BoxesParchisService boxesParchisService;
 
-    @Autowired
-    public ParchisBoardService(ParchisBoardRepository parchisBoardRepo) {
-        this.parchisBoardRepo = parchisBoardRepo;
-    }
-
     @Transactional(readOnly = true)
-    public Optional<ParchisBoard> findById(Integer id) {
-		return parchisBoardRepo.findById(id);
+    public ParchisBoard findById(Integer id) {
+		return parchisBoardRepository.findById(id).get();
 	}
 
     @Transactional
     public void save(ParchisBoard parchisBoard) {
-        parchisBoardRepo.save(parchisBoard);
+        parchisBoardRepository.save(parchisBoard);
     }
 
     public ParchisBoard initBoard(Game game) {
         ParchisBoard parchisBoard = new ParchisBoard(); 
         List<Colour> colours = List.of(Colour.RED,Colour.BLUE,Colour.YELLOW,Colour.GREEN);
-        parchisBoardRepo.save(parchisBoard);
+        parchisBoardRepository.save(parchisBoard);
         List<Player> players = game.getPlayers();
         int j = 0;
         for(Player p: players) {
             Colour color = colours.get(j);
             for (int i=0; i < 4; i++) {
                 ParchisPiece piece = new ParchisPiece();
-                p.addPieceParchis(piece);
+                piece.setPlayer(p);
                 piece.setColour(color);
                 piece.setParchisBoard(parchisBoard);
                 parchisPieceService.save(piece);
+                p.addPiecePlayer(piece);
+                parchisBoard.addPieceParchis(piece);
             }
             ParchisDice parchisDice1 = new ParchisDice();
             ParchisDice parchisDice2 = new ParchisDice();
@@ -82,7 +78,8 @@ public class ParchisBoardService {
             parchisDiceService.save(parchisDice1, parchisDice2);
             j++;
         }
-
+        parchisBoard.setPlayers(players);
+        parchisBoardRepository.save(parchisBoard);
         List<BoxesParchis> ls = initBoxes(parchisBoard);
         parchisBoard.setBoxes(ls);
         parchisBoardRepository.save(parchisBoard);
@@ -90,6 +87,7 @@ public class ParchisBoardService {
         return parchisBoard;
     }
     
+    @Transactional
     public List<BoxesParchis> initBoxes(ParchisBoard parchisBoard) {
         List<BoxesParchis> boxesParchis = new ArrayList<BoxesParchis>(68);
         for(int i=0; i<=68; i++) {
@@ -113,14 +111,31 @@ public class ParchisBoardService {
     }
 
     @Transactional
-    public ParchisPiece nextTurn(ParchisBoard parchisBoard, Integer turn) {
-        List<ParchisPiece> pieces = parchisBoard.getPieces();
-        if(turn == pieces.size()-1){
+    public Player nextTurn(ParchisBoard parchisBoard, Integer turn) {
+        List<Player> players = parchisBoard.getPlayers();
+        if(turn == players.size()-1){
             parchisBoard.setTurn(0);
         } else {
             turn += 1;
             parchisBoard.setTurn(turn);
         }
-        return pieces.get(turn);
+        return players.get(turn);
     }
+
+    @Transactional(readOnly = true)
+    public List<ParchisDice> findParchisDiceByPlayer(Player player, ParchisBoard parchisBoard) {
+        List<ParchisDice> result = parchisBoardRepository.getParchisDiceByPlayer(player, parchisBoard);
+        return result;
+    }
+
+    @Transactional(readOnly = true)
+    public Boolean isActualPlayer(Player piecePlayer) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        Integer id = playerService.getUserIdByName(username);
+        Player currentPlayer = playerService.findById(id);
+
+        return currentPlayer.equals(piecePlayer);
+    }
+
 }

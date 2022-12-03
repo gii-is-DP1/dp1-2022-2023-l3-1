@@ -15,7 +15,7 @@ import javax.persistence.ManyToOne;
 @Setter
 public class ParchisDice extends BaseEntity {
 
-    private Integer dice;
+    private Integer number;
 
     private final static Integer MAX = 6;
 
@@ -25,11 +25,8 @@ public class ParchisDice extends BaseEntity {
     @ManyToOne
     private Player player;
 
-    public static Integer rollDice1(){
-        Integer res;
-        Integer dice1 = (int) (Math.random() * MAX ) + 1;
-        res = dice1;
-        return res;
+    public void rollDice(){
+        this.number = (int) (Math.random() * MAX ) + 1;
     }
 
     // preguntar como hacer para obtener la suma de los dados

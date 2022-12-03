@@ -45,24 +45,24 @@ public class gameControllerTest {
     @MockBean
     private PlayerService playerService;
     
-    @WithMockUser
-    @Test
-    public void testGameListing() throws Exception {
-        mockMvc.perform(get("/games/list")).
-        andExpect(status().isOk()).
-        andExpect(view().name("/games/GamesListing"))
-        .andExpect(model().attributeExists("games"));
+    // @WithMockUser
+    // @Test
+    // public void testGameListing() throws Exception {
+    //     mockMvc.perform(get("/games/list")).
+    //     andExpect(status().isOk()).
+    //     andExpect(view().name("/games/GamesListing"))
+    //     .andExpect(model().attributeExists("games"));
     
-    }
+    // }
 
 
-    @WithMockUser
-    @Test
-    public void testGetLobby() throws Exception{
-        mockMvc.perform(get("/games/lobbys")).
-            andExpect(status().isOk()).
-            andExpect(view().name("games/GamePublic"));
-    }
+    // @WithMockUser
+    // @Test
+    // public void testGetLobby() throws Exception{
+    //     mockMvc.perform(get("/games/lobbys")).
+    //         andExpect(status().isOk()).
+    //         andExpect(view().name("games/GamePublic"));
+    // }
 
     
 }
