@@ -53,9 +53,9 @@ public class ParchisBoardService {
         ParchisBoard parchisBoard = new ParchisBoard(); 
         List<Colour> colours = List.of(Colour.RED,Colour.BLUE,Colour.YELLOW,Colour.GREEN);
         parchisBoardRepository.save(parchisBoard);
-        List<Player> players = game.getPlayers();
+        List<Player> listPlayers = game.getPlayers();
         int j = 0;
-        for(Player p: players) {
+        for(Player p: listPlayers) {
             Colour color = colours.get(j);
             for (int i=0; i < 4; i++) {
                 ParchisPiece piece = new ParchisPiece();
@@ -78,12 +78,10 @@ public class ParchisBoardService {
             parchisDiceService.save(parchisDice1, parchisDice2);
             j++;
         }
-        parchisBoard.setPlayers(players);
         parchisBoardRepository.save(parchisBoard);
         List<BoxesParchis> ls = initBoxes(parchisBoard);
         parchisBoard.setBoxes(ls);
         parchisBoardRepository.save(parchisBoard);
-
         return parchisBoard;
     }
     
@@ -111,8 +109,8 @@ public class ParchisBoardService {
     }
 
     @Transactional
-    public Player nextTurn(ParchisBoard parchisBoard, Integer turn) {
-        List<Player> players = parchisBoard.getPlayers();
+    public Player nextTurn(ParchisBoard parchisBoard, Game game, Integer turn) {
+        List<Player> players = game.getPlayers();
         if(turn == players.size()-1){
             parchisBoard.setTurn(0);
         } else {
