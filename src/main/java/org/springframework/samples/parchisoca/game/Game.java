@@ -52,7 +52,7 @@ public class Game extends BaseEntity {
     @Column(unique = true)
     private String code;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     private List<Player> players;
 
     @OneToOne
