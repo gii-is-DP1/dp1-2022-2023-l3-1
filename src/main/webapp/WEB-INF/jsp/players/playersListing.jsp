@@ -7,19 +7,20 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 
 <parchisoca:layout pageName="players">
-    <h2>Players</h2>
-
-    <table id="playersTable" class="table">
+    <c:choose>
+        <c:when test="${data.size() > 0 }">
+        <h2>Players</h2>
+        <table id="playersTable" class="table">
         <thead>
-        <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Username</th>
-            <th>Achievements</th>
-        </tr>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Username</th>
+                <th>Achievements</th>
+            </tr>
         </thead>
         <tbody>
-        <c:forEach items="${players}" var="player">
+        <c:forEach items="${data}" var="player">
             <tr>
                 <td>
                     <spring:url value="{playerId}" var="playerUrl">
@@ -47,8 +48,28 @@
             </tr>
         </c:forEach>
         </tbody>
-    </table>
-
+        </table>
+        </c:when>
+        <c:otherwise>
+            <tr align="center">
+                <td colspan="5">No Users available</td>
+            </tr>
+        </c:otherwise>
+        </c:choose>
+        <div class="col text-center">
+            <c:if test="${data.size() > 0 }">
+                    <div class="panel-footer">
+                        Showing page ${number+1} of ${size+1}
+                        <ul class="pagination">
+                            <c:forEach begin="1" end="${totalPages}" var="page">
+                                <li class="page-item">
+                                    <a href="list?page=${page}&size=${size}" class="page-link">${page}</a>
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </div>
+                </c:if>
+        </div>
     <div class="col text-center">
             <a class="btn btn-default" href='<spring:url value="/" htmlEscape="true"/>'>Go Back</a>
         </div>
