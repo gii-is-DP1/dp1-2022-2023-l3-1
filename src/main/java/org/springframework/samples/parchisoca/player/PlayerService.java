@@ -6,6 +6,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.samples.parchisoca.user.Authorities;
 import org.springframework.samples.parchisoca.user.UserService;
 import org.springframework.stereotype.Service;
@@ -31,6 +33,11 @@ public class PlayerService {
     @Transactional(readOnly = true)
     List<Player> findPlayers() {
         return playerRepository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public Page<Player> findPlayers(Pageable pageable) {
+        return playerRepository.findAll(pageable);
     }
 
     @Transactional(readOnly = true)

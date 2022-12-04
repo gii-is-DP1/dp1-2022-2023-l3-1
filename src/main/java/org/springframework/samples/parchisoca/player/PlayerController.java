@@ -4,11 +4,16 @@ package org.springframework.samples.parchisoca.player;
 
 import java.security.Principal;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.samples.parchisoca.user.User;
 import org.springframework.samples.parchisoca.user.UserService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,10 +22,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -101,7 +105,7 @@ public class PlayerController {
 
 
         if (direction == PLAYERS_FOUND_LISTING_VIEW) {
-            mav.addObject("players", playersFound); 
+            mav.addObject("players", playersFound);
 
         } else {
             mav.addObject("player", player);
@@ -114,11 +118,30 @@ public class PlayerController {
 
     // Lists all players
     @GetMapping("/players/list")
-    public ModelAndView showPlayers(){
-        ModelAndView result = new ModelAndView(PLAYERS_LISTING_VIEW);
-        List<Player> players = playerService.findPlayers();
-        result.addObject("players", players);
-        return result;
+    public String showPlayers(@RequestParam Map<String, Object> params, Model model){
+        int page = params.get("page") != null ? (Integer.valueOf(params.get("page").toString()) -1) : 0;
+        PageRequest pageRequest = PageRequest.of(page, 2);
+        Page<Player> pagePlayer = playerService.findPlayers(pageRequest);
+        int totalPages = pagePlayer.getTotalPages();
+        if (totalPages > 0){
+            List<Integer> pages = IntStream.rangeClosed(1, totalPages).boxed().collect(Collectors.toList());
+            model.addAttribute("number", pagePlayer.getNumber());
+            model.addAttribute("size", pagePlayer.getSize());
+            model.addAttribute("pages", pages);
+            model.addAttribute("totalPages", totalPages);
+            model.addAttribute("totalElements", pagePlayer.getTotalElements());
+            model.addAttribute("data",pagePlayer.getContent());
+
+        }
+        model.addAttribute("list", pagePlayer.getContent());
+        return PLAYERS_LISTING_VIEW;
+
+//        Pageable pageRequest = PageRequest.of(page, 2);
+//        Page<Player> players = playerService.findPlayers(pageRequest);
+//        ModelAndView result = new ModelAndView(PLAYERS_LISTING_VIEW);
+//        List<Player> players = playerService.findPlayers();
+//        result.addObject("players", players);
+//        return result;
     }
 
     //
