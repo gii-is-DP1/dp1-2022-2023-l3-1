@@ -39,9 +39,15 @@ public class GameService {
     public List<GameType> findAllGameTypes() {
         return repository.getAllGameTypes();
     }
+
     @Transactional
     public Game save(Game g){
         return repository.save(g);
+    }
+
+    @Transactional
+    public void deleteGameById(int id) {
+        repository.deleteById(id);
     }
 
     @Transactional(readOnly = true)

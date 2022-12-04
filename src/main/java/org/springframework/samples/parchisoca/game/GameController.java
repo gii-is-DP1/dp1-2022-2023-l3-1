@@ -31,6 +31,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class GameController {
 
     private final String GAMES_LISTING_VIEW = "/games/GamesListing";
+    private final String GAME_WAIT_ROOM_CREATOR = "lobbys/waitRoomCreator";
     private final String GAME_WAIT_ROOM = "lobbys/waitRoom";
     private final String PARCHIS_INSTRUCTIONS_VIEW = "games/ParchisInstructions";
     private final String OCA_INSTRUCTIONS_VIEW = "games/OcaInstructions";
@@ -139,12 +140,23 @@ public class GameController {
     @GetMapping("/lobby/{code}/waitRoom")
     public ModelAndView waitRoom(@PathVariable("code") String code, HttpServletResponse response) {
         response.addHeader("Refresh", "1");
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        Integer id = playerService.getUserIdByName(username);
+        Player currentPlayer = playerService.findById(id);
+
         Game currentGame = gameService.findGameByCode(code);
         if(currentGame.getStarted())
             return new ModelAndView("redirect:/boards/ocaBoard/"+currentGame.getOcaBoard().getId());
         int currentGameCreatorId = currentGame.getCreator().getId();
         Player currentCreator = gameService.findPlayerById(currentGameCreatorId);
-        ModelAndView result = new ModelAndView(GAME_WAIT_ROOM);
+        String direction;
+        if (currentPlayer.equals(currentCreator)) {
+            direction = GAME_WAIT_ROOM_CREATOR;
+        } else {
+            direction = GAME_WAIT_ROOM;
+        }
+        ModelAndView result = new ModelAndView(direction);
         result.addObject("games", currentGame);
         result.addObject("creator", currentCreator);
         return result;
@@ -188,18 +200,26 @@ public class GameController {
 
     // Exit the player from the wait room, therefore it will be deleted from the game too
     @GetMapping("/lobby/{code}/exitWaitRoom")
-    public String exitPlayerGame(@PathVariable("code") String code, ModelMap model, HttpServletRequest request,
-            HttpServletResponse response) {
+    public String exitPlayerGame(@PathVariable("code") String code) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         Integer id = playerService.getUserIdByName(username);
         Player currentPlayer = playerService.findById(id);
+
         Game currentGame = gameService.findGameByCode(code);
         List<Player> ls = currentGame.getPlayers();
 
         ls.remove(currentPlayer);
         currentGame.setPlayers(ls);
         gameService.save(currentGame);
+        return "redirect:/games/lobbys";
+    }
+
+    // Deletes the game, kicking all the players
+    @GetMapping("/lobby/{code}/deleteWaitRoom")
+    public String deleteWaitRoom(@PathVariable("code") String code) {
+        int currentGameId = gameService.findGameByCode(code).getId();
+        gameService.deleteGameById(currentGameId);
         return "redirect:/games/lobbys";
     }
 
