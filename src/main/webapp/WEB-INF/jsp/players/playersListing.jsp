@@ -58,17 +58,14 @@
         </c:choose>
         <div class="col text-center">
             <c:if test="${data.size() > 0 }">
-                    <div class="panel-footer">
-                        Showing page ${number+1} of ${size+1}
-                        <ul class="pagination">
-                            <c:forEach begin="1" end="${totalPages}" var="page">
-                                <li class="page-item">
-                                    <a href="list?page=${page}&size=${size}" class="page-link">${page}</a>
-                                </li>
-                            </c:forEach>
-                        </ul>
-                    </div>
-                </c:if>
+                <ul class="pagination">
+                    <c:forEach begin="1" end="${totalPages}" var="page">
+                        <li class="page-item">
+                            <a class="btn btn-default" href="list?page=${page}&size=${size}" class="page-link">${page}</a>
+                        </li>
+                    </c:forEach>
+                </ul>
+            </c:if>
         </div>
     <div class="col text-center">
             <a class="btn btn-default" href='<spring:url value="/" htmlEscape="true"/>'>Go Back</a>

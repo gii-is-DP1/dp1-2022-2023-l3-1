@@ -135,13 +135,6 @@ public class PlayerController {
         }
         model.addAttribute("list", pagePlayer.getContent());
         return PLAYERS_LISTING_VIEW;
-
-//        Pageable pageRequest = PageRequest.of(page, 2);
-//        Page<Player> players = playerService.findPlayers(pageRequest);
-//        ModelAndView result = new ModelAndView(PLAYERS_LISTING_VIEW);
-//        List<Player> players = playerService.findPlayers();
-//        result.addObject("players", players);
-//        return result;
     }
 
     //
