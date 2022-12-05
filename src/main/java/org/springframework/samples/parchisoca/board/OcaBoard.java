@@ -70,11 +70,11 @@ public class OcaBoard extends BaseEntity {
         Integer pos =0;
         SpecialBoxesOca specialBox = box.getSpecialBoxOca();
         if (specialBox.equals(SpecialBoxesOca.BRIDGE)) {
-            pos = action.bridge(box.getPositionBoard());
+            pos = action.bridge(box.getPositionBoard(),ocaPiece);
         } else if (specialBox.equals(SpecialBoxesOca.DEATH)) {
             pos = action.death(box.getPositionBoard());
         } else if (specialBox.equals(SpecialBoxesOca.DICES)) {
-            pos = action.dices(box.getPositionBoard());
+            pos = action.dices(box.getPositionBoard(),ocaPiece);
         } else if (specialBox.equals(SpecialBoxesOca.GOAL)) {
             pos = action.goal(box.getPositionBoard());
         } else if (specialBox.equals(SpecialBoxesOca.HOSTAL)) {
@@ -82,7 +82,7 @@ public class OcaBoard extends BaseEntity {
         } else if (specialBox.equals(SpecialBoxesOca.LABYRINTH)) {
             pos = action.labyrinth(box.getPositionBoard());
         } else if(specialBox.equals(SpecialBoxesOca.OCA)) {
-            pos = action.oca(box.getPositionBoard());
+            pos = action.oca(box.getPositionBoard(),ocaPiece);
         } else if(specialBox.equals(SpecialBoxesOca.PRISON)) {
             pos = action.prison(box.getPositionBoard(),ocaPiece);
         } else if (specialBox.equals(SpecialBoxesOca.WELL)) {

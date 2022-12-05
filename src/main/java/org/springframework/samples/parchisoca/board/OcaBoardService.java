@@ -75,6 +75,7 @@ public class OcaBoardService {
         List<BoxesOca> ls = ocaBoard.getBoxes();
         BoxesOca box = ls.get(position-1);
         Integer  newPosition = ocaBoard.action(box,ocaPiece);
+        ocaBoardRepository.save(ocaBoard);
         return newPosition;
     }
     
@@ -208,9 +209,10 @@ public class OcaBoardService {
     }
     
     @Transactional
-    public OcaPiece nextTurn(OcaBoard ocaBoard, Integer turn){
+    public OcaPiece nextTurn(OcaBoard ocaBoard){
 
         List <OcaPiece> pieces  = ocaBoard.getPieces();
+        Integer turn = ocaBoard.getTurn();
         if (turn == pieces.size()-1){
             ocaBoard.setTurn(0);
         }else{

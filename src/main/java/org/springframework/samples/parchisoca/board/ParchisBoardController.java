@@ -11,6 +11,7 @@ import org.springframework.samples.parchisoca.dice.ParchisDice;
 import org.springframework.samples.parchisoca.dice.ParchisDiceService;
 import org.springframework.samples.parchisoca.game.Game;
 import org.springframework.samples.parchisoca.piece.ParchisPiece;
+import org.springframework.samples.parchisoca.piece.ParchisPieceService;
 import org.springframework.samples.parchisoca.player.Player;
 import org.springframework.samples.parchisoca.player.PlayerService;
 import org.springframework.security.core.Authentication;
@@ -31,6 +32,9 @@ public class ParchisBoardController {
 
 	@Autowired
 	ParchisDiceService parchisDiceService;
+
+    @Autowired
+	ParchisPieceService parchisPieceService;
 
 	private final String PARCHISBOARD = "boards/parchisBoard";
 	private final String GAMES_FINISHED = "games/GameFinished";
@@ -105,8 +109,9 @@ public class ParchisBoardController {
         Integer turn = currentParchisBoard.getTurn();
         List<Player> players = game.getPlayers();
         Player player = players.get(turn);
-        ParchisDice dice1 = player.getParchisDice().get(0);
-        ParchisDice dice2 = player.getParchisDice().get(1);
+        List<ParchisDice> dices = parchisDiceService.findDiceByParchisBoardPlayer(currentParchisBoard,player);
+        ParchisDice dice1 = dices.get(0);
+        ParchisDice dice2 = dices.get(1);
         dice1.rollDice();
         dice2.rollDice();
         
@@ -124,16 +129,21 @@ public class ParchisBoardController {
     ,HttpServletResponse response, HttpServletRequest req){
 
         ModelAndView mav = new ModelAndView(DICE_SELECTION);
-
-
         ParchisBoard currentParchisBoard = parchisBoardService.findById(parchisBoardId);
         List<ParchisPiece> pieces = currentParchisBoard.getPieces();        
         Game game = currentParchisBoard.getGame();
         Integer turn = currentParchisBoard.getTurn();
         List<Player> players = game.getPlayers();
         Player player = players.get(turn);
-        ParchisDice dice1 = player.getParchisDice().get(0);
-        ParchisDice dice2 = player.getParchisDice().get(1);
+        List<ParchisDice> dices = parchisDiceService.findDiceByParchisBoardPlayer(currentParchisBoard,player);
+        ParchisDice dice1 = dices.get(0);
+        ParchisDice dice2 = dices.get(1);
+        
+        if(dice1.getNumber() == null && dice2.getNumber() == null){
+            mav.setViewName("redirect:/boards/parchisBoard/"+ parchisBoardId);
+            return mav;
+        }
+
         mav.addObject("parchisBoard", currentParchisBoard);
         mav.addObject("pieces", pieces);
         mav.addObject("dice1", dice1);
@@ -142,8 +152,8 @@ public class ParchisBoardController {
         return mav;
     }
 
-    @GetMapping({"boards/parchisBoard/{parchisBoardId}/pieceSelection"})
-    public ModelAndView pieceSelection(@PathVariable("parchisBoardId") int parchisBoardId
+    @GetMapping({"boards/parchisBoard/{parchisBoardId}/dice/{diceId}/pieceSelection"})
+    public ModelAndView pieceSelection(@PathVariable("parchisBoardId") int parchisBoardId,@PathVariable("diceId") int diceId
     ,HttpServletResponse response, HttpServletRequest req){
 
         ModelAndView mav = new ModelAndView(PIECE_SELECTION);
@@ -153,15 +163,37 @@ public class ParchisBoardController {
         Integer turn = currentParchisBoard.getTurn();
         List<Player> players = game.getPlayers();
         Player player = players.get(turn);
-        ParchisDice dice1 = player.getParchisDice().get(0);
-        ParchisDice dice2 = player.getParchisDice().get(1);
+        List<ParchisPiece> piecesPlayer = parchisPieceService.findParchisPiecesByPlayerParchisBoard(player, currentParchisBoard) ;
+        
+        ParchisDice dice = parchisDiceService.findById(diceId);
+        mav.addObject("dice", dice);
         mav.addObject("parchisBoard", currentParchisBoard);
         mav.addObject("pieces", pieces);
-        mav.addObject("dice1", dice1);
-        mav.addObject("number1", dice1.getNumber());
-        mav.addObject("number2", dice2.getNumber());
+        mav.addObject("piece1", piecesPlayer.get(0));
+        mav.addObject("piece2", piecesPlayer.get(1));
+        mav.addObject("piece3", piecesPlayer.get(2));
+        mav.addObject("piece4", piecesPlayer.get(3));
 
         return mav;
  
+    }
+
+    @GetMapping({"boards/parchisBoard/{parchisBoardId}/dice/{diceId}/pieceSelection/piece/{parchisPieceId}"})
+    public ModelAndView pieceAction(@PathVariable("parchisBoardId") int parchisBoardId,@PathVariable("diceId") int diceId, @PathVariable("parchisPieceId") int parchisPieceId
+    ,HttpServletResponse response, HttpServletRequest req){
+
+        parchisBoardService.findById(parchisBoardId);
+    
+        ModelAndView mav = new ModelAndView("redirect:/boards/parchisBoard/{parchisBoardId}/diceSelection");
+        ParchisDice dice  = parchisDiceService.findById(diceId);
+       
+        ParchisBoard parchisBoard = parchisBoardService.findById(parchisBoardId);
+        ParchisPiece piece = parchisPieceService.findById(parchisPieceId);
+        parchisBoardService.movementPiece(parchisBoard, piece, dice);
+
+        dice.setNumber(null);
+        parchisDiceService.save(dice);
+
+        return mav;
     }
 }

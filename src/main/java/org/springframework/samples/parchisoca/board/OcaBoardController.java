@@ -150,7 +150,7 @@ public class OcaBoardController {
             
         }
 
-        ocaBoardService.nextTurn(currentOcaBoard, turn);
+        ocaBoardService.nextTurn(currentOcaBoard);
         ocaBoardService.save(currentOcaBoard);
         return mav;
     }
