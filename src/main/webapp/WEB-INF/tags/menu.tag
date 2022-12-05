@@ -112,6 +112,12 @@
                             </ul>
                     </parchisoca:menuItem>
 
+                    <parchisoca:menuItem active="${name eq 'Stats'}" url="/stats/playerStats"
+                        title="Stats">
+                        <span class="glyphicon glyphicon-signal" aria-hidden="true"></span>
+                        <span>Stats</span>
+                    </parchisoca:menuItem>
+
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
