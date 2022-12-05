@@ -50,6 +50,7 @@ public class ParchisPiece extends BaseEntity {
     public Integer getPositionYInPixels(Integer size) {
     	return (yPosition)*size;
     }
-    
+
+
 }
 
