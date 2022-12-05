@@ -1,7 +1,11 @@
 package org.springframework.samples.parchisoca.piece;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.parchisoca.board.ParchisBoard;
 import org.springframework.samples.parchisoca.board.ParchisBoardService;
+import org.springframework.samples.parchisoca.player.Player;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,6 +31,10 @@ public class ParchisPieceService {
     @Transactional
     public void save(ParchisPiece p) {
         parchisPieceRepository.save(p);
+    }
+    @Transactional
+    public List<ParchisPiece> findParchisPiecesByPlayerParchisBoard(Player player, ParchisBoard parchisBoard){
+        return parchisPieceRepository.getParchisPiecesByPlayerParchisBoard(player, parchisBoard);
     }
 
 }

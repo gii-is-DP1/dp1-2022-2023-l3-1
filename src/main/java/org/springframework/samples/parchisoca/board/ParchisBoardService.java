@@ -11,6 +11,7 @@ import org.springframework.samples.parchisoca.dice.ParchisDiceService;
 import org.springframework.samples.parchisoca.game.Game;
 import org.springframework.samples.parchisoca.piece.Colour;
 import org.springframework.samples.parchisoca.piece.ParchisPiece;
+import org.springframework.samples.parchisoca.piece.ParchisPieceRepository;
 import org.springframework.samples.parchisoca.piece.ParchisPieceService;
 import org.springframework.samples.parchisoca.player.Player;
 import org.springframework.samples.parchisoca.player.PlayerService;
@@ -134,6 +135,36 @@ public class ParchisBoardService {
         Player currentPlayer = playerService.findById(id);
 
         return currentPlayer.equals(piecePlayer);
+    }
+
+    public ParchisPiece movementPiece(ParchisBoard parchisBoard, ParchisPiece parchisPiece, ParchisDice parchisDice){
+
+        
+        Integer lastPosition = parchisPiece.getPosition();
+        Integer diceNumber = parchisDice.getNumber();
+        if (lastPosition == 0 && diceNumber == 5){
+            firstMove(parchisPiece);
+        }else{
+            Integer newPosition = lastPosition + diceNumber;
+            parchisPiece.setPosition(newPosition);
+            parchisPieceService.save(parchisPiece);
+        }
+        
+        return parchisPiece;
+    }
+
+    private void firstMove(ParchisPiece parchisPiece) {
+        Colour color = parchisPiece.getColour();
+        if (color == Colour.BLUE){
+            parchisPiece.setPosition(22);
+        }else if(color == Colour.RED){
+            parchisPiece.setPosition(39);
+        }else if (color == Colour.GREEN){
+            parchisPiece.setPosition(56);
+        }else{
+            parchisPiece.setPosition(5);
+        }
+        parchisPieceService.save(parchisPiece);
     }
 
 }
