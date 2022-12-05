@@ -19,6 +19,7 @@ import org.springframework.samples.parchisoca.model.Person;
 import org.springframework.samples.parchisoca.piece.OcaPiece;
 import org.springframework.samples.parchisoca.piece.ParchisPiece;
 import org.springframework.samples.parchisoca.statistic.Achievement;
+import org.springframework.samples.parchisoca.statistic.Stat;
 import org.springframework.samples.parchisoca.user.User;
 
 import lombok.Getter;
@@ -40,6 +41,9 @@ public class Player extends Person {
     @ManyToMany(cascade = CascadeType.ALL)
     @Column(name = "players_achievements")
     private Set<Achievement> achievements;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Stat stats;
 
     @OneToMany(mappedBy = "player", cascade = CascadeType.ALL)
     private List<OcaPiece> ocaPiece;
