@@ -7,14 +7,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.parchisoca.dice.OcaDice;
-import org.springframework.samples.parchisoca.dice.OcaDiceService;
 import org.springframework.samples.parchisoca.game.Game;
 import org.springframework.samples.parchisoca.game.GameService;
-import org.springframework.samples.parchisoca.oca.BoxesOcaService;
 import org.springframework.samples.parchisoca.piece.OcaPiece;
 import org.springframework.samples.parchisoca.piece.OcaPieceService;
 import org.springframework.samples.parchisoca.player.Player;
 import org.springframework.samples.parchisoca.player.PlayerService;
+import org.springframework.samples.parchisoca.statistic.StatService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -27,22 +26,19 @@ import org.springframework.web.servlet.ModelAndView;
 public class OcaBoardController {
 
     @Autowired
-    OcaBoardService ocaBoardService;
+    private OcaBoardService ocaBoardService;
 
     @Autowired
-    GameService gameService;
+    private GameService gameService;
 
     @Autowired
-    OcaPieceService ocaPieceService;
+    private OcaPieceService ocaPieceService;
 
     @Autowired
-    OcaDiceService ocaDiceService;
+    private PlayerService playerService;
 
     @Autowired
-    PlayerService playerService;
-
-    @Autowired
-    BoxesOcaService boService;
+    private StatService statService;
 
     private final String OCABOARD = "boards/ocaBoard";
     private final String GAMES_FINISHED = "games/GameFinished";
@@ -71,6 +67,7 @@ public class OcaBoardController {
         mav.addObject("pieces", pieces);
         
         if (newOcaBoard.getGame().getWinner() != null) {
+            statService.increaseWonGames(currentPlayer);
             mav = new ModelAndView(LOOSER);
             return mav;
         } else if (!ocaBoardService.isActualPlayer(piecePlayer)){
@@ -139,6 +136,7 @@ public class OcaBoardController {
             ocaBoardService.actualPosition(currentOcaBoard, ocaPiece);
             if (ocaPiece.getPosition().equals(63)) {
                 ModelAndView res = new ModelAndView(GAMES_FINISHED);
+                statService.increaseWonGames(currentPlayer);
                 Player winner  = ocaPiece.getPlayer();
                 Game game = currentOcaBoard.getGame();
                 game.setInProgress(false);
