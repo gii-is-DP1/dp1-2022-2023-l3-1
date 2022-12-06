@@ -263,6 +263,7 @@ public class PlayerController {
         Player currentPlayer = playerService.findById(playerId);
 
         List<Player> friends = currentPlayer.getFriends();
+        
         ModelAndView mav = new ModelAndView(PLAYER_FRIENDS);
         mav.addObject("friends", friends);
         return mav;
