@@ -37,6 +37,9 @@
                     <td>
                         <c:out value="${f.achievements}" />
                     </td>
+                    <td>
+                        <a class="btn btn-default" href='<spring:url value="/stats/${f.id}" htmlEscape="true"/>'>Stats</a>
+                    </td>
                 </tr>
             </c:forEach>
         </tbody>
