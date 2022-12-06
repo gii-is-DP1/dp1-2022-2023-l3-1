@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.parchisoca.board.ParchisBoardService;
-import org.springframework.samples.parchisoca.dice.ParchisDice;
-import org.springframework.samples.parchisoca.piece.Colour;
 import org.springframework.samples.parchisoca.piece.ParchisPiece;
 import org.springframework.samples.parchisoca.piece.ParchisPieceService;
 

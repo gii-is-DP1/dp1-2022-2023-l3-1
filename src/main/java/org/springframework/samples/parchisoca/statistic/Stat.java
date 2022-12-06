@@ -1,7 +1,5 @@
 package org.springframework.samples.parchisoca.statistic;
 
-import java.text.DecimalFormat;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;

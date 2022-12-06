@@ -19,7 +19,6 @@ import org.springframework.samples.parchisoca.model.Person;
 import org.springframework.samples.parchisoca.piece.OcaPiece;
 import org.springframework.samples.parchisoca.piece.ParchisPiece;
 import org.springframework.samples.parchisoca.statistic.Achievement;
-import org.springframework.samples.parchisoca.statistic.Stat;
 import org.springframework.samples.parchisoca.user.User;
 
 import lombok.Getter;
