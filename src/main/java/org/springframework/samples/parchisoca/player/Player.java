@@ -42,9 +42,6 @@ public class Player extends Person {
     @Column(name = "players_achievements")
     private Set<Achievement> achievements;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private Stat stats;
-
     @OneToMany(mappedBy = "player", cascade = CascadeType.ALL)
     private List<OcaPiece> ocaPiece;
 

@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import org.hibernate.query.criteria.internal.ValueHandlerFactory.LongValueHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.parchisoca.board.OcaBoard;
 import org.springframework.samples.parchisoca.board.OcaBoardService;
@@ -43,10 +42,13 @@ public class GameController {
 
     @Autowired
     private GameService gameService;
+
     @Autowired
     private PlayerService playerService;
+
     @Autowired
     private OcaBoardService ocaBoardService;
+
     @Autowired
     private ParchisBoardService parchisBoardService;
 
@@ -164,7 +166,7 @@ public class GameController {
 
     // Shows the player winner of the game
     @GetMapping("/lobby/{code}/winner")
-    public ModelAndView gameWinner(@PathVariable("code") String code) {
+    public ModelAndView gameWinner(@PathVariable("code") String code) {        
         Game currentGame = gameService.findGameByCode(code);
         ModelAndView mav = new ModelAndView(GAMES_FINISHED);
         mav.addObject("game", currentGame);

@@ -20,4 +20,22 @@ public class StatService {
         Stat result = statRepository.getStatsByPlayer(player);
         return result;        
     }
+
+    @Transactional()
+    public void increaseWonGames(Player player) {
+        Stat playerStats = statRepository.getStatsByPlayer(player);
+        Integer playedGames = playerStats.getPlayedGames() + 1;
+        Integer wonGames = playerStats.getWonGames() + 1;
+        playerStats.setPlayedGames(playedGames);
+        playerStats.setWonGames(wonGames);
+    }
+
+    @Transactional()
+    public void increaseLostGames(Player player) {
+        Stat playerStats = statRepository.getStatsByPlayer(player);
+        Integer playedGames = playerStats.getPlayedGames() + 1;
+        Integer lostGames = playerStats.getLostGames() + 1;
+        playerStats.setPlayedGames(playedGames);
+        playerStats.setLostGames(lostGames);
+    }
 }

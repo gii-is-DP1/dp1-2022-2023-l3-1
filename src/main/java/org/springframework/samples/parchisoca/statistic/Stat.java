@@ -1,5 +1,8 @@
 package org.springframework.samples.parchisoca.statistic;
 
+import java.text.DecimalFormat;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -17,7 +20,7 @@ import lombok.Setter;
 @Table(name = "stats")
 public class Stat extends BaseEntity {
     
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Player player;
 
     @Min(value = 0)
@@ -30,7 +33,8 @@ public class Stat extends BaseEntity {
     private Integer lostGames;
 
     public Double ratio(Integer wonGames, Integer lostGames) {
-        return  ((double) lostGames/ (double) wonGames) * 100;
+        Double result = ((double) lostGames/ (double) wonGames) * 100;
+        return (double)Math.round(result * 100d) / 100d;
     }
 
 }
