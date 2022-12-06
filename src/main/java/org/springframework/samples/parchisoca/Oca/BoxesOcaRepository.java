@@ -2,7 +2,6 @@ package org.springframework.samples.parchisoca.oca;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.samples.parchisoca.board.OcaBoard;
 import org.springframework.stereotype.Repository;
 
 @Repository

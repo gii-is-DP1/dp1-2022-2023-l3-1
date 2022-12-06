@@ -17,7 +17,6 @@ import org.springframework.samples.parchisoca.dice.ParchisDice;
 import org.springframework.samples.parchisoca.game.Game;
 import org.springframework.samples.parchisoca.model.BaseEntity;
 import org.springframework.samples.parchisoca.piece.ParchisPiece;
-import org.springframework.samples.parchisoca.player.Player;
 
 import lombok.Getter;
 import lombok.Setter;
