@@ -67,10 +67,12 @@ public class ParchisBoardController {
         ModelAndView mav = new ModelAndView(PARCHISBOARD);
         Integer turn = newParchisBoard.getTurn();
 
+
         Player player  = players.get(turn);
 
         mav.addObject("parchisBoard", newParchisBoard);
         mav.addObject("pieces", pieces);
+        mav.addObject("players", players);
         
         if (newParchisBoard.getGame().getWinner() != null) {
             mav = new ModelAndView(LOOSER);

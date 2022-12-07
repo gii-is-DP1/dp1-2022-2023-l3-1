@@ -2,6 +2,7 @@ package org.springframework.samples.parchisoca.board;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.parchisoca.parchis.BoxesParchis;
@@ -143,10 +144,21 @@ public class ParchisBoardService {
         Integer diceNumber = parchisDice.getNumber();
         if (lastPosition == 0 && diceNumber == 5){
             firstMove(parchisPiece);
-        }else{
+            BoxesParchis box = boxesParchisService.findBoxByPosition(parchisPiece.getPosition(),parchisBoard);
+            box.addPieceToBox(parchisPiece);
+        }else if (lastPosition != 0) {
             Integer newPosition = lastPosition + diceNumber;
             parchisPiece.setPosition(newPosition);
             parchisPieceService.save(parchisPiece);
+            BoxesParchis lastBox = boxesParchisService.findBoxByPosition(lastPosition,parchisBoard);
+            lastBox.getPiecesInBox().remove(parchisPiece);
+            BoxesParchis newBox = boxesParchisService.findBoxByPosition(newPosition,parchisBoard);
+            newBox.addPieceToBox(parchisPiece);
+            boxesParchisService.save(lastBox); boxesParchisService.save(lastBox);
+
+            //eatPiece
+
+            eatPiece(parchisPiece);
         }
         
         return parchisPiece;
@@ -164,6 +176,21 @@ public class ParchisBoardService {
             parchisPiece.setPosition(5);
         }
         parchisPieceService.save(parchisPiece);
+    }
+
+    private void eatPiece(ParchisPiece parchisPiece){
+
+        Integer position = parchisPiece.getPosition();
+        BoxesParchis box = boxesParchisService.findBoxByPosition(position, parchisPiece.getParchisBoard());
+        if (box.getPiecesInBox().size() > 0){
+            List<ParchisPiece> pieces = box.getPiecesInBox();
+            Optional<ParchisPiece> pieceToEat = pieces.stream().filter(x->x.getColour() != parchisPiece.getColour()).findFirst();
+            if (pieceToEat.isPresent()){
+                box.getPiecesInBox().remove(pieceToEat.get());
+                boxesParchisService.save(box);
+            }  
+        } 
+
     }
 
 }
