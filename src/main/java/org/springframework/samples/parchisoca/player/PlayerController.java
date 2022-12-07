@@ -13,13 +13,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.samples.parchisoca.user.User;
-import org.springframework.samples.parchisoca.user.UserService;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.samples.parchisoca.badWord.BadWordsService;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -263,6 +258,7 @@ public class PlayerController {
         Player currentPlayer = playerService.findById(playerId);
 
         List<Player> friends = currentPlayer.getFriends();
+        
         ModelAndView mav = new ModelAndView(PLAYER_FRIENDS);
         mav.addObject("friends", friends);
         return mav;

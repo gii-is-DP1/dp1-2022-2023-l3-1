@@ -1,7 +1,6 @@
 package org.springframework.samples.parchisoca.oca;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.parchisoca.board.OcaBoard;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -42,6 +42,8 @@ INSERT INTO games_players (game_id, players_id) VALUES (1,2);
 INSERT INTO games_players (game_id, players_id) VALUES (2,2);
 INSERT INTO games_players (game_id, players_id) VALUES (3,2);
 
+INSERT INTO stats (id, player_id, played_games, won_games, lost_games) VALUES (1, 1, 4, 3, 1);
+
 
 INSERT INTO oca_boards (id, background, height, width) VALUES (1,'/resources/images/tablero-oca.png', 800,800);
 
