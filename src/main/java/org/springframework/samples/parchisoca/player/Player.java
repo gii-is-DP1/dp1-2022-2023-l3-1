@@ -19,6 +19,7 @@ import org.springframework.samples.parchisoca.model.Person;
 import org.springframework.samples.parchisoca.piece.OcaPiece;
 import org.springframework.samples.parchisoca.piece.ParchisPiece;
 import org.springframework.samples.parchisoca.statistic.Achievement;
+import org.springframework.samples.parchisoca.statistic.Stat;
 import org.springframework.samples.parchisoca.user.User;
 
 import lombok.Getter;
@@ -35,6 +36,9 @@ public class Player extends Person {
 
     @Column(unique = true)
     private String email;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Stat stat;
 
     // If it was OneToMany only one player could own the achievement
     @ManyToMany(cascade = CascadeType.ALL)

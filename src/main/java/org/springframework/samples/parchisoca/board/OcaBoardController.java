@@ -67,7 +67,7 @@ public class OcaBoardController {
         mav.addObject("pieces", pieces);
         
         if (newOcaBoard.getGame().getWinner() != null) {
-            statService.increaseWonGames(currentPlayer);
+            statService.increaseLostGames(currentPlayer);
             mav = new ModelAndView(LOOSER);
             return mav;
         } else if (!ocaBoardService.isActualPlayer(piecePlayer)){
