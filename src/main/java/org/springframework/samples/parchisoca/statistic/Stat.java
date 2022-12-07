@@ -22,13 +22,13 @@ public class Stat extends BaseEntity {
     private Player player;
 
     @Min(value = 0)
-    private Integer playedGames;
+    private Integer playedGames = 0;
 
     @Min(value = 0)
-    private Integer wonGames;
+    private Integer wonGames = 0;
 
     @Min(value = 0)
-    private Integer lostGames;
+    private Integer lostGames = 0;
 
     public Double ratio(Integer wonGames, Integer lostGames) {
         Double result = ((double) lostGames/ (double) wonGames) * 100;

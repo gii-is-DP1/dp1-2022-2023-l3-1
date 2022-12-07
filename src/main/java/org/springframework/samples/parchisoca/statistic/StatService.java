@@ -38,4 +38,12 @@ public class StatService {
         playerStats.setPlayedGames(playedGames);
         playerStats.setLostGames(lostGames);
     }
+
+    @Transactional()
+    public void initStats(Player player) {
+        Stat stat = new Stat();
+        stat.setPlayer(player);
+        statRepository.save(stat);
+        player.setStat(stat);
+    }
 }

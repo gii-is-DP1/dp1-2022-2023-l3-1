@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.samples.parchisoca.user.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.samples.parchisoca.statistic.StatService;
 import org.springframework.samples.parchisoca.user.AuthoritiesService;
 
 @Service
@@ -20,6 +21,9 @@ public class PlayerService {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private StatService statService;
 
     @Autowired
     private AuthoritiesService authoritiesService;
@@ -73,6 +77,7 @@ public class PlayerService {
     public void savePlayer(Player player) {
         playerRepository.save(player);
         userService.saveUser(player.getUser());
+        statService.initStats(player);
         authoritiesService.saveAuthorities(player.getUser().getId(), "player", player.getUser().getUsername());
     }
 

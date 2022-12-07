@@ -162,6 +162,7 @@ public class PlayerController {
         result.addObject("player", new Player());
         return result;
     }
+    
 
     @PostMapping(value = "/players/create")
 	public String processCreationForm(@Valid Player player, BindingResult result) {
