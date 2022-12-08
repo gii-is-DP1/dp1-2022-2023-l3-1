@@ -16,6 +16,7 @@ import org.springframework.samples.parchisoca.board.ParchisBoard;
 import org.springframework.samples.parchisoca.dice.OcaDice;
 import org.springframework.samples.parchisoca.dice.ParchisDice;
 import org.springframework.samples.parchisoca.model.Person;
+import org.springframework.samples.parchisoca.notification.Notification;
 import org.springframework.samples.parchisoca.piece.OcaPiece;
 import org.springframework.samples.parchisoca.piece.ParchisPiece;
 import org.springframework.samples.parchisoca.statistic.Achievement;
@@ -62,6 +63,9 @@ public class Player extends Person {
 
     @OneToMany
     List<ParchisPiece> parchisPieces;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    List<Notification> notifications;
 
     public void addDice (OcaDice ocaDice) {
         if (getOcaDice() == null) {
