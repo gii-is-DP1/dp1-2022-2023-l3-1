@@ -33,4 +33,10 @@ public class NotificationService {
         notis.add(notification);
         player.setNotifications(notis);
     }
+
+    @Transactional
+    public List<Notification> findNotificationsByPlayer(Player player) {
+        List<Notification> result = notificationRepository.getNotificationsByPlayer(player);
+        return result;
+    }
 }

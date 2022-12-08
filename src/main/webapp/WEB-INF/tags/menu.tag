@@ -126,6 +126,9 @@
                         <li><a href="<c:url value="/players/create" />">Register</a></li>
                     </sec:authorize>
                     <sec:authorize access="isAuthenticated()">
+                        <parchisoca:menuItem active="${name eq 'Notifications'}" url="/notifications/myNotifications" title="Notifications">
+                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                        </parchisoca:menuItem>
                         <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <span class="glyphicon glyphicon-user"></span>
