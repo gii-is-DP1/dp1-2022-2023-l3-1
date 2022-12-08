@@ -27,12 +27,13 @@ public class BoxesParchis extends BaseEntity{
 
     // @Enumerated(EnumType.STRING)
     // private SpecialBoxesParchis specialBoxesParchis;
-    public BoxesParchis boxesParchis(Integer box, Boolean entry, Boolean safe, Boolean exit){
+    public BoxesParchis boxesParchis(Integer box, Boolean entry, Boolean safe, Boolean exit, Boolean bridge){
         BoxesParchis res = new BoxesParchis();
         res.setPositionBoard(box);
         res.setSafe(safe);
         res.setExit(exit);
         res.setEntry(entry);
+        res.setBridge(bridge);
         return res;
     }
 
@@ -44,6 +45,8 @@ public class BoxesParchis extends BaseEntity{
     Boolean exit;
 
     Boolean entry;
+
+    Boolean bridge;
 
     @OneToMany
     List<ParchisPiece> piecesInBox;
