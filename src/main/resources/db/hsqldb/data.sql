@@ -47,6 +47,8 @@ INSERT INTO stats (id, player_id, played_games, won_games, lost_games) VALUES (2
 INSERT INTO stats (id, player_id, played_games, won_games, lost_games) VALUES (3, 3, 0, 0, 0);
 INSERT INTO stats (id, player_id, played_games, won_games, lost_games) VALUES (4, 4, 0, 0, 0);
 
+INSERT INTO notifications (id, text, player_id) VALUES (1, 'Se ha anyadido a tu lista de amigos', 1);
+
 INSERT INTO oca_boards (id, background, height, width) VALUES (1,'/resources/images/tablero-oca.png', 800,800);
 
 

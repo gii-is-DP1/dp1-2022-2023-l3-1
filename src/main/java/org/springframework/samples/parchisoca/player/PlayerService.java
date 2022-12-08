@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.samples.parchisoca.user.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.samples.parchisoca.notification.NotificationService;
 import org.springframework.samples.parchisoca.statistic.StatService;
 import org.springframework.samples.parchisoca.user.AuthoritiesService;
 
@@ -29,12 +30,15 @@ public class PlayerService {
     private AuthoritiesService authoritiesService;
 
     @Autowired
+    private NotificationService notificationService;
+
+    @Autowired
     public PlayerService(PlayerRepository playerRepo) {
         this.playerRepository = playerRepo;
     }
 
     @Transactional(readOnly = true)
-    List<Player> findPlayers() {
+    public List<Player> findPlayers() {
         return playerRepository.findAll();
     }
 
@@ -78,6 +82,7 @@ public class PlayerService {
         playerRepository.save(player);
         userService.saveUser(player.getUser());
         statService.initStats(player);
+        notificationService.initNotifications(player);
         playerRepository.save(player);
         authoritiesService.saveAuthorities(player.getUser().getId(), "player", player.getUser().getUsername());
     }

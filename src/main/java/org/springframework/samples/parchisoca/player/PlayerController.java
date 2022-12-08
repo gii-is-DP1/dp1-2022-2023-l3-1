@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.samples.parchisoca.badWord.BadWordsService;
+import org.springframework.samples.parchisoca.notification.Notification;
+import org.springframework.samples.parchisoca.notification.NotificationService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -30,6 +32,9 @@ public class PlayerController {
 
     @Autowired
     private BadWordsService badWordsService;
+
+    @Autowired
+    private NotificationService notificationService;
 
     private final String PLAYERS_LISTING_VIEW = "players/playersListing";
     private final String PLAYERS_FOUND_LISTING_VIEW = "players/playersFoundListing";
@@ -279,10 +284,13 @@ public class PlayerController {
         String username = auth.getName();
         Integer currentPlayerId = this.playerService.getUserIdByName(username);
         Player currentPlayer = playerService.findById(currentPlayerId);
-
+        
         Player playerToAdd = playerService.findById(playerId);
+        Notification notification = notificationService.sendNotification(playerToAdd, "Se ha añadido a tu lista de amigos.");
+
         if (!currentPlayer.getFriends().contains(playerToAdd)) {
             currentPlayer.getFriends().add(playerToAdd);
+            currentPlayer.getNotifications().add(notification);
             playerService.savePlayer(currentPlayer);
         }
         return "redirect:/players/myFriends";
