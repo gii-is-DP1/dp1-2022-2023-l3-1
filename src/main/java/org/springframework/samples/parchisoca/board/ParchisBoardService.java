@@ -92,13 +92,13 @@ public class ParchisBoardService {
         for(int i=0; i<=68; i++) {
             BoxesParchis box = new BoxesParchis();
             if (i==5 || i==22 || i==39 || i==56) {
-                box.boxesParchis(i, false, true, true);
+                box.boxesParchis(i, false, true, true, false);
             } else if (i==12 || i==29 || i==46 || i==63) {
-                box.boxesParchis(i, false, true, false);
+                box.boxesParchis(i, false, true, false, false);
             } else if (i==17 || i==34 || i==51 || i==68) {
-                box.boxesParchis(i, false, true, true);
+                box.boxesParchis(i, false, true, true, false);
             } else {
-                box.boxesParchis(i, false, false, false);
+                box.boxesParchis(i, false, false, false, false);
             }
 
             box.setPositionBoard(i);
@@ -159,6 +159,9 @@ public class ParchisBoardService {
             //eatPiece
 
             eatPiece(parchisPiece);
+
+            //crear puente
+            bridge(parchisPiece);
         }
         
         return parchisPiece;
@@ -178,7 +181,7 @@ public class ParchisBoardService {
         parchisPieceService.save(parchisPiece);
     }
 
-    private void eatPiece(ParchisPiece parchisPiece){
+    private void eatPiece(ParchisPiece parchisPiece) {
 
         Integer position = parchisPiece.getPosition();
         BoxesParchis box = boxesParchisService.findBoxByPosition(position, parchisPiece.getParchisBoard());
@@ -191,6 +194,26 @@ public class ParchisBoardService {
             }  
         } 
 
+    }
+
+    private void bridge (ParchisPiece parchisPiece) {
+
+        Integer position = parchisPiece.getPosition();
+        BoxesParchis box = boxesParchisService.findBoxByPosition(position, parchisPiece.getParchisBoard());
+        List<ParchisPiece> pieces = box.getPiecesInBox(); 
+        if (box.getSafe().equals(true)){
+            if (box.getPiecesInBox().size() == 1) {
+                pieces.get(0);
+            }
+        } else {
+            if( pieces.get(0).getColour() == parchisPiece.getColour()) {
+                box.getPiecesInBox().add(parchisPiece);
+                box.setBridge(true);
+                boxesParchisService.save(box);
+            }
+        }
+
+        
     }
 
 }
