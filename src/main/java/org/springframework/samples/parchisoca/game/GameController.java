@@ -148,8 +148,14 @@ public class GameController {
         Player currentPlayer = playerService.findById(id);
 
         Game currentGame = gameService.findGameByCode(code);
-        if(currentGame.getStarted())
-            return new ModelAndView("redirect:/boards/ocaBoard/"+currentGame.getOcaBoard().getId());
+        GameType currentGameType = currentGame.getGameType();
+        if (currentGame.getStarted()) {
+            if (currentGameType.getId() == 2) {
+                return new ModelAndView("redirect:/boards/ocaBoard/"+currentGame.getOcaBoard().getId());
+            } else if (currentGameType.getId() == 1) {
+                return new ModelAndView("redirect:/boards/parchisBoard/"+currentGame.getParchisBoard().getId());
+            }
+        }
         int currentGameCreatorId = currentGame.getCreator().getId();
         Player currentCreator = gameService.findPlayerById(currentGameCreatorId);
         String direction;

@@ -78,6 +78,7 @@ public class PlayerService {
         playerRepository.save(player);
         userService.saveUser(player.getUser());
         statService.initStats(player);
+        playerRepository.save(player);
         authoritiesService.saveAuthorities(player.getUser().getId(), "player", player.getUser().getUsername());
     }
 
