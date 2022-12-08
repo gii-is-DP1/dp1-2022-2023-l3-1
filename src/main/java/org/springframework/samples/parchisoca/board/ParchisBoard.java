@@ -47,9 +47,6 @@ public class ParchisBoard extends BaseEntity {
     @OneToOne
     private Game game;
 
-    // @ManyToMany
-    // private List<Player> players;
-
     private Integer turn = 0;
 
     @OneToMany

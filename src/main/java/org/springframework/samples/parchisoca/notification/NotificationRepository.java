@@ -1,5 +1,7 @@
 package org.springframework.samples.parchisoca.notification;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.samples.parchisoca.player.Player;
@@ -10,4 +12,7 @@ public interface NotificationRepository extends CrudRepository<Notification, Int
     
     @Query("SELECT n FROM Notification n WHERE n.player =?1")
     Notification getNotificationByPlayer(Player player);
+
+    @Query("SELECT n FROM Notification n WHERE n.player =?1")
+    List<Notification> getNotificationsByPlayer(Player player);
 }
