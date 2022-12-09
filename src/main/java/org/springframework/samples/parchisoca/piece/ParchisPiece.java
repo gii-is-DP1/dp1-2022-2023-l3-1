@@ -41,7 +41,9 @@ public class ParchisPiece extends BaseEntity {
     @ManyToOne
     private Player player;
 
-    private Boolean safeBox;
+    private Integer finishPosition;
+
+    private Boolean inGoal = false;
 
     public Integer getPositionXInPixels(Integer size) {
     	return (xPosition)*size;
