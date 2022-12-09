@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.Positive;
 
 import org.springframework.samples.parchisoca.parchis.BoxesParchis;
+import org.springframework.samples.parchisoca.parchis.FinishBoxes;
 import org.springframework.samples.parchisoca.dice.ParchisDice;
 import org.springframework.samples.parchisoca.game.Game;
 import org.springframework.samples.parchisoca.model.BaseEntity;
@@ -61,6 +62,9 @@ public class ParchisBoard extends BaseEntity {
     @ManyToMany
     private List<ParchisDice> parchisDices;
 
+    @OneToMany
+    private List<FinishBoxes> finishBoxes;
+
     public void addPieceParchis (ParchisPiece parchisPiece) {
         if (getPieces() == null) {
             List<ParchisPiece> ls = new ArrayList<>();
@@ -71,5 +75,12 @@ public class ParchisBoard extends BaseEntity {
             ls.add(parchisPiece);
             setPieces(ls);
         }
+    }
+
+    public Integer reboteTirada(Integer position) {  
+        if (position > 9) {
+            position = 2 * 9 - position;
+        }
+        return position;
     }
 }

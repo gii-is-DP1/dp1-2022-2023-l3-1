@@ -78,7 +78,7 @@ public class ParchisBoardController {
             mav = new ModelAndView(LOOSER);
             return mav;
         } else if (!parchisBoardService.isActualPlayer(player)) {
-            response.addHeader("Refresh", "2");
+            // response.addHeader("Refresh", "2");
             mav.addObject("number", number);
             mav.addObject("error", "It is not your turn");
             return mav;
@@ -114,13 +114,17 @@ public class ParchisBoardController {
         List<ParchisDice> dices = parchisDiceService.findDiceByParchisBoardPlayer(currentParchisBoard,player);
         ParchisDice dice1 = dices.get(0);
         ParchisDice dice2 = dices.get(1);
-        dice1.rollDice();
-        dice2.rollDice();
-        
+        // dice1.rollDice();
+        // dice2.rollDice();
+        dice1.setNumber(60);
+        dice2.setNumber(5);
+        parchisDiceService.save(dice1);
+        parchisDiceService.save(dice2);
+
         mav.addObject("parchisBoard", currentParchisBoard);
         mav.addObject("pieces", pieces);
         mav.addObject("dice1", dice1);
-        mav.addObject("dice1", dice1);
+        mav.addObject("dice2", dice2);
 
 
         
@@ -143,6 +147,8 @@ public class ParchisBoardController {
         
         if(dice1.getNumber() == null && dice2.getNumber() == null){
             mav.setViewName("redirect:/boards/parchisBoard/"+ parchisBoardId);
+            parchisBoardService.nextTurn(currentParchisBoard, game, turn);
+            parchisBoardService.save(currentParchisBoard);
             return mav;
         }
 
@@ -168,6 +174,8 @@ public class ParchisBoardController {
         List<ParchisPiece> piecesPlayer = parchisPieceService.findParchisPiecesByPlayerParchisBoard(player, currentParchisBoard) ;
         
         ParchisDice dice = parchisDiceService.findById(diceId);
+
+ 
         mav.addObject("dice", dice);
         mav.addObject("parchisBoard", currentParchisBoard);
         mav.addObject("pieces", pieces);

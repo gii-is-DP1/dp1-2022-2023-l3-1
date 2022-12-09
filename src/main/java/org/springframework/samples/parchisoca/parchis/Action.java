@@ -45,16 +45,7 @@ public class Action {
     //podemos añadir botones que nos indiquen en que posicion del tablero estamos
     //para que el usuario pueda identificar que ficha esta moviendo.  
 
-    public void  safe(ParchisPiece piece) {
-        for(int i=0; i<safeBoxesList.size(); i++){
-            if(piece.getPosition().equals(safeBoxesList.get(i))){
-                piece.setSafeBox(true);
-            } else{
-                piece.setSafeBox(false);
-            }
-            i++;
-        }  
-    }
+  
 
     public void remove(ParchisPiece piece) {
         
