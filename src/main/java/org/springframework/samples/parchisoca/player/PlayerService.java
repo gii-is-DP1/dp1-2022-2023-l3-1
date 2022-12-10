@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.samples.parchisoca.user.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.samples.parchisoca.notification.Notification;
 import org.springframework.samples.parchisoca.notification.NotificationService;
 import org.springframework.samples.parchisoca.statistic.StatService;
 import org.springframework.samples.parchisoca.user.AuthoritiesService;
@@ -100,6 +101,22 @@ public class PlayerService {
     @Transactional
     public Player getUserAchievement(int id){
         return playerRepository.getUserAchievementsId(id);
+    }
+
+    @Transactional
+    public void makeFriends(Player player1, Player player2) {
+        player1.getFriends().add(player2);
+        player2.getFriends().add(player1);
+        savePlayer(player1);
+        savePlayer(player2);
+    }
+
+    @Transactional
+    public void deleteNotification(Player player, Notification notification) {
+        List<Notification> playerNotifications = notificationService.findNotificationsByPlayer(player);
+        playerNotifications.remove(notification);
+        player.setNotifications(playerNotifications);
+        playerRepository.save(player);
     }
 
     public void save(Player player) { playerRepository.save(player); }
