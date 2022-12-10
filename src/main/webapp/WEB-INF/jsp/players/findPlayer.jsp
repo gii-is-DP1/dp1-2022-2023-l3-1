@@ -29,11 +29,6 @@
                     </button>
                     </div>
                 </div>
-
-                <%-- <input id="username" type="text" class="form-control" />
-                <input placeholder ="Insert an username" type="text" name="username" id="username"/>
-                <label id="search-input" type="button" id="form1" class="form-control" onclick = "findPlayer()">Search </label>
-                <input type="button" value="Search" onclick="findPlayer()" /> --%>
             </div>
         
 

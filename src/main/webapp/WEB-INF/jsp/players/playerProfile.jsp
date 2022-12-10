@@ -23,7 +23,7 @@
         </sec:authorize>
         <sec:authorize access="hasAuthority('player')">
             <div class = "col-sm-6" style="text-align: right;" >
-                <a href="/players/${player.id}/add"> 
+                <a href="/players/${player.id}/sendFriendRequest"> 
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>                            
                 </a> 
             </div>

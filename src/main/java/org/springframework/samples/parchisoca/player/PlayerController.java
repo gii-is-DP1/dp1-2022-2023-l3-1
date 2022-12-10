@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.samples.parchisoca.badWord.BadWordsService;
-import org.springframework.samples.parchisoca.notification.Notification;
 import org.springframework.samples.parchisoca.notification.NotificationService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -286,14 +285,35 @@ public class PlayerController {
         Player currentPlayer = playerService.findById(currentPlayerId);
         
         Player playerToAdd = playerService.findById(playerId);
-        Notification notification = notificationService.sendNotification(playerToAdd, "Se ha añadido a tu lista de amigos.");
 
         if (!currentPlayer.getFriends().contains(playerToAdd)) {
-            currentPlayer.getFriends().add(playerToAdd);
-            currentPlayer.getNotifications().add(notification);
-            playerService.savePlayer(currentPlayer);
+            playerService.makeFriends(currentPlayer, playerToAdd);
         }
+
         return "redirect:/players/myFriends";
+    }
+
+    // Sends a friend request to the player with the id of the path
+    @GetMapping("/players/{playerId}/sendFriendRequest")
+    public ModelAndView sendFriendRequest(@PathVariable("playerId") Integer playerId) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        Integer currentPlayerId = this.playerService.getUserIdByName(username);
+        Player currentPlayer = playerService.findById(currentPlayerId);
+        
+        List<Player> friends = currentPlayer.getFriends();
+        ModelAndView mav = new ModelAndView(PLAYER_FRIENDS);
+        mav.addObject("friends", friends);
+        Player playerToAdd = playerService.findById(playerId);
+
+        if (!currentPlayer.getFriends().contains(playerToAdd)) {
+            String notificationMessage = currentPlayer.getUser().getUsername() + " sent you a friend request!";
+            notificationService.sendFriendRequest(playerToAdd, notificationMessage, currentPlayerId);
+            String message = "Friend request sent.";
+            mav.addObject("message", message);
+        }
+    
+        return mav;
     }
 
     @GetMapping("/players/friends/{playerId}/delete")
