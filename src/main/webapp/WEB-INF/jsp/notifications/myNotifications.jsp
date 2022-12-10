@@ -21,6 +21,19 @@
                     <td>
                         <c:out value="${n.text}" />
                     </td>
+                    <td>
+                        <c:choose>
+                            <c:when test="${n.friendRequest == false}">
+                                <p>None</p>
+                            </c:when>
+                            <c:otherwise>
+                                <a class="btn btn-default" href='<spring:url value="/players/${n.sender}/add" htmlEscape="true"/>'>Accept</a>
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
+                    <td>
+                        <a class="glyphicon glyphicon-trash" href="/notifications/${n.id}/delete"></a>                         
+                    </td>
                 </tr>
             </c:forEach>
         </tbody>

@@ -10,6 +10,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface NotificationRepository extends CrudRepository<Notification, Integer> {
     
+    @Query("SELECT n FROM Notification n WHERE n.id =?1")
+    Notification getById(Integer notificationId);
+
     @Query("SELECT n FROM Notification n WHERE n.player =?1")
     Notification getNotificationByPlayer(Player player);
 
