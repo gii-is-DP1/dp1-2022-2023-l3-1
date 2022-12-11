@@ -73,6 +73,13 @@ public class ParchisBoardController {
         mav.addObject("parchisBoard", newParchisBoard);
         mav.addObject("pieces", pieces);
         mav.addObject("players", players);
+
+        List<ParchisPiece> piecesCurrentPlayer = parchisPieceService.findParchisPiecesByPlayerParchisBoard(currentPlayer, newParchisBoard);
+        if (piecesCurrentPlayer.stream().allMatch(x->x.getInGoal() == true) ){
+            game.setWinner(currentPlayer);
+            mav = new ModelAndView(GAMES_FINISHED);
+            return mav;
+        }
         
         if (newParchisBoard.getGame().getWinner() != null) {
             mav = new ModelAndView(LOOSER);
@@ -116,7 +123,7 @@ public class ParchisBoardController {
         ParchisDice dice2 = dices.get(1);
         // dice1.rollDice();
         // dice2.rollDice();
-        dice1.setNumber(60);
+        dice1.setNumber(1);
         dice2.setNumber(5);
         parchisDiceService.save(dice1);
         parchisDiceService.save(dice2);
@@ -152,6 +159,7 @@ public class ParchisBoardController {
             return mav;
         }
 
+         
         mav.addObject("parchisBoard", currentParchisBoard);
         mav.addObject("pieces", pieces);
         mav.addObject("dice1", dice1);
@@ -175,7 +183,10 @@ public class ParchisBoardController {
         
         ParchisDice dice = parchisDiceService.findById(diceId);
 
- 
+        if (game.getWinner() == player){
+            mav.setViewName("redirect:/boards/parchisBoard/"+ parchisBoardId);
+            return mav;
+        } 
         mav.addObject("dice", dice);
         mav.addObject("parchisBoard", currentParchisBoard);
         mav.addObject("pieces", pieces);
@@ -204,6 +215,22 @@ public class ParchisBoardController {
         dice.setNumber(null);
         parchisDiceService.save(dice);
 
+        if (piece.getJustAte()) {
+            dice.setNumber(20);
+            parchisDiceService.save(dice);
+            mav = new ModelAndView("redirect:/boards/parchisBoard/"+parchisBoardId+"/dice/"+diceId+"/pieceSelection");
+            piece.setJustAte(false);
+            parchisPieceService.save(piece);
+            return mav;
+        }
+        if (piece.getJustInGoal()){
+            dice.setNumber(10);
+            parchisDiceService.save(dice);
+            mav = new ModelAndView("redirect:/boards/parchisBoard/"+parchisBoardId+"/dice/"+diceId+"/pieceSelection");
+            piece.setJustInGoal(false);
+            parchisPieceService.save(piece);
+            return mav;
+        } 
         return mav;
     }
 }

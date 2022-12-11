@@ -95,13 +95,6 @@ public class ParchisBoardService {
         parchisBoard.setFinishBoxes(finishBoxes);
         parchisBoardRepository.save(parchisBoard);
        
-
-        //test
-            // ParchisPiece ptest = parchisPieceService.findById(20);
-            // ParchisPiece ptest1 = parchisPieceService.findById(21);
-            // BoxesParchis box = boxesParchisService.findBoxByPosition(43, parchisBoard);
-            // box.addPieceToBox(ptest); box.addPieceToBox(ptest1);
-            // boxesParchisService.save(box);
         return parchisBoard;
     }
     
@@ -117,7 +110,6 @@ public class ParchisBoardService {
             finishBoxesService.save(box);
         }
 
-        
         return finishBoxes;
     }
 
@@ -187,16 +179,19 @@ public class ParchisBoardService {
 
         return currentPlayer.equals(piecePlayer);
     }
+
 // Aciones de una pieza
     public ParchisPiece movementPiece(ParchisBoard parchisBoard, ParchisPiece parchisPiece, ParchisDice parchisDice){ 
+
+        if (parchisPiece.getFinishPosition() != null && !parchisPiece.getInGoal() ){ // Se encuentra en posiciones finales
+            movementFinish(parchisPiece,parchisBoard,parchisDice);
+        } 
 
         if (parchisPiece.getPosition()!= null) { // Se encuentra en recorrido normal
             Integer lastPosition = parchisPiece.getPosition();
             Integer diceNumber = parchisDice.getNumber();
             if (lastPosition == 0 && diceNumber == 5){ // Si la casilla esta en casa
-                firstMove(parchisPiece);
-                BoxesParchis box = boxesParchisService.findBoxByPosition(parchisPiece.getPosition(),parchisBoard);
-                box.addPieceToBox(parchisPiece);
+                firstMove(parchisPiece,parchisBoard);
             }else if (lastPosition != 0) { //si ya esta en recorrido
                 Integer newPosition = lastPosition + diceNumber;
                 if (newPosition > 68){
@@ -205,6 +200,7 @@ public class ParchisBoardService {
                 }
                 BoxesParchis lastBox = boxesParchisService.findBoxByPosition(lastPosition,parchisBoard);
                 BoxesParchis newBox = boxesParchisService.findBoxByPosition(newPosition,parchisBoard);
+
                 movement(parchisPiece,lastBox,newBox,parchisBoard);
 
                 if (parchisPiece.getPosition() != null){ //se comprueba por si ha entrado en las casillas finales
@@ -218,65 +214,68 @@ public class ParchisBoardService {
                 
             }
         }
-        if (parchisPiece.getFinishPosition() != null && !parchisPiece.getInGoal() ){ // Se encuentra en posiciones finales
-            movementFinish(parchisPiece,parchisBoard,parchisDice);
-        } 
+       
         
         return parchisPiece;
     }
 
     //Movimiento de una pieza
     private void movement(ParchisPiece parchisPiece,BoxesParchis lastBox, BoxesParchis newBox,ParchisBoard parchisBoard) {
-        if (!parchisEntry(parchisPiece)){ //si no ha entrado en casillas finales durante el turno (no se si es necesario) 
 
-            List<BoxesParchis> ls = new ArrayList<>();
-            if (lastBox.getPositionBoard() > newBox.getPositionBoard()){
-                for (int i = lastBox.getPositionBoard()+1; i >= 68; i++){
-                    BoxesParchis box = boxesParchisService.findBoxByPosition(i, parchisBoard);
-                    ls.add(box);
-                } 
-                for (int i = 1; i<= newBox.getPositionBoard(); i++){
-                    BoxesParchis box = boxesParchisService.findBoxByPosition(i, parchisBoard);
-                    ls.add(box);
-                } 
-            }else{
-                for (int i = lastBox.getPositionBoard()+1; i<=newBox.getPositionBoard(); i++){
-                    BoxesParchis box = boxesParchisService.findBoxByPosition(i, parchisBoard);
-                    ls.add(box);
-                }
-            }
-
-            for (BoxesParchis bx : ls){
-                if (bx.getBridge()){
-                    lastBox.getPiecesInBox().remove(parchisPiece);
-                    parchisPiece.setPosition(bx.getPositionBoard()-1);
-                    BoxesParchis boxToMove = boxesParchisService.findBoxByPosition(bx.getPositionBoard()-1, parchisBoard);
-                    boxToMove.addPieceToBox(parchisPiece);
-                    parchisPieceService.save(parchisPiece);
-                    boxesParchisService.save(lastBox); 
-                    boxesParchisService.save(boxToMove); 
-                    break;
-                }
-                if (bx.equals(newBox)){
-                    lastBox.getPiecesInBox().remove(parchisPiece);
-                    parchisPiece.setPosition(newBox.getPositionBoard());
-                    newBox.addPieceToBox(parchisPiece);
-                    parchisPieceService.save(parchisPiece);
-                    boxesParchisService.save(lastBox); 
-                    boxesParchisService.save(newBox); 
-                }
-        
-                if (checkIsInFinish(parchisPiece,bx)){ // Checkeamos si ha entrado en la casillas finales
-                    parchisPiece.setPosition(null);
-                    Integer index = ls.indexOf(bx);
-                    Integer finishPosition = ls.size()- index;
-                    parchisPiece.setFinishPosition(finishPosition);
-                    break;
-                }   
+        List<BoxesParchis> ls = new ArrayList<>();
+        if (lastBox.getPositionBoard() > newBox.getPositionBoard()){
+            for (int i = lastBox.getPositionBoard()+1; i >= 68; i++){
+                BoxesParchis box = boxesParchisService.findBoxByPosition(i, parchisBoard);
+                ls.add(box);
             } 
+            for (int i = 1; i<= newBox.getPositionBoard(); i++){
+                BoxesParchis box = boxesParchisService.findBoxByPosition(i, parchisBoard);
+                ls.add(box);
+            } 
+        }else{
+            for (int i = lastBox.getPositionBoard()+1; i<=newBox.getPositionBoard(); i++){
+                BoxesParchis box = boxesParchisService.findBoxByPosition(i, parchisBoard);
+                ls.add(box);
+            }
         }
-    }
 
+        for (BoxesParchis bx : ls){
+            if (bx.getBridge()){
+                lastBox.getPiecesInBox().remove(parchisPiece);
+                parchisPiece.setPosition(bx.getPositionBoard()-1);
+                BoxesParchis boxToMove = boxesParchisService.findBoxByPosition(bx.getPositionBoard()-1, parchisBoard);
+                boxToMove.addPieceToBox(parchisPiece);
+                parchisPieceService.save(parchisPiece);
+                boxesParchisService.save(lastBox); 
+                boxesParchisService.save(boxToMove); 
+                break;
+            }
+            if (bx.equals(newBox)){
+                lastBox.getPiecesInBox().remove(parchisPiece);
+                parchisPiece.setPosition(newBox.getPositionBoard());
+                newBox.addPieceToBox(parchisPiece);
+                parchisPieceService.save(parchisPiece);
+                boxesParchisService.save(lastBox); 
+                boxesParchisService.save(newBox); 
+            }
+    
+            if (checkIsInFinish(parchisPiece,bx)){ // Checkeamos si ha entrado en la casillas finales
+                lastBox.getPiecesInBox().remove(parchisPiece);
+                parchisPiece.setPosition(null);
+                Integer index = ls.indexOf(bx);
+                Integer finishPosition = ls.size() - index;
+                if (finishPosition > 7){
+                    finishPosition = parchisBoard.reboteTirada(finishPosition);
+                }
+                parchisPiece.setFinishPosition(finishPosition);
+                parchisPieceService.save(parchisPiece);
+                boxesParchisService.save(lastBox);
+                break;
+            }   
+        } 
+    }
+    
+    //Comprobacion si tiene que entrar en casillas finales
     private Boolean checkIsInFinish(ParchisPiece parchisPiece,BoxesParchis bx) {
         if (parchisPiece.getColour() == Colour.RED && bx.getPositionBoard() == 35) {
             return true;
@@ -293,22 +292,7 @@ public class ParchisBoardService {
 
         return false;
     }
-    //Comprobacion si tiene que entrar
-    private boolean parchisEntry(ParchisPiece parchisPiece) {
-        if ((parchisPiece.getColour() == Colour.RED && parchisPiece.getPosition() == 34) || parchisPiece.getPosition() == null){
-            return true;
-        }
-        if ((parchisPiece.getColour() == Colour.BLUE && parchisPiece.getPosition() == 17)|| parchisPiece.getPosition() == null){
-            return true;
-        }   
-        if ((parchisPiece.getColour() == Colour.YELLOW && parchisPiece.getPosition() == 68) || parchisPiece.getPosition() == null){
-            return true;
-        }
-        if ((parchisPiece.getColour() == Colour.GREEN && parchisPiece.getPosition() == 51) || parchisPiece.getPosition() == null){
-            return true;
-        } 
-        return false;
-    }
+
     //Movimiento en casillas finales
     private void movementFinish(ParchisPiece parchisPiece,ParchisBoard parchisBoard,ParchisDice parchisDice) {
         Integer lastPosition = parchisPiece.getFinishPosition();
@@ -316,21 +300,36 @@ public class ParchisBoardService {
         Integer suma = lastPosition + diceNumber;
         Integer position = parchisBoard.reboteTirada(suma);
         parchisPiece.setFinishPosition(position);
-        parchisPiece.setInGoal(true);
+        if (position == 7){
+            parchisPiece.setInGoal(true);
+            parchisPiece.setJustInGoal(true);
+        } 
         parchisPieceService.save(parchisPiece);
     }
 
     //Salida de casa
-    private void firstMove(ParchisPiece parchisPiece) {
+    private void firstMove(ParchisPiece parchisPiece, ParchisBoard parchisBoard) {
+        BoxesParchis box22 = boxesParchisService.findBoxByPosition(22, parchisBoard);
+        BoxesParchis box39 = boxesParchisService.findBoxByPosition(39, parchisBoard);
+        BoxesParchis box56 = boxesParchisService.findBoxByPosition(56, parchisBoard);
+        BoxesParchis box5 = boxesParchisService.findBoxByPosition(5, parchisBoard);
         Colour color = parchisPiece.getColour();
-        if (color == Colour.BLUE){
+        if (color == Colour.BLUE && box22.getPiecesInBox().size() <2){
             parchisPiece.setPosition(22);
-        }else if(color == Colour.RED){
+            box22.addPieceToBox(parchisPiece);
+            boxesParchisService.save(box22);
+        }else if(color == Colour.RED && box39.getPiecesInBox().size() <2){
             parchisPiece.setPosition(39);
-        }else if (color == Colour.GREEN){
+            box39.addPieceToBox(parchisPiece);
+            boxesParchisService.save(box39);
+        }else if (color == Colour.GREEN && box56.getPiecesInBox().size() <2){
             parchisPiece.setPosition(56);
-        }else{
+            box56.addPieceToBox(parchisPiece);
+            boxesParchisService.save(box56);
+        }else if (color == Colour.YELLOW && box5.getPiecesInBox().size() <2){
             parchisPiece.setPosition(5);
+            box5.addPieceToBox(parchisPiece);
+            boxesParchisService.save(box5);
         }
         parchisPieceService.save(parchisPiece);
     }
@@ -347,6 +346,8 @@ public class ParchisBoardService {
                 boxesParchisService.save(box);
                 pieceToEat.get().setPosition(0);
                 parchisPieceService.save(pieceToEat.get());
+                parchisPiece.setJustAte(true);
+                parchisPieceService.save(parchisPiece);
             }  
         } 
 

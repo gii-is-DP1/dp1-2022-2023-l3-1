@@ -45,6 +45,10 @@ public class ParchisPiece extends BaseEntity {
 
     private Boolean inGoal = false;
 
+    private Boolean justAte = false;
+
+    private Boolean justInGoal = false;
+
     public Integer getPositionXInPixels(Integer size) {
     	return (xPosition)*size;
     }

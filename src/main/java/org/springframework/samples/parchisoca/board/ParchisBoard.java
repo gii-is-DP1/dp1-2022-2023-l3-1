@@ -75,8 +75,8 @@ public class ParchisBoard extends BaseEntity {
     }
 
     public Integer reboteTirada(Integer position) {  
-        if (position > 9) {
-            position = 2 * 9 - position;
+        if (position > 7) {
+            position = 2 * 7 - position;
         }
         return position;
     }

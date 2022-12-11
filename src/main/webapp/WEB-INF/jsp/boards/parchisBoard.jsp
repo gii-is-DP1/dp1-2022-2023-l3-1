@@ -40,16 +40,25 @@
                         <c:forEach var = "piece" items = "${pieces}"> 
                             <c:if test = "${piece.player == player}">
                                 <c:choose>
-                                <c:when test = "${piece.position != null}">
-                                    Piece Position: ${piece.position}
-                                </br>
-                                </c:when>
-                                <c:otherwise>
-                                    Position Finish : ${piece.finishPosition}
-                                </c:otherwise>
+                                    <c:when test = "${piece.position != null}">
+                                        Piece Position: ${piece.position}
+                                    </br>
+                                    </c:when>
+                                    <c:when test = "${piece.finishPosition != null}">
+                                        <c:choose>
+                                            <c:when test = "${piece.finishPosition == 7}">
+                                                Piece in Goal
+                                                </br>
+                                            </c:when>
+                                            <c:otherwise>
+                                            Position Finish : ${piece.finishPosition}
+                                            </br>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:when>
                                 </c:choose>
                             </c:if>
-                        
+
                         </c:forEach>
                     </td>
                     <td> 
