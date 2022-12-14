@@ -21,21 +21,7 @@ import lombok.Setter;
 @Setter
 public class BoxesParchis extends BaseEntity{
 
-    int numberBoxesParchis;
-
     private Integer positionBoard;
-
-    // @Enumerated(EnumType.STRING)
-    // private SpecialBoxesParchis specialBoxesParchis;
-    public BoxesParchis boxesParchis(Integer box, Boolean entry, Boolean safe, Boolean exit, Boolean bridge){
-        BoxesParchis res = new BoxesParchis();
-        res.setPositionBoard(box);
-        res.setSafe(safe);
-        res.setExit(exit);
-        res.setEntry(entry);
-        res.setBridge(bridge);
-        return res;
-    }
 
     @ManyToOne
     ParchisBoard parchisBoard;
@@ -43,8 +29,6 @@ public class BoxesParchis extends BaseEntity{
     Boolean safe;
     
     Boolean exit;
-
-    Boolean entry;
 
     Boolean bridge;
 
