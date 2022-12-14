@@ -119,26 +119,19 @@ public class ParchisBoardService {
         for(int i=0; i<=68; i++) {
             BoxesParchis box = new BoxesParchis();
             if (i==5 || i==22 || i==39 || i==56) {
-               
-                box.setEntry(false);
                 box.setSafe(true);
                 box.setExit(true);
                 box.setBridge(false);
 
             } else if (i==12 || i==29 || i==46 || i==63) {
-                
-                box.setEntry(false);
                 box.setSafe(true);
                 box.setExit(false);
                 box.setBridge(false);
             } else if (i==17 || i==34 || i==51 || i==68) {
-               
-                box.setEntry(true);
                 box.setSafe(true);
                 box.setExit(false);
                 box.setBridge(false);
             } else {
-                box.setEntry(false);
                 box.setSafe(false);
                 box.setExit(false);
                 box.setBridge(false);
