@@ -17,7 +17,6 @@ import org.springframework.samples.parchisoca.statistic.StatService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
@@ -55,7 +54,7 @@ public class OcaBoardController {
         
         OcaBoard newOcaBoard = ocaBoardService.findById(ocaBoardId);
         List<OcaPiece> pieces = newOcaBoard.getPieces();
-        OcaDice dice = ocaBoardService.findOcaDiceByPlayer(currentPlayer, newOcaBoard);
+        OcaDice dice = ocaBoardService.findOcaDiceByPlayerAndBoard(currentPlayer, newOcaBoard);
         Integer number = dice.getNumber();
         ModelAndView mav = new ModelAndView(OCABOARD);
         Integer turn = newOcaBoard.getTurn();
@@ -81,14 +80,13 @@ public class OcaBoardController {
             return mav;
         }
         
-        
     }
 
 
     // Exits from the game with that code
     @GetMapping("games/lobby/{code}/exit")
-    public String exitPlayerGame(@PathVariable("code") String code, ModelMap model, HttpServletRequest request,
-            HttpServletResponse response) {
+    public String exitPlayerGame(@PathVariable("code") String code, HttpServletResponse response) {
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         Integer id = playerService.getUserIdByName(username);
@@ -108,28 +106,29 @@ public class OcaBoardController {
     // Calls the function that rolls the dice
     @GetMapping({"boards/ocaBoard/{ocaBoardId}/dice"})
     public ModelAndView rollDice(@PathVariable("ocaBoardId") int ocaBoardId, HttpServletResponse response, HttpServletRequest req){
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         Integer id = playerService.getUserIdByName(username);
         Player currentPlayer = playerService.findById(id);
         
-        ModelAndView mav = new ModelAndView("redirect:/boards/ocaBoard/"+ocaBoardId);
+        ModelAndView mav = new ModelAndView("redirect:/boards/ocaBoard/" + ocaBoardId);
         OcaBoard currentOcaBoard = ocaBoardService.findById(ocaBoardId);
-        OcaDice dice = ocaBoardService.findOcaDiceByPlayer(currentPlayer, currentOcaBoard);
+        OcaDice dice = ocaBoardService.findOcaDiceByPlayerAndBoard(currentPlayer, currentOcaBoard);
 
         List<OcaPiece> pieces = currentOcaBoard.getPieces();
         Integer turn = currentOcaBoard.getTurn();
         OcaPiece ocaPiece  = pieces.get(turn);
         Player piecePlayer = ocaPiece.getPlayer();
 
-        if(!ocaBoardService.isActualPlayer(piecePlayer)){
+        if(!ocaBoardService.isActualPlayer(piecePlayer)) {
             return mav;
         }
 
         dice.rollDice();  
         Integer penalization = ocaPiece.getPenalizationTurn();
         
-        if (penalization !=0) {
+        if (penalization != 0) {
             ocaPiece.setPenalizationTurn(penalization-1);
             ocaPieceService.save(ocaPiece);
         } else {
@@ -147,9 +146,11 @@ public class OcaBoardController {
             }
             
         }
+        
         ocaBoardService.nextTurn(currentOcaBoard);
         ocaBoardService.save(currentOcaBoard);
-        return mav;
+        return mav; 
+
     }
 
     

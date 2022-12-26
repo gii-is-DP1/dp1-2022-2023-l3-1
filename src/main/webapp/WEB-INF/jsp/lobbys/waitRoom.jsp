@@ -39,6 +39,7 @@
             </tbody>
         </table>
         <div class="col text-center">
+            <a class="btn btn-default" href='<spring:url value="/games/lobby/${games.code}/inviteFriends" htmlEscape="true"/>'>Invite Friends</a>
             <a class="btn btn-default" href='<spring:url value="/games/lobby/${games.code}/exitWaitRoom" htmlEscape="true"/>'>Exit</a>
         </div>
 

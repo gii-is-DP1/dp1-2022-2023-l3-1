@@ -59,7 +59,7 @@ public class OcaBoardService {
         OcaDice dice = ocaBoardRepository.getOcaDiceByPlayer(player, ocaBoard);
         Integer diceNumber = dice.getNumber();
         Integer suma = piece.getPosition() + diceNumber;
-        Integer position = ocaBoard.reboteTirada(suma);
+        Integer position = ocaBoard.bounceBack(suma);
         Integer newPosition = nextPosition(ocaBoard, piece, position);
         piece.setPosition(newPosition);
         List<BoxesOca> ls = ocaBoard.getBoxes();
@@ -224,7 +224,7 @@ public class OcaBoardService {
     }
 
     @Transactional(readOnly = true)
-    public OcaDice findOcaDiceByPlayer(Player player, OcaBoard ocaBoard) {
+    public OcaDice findOcaDiceByPlayerAndBoard(Player player, OcaBoard ocaBoard) {
         OcaDice result = ocaBoardRepository.getOcaDiceByPlayer(player, ocaBoard);
         return result;
     }
