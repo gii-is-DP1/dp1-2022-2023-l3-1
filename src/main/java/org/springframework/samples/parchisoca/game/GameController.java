@@ -39,6 +39,7 @@ public class GameController {
     private final String GAMES_PLAYED = "games/GamesPlayed";
     private final String GAMES_IN_PROGRESS = "games/GamesInProgress";
     private final String GAMES_FINISHED = "games/GameFinished";
+    private final String PLAYERS_TO_INVITE = "players/playersListingToInvite";
 
     @Autowired
     private GameService gameService;
@@ -168,6 +169,26 @@ public class GameController {
         result.addObject("games", currentGame);
         result.addObject("creator", currentCreator);
         return result;
+    }
+
+    @GetMapping("/lobby/{code}/inviteFriends")
+    public ModelAndView listFriendsToInvite(@PathVariable("code") String code) {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        Integer id = playerService.getUserIdByName(username);
+        Player currentPlayer = playerService.findById(id);
+
+        Game currentGame = gameService.findGameByCode(code);
+        List<Player> currentGamePlayers = currentGame.getPlayers();
+        List<Player> currentPlayerFriends = currentPlayer.getFriends();
+        currentPlayerFriends.removeAll(currentGamePlayers);
+
+        ModelAndView mav = new ModelAndView(PLAYERS_TO_INVITE);
+        mav.addObject("players", currentPlayerFriends);
+        mav.addObject("code", code);
+        return mav;
+
     }
 
     // Shows the player winner of the game

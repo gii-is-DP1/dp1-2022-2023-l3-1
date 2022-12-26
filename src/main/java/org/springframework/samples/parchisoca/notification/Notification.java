@@ -25,6 +25,10 @@ public class Notification extends BaseEntity {
 
     private boolean friendRequest = false;
 
+    private boolean invitation = false;
+    
+    private String gameCode;
+
     private Integer sender;
     
 }

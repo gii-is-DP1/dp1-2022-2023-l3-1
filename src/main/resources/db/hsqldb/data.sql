@@ -46,8 +46,6 @@ INSERT INTO stats (id, player_id, played_games, won_games, lost_games) VALUES (2
 INSERT INTO stats (id, player_id, played_games, won_games, lost_games) VALUES (3, 3, 0, 0, 0);
 INSERT INTO stats (id, player_id, played_games, won_games, lost_games) VALUES (4, 4, 0, 0, 0);
 
-INSERT INTO notifications (id, friend_request, sender, text, player_id) VALUES (1, FALSE, 2, 'HOLA', 1);
-
 INSERT INTO oca_boards (id, background, height, width) VALUES (1,'/resources/images/tablero-oca.png', 800,800);
 
 INSERT INTO parchis_boards (id,background,height,width) VALUES (1,'/resources/images/ParchisBoard.png',800,800);
