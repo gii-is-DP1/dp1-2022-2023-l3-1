@@ -9,23 +9,23 @@
 <parchisoca:layout pageName="players">
     <c:choose>
         <c:when test="${players.size() > 0 }">
-        <h2>Players</h2>
+        <h2>Friends</h2>
         <table id="playersTable" class="table">
         <thead>
             <tr>
                 <th>Username</th>
-                <th>Invite</th>
             </tr>
         </thead>
         <tbody>
         <c:forEach items="${players}" var="player">
             <tr>
                 <td>
-                    <c:out value="${player.user.username}"/>
-                    
-                </td>
-                <td>
-                    <a class="glyphicon glyphicon-plus" href='<spring:url value="/players/${player.id}/sendGameInvitation/${code}" htmlEscape="true"/>'></a>
+                    <div class = "col-sm-6" style="text-align: left;" >
+                        <c:out value="${player.user.username}"/>
+                    </div> 
+                    <div class = "col-sm-6" style="text-align: right;" >
+                        <a class="glyphicon glyphicon-plus" href='<spring:url value="/players/${player.id}/sendGameInvitation/${code}" htmlEscape="true"/>'></a>                         
+                    </div> 
                 </td>
             </tr>
         </c:forEach>
@@ -39,7 +39,7 @@
         </c:otherwise>
         </c:choose>
     <div class="col text-center">
-            <a class="btn btn-default" href='<spring:url value="/" htmlEscape="true"/>'>Go Back</a>
+            <a class="btn btn-default" href='<spring:url value="/games/lobby/${code}/waitRoom" htmlEscape="true"/>'>Go Back</a>
         </div>
     
 </parchisoca:layout>
