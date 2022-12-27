@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BoxesOcaRepository extends CrudRepository<BoxesOca, Integer> {
     
-    @Query("SELECT b from BoxesOca b WHERE b.ocaBoard = ?1 AND b.positionBoard = ?2 ")
+    @Query("SELECT b from BoxesOca b WHERE b.ocaBoard.id = ?1 AND b.positionBoard = ?2 ")
     public BoxesOca getBoxByPosition(Integer ocaBoardId, Integer position);
 
 }
