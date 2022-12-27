@@ -1,7 +1,7 @@
 package org.springframework.samples.parchisoca.player;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -58,24 +58,51 @@ public class PlayerServiceTest {
     }
 
     @Test
-    void shouldFindPlayersById(){        
+    void shouldFindPlayersById(){
         Optional<Player> players = this.ps.findPlayerById(1);
         assertTrue(players.isPresent());
+    }
+
+    @Test
+    void shouldFailFindPlayersById(){
+        Optional<Player> players = this.ps.findPlayerById(430);
+        assertFalse(players.isPresent());
     }
 
     @Test
     void shouldFindPlayersByFirstName() {
         Collection<Player> players = this.ps.findPlayerByFirstName("Alvaro");
         assertThat(players.size()).isEqualTo(1);
-
     }
 
+    @Test
+    void shouldFailFindPlayersByFirstName() {
+        Collection<Player> players = this.ps.findPlayerByFirstName("Alvaro69");
+        assertThat(players.size()).isNotEqualTo(1);
+    }
+
+    @Test
+    void shouldFindPlayerByUsername(){
+        Player player = this.ps.findPlayersByUsername("alvaro1");
+        assertThat(player.getUser().getUsername() == "alvaro1");
+    }
 
     @Test
     void shouldFindPlayersByLastName() {
         Collection<Player> players = this.ps.findPlayerByLastName("Carrera");
         assertThat(players.size()).isEqualTo(1);
+    }
 
+    @Test
+    void shouldFailFindPlayersByLastName() {
+        Collection<Player> players = this.ps.findPlayerByLastName("Carrera420");
+        assertThat(players.size()).isNotEqualTo(1);
+    }
+
+    @Test
+    void shouldFindAll(){
+        List<Player> players = this.ps.findPlayers();
+        assertFalse(players.isEmpty());
     }
 
     @Test
@@ -89,18 +116,17 @@ public class PlayerServiceTest {
             a = (Achievement)value.next();
         }
         assertThat(a.getName() == "AchievementTest");
-        
+
     }
 
     @Test
 	void shouldCreateNewPlayer() {
-
         User u1 = new User();
         u1.setUsername("usuarioTest");
         u1.setEnabled(true);
         u1.setPassword("1234");
-        u1.setAuthorities(null);   
-        
+        u1.setAuthorities(null);
+
 		Player p3 = new Player();
         p3.setFirstName("Juan");
         p3.setLastName("Martinez");
@@ -112,7 +138,6 @@ public class PlayerServiceTest {
         List<Player> ls = new ArrayList<>();
         ls.add(pNew.get());
         assertThat(ls.size()==1);
-
     }
 
     @Test
@@ -124,8 +149,13 @@ public class PlayerServiceTest {
         }else{
             System.out.println("Player not found");
         }
-
     }
 
-    
+    @Test
+    void shouldAddFriend(){
+        Optional<Player> player = this.ps.findPlayerById(1);
+        Optional<Player> friend = this.ps.findPlayerById(2);
+        player.get().getFriends().add(friend.get());
+        assertTrue(player.get().getFriends().contains(friend.get()));
+    }
 }
