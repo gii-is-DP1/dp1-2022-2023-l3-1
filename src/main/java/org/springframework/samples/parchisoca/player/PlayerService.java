@@ -33,7 +33,7 @@ public class    PlayerService {
     }
 
     @Transactional(readOnly = true)
-    List<Player> findPlayers() {
+    public List<Player> findPlayers() {
         return playerRepository.findAll();
     }
 
