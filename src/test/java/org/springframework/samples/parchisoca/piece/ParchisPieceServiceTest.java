@@ -30,12 +30,13 @@ public class ParchisPieceServiceTest {
 
     ParchisPiece p = new ParchisPiece();
 
-
+    Player pTest = null;
+    ParchisBoard bTest = null;
 
     @BeforeEach
     public void setUp() {
-        Player pTest = playerService.findById(1);
-        ParchisBoard bTest = parchisBoardService.findById(1);
+        pTest = playerService.findById(1);
+        bTest = parchisBoardService.findById(1);
         p.setColour(Colour.BLUE);
         p.setXPosition(10);
         p.setYPosition(10);
@@ -79,6 +80,8 @@ public class ParchisPieceServiceTest {
 
     @Test
     void shouldParchisPiecesByPlayerParchisBoard(){
+        List<ParchisPiece> ls = parchisPieceService.findParchisPiecesByPlayerParchisBoard(pTest, bTest);
+        assertThat(ls.size()>0);
     }
     
 }
