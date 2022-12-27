@@ -13,7 +13,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.samples.parchisoca.board.ParchisBoardService;
 import org.springframework.samples.parchisoca.player.PlayerService;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.samples.parchisoca.player.Player;
 import org.springframework.samples.parchisoca.board.ParchisBoard;
 

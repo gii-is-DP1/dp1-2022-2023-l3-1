@@ -2,7 +2,6 @@ package org.springframework.samples.parchisoca.dice;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -13,7 +12,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.samples.parchisoca.board.ParchisBoardService;
 import org.springframework.samples.parchisoca.player.PlayerService;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.samples.parchisoca.player.Player;
 import org.springframework.samples.parchisoca.board.ParchisBoard;
 
