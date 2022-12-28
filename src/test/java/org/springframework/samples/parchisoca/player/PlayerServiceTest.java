@@ -18,6 +18,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.samples.parchisoca.statistic.Achievement;
 import org.springframework.samples.parchisoca.statistic.AchievementService;
+import org.springframework.samples.parchisoca.user.Authorities;
+import org.springframework.samples.parchisoca.user.AuthoritiesService;
 import org.springframework.samples.parchisoca.user.User;
 import org.springframework.samples.parchisoca.user.UserService;
 import org.springframework.stereotype.Service;
@@ -34,6 +36,9 @@ public class PlayerServiceTest {
 
     @Autowired(required = false)
     UserService us;
+
+    @Autowired(required = false)
+    AuthoritiesService authSer;
 
     @Autowired
     AchievementService as;
@@ -96,10 +101,12 @@ public class PlayerServiceTest {
 	void shouldCreateNewPlayer() {
 
         User u1 = new User();
+        Authorities auth = new Authorities();
         u1.setUsername("usuarioTest");
         u1.setEnabled(true);
-        u1.setPassword("1234");
-        u1.setAuthorities(null);   
+        auth.setAuthority("player");
+        auth.setUser(u1);
+        u1.setPassword("1234"); 
         
 		Player p3 = new Player();
         p3.setFirstName("Juan");
@@ -111,7 +118,10 @@ public class PlayerServiceTest {
         Optional<Player> pNew = ps.findPlayerById(p3.getId());
         List<Player> ls = new ArrayList<>();
         ls.add(pNew.get());
-        assertThat(ls.size()==1);
+        assertThat(ls.size() == 1);
+        assertThat(auth.getAuthority().equals("player"));
+        assertThat(p3.getUser().equals(u1));
+        assertThat(auth.getUser().equals(u1));
 
     }
 
