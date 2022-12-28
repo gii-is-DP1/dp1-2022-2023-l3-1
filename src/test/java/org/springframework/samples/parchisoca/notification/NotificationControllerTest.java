@@ -1,4 +1,4 @@
-package org.springframework.samples.parchisoca.game;
+package org.springframework.samples.parchisoca.notification;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,73 +24,28 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 //Añadiremos esta etiqueta a la clase para poder lanzar el test de forma aislada.
     //estas propiedades excluye las propiedades de seguridad de spring
-@WebMvcTest(controllers=GameController.class,
+@WebMvcTest(controllers=NotificationController.class,
     excludeFilters=@ComponentScan.Filter(type=FilterType.ASSIGNABLE_TYPE, classes=WebSecurityConfigurer.class),
     excludeAutoConfiguration=SecurityConfiguration.class)
-public class gameControllerTest {
-
+public class NotificationControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private GameService gameService;
-
-    @MockBean
-    private OcaBoardService ocaBoardService;
+    private NotificationService notificationService;
 
     @MockBean
     private PlayerService playerService;
 
-    @MockBean
-    private ParchisBoardService parchisBoardService;
-   
     @WithMockUser
     @Test
     public void testGameListing() throws Exception {
-        mockMvc.perform(get("/games/list")).
+        mockMvc.perform(get("/notifications/myNotifications")).
             andExpect(status().isOk()).
-            andExpect(view().name("/games/GamesListing")).
-            andExpect(model().attributeExists("games"));
+            andExpect(view().name("notifications/myNotifications")).
+            andExpect(model().attributeExists("notifications"));
     
     }
-
-    @WithMockUser
-    @Test
-    public void testGameCreate() throws Exception {
-        mockMvc.perform(get("/games/create")).
-            andExpect(status().isOk()).
-            andExpect(view().name("/lobbys/createLobby")).
-            andExpect(model().attributeExists("game")).
-            andExpect(model().attributeExists("gameTypes"));
-    }
-
-    @WithMockUser
-    @Test
-    public void testLobby() throws Exception {
-        mockMvc.perform(get("/games/lobbys")).
-            andExpect(status().isOk()).
-            andExpect(view().name("games/GamePublic")).
-            andExpect(model().attributeExists("games"));
-    }
-
-    @WithMockUser
-    @Test
-    public void testgamesPlayed() throws Exception {
-        mockMvc.perform(get("/games/admin/lobbys/played")).
-            andExpect(status().isOk()).
-            andExpect(view().name("games/GamesPlayed")).
-            andExpect(model().attributeExists("games"));
-    }
-
-    @WithMockUser
-    @Test
-    public void testGamesInProgress() throws Exception {
-        mockMvc.perform(get("/games/admin/lobbys/inProgress")).
-            andExpect(status().isOk()).
-            andExpect(view().name("games/GamesInProgress")).
-            andExpect(model().attributeExists("games"));
-    }
-
-
+    
 }
