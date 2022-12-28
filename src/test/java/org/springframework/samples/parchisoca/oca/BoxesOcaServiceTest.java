@@ -6,9 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.samples.parchisoca.Oca.BoxesOca;
-import org.springframework.samples.parchisoca.Oca.BoxesOcaService;
-import org.springframework.samples.parchisoca.Oca.SpecialBoxesOca;
+import org.springframework.samples.parchisoca.oca.BoxesOca;
+import org.springframework.samples.parchisoca.oca.BoxesOcaService;
+import org.springframework.samples.parchisoca.oca.SpecialBoxesOca;
 import org.springframework.samples.parchisoca.board.OcaBoard;
 import org.springframework.samples.parchisoca.board.OcaBoardService;
 
@@ -29,6 +29,7 @@ public class BoxesOcaServiceTest {
 
     OcaBoard ocaBoard = null;
     BoxesOca boxOca = new BoxesOca();
+
     @BeforeEach
     void setup(){
         ocaBoard = ocaBoardService.findById(1);
@@ -41,8 +42,6 @@ public class BoxesOcaServiceTest {
 
         boxesOcaService.save(boxOca);
     }
-
-
 
     @Test
     public void shouldFindBoxByPosition(){
