@@ -33,8 +33,6 @@ public class ParchisDiceServiceTest {
     Player p = null;
     ParchisBoard pb = null;
 
-    
-
     @BeforeEach
     public void setUp() {
 
@@ -44,12 +42,13 @@ public class ParchisDiceServiceTest {
         pDice1.setNumber(1);
         pDice1.setParchisBoard(pb);
         pDice1.setPlayer(p);
+        parchisDiceService.save(pDice1);
 
         pDice2.setNumber(2);
         pDice2.setParchisBoard(pb);
         pDice2.setPlayer(p);
+        parchisDiceService.save(pDice2);
         
-
         parchisDiceService.save(pDice1, pDice2);
     }
 
