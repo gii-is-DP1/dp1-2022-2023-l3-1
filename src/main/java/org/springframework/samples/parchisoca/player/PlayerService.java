@@ -19,7 +19,7 @@ import org.springframework.samples.parchisoca.statistic.StatService;
 import org.springframework.samples.parchisoca.user.AuthoritiesService;
 
 @Service
-public class PlayerService {
+public class    PlayerService {
 
     private PlayerRepository playerRepository;
 

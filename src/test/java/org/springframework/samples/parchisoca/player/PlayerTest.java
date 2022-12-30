@@ -1,6 +1,7 @@
 package org.springframework.samples.parchisoca.player;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 import javax.validation.ConstraintViolationException;
@@ -52,6 +53,7 @@ public class PlayerTest {
         assertThrows(ConstraintViolationException.class,() -> pr.save(p3),
         "You are not constraining "+ "players lastName can not be null");
 
+        assertTrue(p2.getEmail().equals("prueba@gmail.com"));
         
 
         

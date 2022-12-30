@@ -39,9 +39,24 @@ public class NotificationService {
         List<Notification> playerNotifications = player.getNotifications();
         Notification newNotification = new Notification();
         newNotification.setFriendRequest(true);
+        newNotification.setInvitation(false);
         newNotification.setPlayer(player);
         newNotification.setText(message);
         newNotification.setSender(playerId);
+        notificationRepository.save(newNotification);
+        playerNotifications.add(newNotification);
+    }
+
+    @Transactional
+    public void sendGameInvitation(Player player, String message, Integer playerId, String code) {
+        List<Notification> playerNotifications = player.getNotifications();
+        Notification newNotification = new Notification();
+        newNotification.setFriendRequest(false);
+        newNotification.setInvitation(true);
+        newNotification.setPlayer(player);
+        newNotification.setText(message);
+        newNotification.setSender(playerId);
+        newNotification.setGameCode(code);
         notificationRepository.save(newNotification);
         playerNotifications.add(newNotification);
     }
@@ -61,5 +76,9 @@ public class NotificationService {
     @Transactional
     public void deleteNotification(Notification notification) {
         notificationRepository.delete(notification);
+    }
+
+    public List<Notification> findAll() {
+        return notificationRepository.getAll();
     }
 }

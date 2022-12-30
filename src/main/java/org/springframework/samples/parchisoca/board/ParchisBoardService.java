@@ -268,7 +268,7 @@ public class ParchisBoardService {
                 Integer index = ls.indexOf(bx);
                 Integer finishPosition = ls.size() - index;
                 if (finishPosition > 7){
-                    finishPosition = parchisBoard.reboteTirada(finishPosition);
+                    finishPosition = parchisBoard.bounceBack(finishPosition);
                 }
                 parchisPiece.setFinishPosition(finishPosition);
                 parchisPieceService.save(parchisPiece);
@@ -301,7 +301,7 @@ public class ParchisBoardService {
         Integer lastPosition = parchisPiece.getFinishPosition();
         Integer diceNumber = parchisDice.getNumber();
         Integer suma = lastPosition + diceNumber;
-        Integer position = parchisBoard.reboteTirada(suma);
+        Integer position = parchisBoard.bounceBack(suma);
         parchisPiece.setFinishPosition(position);
         if (position == 7){
             parchisPiece.setInGoal(true);

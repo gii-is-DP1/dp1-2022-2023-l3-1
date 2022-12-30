@@ -23,11 +23,14 @@
                     </td>
                     <td>
                         <c:choose>
-                            <c:when test="${n.friendRequest == false}">
+                            <c:when test="${n.friendRequest == false && n.invitation == false}">
                                 <p>None</p>
                             </c:when>
-                            <c:otherwise>
+                            <c:when test="${n.friendRequest == true}">
                                 <a class="btn btn-default" href='<spring:url value="/players/${n.sender}/add" htmlEscape="true"/>'>Accept</a>
+                            </c:when>
+                            <c:otherwise>
+                                <a class="btn btn-default" href='<spring:url value="/games/lobby/${n.gameCode}" htmlEscape="true"/>'>Accept</a>
                             </c:otherwise>
                         </c:choose>
                     </td>

@@ -84,8 +84,7 @@ public class PlayerController {
                 } else {
                     message = "There is no player known as '" + username+"'.";
                 }
-            }
-            if (playersFound.size() > 0) {
+            } if (playersFound.size() > 0) {
                 direction = PLAYERS_FOUND_LISTING_VIEW;
             }
 
@@ -296,6 +295,7 @@ public class PlayerController {
     // Sends a friend request to the player with the id of the path
     @GetMapping("/players/{playerId}/sendFriendRequest")
     public ModelAndView sendFriendRequest(@PathVariable("playerId") Integer playerId) {
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         Integer currentPlayerId = this.playerService.getUserIdByName(username);
@@ -314,6 +314,22 @@ public class PlayerController {
         }
     
         return mav;
+    }
+
+    @GetMapping("/players/{playerId}/sendGameInvitation/{code}")
+    public String sendGameInvitation(@PathVariable("playerId") Integer playerId, @PathVariable("code") String code) {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        Integer currentPlayerId = this.playerService.getUserIdByName(username);
+        Player currentPlayer = playerService.findById(currentPlayerId);
+
+        Player playerToInvite = playerService.findById(playerId);
+        String notificationMessage = currentPlayer.getUser().getUsername() + " sent you a game invitation!";
+
+        notificationService.sendGameInvitation(playerToInvite, notificationMessage, currentPlayerId, code);
+        return "redirect:/games/lobby/" + code + "/waitRoom";
+
     }
 
     @GetMapping("/players/friends/{playerId}/delete")

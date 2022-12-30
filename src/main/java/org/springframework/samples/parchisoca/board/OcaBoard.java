@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 import org.springframework.samples.parchisoca.game.Game;
@@ -33,19 +34,20 @@ public class OcaBoard extends BaseEntity {
         this.height = 650;
     }  
     
-    String background;
+    @NotNull
+    private String background;
 
     @Positive
-    int width;
+    private int width;
 
     @Positive
-    int height;
-
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "ocaBoard")
-    List<OcaPiece> pieces = new ArrayList<>(); 
+    private int height;
 
     @OneToOne
     private Game game;
+
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "ocaBoard")
+    private List<OcaPiece> pieces = new ArrayList<>(); 
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "ocaBoard")
     private List<BoxesOca> boxes;
@@ -63,7 +65,6 @@ public class OcaBoard extends BaseEntity {
             setPieces(ls);
         }
     }
-
     
     public Integer action(BoxesOca box,OcaPiece ocaPiece) {
         Action action = new Action();
@@ -93,13 +94,12 @@ public class OcaBoard extends BaseEntity {
         return pos;
     }
 
-    public Integer reboteTirada(Integer position) {  
+    public Integer bounceBack(Integer position) {  
         if (position > 63) {
             position = 2 * 63 - position;
         }
         return position;
     }
-    
     
 }
 
