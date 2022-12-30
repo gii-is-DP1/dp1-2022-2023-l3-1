@@ -92,5 +92,21 @@ public class gameControllerTest {
             andExpect(model().attributeExists("games"));
     }
 
+    @WithMockUser
+    @Test
+    public void testInstructionsParchis() throws Exception {
+        mockMvc.perform(get("/games/instructions/parchisInstructions")).
+            andExpect(status().isOk()).
+            andExpect(view().name("games/ParchisInstructions"));
+    }
+
+    @WithMockUser
+    @Test
+    public void testInstructionsOca() throws Exception {
+        mockMvc.perform(get("/games/instructions/ocaInstructions")).
+            andExpect(status().isOk()).
+            andExpect(view().name("games/OcaInstructions"));
+    }
+
 
 }

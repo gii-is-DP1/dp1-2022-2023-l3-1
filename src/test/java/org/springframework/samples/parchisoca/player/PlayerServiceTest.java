@@ -16,12 +16,17 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.samples.parchisoca.notification.Notification;
+import org.springframework.samples.parchisoca.notification.NotificationRepository;
+import org.springframework.samples.parchisoca.notification.NotificationService;
 import org.springframework.samples.parchisoca.statistic.Achievement;
 import org.springframework.samples.parchisoca.statistic.AchievementService;
 import org.springframework.samples.parchisoca.user.Authorities;
 import org.springframework.samples.parchisoca.user.AuthoritiesService;
 import org.springframework.samples.parchisoca.user.User;
 import org.springframework.samples.parchisoca.user.UserService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 
@@ -43,8 +48,17 @@ public class PlayerServiceTest {
     @Autowired
     AchievementService as;
 
+    @Autowired
+    NotificationRepository notificationRepository;
+
+    @Autowired
+    NotificationService notificationService;
+
     private Player pTest = new Player();
     private Achievement aTest = new Achievement();
+    private User u1 = new User();
+    private Authorities auth = new Authorities();
+    private Notification n = new Notification();
 
     @BeforeEach
     public void setup(){
@@ -55,11 +69,25 @@ public class PlayerServiceTest {
         Set<Achievement> achievementSet = new HashSet<>();
         achievementSet.add(aTest);
 
+        u1.setUsername("usuarioTest");
+        u1.setEnabled(true);
+        auth.setAuthority("player");
+        auth.setUser(u1);
+        u1.setPassword("1234"); 
+        us.saveUser(u1);
+
+        n.setPlayer(pTest);
+        n.setText("Texto de Prueba");
+        notificationRepository.save(n);
+        List<Notification> notifications = new ArrayList<Notification>();
+        notifications.add(n);
+
         pTest.setAchievements(achievementSet);
         pTest.setFirstName("NomberTest");
         pTest.setLastName("ApelldioTest");
+        pTest.setFriends(new ArrayList<Player>());
+        pTest.setNotifications(notifications);
         ps.save(pTest);
-
     }
 
     @Test
@@ -99,15 +127,6 @@ public class PlayerServiceTest {
 
     @Test
 	void shouldCreateNewPlayer() {
-
-        User u1 = new User();
-        Authorities auth = new Authorities();
-        u1.setUsername("usuarioTest");
-        u1.setEnabled(true);
-        auth.setAuthority("player");
-        auth.setUser(u1);
-        u1.setPassword("1234"); 
-        
 		Player p3 = new Player();
         p3.setFirstName("Juan");
         p3.setLastName("Martinez");
@@ -134,8 +153,55 @@ public class PlayerServiceTest {
         }else{
             System.out.println("Player not found");
         }
-
     }
+
+    @Test
+    void shouldFindAllPlayer(){
+        List<Player> players = ps.findPlayers();
+        assertThat(players.size()>0);
+    }
+
+    @Test
+    void shouldFindPlayersByUsername(){
+		Player p3 = new Player();
+        p3.setFirstName("Juan");
+        p3.setLastName("Martinez");
+        p3.setEmail("prueba@gmail.com");
+        p3.setUser(u1);
+
+        ps.savePlayer(p3);
+        Player p = ps.findPlayersByUsername("usuarioTest");
+        assertThat(p.getUser().getUsername().equals("usuarioTest"));
+        assertThat(p.getFirstName().equals("Juan"));
+    }
+
+    @Test
+    void shouldGetUserAchievments(){
+        List<Player> res = ps.getUserAchievments("usuarioTest");
+        assertThat(res.size()>0);
+    }
+
+    @Test
+    void shouldGetUserIdByName(){
+        pTest.setUser(u1);
+        ps.savePlayer(pTest);
+
+        Integer res = ps.getUserIdByName(pTest.getUser().getUsername());
+        assertTrue(res!=null);
+    }
+
+    @Test
+    void shouldDeleteNotifications(){
+        List<Notification> notficacion = notificationService.findNotificationsByPlayer(pTest);
+        Integer antes = pTest.getNotifications().size();
+        ps.deleteNotification(pTest, notficacion.get(0));
+        Integer despues = pTest.getNotifications().size();
+        assertTrue(antes>despues);
+    }
+
+
+
+
 
     
 }
