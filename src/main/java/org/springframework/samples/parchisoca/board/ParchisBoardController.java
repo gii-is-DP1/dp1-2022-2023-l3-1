@@ -63,7 +63,7 @@ public class ParchisBoardController {
         List<ParchisPiece> pieces = newParchisBoard.getPieces();
 		List<Player> players = game.getPlayers();
         List<ParchisDice> dices = parchisBoardService.findParchisDiceByPlayer(currentPlayer, newParchisBoard);
-		Integer number = parchisDiceService.roll2Dices(dices);
+
         ModelAndView mav = new ModelAndView(PARCHISBOARD);
         Integer turn = newParchisBoard.getTurn();
 
@@ -75,6 +75,7 @@ public class ParchisBoardController {
         mav.addObject("players", players);
 
         List<ParchisPiece> piecesCurrentPlayer = parchisPieceService.findParchisPiecesByPlayerParchisBoard(currentPlayer, newParchisBoard);
+
         if (piecesCurrentPlayer.stream().allMatch(x->x.getInGoal() == true) ){
             game.setWinner(currentPlayer);
             mav = new ModelAndView(GAMES_FINISHED);
@@ -86,11 +87,11 @@ public class ParchisBoardController {
             return mav;
         } else if (!parchisBoardService.isActualPlayer(player)) {
             // response.addHeader("Refresh", "2");
-            mav.addObject("number", number);
+            
             mav.addObject("error", "It is not your turn");
             return mav;
         } else {
-            mav.addObject("number", number);
+           
             mav.addObject("error", "Roll dice!");
             return mav;
         }
@@ -121,10 +122,8 @@ public class ParchisBoardController {
         List<ParchisDice> dices = parchisDiceService.findDiceByParchisBoardPlayer(currentParchisBoard,player);
         ParchisDice dice1 = dices.get(0);
         ParchisDice dice2 = dices.get(1);
-        // dice1.rollDice();
-        // dice2.rollDice();
-        dice1.setNumber(1);
-        dice2.setNumber(5);
+        dice1.rollDice();
+        dice2.rollDice();
         parchisDiceService.save(dice1);
         parchisDiceService.save(dice2);
 

@@ -83,10 +83,20 @@ public class OcaBoardService {
     @Transactional
     public OcaBoard initBoard(Game game) {
         OcaBoard ocaBoard = new OcaBoard();
-        List<Colour> colours = List.of(Colour.RED,Colour.BLUE,Colour.YELLOW,Colour.GREEN);
         ocaBoardRepository.save(ocaBoard);
         List<Player> players = game.getPlayers();
+        initPlayers(players,ocaBoard);
+        List<BoxesOca> ls = initBoxes(ocaBoard);
+        ocaBoard.setBoxes(ls);
+        ocaBoardRepository.save(ocaBoard);
+        
+        return ocaBoard;
+
+    }
+
+    private void initPlayers(List<Player> players,OcaBoard ocaBoard) {
         int i = 0;
+        List<Colour> colours = List.of(Colour.RED,Colour.BLUE,Colour.YELLOW,Colour.GREEN);
         for(Player p : players){
             OcaPiece piece = new OcaPiece();
             piece.setPlayer(p);
@@ -103,13 +113,6 @@ public class OcaBoardService {
             ocaDiceService.save(dice);
             i++;
         }
-        
-        List<BoxesOca> ls = initBoxes(ocaBoard);
-        ocaBoard.setBoxes(ls);
-        ocaBoardRepository.save(ocaBoard);
-        
-        return ocaBoard;
-
     }
 
     // Initiates the boxes of a board
