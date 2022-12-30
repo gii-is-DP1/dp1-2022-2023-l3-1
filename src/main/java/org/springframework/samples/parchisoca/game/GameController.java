@@ -206,6 +206,13 @@ public class GameController {
         Game currentGame = gameService.findGameByCode(code);
         GameType currentGameType = currentGame.getGameType();
 
+        String result  = selectGame(currentGameType, currentGame);
+        return result; 
+        
+    }
+
+    private String selectGame(GameType currentGameType, Game currentGame) {
+
         if (currentGameType.getName().equals("PARCHIS")) {
             ParchisBoard newParchisBoard = parchisBoardService.initBoard(currentGame);
             currentGame.setStarted(true);

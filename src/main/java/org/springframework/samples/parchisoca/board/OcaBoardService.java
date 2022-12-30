@@ -53,8 +53,8 @@ public class OcaBoardService {
         ocaBoardRepository.save(ocaBoard);
     }
 
-    // Calculates the actual position on board
-    public OcaPiece actualPosition(OcaBoard ocaBoard, OcaPiece piece){
+    @Transactional
+    public OcaPiece makeMovement(OcaBoard ocaBoard, OcaPiece piece){
         Player player = piece.getPlayer();
         OcaDice dice = ocaBoardRepository.getOcaDiceByPlayer(player, ocaBoard);
         Integer diceNumber = dice.getNumber();
