@@ -1,9 +1,9 @@
 package org.springframework.samples.parchisoca.dice;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.security.Provider.Service;
 
+import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
@@ -11,11 +11,10 @@ import org.springframework.samples.parchisoca.board.OcaBoard;
 import org.springframework.samples.parchisoca.board.OcaBoardService;
 import org.springframework.samples.parchisoca.player.Player;
 import org.springframework.samples.parchisoca.player.PlayerService;
-import org.springframework.stereotype.Service;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
-public class OcaDiceTest {
-
+public class OcaDiceServiceTest {
+    
     @Autowired
     OcaDiceService ocaDiceService;
 
@@ -25,38 +24,24 @@ public class OcaDiceTest {
     @Autowired
     OcaBoardService ocaBoardService;
 
-    Player playerTest = new Player();
-    OcaBoard ocaBoardTest = new OcaBoard();
-
     OcaDice ocaDice = new OcaDice();
+
+    Player player = null;
+    OcaBoard ocaBoard = null;
 
     @BeforeEach
     public void setUp() {
 
+        player = playerService.findById(1);
+        ocaBoard = ocaBoardService.findById(1);
+
         ocaDice.setNumber(1);
-        ocaDice.setOcaBoard(ocaBoardTest);
-        ocaDice.setPlayer(playerTest);
+        ocaDice.setOcaBoard(ocaBoard);
+        ocaDice.setPlayer(player);
 
         ocaDiceService.save(ocaDice);
     }
 
-    @Test 
-    public void shouldRollDice() {
-        for (int i=0; i<100; i++){
-            ocaDice.rollDice();
-            Integer d = ocaDice.getNumber();
-            assertTrue(d>=1 && d<=6);
-        }
-    }
+    
 
-    @Test
-    public void shouldReturnInformation() {
-        OcaBoard ocaBoard = ocaDice.getOcaBoard();
-        Player ocaPlayer = ocaDice.getPlayer();
-        Integer max = ocaDice.getMAX();
-
-        assertTrue(ocaBoard.equals(ocaBoardTest));
-        assertTrue(ocaPlayer.equals(playerTest));
-        assertTrue(max.equals(6));
-    }
 }

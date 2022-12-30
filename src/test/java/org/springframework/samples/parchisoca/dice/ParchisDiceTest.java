@@ -12,9 +12,9 @@ import org.springframework.stereotype.Service;
 public class ParchisDiceTest {
 
     @Test 
-    void shouldRollDice(){
+    public void shouldRollDice() {
         ParchisDice dice = new ParchisDice();
-        for (int i=0; i<100; i++){
+        for (int i=0; i<100; i++) {
             dice.rollDice();
             Integer p = dice.getNumber();
             assertTrue(p>=1 && p<=6);

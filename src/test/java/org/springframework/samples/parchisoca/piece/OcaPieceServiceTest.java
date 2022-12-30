@@ -14,7 +14,6 @@ import org.springframework.samples.parchisoca.player.Player;
 import org.springframework.samples.parchisoca.player.PlayerService;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 public class OcaPieceServiceTest {
@@ -60,7 +59,7 @@ public class OcaPieceServiceTest {
         assertThat(oTest.getPosition() == 1);
         assertThat(oTest.getPenalizationTurn() == 1);
         assertThat(oTest.getPlayer().equals(op.getPlayer()));
-        
+        assertThat(oTest.getColour().equals(Colour.BLUE));
     }
 
     
