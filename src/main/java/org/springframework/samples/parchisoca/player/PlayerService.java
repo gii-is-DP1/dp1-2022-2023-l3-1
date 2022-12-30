@@ -9,6 +9,8 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.samples.parchisoca.user.UserService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.samples.parchisoca.notification.Notification;
@@ -119,6 +121,15 @@ public class    PlayerService {
         playerRepository.save(player);
     }
 
-    public void save(Player player) { playerRepository.save(player); }
+    public void save(Player player) {
+        playerRepository.save(player); 
+        }
 
+    public Player getCurrentPlayer(){
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        Player currentPlayer = playerRepository.getByUsername(username);
+        return currentPlayer;
+    }
 }

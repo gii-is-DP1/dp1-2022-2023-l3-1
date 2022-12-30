@@ -35,16 +35,5 @@ public class ParchisDiceService {
         parchisDiceRepository.save(dice2);
     }
 
-    @Transactional
-    public Integer roll2Dices(List<ParchisDice> dices) {
-        ParchisDice dice1 = dices.get(0);
-		ParchisDice dice2 = dices.get(1);
-        dice1.rollDice();
-        dice2.rollDice();
-        Integer resultDice1 = dice1.getNumber();
-		Integer resultDice2 = dice2.getNumber();
-		Integer result = resultDice1 + resultDice2;
-        return result;
-    }
     
 }

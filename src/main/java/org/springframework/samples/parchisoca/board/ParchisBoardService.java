@@ -59,9 +59,25 @@ public class ParchisBoardService {
 
     public ParchisBoard initBoard(Game game) {
         ParchisBoard parchisBoard = new ParchisBoard(); 
-        List<Colour> colours = List.of(Colour.RED,Colour.BLUE,Colour.YELLOW,Colour.GREEN);
+  
         parchisBoardRepository.save(parchisBoard);
         List<Player> listPlayers = game.getPlayers();
+        
+        initPlayers(listPlayers, parchisBoard);
+
+        parchisBoardRepository.save(parchisBoard);
+        List<BoxesParchis> ls = initBoxes(parchisBoard);
+        List<FinishBoxes> finishBoxes = initFinishBoxes(parchisBoard);
+        
+        parchisBoard.setBoxes(ls);
+        parchisBoard.setFinishBoxes(finishBoxes);
+        parchisBoardRepository.save(parchisBoard);
+       
+        return parchisBoard;
+    }
+    
+    private void initPlayers(List<Player> listPlayers, ParchisBoard parchisBoard) {
+        List<Colour> colours = List.of(Colour.RED,Colour.BLUE,Colour.YELLOW,Colour.GREEN);
         int j = 0;
         for(Player p: listPlayers) {
             Colour color = colours.get(j);
@@ -87,17 +103,8 @@ public class ParchisBoardService {
             parchisDiceService.save(parchisDice1, parchisDice2);
             j++;
         }
-        parchisBoardRepository.save(parchisBoard);
-        List<BoxesParchis> ls = initBoxes(parchisBoard);
-        List<FinishBoxes> finishBoxes = initFinishBoxes(parchisBoard);
-        
-        parchisBoard.setBoxes(ls);
-        parchisBoard.setFinishBoxes(finishBoxes);
-        parchisBoardRepository.save(parchisBoard);
-       
-        return parchisBoard;
     }
-    
+
     private List<FinishBoxes> initFinishBoxes(ParchisBoard parchisBoard) {
         List<FinishBoxes> finishBoxes = new ArrayList<FinishBoxes>(8);
         for (int i = 0; i<=8; i++){
@@ -231,7 +238,10 @@ public class ParchisBoardService {
                 ls.add(box);
             }
         }
-
+        boxesCheckFor(ls,parchisPiece,lastBox,newBox,parchisBoard);
+    }
+    
+    private void boxesCheckFor(List<BoxesParchis> ls,ParchisPiece parchisPiece,BoxesParchis lastBox, BoxesParchis newBox,ParchisBoard parchisBoard) {
         for (BoxesParchis bx : ls){
             if (bx.getBridge()){
                 lastBox.getPiecesInBox().remove(parchisPiece);
@@ -267,7 +277,7 @@ public class ParchisBoardService {
             }   
         } 
     }
-    
+
     //Comprobacion si tiene que entrar en casillas finales
     private Boolean checkIsInFinish(ParchisPiece parchisPiece,BoxesParchis bx) {
         if (parchisPiece.getColour() == Colour.RED && bx.getPositionBoard() == 35) {
