@@ -60,15 +60,6 @@ public class ParchisDiceServiceTest {
     }
 
     @Test
-    public void shouldRoll2Dices(){
-        List<ParchisDice> ls = parchisDiceService.findDiceByParchisBoardPlayer(pb, p);
-        for (int i=0; i<100; i++){
-            Integer res = parchisDiceService.roll2Dices(ls);
-            assertTrue(res>=2 && res<=12);
-        }
-    }
-
-    @Test
     public void shoulFindById(){
         ParchisDice dFind = parchisDiceService.findById(pDice1.getId());
         assertThat(dFind.getPlayer().equals(pDice1.getPlayer()));
