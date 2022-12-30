@@ -77,4 +77,8 @@ public class NotificationService {
     public void deleteNotification(Notification notification) {
         notificationRepository.delete(notification);
     }
+
+    public List<Notification> findAll() {
+        return notificationRepository.getAll();
+    }
 }

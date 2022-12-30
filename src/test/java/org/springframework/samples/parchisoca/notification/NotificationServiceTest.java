@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.dao.DataAccessException;
 import org.springframework.samples.parchisoca.player.Player;
 import org.springframework.samples.parchisoca.player.PlayerService;
 
@@ -67,11 +66,11 @@ public class NotificationServiceTest {
 
     @Test
     public void shouldDeleteNotification(){
-        List<Notification> notificationsBeforeDelete = (List<Notification>) notificationRepository.findAll();
+        List<Notification> notificationsBeforeDelete = notificationService.findAll();
 
         notificationService.deleteNotification(n);
 
-        List<Notification> notificationsAfterDelete = (List<Notification>) notificationRepository.findAll();
+        List<Notification> notificationsAfterDelete = notificationService.findAll();
 
         assertThat(notificationsBeforeDelete.size() < notificationsAfterDelete.size());
     }

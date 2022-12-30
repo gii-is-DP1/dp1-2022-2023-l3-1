@@ -54,6 +54,7 @@ public class PlayerTest {
         "You are not constraining "+ "players lastName can not be null");
 
         assertTrue(p2.getEmail().equals("prueba@gmail.com"));
+        
 
         
 
