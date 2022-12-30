@@ -18,4 +18,7 @@ public interface NotificationRepository extends CrudRepository<Notification, Int
 
     @Query("SELECT n FROM Notification n WHERE n.player =?1")
     List<Notification> getNotificationsByPlayer(Player player);
+
+    @Query("SELECT n FROM Notification n")
+    List<Notification> getAll();
 }
