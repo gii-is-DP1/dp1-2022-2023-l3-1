@@ -1,4 +1,4 @@
-package org.springframework.samples.parchisoca.oca;
+package org.springframework.samples.parchisoca.Oca;
 
 public enum SpecialBoxesOca {
     OCA,
