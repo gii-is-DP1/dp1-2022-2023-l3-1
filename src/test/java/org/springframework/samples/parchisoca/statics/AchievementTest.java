@@ -1,6 +1,8 @@
 package org.springframework.samples.parchisoca.statics;
 
+import static org.junit.Assert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javax.validation.ConstraintViolationException;
 
@@ -48,8 +50,11 @@ public class AchievementTest {
         assertThrows(ConstraintViolationException.class,() -> ar.save(a2),
         "You are not constraining achivement name can not be more than 50");
 
-
-
+        assertTrue(!a.getDescription().isBlank());
+        assertTrue(!a2.getBadgeImage().isEmpty());
+        assertTrue(a.getThreshold() == 30.0 );
+        assertTrue(!a2.getActualDescription().isBlank());
+        
     }
 
 
