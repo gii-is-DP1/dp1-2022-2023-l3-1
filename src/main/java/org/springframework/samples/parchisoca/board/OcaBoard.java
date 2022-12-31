@@ -13,9 +13,9 @@ import javax.validation.constraints.Positive;
 
 import org.springframework.samples.parchisoca.game.Game;
 import org.springframework.samples.parchisoca.model.BaseEntity;
-import org.springframework.samples.parchisoca.oca.Action;
-import org.springframework.samples.parchisoca.oca.BoxesOca;
-import org.springframework.samples.parchisoca.oca.SpecialBoxesOca;
+import org.springframework.samples.parchisoca.Oca.Action;
+import org.springframework.samples.parchisoca.Oca.BoxesOca;
+import org.springframework.samples.parchisoca.Oca.SpecialBoxesOca;
 import org.springframework.samples.parchisoca.piece.OcaPiece;
 
 import lombok.Getter;
