@@ -88,8 +88,8 @@ public class ParchisBoardService {
                 parchisPieceService.save(piece);
                 p.addPiecePlayer(piece);
                 parchisBoard.addPieceParchis(piece);
-                SetParchisPieceInitialPx(piece);
-                parchisPieceService.save(piece);
+                //SetParchisPieceInitialPx(piece);
+                //parchisPieceService.save(piece);
             }
             initDices(parchisBoard, p);
             j++;
@@ -193,31 +193,31 @@ public class ParchisBoardService {
         return parchisPiece;
     }
 
-    @Transactional
-    private ParchisPiece SetParchisPieceInitialPx(ParchisPiece parchisPiece) {
+    // @Transactional
+    // private ParchisPiece SetParchisPieceInitialPx(ParchisPiece parchisPiece) {
 
-        if (parchisPiece.getColour().equals(Colour.RED)) {
-            parchisPiece.setXPosition(56);
-            parchisPiece.setYPosition(52);
-        }
+    //     if (parchisPiece.getColour().equals(Colour.RED)) {
+    //         parchisPiece.setXPosition(56);
+    //         parchisPiece.setYPosition(52);
+    //     }
 
-        if (parchisPiece.getColour().equals(Colour.BLUE)) {
-            parchisPiece.setXPosition(490);
-            parchisPiece.setYPosition(52);
-        } 
+    //     if (parchisPiece.getColour().equals(Colour.BLUE)) {
+    //         parchisPiece.setXPosition(490);
+    //         parchisPiece.setYPosition(52);
+    //     } 
 
-        if (parchisPiece.getColour().equals(Colour.YELLOW)) {
-            parchisPiece.setXPosition(490);
-            parchisPiece.setYPosition(475);
-        }
+    //     if (parchisPiece.getColour().equals(Colour.YELLOW)) {
+    //         parchisPiece.setXPosition(490);
+    //         parchisPiece.setYPosition(475);
+    //     }
 
-        if (parchisPiece.getColour().equals(Colour.GREEN)) {
-            parchisPiece.setXPosition(50);
-            parchisPiece.setYPosition(475);
-        }
+    //     if (parchisPiece.getColour().equals(Colour.GREEN)) {
+    //         parchisPiece.setXPosition(50);
+    //         parchisPiece.setYPosition(475);
+    //     }
 
-        return parchisPiece;
-    }
+    //     return parchisPiece;
+    // }
 
     // @Transactional
     // private BoxesParchis SetParchisBoxPositionPx(BoxesParchis res, int position) {
