@@ -1,7 +1,6 @@
 package org.springframework.samples.parchisoca.board;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 
@@ -12,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.samples.parchisoca.Oca.BoxesOca;
 import org.springframework.samples.parchisoca.game.Game;
 import org.springframework.samples.parchisoca.piece.OcaPiece;
 import org.springframework.stereotype.Service;

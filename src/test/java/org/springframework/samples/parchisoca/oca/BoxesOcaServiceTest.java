@@ -1,17 +1,12 @@
 package org.springframework.samples.parchisoca.oca;
 
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.samples.parchisoca.Oca.BoxesOca;
-import org.springframework.samples.parchisoca.Oca.BoxesOcaService;
-import org.springframework.samples.parchisoca.Oca.SpecialBoxesOca;
 import org.springframework.samples.parchisoca.board.OcaBoard;
 import org.springframework.samples.parchisoca.board.OcaBoardService;
-
 
 import org.springframework.stereotype.Service;
 import static org.junit.jupiter.api.Assertions.assertTrue;
