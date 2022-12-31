@@ -9,8 +9,7 @@
 <html>
 <parchisoca:htmlHeader/>
 
-<body  style ="background-image: url('/resources/images/background.png')"> 
-<parchisoca:bodyHeader menuName="${pageName}"/>
+<body  style ="background-image: url('/resources/images/background.png')">
 
 <div class="container-fluid">
     <div class="container xd-container">

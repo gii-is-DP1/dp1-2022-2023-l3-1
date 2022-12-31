@@ -7,9 +7,8 @@
 <link rel="stylesheet" type="text/css" href="/resources/style.css" media="screen"/>
 
 
-<!-- %@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %-->  
 
-<game:layout pageName="Parchis Board">
+<game:layoutWithoutMenu pageName="Parchis Board">
 
     <h2 style="text-align: center;">Parchis Board</h2>
 
@@ -76,4 +75,4 @@
     <h2 style="text-align: center;">${error}</h2>
     <a style="text-align:center" class="btn btn-warning btn-lg active" href="/boards/parchisBoard/${parchisBoard.id}/dice">Roll</a> 
     <a style="text-align:center" class="btn btn-warning btn-lg active" href="/games/lobby/${ocaBoard.game.code}/exit">Exit</a> 
-</game:layout>
+</game:layoutWithoutMenu>

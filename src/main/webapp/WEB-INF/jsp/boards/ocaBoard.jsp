@@ -8,7 +8,7 @@
 
 
 
-<game:layout pageName = "Oca Board">
+<game:layoutWithoutMenu pageName = "Oca Board">
 
     <h2 style="text-align: center;">Oca Board</h2>
 
@@ -51,4 +51,4 @@
     <h2 style="text-align: center;">${error}</h2>
     <a style="text-align:center" class="btn btn-warning btn-lg active" href="/boards/ocaBoard/${ocaBoard.id}/dice">Roll</a> 
     <a style="text-align:center" class="btn btn-warning btn-lg active" href="/games/lobby/${ocaBoard.game.code}/exit">Exit</a> 
-</game:layout> 
+</game:layoutWithoutMenu> 
