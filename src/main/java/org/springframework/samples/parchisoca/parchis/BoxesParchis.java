@@ -24,16 +24,20 @@ public class BoxesParchis extends BaseEntity{
     private Integer positionBoard;
 
     @ManyToOne
-    ParchisBoard parchisBoard;
+    private ParchisBoard parchisBoard;
 
-    Boolean safe;
+    private Boolean safe;
     
-    Boolean exit;
+    private Boolean exit;
 
-    Boolean bridge;
+    private Boolean bridge;
+
+    private Integer xPosition;
+
+    private Integer yPosition;
 
     @OneToMany
-    List<ParchisPiece> piecesInBox;
+    private List<ParchisPiece> piecesInBox;
 
     public void addPieceToBox (ParchisPiece parchisPiece) {
         if (getPiecesInBox() == null) {

@@ -73,6 +73,7 @@ public class ParchisBoardService {
         return parchisBoard;
     }
 
+    @Transactional
     private void initPlayers(List<Player> listPlayers, ParchisBoard parchisBoard) {
         List<Colour> colours = List.of(Colour.RED, Colour.BLUE, Colour.YELLOW, Colour.GREEN);
         int j = 0;
@@ -87,12 +88,15 @@ public class ParchisBoardService {
                 parchisPieceService.save(piece);
                 p.addPiecePlayer(piece);
                 parchisBoard.addPieceParchis(piece);
+                SetParchisPieceInitialPx(piece);
+                parchisPieceService.save(piece);
             }
             initDices(parchisBoard, p);
             j++;
         }
     }
 
+    @Transactional
     private List<FinishBoxes> initFinishBoxes(ParchisBoard parchisBoard) {
         List<FinishBoxes> finishBoxes = new ArrayList<FinishBoxes>(8);
 
@@ -137,9 +141,12 @@ public class ParchisBoardService {
             box.setParchisBoard(parchisBoard);
             boxesParchis.add(box);
             boxesParchisService.save(box);
+            //box = SetParchisBoxPositionPx(box, i);
+            //boxesParchisService.save(box);
         }
         return boxesParchis;
     }
+
 
     @Transactional
     public Player nextTurn(ParchisBoard parchisBoard, Game game, Integer turn) {
@@ -185,6 +192,48 @@ public class ParchisBoardService {
 
         return parchisPiece;
     }
+
+    @Transactional
+    private ParchisPiece SetParchisPieceInitialPx(ParchisPiece parchisPiece) {
+
+        if (parchisPiece.getColour().equals(Colour.RED)) {
+            parchisPiece.setXPosition(56);
+            parchisPiece.setYPosition(52);
+        }
+
+        if (parchisPiece.getColour().equals(Colour.BLUE)) {
+            parchisPiece.setXPosition(490);
+            parchisPiece.setYPosition(52);
+        } 
+
+        if (parchisPiece.getColour().equals(Colour.YELLOW)) {
+            parchisPiece.setXPosition(490);
+            parchisPiece.setYPosition(475);
+        }
+
+        if (parchisPiece.getColour().equals(Colour.GREEN)) {
+            parchisPiece.setXPosition(50);
+            parchisPiece.setYPosition(475);
+        }
+
+        return parchisPiece;
+    }
+
+    // @Transactional
+    // private BoxesParchis SetParchisBoxPositionPx(BoxesParchis res, int position) {
+
+    //     if (position == 1) {
+    //         res.setXPosition(381);
+    //         res.setYPosition(616);
+    //         return res;
+    //     }
+
+    //     if(position == 2) {
+    //         res.setXPosition(381);
+    //         res.setYPosition(588);
+    //     }
+    //     return res;
+    // }
 
     @Transactional
     private void normalMovement(ParchisPiece parchisPiece, ParchisBoard parchisBoard, ParchisDice parchisDice) {
