@@ -6,9 +6,7 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 
 
-<!-- %@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %-->  
-
-<game:layout pageName="Parchis Board">
+<game:layoutWithoutMenu pageName="Parchis Board">
 
     <h2 style="text-align: center;">Parchis Board</h2>
 
@@ -38,4 +36,4 @@
     </div>
     <h2 style="text-align: center;">${error}</h2>
     <a style="text-align:center" class="btn btn-warning btn-lg active" href="/games/lobby/${ocaBoard.game.code}/exi">Exit</a> 
-</game:layout>
+</game:layoutWithoutMenu>

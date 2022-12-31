@@ -8,8 +8,9 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <link rel="stylesheet" type="text/css" href="/resources/style.css" media="screen" />
 
-<parchisoca:layout pageName="waitRoom">
-    <jsp:body>
+
+<parchisoca:layoutWithoutMenu pageName="waitRoom">
+    <body>
     <div class = "container">
         <div class = "row">
             <div class = "col-sm-4">
@@ -44,6 +45,6 @@
         </div>
 
     </div>       
-    </jsp:body>
+    </body>
 
-</parchisoca:layout>
+</parchisoca:layoutWithoutMenu>
