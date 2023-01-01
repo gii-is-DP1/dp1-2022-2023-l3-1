@@ -6,9 +6,6 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.Positive;
-
-
 import org.springframework.samples.parchisoca.board.ParchisBoard;
 import org.springframework.samples.parchisoca.model.BaseEntity;
 import org.springframework.samples.parchisoca.piece.ParchisPiece;

@@ -2,7 +2,6 @@ package org.springframework.samples.parchisoca.dice;
 
 import java.security.Provider.Service;
 
-import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
