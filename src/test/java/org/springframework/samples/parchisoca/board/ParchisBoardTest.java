@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.samples.parchisoca.dice.ParchisDice;
+import org.springframework.samples.parchisoca.game.Game;
 import org.springframework.samples.parchisoca.parchis.BoxesParchis;
 import org.springframework.samples.parchisoca.parchis.FinishBoxes;
 import org.springframework.samples.parchisoca.piece.ParchisPiece;
@@ -49,6 +50,8 @@ public class ParchisBoardTest {
         p1.setPieces(parchisPieces);
         p1.setParchisDices(parchisDices);
         p1.setFinishBoxes(finishBoxes);
+        p1.setCasillasParchis(SpecialBoxesParchis.GOAL);
+        p1.setGame(new Game());
 
         assertThrows(ConstraintViolationException.class,() -> parchisBoardService.save(p1),
         "You are not constraining "+ "width can not be negative");
