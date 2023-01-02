@@ -4,5 +4,5 @@
  description="Piece to be rendered" %>
 
  image = document.getElementById('${piece.colour}');
- ctx.drawImage(image,${piece.getPositionXInPixels(size)},${piece.getPositionYInPixels(size)},${size},${size});
+ ctx.drawImage(image,${piece.getXPosition()},${piece.getYPosition()},30,30);
 
