@@ -1,4 +1,4 @@
-package org.springframework.samples.parchisoca.oca;
+package org.springframework.samples.parchisoca.Oca;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;

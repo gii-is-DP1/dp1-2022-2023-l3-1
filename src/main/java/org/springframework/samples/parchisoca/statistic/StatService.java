@@ -15,11 +15,6 @@ public class StatService {
         this.statRepository = repository;
     }
 
-    @Autowired
-    public void save(Stat stat) {
-        statRepository.save(stat);
-    }
-
     @Transactional(readOnly = true)
     public Stat findStatsByPlayer(Player player) {
         Stat result = statRepository.getStatsByPlayer(player);
