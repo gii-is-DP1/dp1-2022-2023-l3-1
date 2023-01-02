@@ -1,6 +1,5 @@
 package org.springframework.samples.parchisoca.piece;
 
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +43,6 @@ public class ParchisPieceTest {
         p.setInGoal(true);
 
     }
-    
 
     @Test
     public void testConstraintsColor(){
@@ -55,28 +53,5 @@ public class ParchisPieceTest {
         assertThrows(ConstraintViolationException.class,() -> parchisPieceService.save(p),
         "You are not constraining "+ "colour can not be null");
     }
-
-    @Test
-    public void testConstraintsYPosition(){
-        p.setColour(Colour.BLUE);
-        p.setXPosition(10);
-        p.setYPosition(50);
-
-        assertThrows(ConstraintViolationException.class,() -> parchisPieceService.save(p),
-        "You are not constraining "+ "YPosition can not be plus than 18");
-    }
-
-
-
-    @Test
-    public void testXposition() {
-        p.setColour(Colour.BLUE);
-        p.setXPosition(50);
-        p.setYPosition(10);
-        
-        assertThrows(ConstraintViolationException.class,() -> parchisPieceService.save(p),
-        "You are not constraining "+ "XPosition can not be plus than 18");
-    }
-
     
 }

@@ -25,11 +25,9 @@ public class ParchisPiece extends BaseEntity {
     @Enumerated(EnumType.STRING)
     public Colour colour;
 
-    @Range(min=0,max=18)
     @NotNull
     private int xPosition;
 
-    @Range(min=0,max=18)
     @NotNull
     private int yPosition;
 

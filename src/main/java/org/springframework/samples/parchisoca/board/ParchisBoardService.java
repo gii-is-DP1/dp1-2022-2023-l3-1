@@ -84,12 +84,10 @@ public class ParchisBoardService {
                 piece.setPlayer(p);
                 piece.setColour(color);
                 piece.setParchisBoard(parchisBoard);
-
+                SetParchisPieceInitialPx(piece);
                 parchisPieceService.save(piece);
                 p.addPiecePlayer(piece);
                 parchisBoard.addPieceParchis(piece);
-                //SetParchisPieceInitialPx(piece);
-                //parchisPieceService.save(piece);
             }
             initDices(parchisBoard, p);
             j++;
@@ -480,6 +478,32 @@ public class ParchisBoardService {
         parchisDice2.setPlayer(p);
         playerService.save(p);
         parchisDiceService.save(parchisDice1, parchisDice2);
+    }
+
+    @Transactional
+    private ParchisPiece SetParchisPieceInitialPx(ParchisPiece parchisPiece) {
+
+        if (parchisPiece.getColour().equals(Colour.RED)) {
+            parchisPiece.setXPosition(56);
+            parchisPiece.setYPosition(52);
+        }
+
+        if (parchisPiece.getColour().equals(Colour.BLUE)) {
+            parchisPiece.setXPosition(490);
+            parchisPiece.setYPosition(52);
+        } 
+
+        if (parchisPiece.getColour().equals(Colour.YELLOW)) {
+            parchisPiece.setXPosition(490);
+            parchisPiece.setYPosition(475);
+        }
+
+        if (parchisPiece.getColour().equals(Colour.GREEN)) {
+            parchisPiece.setXPosition(50);
+            parchisPiece.setYPosition(475);
+        }
+
+        return parchisPiece;
     }
 
 }
