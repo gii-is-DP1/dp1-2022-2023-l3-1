@@ -5,9 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.samples.parchisoca.oca.BoxesOca;
-import org.springframework.samples.parchisoca.oca.BoxesOcaService;
-import org.springframework.samples.parchisoca.oca.SpecialBoxesOca;
 import org.springframework.samples.parchisoca.board.OcaBoard;
 import org.springframework.samples.parchisoca.board.OcaBoardService;
 

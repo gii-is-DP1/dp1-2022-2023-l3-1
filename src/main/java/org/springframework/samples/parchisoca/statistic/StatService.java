@@ -15,8 +15,8 @@ public class StatService {
         this.statRepository = repository;
     }
 
-    @Autowired
-public void save(Stat stat) {
+    @Transactional
+    public void save(Stat stat) {
         statRepository.save(stat);
     }
 
