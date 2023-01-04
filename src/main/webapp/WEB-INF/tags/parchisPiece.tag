@@ -5,4 +5,5 @@
 
  image = document.getElementById('${piece.colour}');
  ctx.drawImage(image,${piece.getXPosition()},${piece.getYPosition()},30,30);
-
+ <%-- ctx.drawImage(image,377,13,30,30); --%>
+ <%-- ctx.drawImage(image,300,610,30,30); --%>
