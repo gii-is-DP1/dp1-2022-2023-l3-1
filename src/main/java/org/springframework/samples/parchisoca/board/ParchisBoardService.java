@@ -191,8 +191,6 @@ public class ParchisBoardService {
         return parchisPiece;
     }
 
-
-    @Transactional
     private void normalMovement(ParchisPiece parchisPiece, ParchisBoard parchisBoard, ParchisDice parchisDice) {
         Integer lastPosition = parchisPiece.getPosition();
         Integer diceNumber = parchisDice.getNumber();
@@ -213,13 +211,12 @@ public class ParchisBoardService {
             movement(parchisPiece, lastBox, newBox, parchisBoard);
 
             actionPiece(parchisPiece, newBox, lastBox);
-            SetParchisPiecePositionPx(parchisPiece, parchisPiece.getPosition());
+            setParchisPiecePositionPx(parchisPiece, parchisPiece.getPosition());
 
         }
     }
 
     // Realiza acciones del parchis
-    @Transactional
     private void actionPiece(ParchisPiece parchisPiece, BoxesParchis newBox, BoxesParchis lastBox) {
         if (parchisPiece.getPosition() != null) {
             // Comerse una pieza
@@ -232,7 +229,6 @@ public class ParchisBoardService {
     }
 
     // Movimiento de una pieza
-    @Transactional
     private void movement(ParchisPiece parchisPiece, BoxesParchis lastBox, BoxesParchis newBox,
             ParchisBoard parchisBoard) {
 
@@ -241,7 +237,6 @@ public class ParchisBoardService {
         boxesCheckFor(ls, parchisPiece, lastBox, newBox, parchisBoard);
     }
 
-    @Transactional
     private List<BoxesParchis> listBoxesToGo(BoxesParchis lastBox, BoxesParchis newBox, ParchisBoard parchisBoard) {
         List<BoxesParchis> res = new ArrayList<>();
         if (lastBox.getPositionBoard() > newBox.getPositionBoard()) {
@@ -262,7 +257,6 @@ public class ParchisBoardService {
         return res;
     }
 
-    @Transactional
     private void boxesCheckFor(List<BoxesParchis> ls, ParchisPiece parchisPiece, BoxesParchis lastBox,
             BoxesParchis newBox, ParchisBoard parchisBoard) {
         for (BoxesParchis bx : ls) {
@@ -280,7 +274,6 @@ public class ParchisBoardService {
         }
     }
 
-    @Transactional
     private void enterFinishPositions(BoxesParchis bx, ParchisPiece parchisPiece, ParchisBoard parchisBoard,
             BoxesParchis lastBox,
             BoxesParchis newBox, List<BoxesParchis> ls) {
@@ -296,7 +289,6 @@ public class ParchisBoardService {
         boxesParchisService.save(lastBox);
     }
 
-    @Transactional
     private void checkEquals(BoxesParchis bx, BoxesParchis newBox, BoxesParchis lastBox, ParchisPiece parchisPiece) {
         if (bx.equals(newBox)) {
             lastBox.getPiecesInBox().remove(parchisPiece);
@@ -308,7 +300,6 @@ public class ParchisBoardService {
         }
     }
 
-    @Transactional
     private void checkBridge(BoxesParchis bx, ParchisPiece parchisPiece, BoxesParchis lastBox,
             ParchisBoard parchisBoard) {
 
@@ -323,7 +314,6 @@ public class ParchisBoardService {
     }
 
     // Comprobacion si tiene que entrar en casillas finales
-    @Transactional
     private Boolean checkIsInFinish(ParchisPiece parchisPiece, BoxesParchis bx) {
         if (parchisPiece.getColour() == Colour.RED && bx.getPositionBoard() == 35) {
             return true;
@@ -342,7 +332,6 @@ public class ParchisBoardService {
     }
 
     // Movimiento en casillas finales
-    @Transactional
     private void movementFinish(ParchisPiece parchisPiece, ParchisBoard parchisBoard, ParchisDice parchisDice) {
         Integer lastPosition = parchisPiece.getFinishPosition();
         Integer diceNumber = parchisDice.getNumber();
@@ -357,7 +346,6 @@ public class ParchisBoardService {
     }
 
     // Salida de casa
-    @Transactional
     private void firstMove(ParchisPiece parchisPiece, ParchisBoard parchisBoard) {
         BoxesParchis box22 = boxesParchisService.findBoxByPosition(22, parchisBoard);
         BoxesParchis box39 = boxesParchisService.findBoxByPosition(39, parchisBoard);
@@ -366,25 +354,28 @@ public class ParchisBoardService {
         Colour color = parchisPiece.getColour();
         if (color == Colour.BLUE && box22.getPiecesInBox().size() < 2) {
             parchisPiece.setPosition(22);
+            setParchisPiecePositionPx(parchisPiece, parchisPiece.getPosition());
             box22.addPieceToBox(parchisPiece);
             boxesParchisService.save(box22);
         } else if (color == Colour.RED && box39.getPiecesInBox().size() < 2) {
             parchisPiece.setPosition(39);
+            setParchisPiecePositionPx(parchisPiece, parchisPiece.getPosition());
             box39.addPieceToBox(parchisPiece);
             boxesParchisService.save(box39);
         } else if (color == Colour.GREEN && box56.getPiecesInBox().size() < 2) {
             parchisPiece.setPosition(56);
+            setParchisPiecePositionPx(parchisPiece, parchisPiece.getPosition());
             box56.addPieceToBox(parchisPiece);
             boxesParchisService.save(box56);
         } else if (color == Colour.YELLOW && box5.getPiecesInBox().size() < 2) {
             parchisPiece.setPosition(5);
+            setParchisPiecePositionPx(parchisPiece, parchisPiece.getPosition());
             box5.addPieceToBox(parchisPiece);
             boxesParchisService.save(box5);
         }
         parchisPieceService.save(parchisPiece);
     }
 
-    @Transactional
     private void eatPiece(ParchisPiece parchisPiece) {
 
         Integer position = parchisPiece.getPosition();
@@ -405,7 +396,6 @@ public class ParchisBoardService {
 
     }
 
-    @Transactional
     private void bridge(ParchisPiece parchisPiece, BoxesParchis lastBox) {
 
         if (lastBox.getBridge() == true) {
@@ -426,7 +416,6 @@ public class ParchisBoardService {
 
     }
 
-    @Transactional
     private void initDices(ParchisBoard parchisBoard, Player p) {
         ParchisDice parchisDice1 = new ParchisDice();
         ParchisDice parchisDice2 = new ParchisDice();
@@ -440,7 +429,6 @@ public class ParchisBoardService {
         parchisDiceService.save(parchisDice1, parchisDice2);
     }
 
-    @Transactional
     private ParchisPiece SetParchisPieceInitialPx(ParchisPiece parchisPiece) {
 
         if (parchisPiece.getColour().equals(Colour.RED)) {
@@ -466,8 +454,7 @@ public class ParchisBoardService {
         return parchisPiece;
     }
 
-    @Transactional
-    private void SetParchisPiecePositionPx(ParchisPiece parchisPiece, int position) {
+    private void setParchisPiecePositionPx(ParchisPiece parchisPiece, int position) {
 
         if (position >= 1 && position <= 7) {
             parchisPiece.setXPosition(375);
