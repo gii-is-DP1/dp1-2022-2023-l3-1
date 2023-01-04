@@ -42,7 +42,6 @@ public class OcaBoardService {
     @Autowired
     BoxesOcaService boxesOcaService;
 
-
     @Transactional(readOnly = true)
     public OcaBoard findById(Integer id){
         return ocaBoardRepository.findById(id).get();
@@ -117,7 +116,7 @@ public class OcaBoardService {
 
     // Initiates the boxes of a board
     @Transactional
-    public List<BoxesOca>  initBoxes(OcaBoard ocaBoard) {
+    public List<BoxesOca> initBoxes(OcaBoard ocaBoard) {
         List<BoxesOca> boxesOca = new ArrayList<BoxesOca>(63);
         for (int i=1; i<=63; i++) {
             BoxesOca box = new BoxesOca();
