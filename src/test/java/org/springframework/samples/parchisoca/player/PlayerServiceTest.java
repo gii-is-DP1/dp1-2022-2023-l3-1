@@ -16,11 +16,18 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.samples.parchisoca.board.ParchisBoard;
+import org.springframework.samples.parchisoca.dice.OcaDice;
+import org.springframework.samples.parchisoca.dice.ParchisDice;
 import org.springframework.samples.parchisoca.notification.Notification;
 import org.springframework.samples.parchisoca.notification.NotificationRepository;
 import org.springframework.samples.parchisoca.notification.NotificationService;
+import org.springframework.samples.parchisoca.piece.OcaPiece;
+import org.springframework.samples.parchisoca.piece.OcaPieceService;
+import org.springframework.samples.parchisoca.piece.ParchisPiece;
 import org.springframework.samples.parchisoca.statistic.Achievement;
 import org.springframework.samples.parchisoca.statistic.AchievementService;
+import org.springframework.samples.parchisoca.statistic.Stat;
 import org.springframework.samples.parchisoca.user.Authorities;
 import org.springframework.samples.parchisoca.user.AuthoritiesService;
 import org.springframework.samples.parchisoca.user.User;
@@ -51,6 +58,9 @@ public class PlayerServiceTest {
 
     @Autowired
     NotificationService notificationService;
+
+    @Autowired
+    OcaPieceService ocaPieceService;
 
     private Player pTest = new Player();
     private Achievement aTest = new Achievement();
@@ -196,6 +206,65 @@ public class PlayerServiceTest {
         ps.deleteNotification(pTest, notficacion.get(0));
         Integer despues = pTest.getNotifications().size();
         assertTrue(antes>despues);
+    }
+
+    @Test
+    void shouldTestGetAndSetOfPlayer(){
+        List<ParchisBoard> listParchisBoard = new ArrayList<>();
+        listParchisBoard.add(new ParchisBoard());
+        pTest.setParchisBoards(listParchisBoard);
+        assertTrue(pTest.getParchisBoards() != null);
+        
+        List<OcaPiece> listOcaPiece = new ArrayList<>();
+        OcaPiece ocaPiece = ocaPieceService.findOcaPieceById(1);
+        listOcaPiece.add(ocaPiece);
+        pTest.setOcaPiece(listOcaPiece);
+        assertTrue(pTest.getOcaPiece() != null);
+
+        ParchisDice parchisDice1 = new ParchisDice();
+        ParchisDice parchisDice2 = new ParchisDice();
+
+        pTest.addDicesParchis(parchisDice1, parchisDice2);
+        assertTrue(pTest.getParchisDice() != null);
+
+        pTest.setStat(new Stat());
+        assertTrue(pTest.getStat() != null);
+
+        List<Player> listFriends = new ArrayList<>();
+        listFriends.add(new Player());
+        pTest.setFriends(listFriends);
+        assertTrue(pTest.getFriends() != null);
+
+        List<OcaDice> listOcaDice = new ArrayList<>();
+        listOcaDice.add(new OcaDice());
+        pTest.setOcaDice(listOcaDice);
+        assertTrue(pTest.getOcaDice() != null);
+    }
+
+    @Test
+    void shouldAddOcaDiceWithNoDice(){
+        OcaDice ocaDice = new OcaDice();
+        pTest.setOcaDice(null);
+        pTest.addDice(ocaDice);
+        assertTrue(pTest.getOcaDice().size() >=1);
+    }
+
+    @Test
+    void shouldAddOcaDiceWithDice(){
+        List<OcaDice> listOcaDice = new ArrayList<>();
+        listOcaDice.add(new OcaDice());
+        OcaDice ocaDice2 = new OcaDice();
+        pTest.setOcaDice(listOcaDice);
+        pTest.addDice(ocaDice2);
+        assertTrue(pTest.getOcaDice().size() >=1);
+    }
+
+    @Test
+    void shouldAddParchisPieceWithNoPiece(){
+        ParchisPiece parchisPiece = new ParchisPiece();
+        pTest.setParchisPieces(null);
+        pTest.addPiecePlayer(parchisPiece);
+        assertTrue(pTest.getParchisPieces().size() >=1);
     }
 
 
