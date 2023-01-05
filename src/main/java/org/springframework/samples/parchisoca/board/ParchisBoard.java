@@ -75,8 +75,8 @@ public class ParchisBoard extends BaseEntity {
     }
 
     public Integer bounceBack(Integer position) {  
-        if (position > 7) {
-            position = 2 * 7 - position;
+        if (position > 8) {
+            position = 2 * 8 - position;
         }
         return position;
     }

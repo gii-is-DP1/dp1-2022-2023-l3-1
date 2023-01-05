@@ -45,7 +45,7 @@
                                     </c:when>
                                     <c:when test = "${piece.finishPosition != null}">
                                         <c:choose>
-                                            <c:when test = "${piece.finishPosition == 7}">
+                                            <c:when test = "${piece.finishPosition == 8}">
                                                 Piece in Goal
                                                 </br>
                                             </c:when>

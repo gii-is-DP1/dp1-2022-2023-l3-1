@@ -285,13 +285,14 @@ public class ParchisBoardService {
         parchisPiece.setPosition(null);
         Integer index = ls.indexOf(bx);
         Integer finishPosition = ls.size() - index;
-        if (finishPosition > 7) {
+        if (finishPosition > 8) {
             finishPosition = parchisBoard.bounceBack(finishPosition);
         }
         parchisPiece.setFinishPosition(finishPosition);
+        setParchisPieceFinalPositionPx(parchisPiece, parchisPiece.getFinishPosition());
         parchisPieceService.save(parchisPiece);
         boxesParchisService.save(lastBox);
-        // setParchisPieceFinalPositionPx(parchisPiece,0);
+        
     }
 
 
@@ -345,11 +346,13 @@ public class ParchisBoardService {
         Integer suma = lastPosition + diceNumber;
         Integer position = parchisBoard.bounceBack(suma);
         parchisPiece.setFinishPosition(position);
-        if (position == 7) {
+        if (position == 8) {
             parchisPiece.setInGoal(true);
             parchisPiece.setJustInGoal(true);
         }
+        setParchisPieceFinalPositionPx(parchisPiece, parchisPiece.getFinishPosition());
         parchisPieceService.save(parchisPiece);
+        
     }
 
     // Salida de casa
@@ -361,18 +364,22 @@ public class ParchisBoardService {
         Colour color = parchisPiece.getColour();
         if (color == Colour.BLUE && box22.getPiecesInBox().size() < 2) {
             parchisPiece.setPosition(22);
+            setParchisPiecePositionPx(parchisPiece, parchisPiece.getPosition());
             box22.addPieceToBox(parchisPiece);
             boxesParchisService.save(box22);
         } else if (color == Colour.RED && box39.getPiecesInBox().size() < 2) {
             parchisPiece.setPosition(39);
+            setParchisPiecePositionPx(parchisPiece, parchisPiece.getPosition());
             box39.addPieceToBox(parchisPiece);
             boxesParchisService.save(box39);
         } else if (color == Colour.GREEN && box56.getPiecesInBox().size() < 2) {
             parchisPiece.setPosition(56);
+            setParchisPiecePositionPx(parchisPiece, parchisPiece.getPosition());
             box56.addPieceToBox(parchisPiece);
             boxesParchisService.save(box56);
         } else if (color == Colour.YELLOW && box5.getPiecesInBox().size() < 2) {
             parchisPiece.setPosition(5);
+            setParchisPiecePositionPx(parchisPiece, parchisPiece.getPosition());
             box5.addPieceToBox(parchisPiece);
             boxesParchisService.save(box5);
         }
@@ -462,320 +469,310 @@ public class ParchisBoardService {
     }
 
 
-    private void setParchisPiecePositionPx(ParchisPiece parchisPiece, int position) {
+    private void setParchisPiecePositionPx(ParchisPiece parchisPiece, Integer position) {
 
-        if (position >= 1 && position <= 7) {
-            parchisPiece.setXPosition(375);
-            parchisPiece.setYPosition(610);
-            //Vertical subiendo
-            Integer positionRow = position - 1;
-            if (positionRow == 1) {
-                parchisPiece.setYPosition(parchisPiece.getYPosition() - 27);
-            } else if (positionRow == 2) {
-                parchisPiece.setYPosition(parchisPiece.getYPosition() - 54);
-            } else if (positionRow == 3) {
-                parchisPiece.setYPosition(parchisPiece.getYPosition() - 85);
-            } else if (positionRow == 4) {
-                parchisPiece.setYPosition(parchisPiece.getYPosition() - 115);
-            } else if (positionRow == 5) {
-                parchisPiece.setYPosition(parchisPiece.getYPosition() - 146);
-            } else if (positionRow == 6) {
-                parchisPiece.setYPosition(parchisPiece.getYPosition() - 179);
+        if (position != null) {
+            if (position >= 1 && position <= 7) {
+                parchisPiece.setXPosition(375);
+                parchisPiece.setYPosition(610);
+                // Vertical subiendo
+                Integer positionRow = position - 1;
+                if (positionRow == 1) {
+                    parchisPiece.setYPosition(parchisPiece.getYPosition() - 27);
+                } else if (positionRow == 2) {
+                    parchisPiece.setYPosition(parchisPiece.getYPosition() - 54);
+                } else if (positionRow == 3) {
+                    parchisPiece.setYPosition(parchisPiece.getYPosition() - 85);
+                } else if (positionRow == 4) {
+                    parchisPiece.setYPosition(parchisPiece.getYPosition() - 115);
+                } else if (positionRow == 5) {
+                    parchisPiece.setYPosition(parchisPiece.getYPosition() - 146);
+                } else if (positionRow == 6) {
+                    parchisPiece.setYPosition(parchisPiece.getYPosition() - 179);
+                }
             }
-        }
 
-        if (position == 8) {
-            parchisPiece.setXPosition(375);
-            parchisPiece.setYPosition(401);
-        }
-
-        if (position == 9) {
-            parchisPiece.setXPosition(396);
-            parchisPiece.setYPosition(377);
-        }
-
-        if (position >= 10 && position <= 16) {
-            parchisPiece.setXPosition(426);
-            parchisPiece.setYPosition(379);
-            //Horizontal derecha
-            Integer positionRow = position - 10;
-            if (positionRow == 1) {
-                parchisPiece.setXPosition(parchisPiece.getXPosition() + 28);
-            } else if (positionRow == 2) {
-                parchisPiece.setXPosition(parchisPiece.getXPosition() + 55);
-            } else if (positionRow == 3) {
-                parchisPiece.setXPosition(parchisPiece.getXPosition() + 85);
-            } else if (positionRow == 4) {
-                parchisPiece.setXPosition(parchisPiece.getXPosition() + 115);
-            } else if (positionRow == 5) {
-                parchisPiece.setXPosition(parchisPiece.getXPosition() + 146);
-            } else if (positionRow == 6) {
-                parchisPiece.setXPosition(parchisPiece.getXPosition() + 179);
+            if (position == 8) {
+                parchisPiece.setXPosition(375);
+                parchisPiece.setYPosition(401);
             }
-        }
 
-        if (position == 17) {
-            parchisPiece.setXPosition(610);
-            parchisPiece.setYPosition(300);
-        }
-
-        if (position >= 18 && position <= 24) {
-            parchisPiece.setXPosition(610);
-            parchisPiece.setYPosition(240);
-            //Horizontal izquierda
-            Integer positionRow = position - 18;
-            if (positionRow == 1) {
-                parchisPiece.setXPosition(parchisPiece.getXPosition() - 33);
-            } else if (positionRow == 2) {
-                parchisPiece.setXPosition(parchisPiece.getXPosition() - 64);
-            } else if (positionRow == 3) {
-                parchisPiece.setXPosition(parchisPiece.getXPosition() - 94);
-            } else if (positionRow == 4) {
-                parchisPiece.setXPosition(parchisPiece.getXPosition() - 124);
-            } else if (positionRow == 5) {
-                parchisPiece.setXPosition(parchisPiece.getXPosition() - 151);
-            } else if (positionRow == 6) {
-                parchisPiece.setXPosition(parchisPiece.getXPosition() - 180);
+            if (position == 9) {
+                parchisPiece.setXPosition(396);
+                parchisPiece.setYPosition(377);
             }
-        }
 
-        if (position == 25) {
-            parchisPiece.setXPosition(396);
-            parchisPiece.setYPosition(240);
-        }
-
-        if (position == 26) {
-            parchisPiece.setXPosition(377);
-            parchisPiece.setYPosition(220);
-        }
-
-        if (position >= 27 && position <= 33) {
-            parchisPiece.setXPosition(377);
-            parchisPiece.setYPosition(192);
-            //Vertical subiendo
-            Integer positionRow = position - 27;
-            if (positionRow == 1) {
-                parchisPiece.setYPosition(parchisPiece.getYPosition() - 27);
-            } else if (positionRow == 2) {
-                parchisPiece.setYPosition(parchisPiece.getYPosition() - 54);
-            } else if (positionRow == 3) {
-                parchisPiece.setYPosition(parchisPiece.getYPosition() - 85);
-            } else if (positionRow == 4) {
-                parchisPiece.setYPosition(parchisPiece.getYPosition() - 115);
-            } else if (positionRow == 5) {
-                parchisPiece.setYPosition(parchisPiece.getYPosition() - 146);
-            } else if (positionRow == 6) {
-                parchisPiece.setYPosition(parchisPiece.getYPosition() - 179);
+            if (position >= 10 && position <= 16) {
+                parchisPiece.setXPosition(426);
+                parchisPiece.setYPosition(379);
+                // Horizontal derecha
+                Integer positionRow = position - 10;
+                if (positionRow == 1) {
+                    parchisPiece.setXPosition(parchisPiece.getXPosition() + 28);
+                } else if (positionRow == 2) {
+                    parchisPiece.setXPosition(parchisPiece.getXPosition() + 55);
+                } else if (positionRow == 3) {
+                    parchisPiece.setXPosition(parchisPiece.getXPosition() + 85);
+                } else if (positionRow == 4) {
+                    parchisPiece.setXPosition(parchisPiece.getXPosition() + 115);
+                } else if (positionRow == 5) {
+                    parchisPiece.setXPosition(parchisPiece.getXPosition() + 146);
+                } else if (positionRow == 6) {
+                    parchisPiece.setXPosition(parchisPiece.getXPosition() + 179);
+                }
             }
-        }
 
-        if (position == 34) {
-            parchisPiece.setXPosition(300);
-            parchisPiece.setYPosition(16);
-        }
-
-        if (position >= 35 && position <= 41) {
-            parchisPiece.setXPosition(227);
-            parchisPiece.setYPosition(10);
-            //Vertical bajando
-            Integer positionRow = position - 35;
-            if (positionRow == 1) {
-                parchisPiece.setYPosition(parchisPiece.getYPosition() + 33);
-            } else if (positionRow == 2) {
-                parchisPiece.setYPosition(parchisPiece.getYPosition() + 64);
-            } else if (positionRow == 3) {
-                parchisPiece.setYPosition(parchisPiece.getYPosition() + 94);
-            } else if (positionRow == 4) {
-                parchisPiece.setYPosition(parchisPiece.getYPosition() + 125);
-            } else if (positionRow == 5) {
-                parchisPiece.setYPosition(parchisPiece.getYPosition() + 154);
-            } else if (positionRow == 6) {
-                parchisPiece.setYPosition(parchisPiece.getYPosition() + 182);
+            if (position == 17) {
+                parchisPiece.setXPosition(610);
+                parchisPiece.setYPosition(300);
             }
-        }
 
-        if (position == 42) {
-            parchisPiece.setXPosition(235);
-            parchisPiece.setYPosition(217);
-        }
-
-        if (position == 43) {
-            parchisPiece.setXPosition(220);
-            parchisPiece.setYPosition(240);
-        }
-
-        if (position >= 44 && position <= 50) {
-            parchisPiece.setXPosition(190);
-            parchisPiece.setYPosition(240);
-            //Horizontal izquierda
-            Integer positionRow = position - 44;
-            if (positionRow == 1) {
-                parchisPiece.setXPosition(parchisPiece.getXPosition() - 33);
-            } else if (positionRow == 2) {
-                parchisPiece.setXPosition(parchisPiece.getXPosition() - 64);
-            } else if (positionRow == 3) {
-                parchisPiece.setXPosition(parchisPiece.getXPosition() - 94);
-            } else if (positionRow == 4) {
-                parchisPiece.setXPosition(parchisPiece.getXPosition() - 124);
-            } else if (positionRow == 5) {
-                parchisPiece.setXPosition(parchisPiece.getXPosition() - 151);
-            } else if (positionRow == 6) {
-                parchisPiece.setXPosition(parchisPiece.getXPosition() - 180);
+            if (position >= 18 && position <= 24) {
+                parchisPiece.setXPosition(610);
+                parchisPiece.setYPosition(240);
+                // Horizontal izquierda
+                Integer positionRow = position - 18;
+                if (positionRow == 1) {
+                    parchisPiece.setXPosition(parchisPiece.getXPosition() - 33);
+                } else if (positionRow == 2) {
+                    parchisPiece.setXPosition(parchisPiece.getXPosition() - 64);
+                } else if (positionRow == 3) {
+                    parchisPiece.setXPosition(parchisPiece.getXPosition() - 94);
+                } else if (positionRow == 4) {
+                    parchisPiece.setXPosition(parchisPiece.getXPosition() - 124);
+                } else if (positionRow == 5) {
+                    parchisPiece.setXPosition(parchisPiece.getXPosition() - 151);
+                } else if (positionRow == 6) {
+                    parchisPiece.setXPosition(parchisPiece.getXPosition() - 180);
+                }
             }
-        }
 
-        if (position == 51) {
-            parchisPiece.setXPosition(10);
-            parchisPiece.setYPosition(300);
-        }
-
-        if (position >= 52 && position <= 58) {
-            parchisPiece.setXPosition(11);
-            parchisPiece.setYPosition(377);
-            //Horizontal derecha
-            Integer positionRow = position - 52;
-            if (positionRow == 1) {
-                parchisPiece.setXPosition(parchisPiece.getXPosition() + 28);
-            } else if (positionRow == 2) {
-                parchisPiece.setXPosition(parchisPiece.getXPosition() + 55);
-            } else if (positionRow == 3) {
-                parchisPiece.setXPosition(parchisPiece.getXPosition() + 85);
-            } else if (positionRow == 4) {
-                parchisPiece.setXPosition(parchisPiece.getXPosition() + 115);
-            } else if (positionRow == 5) {
-                parchisPiece.setXPosition(parchisPiece.getXPosition() + 146);
-            } else if (positionRow == 6) {
-                parchisPiece.setXPosition(parchisPiece.getXPosition() + 179);
+            if (position == 25) {
+                parchisPiece.setXPosition(396);
+                parchisPiece.setYPosition(240);
             }
-        }
 
-        if (position == 59) {
-            parchisPiece.setXPosition(220);
-            parchisPiece.setYPosition(377);
-        }
-
-        if (position == 60) {
-            parchisPiece.setXPosition(242);
-            parchisPiece.setYPosition(401);
-        }
-
-        if (position >= 61 && position <= 67) {
-            parchisPiece.setXPosition(227);
-            parchisPiece.setYPosition(431);
-            //Vertical subiendo
-            Integer positionRow = position - 61;
-            if (positionRow == 1) {
-                parchisPiece.setYPosition(parchisPiece.getYPosition() + 33);
-            } else if (positionRow == 2) {
-                parchisPiece.setYPosition(parchisPiece.getYPosition() + 64);
-            } else if (positionRow == 3) {
-                parchisPiece.setYPosition(parchisPiece.getYPosition() + 94);
-            } else if (positionRow == 4) {
-                parchisPiece.setYPosition(parchisPiece.getYPosition() + 125);
-            } else if (positionRow == 5) {
-                parchisPiece.setYPosition(parchisPiece.getYPosition() + 152);
-            } else if (positionRow == 6) {
-                parchisPiece.setYPosition(parchisPiece.getYPosition() + 179);
+            if (position == 26) {
+                parchisPiece.setXPosition(377);
+                parchisPiece.setYPosition(220);
             }
-        }
 
-        if (position == 68) {
-            parchisPiece.setXPosition(300);
-            parchisPiece.setYPosition(610);
+            if (position >= 27 && position <= 33) {
+                parchisPiece.setXPosition(377);
+                parchisPiece.setYPosition(192);
+                // Vertical subiendo
+                Integer positionRow = position - 27;
+                if (positionRow == 1) {
+                    parchisPiece.setYPosition(parchisPiece.getYPosition() - 27);
+                } else if (positionRow == 2) {
+                    parchisPiece.setYPosition(parchisPiece.getYPosition() - 54);
+                } else if (positionRow == 3) {
+                    parchisPiece.setYPosition(parchisPiece.getYPosition() - 85);
+                } else if (positionRow == 4) {
+                    parchisPiece.setYPosition(parchisPiece.getYPosition() - 115);
+                } else if (positionRow == 5) {
+                    parchisPiece.setYPosition(parchisPiece.getYPosition() - 146);
+                } else if (positionRow == 6) {
+                    parchisPiece.setYPosition(parchisPiece.getYPosition() - 179);
+                }
+            }
+
+            if (position == 34) {
+                parchisPiece.setXPosition(300);
+                parchisPiece.setYPosition(16);
+            }
+
+            if (position >= 35 && position <= 41) {
+                parchisPiece.setXPosition(227);
+                parchisPiece.setYPosition(10);
+                // Vertical bajando
+                Integer positionRow = position - 35;
+                if (positionRow == 1) {
+                    parchisPiece.setYPosition(parchisPiece.getYPosition() + 33);
+                } else if (positionRow == 2) {
+                    parchisPiece.setYPosition(parchisPiece.getYPosition() + 64);
+                } else if (positionRow == 3) {
+                    parchisPiece.setYPosition(parchisPiece.getYPosition() + 94);
+                } else if (positionRow == 4) {
+                    parchisPiece.setYPosition(parchisPiece.getYPosition() + 125);
+                } else if (positionRow == 5) {
+                    parchisPiece.setYPosition(parchisPiece.getYPosition() + 154);
+                } else if (positionRow == 6) {
+                    parchisPiece.setYPosition(parchisPiece.getYPosition() + 182);
+                }
+            }
+
+            if (position == 42) {
+                parchisPiece.setXPosition(235);
+                parchisPiece.setYPosition(217);
+            }
+
+            if (position == 43) {
+                parchisPiece.setXPosition(220);
+                parchisPiece.setYPosition(240);
+            }
+
+            if (position >= 44 && position <= 50) {
+                parchisPiece.setXPosition(190);
+                parchisPiece.setYPosition(240);
+                // Horizontal izquierda
+                Integer positionRow = position - 44;
+                if (positionRow == 1) {
+                    parchisPiece.setXPosition(parchisPiece.getXPosition() - 33);
+                } else if (positionRow == 2) {
+                    parchisPiece.setXPosition(parchisPiece.getXPosition() - 64);
+                } else if (positionRow == 3) {
+                    parchisPiece.setXPosition(parchisPiece.getXPosition() - 94);
+                } else if (positionRow == 4) {
+                    parchisPiece.setXPosition(parchisPiece.getXPosition() - 124);
+                } else if (positionRow == 5) {
+                    parchisPiece.setXPosition(parchisPiece.getXPosition() - 151);
+                } else if (positionRow == 6) {
+                    parchisPiece.setXPosition(parchisPiece.getXPosition() - 180);
+                }
+            }
+
+            if (position == 51) {
+                parchisPiece.setXPosition(10);
+                parchisPiece.setYPosition(300);
+            }
+
+            if (position >= 52 && position <= 58) {
+                parchisPiece.setXPosition(11);
+                parchisPiece.setYPosition(377);
+                // Horizontal derecha
+                Integer positionRow = position - 52;
+                if (positionRow == 1) {
+                    parchisPiece.setXPosition(parchisPiece.getXPosition() + 28);
+                } else if (positionRow == 2) {
+                    parchisPiece.setXPosition(parchisPiece.getXPosition() + 55);
+                } else if (positionRow == 3) {
+                    parchisPiece.setXPosition(parchisPiece.getXPosition() + 85);
+                } else if (positionRow == 4) {
+                    parchisPiece.setXPosition(parchisPiece.getXPosition() + 115);
+                } else if (positionRow == 5) {
+                    parchisPiece.setXPosition(parchisPiece.getXPosition() + 146);
+                } else if (positionRow == 6) {
+                    parchisPiece.setXPosition(parchisPiece.getXPosition() + 179);
+                }
+            }
+
+            if (position == 59) {
+                parchisPiece.setXPosition(220);
+                parchisPiece.setYPosition(377);
+            }
+
+            if (position == 60) {
+                parchisPiece.setXPosition(242);
+                parchisPiece.setYPosition(401);
+            }
+
+            if (position >= 61 && position <= 67) {
+                parchisPiece.setXPosition(227);
+                parchisPiece.setYPosition(431);
+                // Vertical subiendo
+                Integer positionRow = position - 61;
+                if (positionRow == 1) {
+                    parchisPiece.setYPosition(parchisPiece.getYPosition() + 33);
+                } else if (positionRow == 2) {
+                    parchisPiece.setYPosition(parchisPiece.getYPosition() + 64);
+                } else if (positionRow == 3) {
+                    parchisPiece.setYPosition(parchisPiece.getYPosition() + 94);
+                } else if (positionRow == 4) {
+                    parchisPiece.setYPosition(parchisPiece.getYPosition() + 125);
+                } else if (positionRow == 5) {
+                    parchisPiece.setYPosition(parchisPiece.getYPosition() + 152);
+                } else if (positionRow == 6) {
+                    parchisPiece.setYPosition(parchisPiece.getYPosition() + 179);
+                }
+            }
+
+            if (position == 68) {
+                parchisPiece.setXPosition(300);
+                parchisPiece.setYPosition(610);
+            }
         }
         
     }
 
     private void setParchisPieceFinalPositionPx (ParchisPiece parchisPiece, int position) {
 
-        if (parchisPiece.getColour() == Colour.GREEN && position == 51) {
-            parchisPiece.setXPosition(10);
+        if (parchisPiece.getColour() == Colour.GREEN) {
+            parchisPiece.setXPosition(38);
             parchisPiece.setYPosition(300);
             // Horizontal derecha
-            Integer positionRow = position - 9;
-            if (positionRow == 1) {
+            if (position == 2) {
                 parchisPiece.setXPosition(parchisPiece.getXPosition() + 28);
-            } else if (positionRow == 2) {
-                parchisPiece.setXPosition(parchisPiece.getXPosition() + 55);
-            } else if (positionRow == 3) {
+            } else if (position == 3) {
+                parchisPiece.setXPosition(parchisPiece.getXPosition() + 57);
+            } else if (position == 4) {
                 parchisPiece.setXPosition(parchisPiece.getXPosition() + 85);
-            } else if (positionRow == 4) {
-                parchisPiece.setXPosition(parchisPiece.getXPosition() + 115);
-            } else if (positionRow == 5) {
+            } else if (position == 5) {
+                parchisPiece.setXPosition(parchisPiece.getXPosition() + 118);
+            } else if (position == 6) {
                 parchisPiece.setXPosition(parchisPiece.getXPosition() + 146);
-            } else if (positionRow == 6) {
+            } else if (position == 7) {
                 parchisPiece.setXPosition(parchisPiece.getXPosition() + 179);
-            } else if (positionRow == 7) {
-                parchisPiece.setXPosition(parchisPiece.getXPosition() + 213);
-            } else if (positionRow == 8) {
-                parchisPiece.setXPosition(parchisPiece.getXPosition() + 250);
+            } else if (position == 8) {
+                parchisPiece.setXPosition(parchisPiece.getXPosition() + 220);
             }
 
-        } else if (parchisPiece.getColour() == Colour.YELLOW && position == 68) {
+        } else if (parchisPiece.getColour() == Colour.YELLOW) {
             parchisPiece.setXPosition(300);
-            parchisPiece.setYPosition(610);
+            parchisPiece.setYPosition(582);
             // Vertical subiendo
-            Integer positionRow = position - 1;
-            if (positionRow == 1) {
+            if (position == 2) {
                 parchisPiece.setYPosition(parchisPiece.getYPosition() - 28);
-            } else if (positionRow == 2) {
+            } else if (position == 3) {
                 parchisPiece.setYPosition(parchisPiece.getYPosition() - 55);
-            } else if (positionRow == 3) {
+            } else if (position == 4) {
                 parchisPiece.setYPosition(parchisPiece.getYPosition() - 85);
-            } else if (positionRow == 4) {
+            } else if (position == 5) {
                 parchisPiece.setYPosition(parchisPiece.getYPosition() - 117);
-            } else if (positionRow == 5) {
+            } else if (position == 6) {
                 parchisPiece.setYPosition(parchisPiece.getYPosition() - 147);
-            } else if (positionRow == 6) {
+            } else if (position == 7) {
                 parchisPiece.setYPosition(parchisPiece.getYPosition() - 178);
-            } else if (positionRow == 7) {
-                parchisPiece.setYPosition(parchisPiece.getYPosition() - 213);
-            } else if (positionRow == 8) {
-                parchisPiece.setYPosition(parchisPiece.getYPosition() - 250);
+            } else if (position == 8) {
+                parchisPiece.setYPosition(parchisPiece.getYPosition() - 220);
             }
-        } else if (parchisPiece.getColour() == Colour.BLUE && position == 17) {
-                parchisPiece.setXPosition(610);
+        } else if (parchisPiece.getColour() == Colour.BLUE) {
+                parchisPiece.setXPosition(577);
                 parchisPiece.setYPosition(300);
                 //Horizontal izquierda
-                Integer positionRow = position - 44;
-                if (positionRow == 1) {
+                if (position == 2) {
                     parchisPiece.setXPosition(parchisPiece.getXPosition() - 33);
-                } else if (positionRow == 2) {
+                } else if (position == 3) {
                     parchisPiece.setXPosition(parchisPiece.getXPosition() - 64);
-                } else if (positionRow == 3) {
+                } else if (position == 4) {
                     parchisPiece.setXPosition(parchisPiece.getXPosition() - 94);
-                } else if (positionRow == 4) {
+                } else if (position == 5) {
                     parchisPiece.setXPosition(parchisPiece.getXPosition() - 124);
-                } else if (positionRow == 5) {
+                } else if (position == 6) {
                     parchisPiece.setXPosition(parchisPiece.getXPosition() - 151);
-                } else if (positionRow == 6) {
+                } else if (position == 7) {
                     parchisPiece.setXPosition(parchisPiece.getXPosition() - 180);
-                } else if (positionRow == 7) {
-                    parchisPiece.setYPosition(parchisPiece.getYPosition() - 215);
-                } else if (positionRow == 8) {
-                    parchisPiece.setYPosition(parchisPiece.getYPosition() - 252);
+                } else if (position == 8) {
+                    parchisPiece.setXPosition(parchisPiece.getXPosition() - 220);
                 }
-            } else if (parchisPiece.getColour() == Colour.RED && position == 34) {
-                parchisPiece.setXPosition(610);
-                parchisPiece.setYPosition(300);
-                //Horizontal izquierda
-                Integer positionRow = position - 44;
-                if (positionRow == 1) {
-                    parchisPiece.setXPosition(parchisPiece.getXPosition() - 33);
-                } else if (positionRow == 2) {
-                    parchisPiece.setXPosition(parchisPiece.getXPosition() - 64);
-                } else if (positionRow == 3) {
-                    parchisPiece.setXPosition(parchisPiece.getXPosition() - 94);
-                } else if (positionRow == 4) {
-                    parchisPiece.setXPosition(parchisPiece.getXPosition() - 124);
-                } else if (positionRow == 5) {
-                    parchisPiece.setXPosition(parchisPiece.getXPosition() - 151);
-                } else if (positionRow == 6) {
-                    parchisPiece.setXPosition(parchisPiece.getXPosition() - 180);
-                } else if (positionRow == 7) {
-                    parchisPiece.setYPosition(parchisPiece.getYPosition() - 215);
-                } else if (positionRow == 8) {
-                    parchisPiece.setYPosition(parchisPiece.getYPosition() - 252);
+            } else if (parchisPiece.getColour() == Colour.RED) {
+                parchisPiece.setXPosition(300);
+                parchisPiece.setYPosition(45);
+                // Vertical bajando
+                if (position == 2) {
+                    parchisPiece.setYPosition(parchisPiece.getYPosition() + 33);
+                } else if (position == 3) {
+                    parchisPiece.setYPosition(parchisPiece.getYPosition() + 64);
+                } else if (position == 4) {
+                    parchisPiece.setYPosition(parchisPiece.getYPosition() + 94);
+                } else if (position == 5) {
+                    parchisPiece.setYPosition(parchisPiece.getYPosition() + 125);
+                } else if (position == 6) {
+                    parchisPiece.setYPosition(parchisPiece.getYPosition() + 154);
+                } else if (position == 7) {
+                    parchisPiece.setYPosition(parchisPiece.getYPosition() + 182);
+                } else if (position == 8) {
+                    parchisPiece.setYPosition(parchisPiece.getYPosition() + 220);
                 }
             }
 
