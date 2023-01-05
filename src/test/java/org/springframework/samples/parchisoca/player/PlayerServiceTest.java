@@ -11,11 +11,14 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.samples.parchisoca.board.ParchisBoard;
 import org.springframework.samples.parchisoca.dice.OcaDice;
 import org.springframework.samples.parchisoca.dice.ParchisDice;
@@ -267,9 +270,20 @@ public class PlayerServiceTest {
         assertTrue(pTest.getParchisPieces().size() >=1);
     }
 
+    @Test
+    void shouldFindPlayers(){
+        Pageable p = Pageable.unpaged();
+        Page<Player> page = ps.findPlayers(p);
+        assertTrue(page != null);
+    }
 
+    @Test
+    void shouldMakeFriends(){
+        Player player1 = ps.findById(1);
+        Player player2 = ps.findById(2);
 
-
-
-    
+        ps.makeFriends(player1, player2);
+        assertTrue(player1.getFriends().contains(player2));
+        assertTrue(player2.getFriends().contains(player1));
+    }    
 }
