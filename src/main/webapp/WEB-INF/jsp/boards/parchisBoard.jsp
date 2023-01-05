@@ -57,7 +57,6 @@
                                     </c:when>
                                 </c:choose>
                             </c:if>
-
                         </c:forEach>
                     </td>
                     <td> 
