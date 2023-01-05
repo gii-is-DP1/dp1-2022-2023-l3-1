@@ -16,7 +16,7 @@ public class StatService {
     }
 
     @Transactional
-    public void save(Stat stat) {
+    public void save (Stat stat) {
         statRepository.save(stat);
     }
 

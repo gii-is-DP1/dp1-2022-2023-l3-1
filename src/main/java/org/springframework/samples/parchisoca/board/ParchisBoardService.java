@@ -84,7 +84,7 @@ public class ParchisBoardService {
                 piece.setPlayer(p);
                 piece.setColour(color);
                 piece.setParchisBoard(parchisBoard);
-                SetParchisPieceInitialPx(piece);
+                setParchisPieceInitialPx(piece);
                 parchisPieceService.save(piece);
                 p.addPiecePlayer(piece);
                 parchisBoard.addPieceParchis(piece);
@@ -191,6 +191,7 @@ public class ParchisBoardService {
         return parchisPiece;
     }
 
+
     private void normalMovement(ParchisPiece parchisPiece, ParchisBoard parchisBoard, ParchisDice parchisDice) {
         Integer lastPosition = parchisPiece.getPosition();
         Integer diceNumber = parchisDice.getNumber();
@@ -237,6 +238,7 @@ public class ParchisBoardService {
         boxesCheckFor(ls, parchisPiece, lastBox, newBox, parchisBoard);
     }
 
+
     private List<BoxesParchis> listBoxesToGo(BoxesParchis lastBox, BoxesParchis newBox, ParchisBoard parchisBoard) {
         List<BoxesParchis> res = new ArrayList<>();
         if (lastBox.getPositionBoard() > newBox.getPositionBoard()) {
@@ -257,6 +259,7 @@ public class ParchisBoardService {
         return res;
     }
 
+
     private void boxesCheckFor(List<BoxesParchis> ls, ParchisPiece parchisPiece, BoxesParchis lastBox,
             BoxesParchis newBox, ParchisBoard parchisBoard) {
         for (BoxesParchis bx : ls) {
@@ -274,6 +277,7 @@ public class ParchisBoardService {
         }
     }
 
+
     private void enterFinishPositions(BoxesParchis bx, ParchisPiece parchisPiece, ParchisBoard parchisBoard,
             BoxesParchis lastBox,
             BoxesParchis newBox, List<BoxesParchis> ls) {
@@ -287,7 +291,9 @@ public class ParchisBoardService {
         parchisPiece.setFinishPosition(finishPosition);
         parchisPieceService.save(parchisPiece);
         boxesParchisService.save(lastBox);
+        // setParchisPieceFinalPositionPx(parchisPiece,0);
     }
+
 
     private void checkEquals(BoxesParchis bx, BoxesParchis newBox, BoxesParchis lastBox, ParchisPiece parchisPiece) {
         if (bx.equals(newBox)) {
@@ -299,6 +305,7 @@ public class ParchisBoardService {
             boxesParchisService.save(newBox);
         }
     }
+
 
     private void checkBridge(BoxesParchis bx, ParchisPiece parchisPiece, BoxesParchis lastBox,
             ParchisBoard parchisBoard) {
@@ -354,27 +361,24 @@ public class ParchisBoardService {
         Colour color = parchisPiece.getColour();
         if (color == Colour.BLUE && box22.getPiecesInBox().size() < 2) {
             parchisPiece.setPosition(22);
-            setParchisPiecePositionPx(parchisPiece, parchisPiece.getPosition());
             box22.addPieceToBox(parchisPiece);
             boxesParchisService.save(box22);
         } else if (color == Colour.RED && box39.getPiecesInBox().size() < 2) {
             parchisPiece.setPosition(39);
-            setParchisPiecePositionPx(parchisPiece, parchisPiece.getPosition());
             box39.addPieceToBox(parchisPiece);
             boxesParchisService.save(box39);
         } else if (color == Colour.GREEN && box56.getPiecesInBox().size() < 2) {
             parchisPiece.setPosition(56);
-            setParchisPiecePositionPx(parchisPiece, parchisPiece.getPosition());
             box56.addPieceToBox(parchisPiece);
             boxesParchisService.save(box56);
         } else if (color == Colour.YELLOW && box5.getPiecesInBox().size() < 2) {
             parchisPiece.setPosition(5);
-            setParchisPiecePositionPx(parchisPiece, parchisPiece.getPosition());
             box5.addPieceToBox(parchisPiece);
             boxesParchisService.save(box5);
         }
         parchisPieceService.save(parchisPiece);
     }
+
 
     private void eatPiece(ParchisPiece parchisPiece) {
 
@@ -396,6 +400,7 @@ public class ParchisBoardService {
 
     }
 
+
     private void bridge(ParchisPiece parchisPiece, BoxesParchis lastBox) {
 
         if (lastBox.getBridge() == true) {
@@ -416,6 +421,7 @@ public class ParchisBoardService {
 
     }
 
+
     private void initDices(ParchisBoard parchisBoard, Player p) {
         ParchisDice parchisDice1 = new ParchisDice();
         ParchisDice parchisDice2 = new ParchisDice();
@@ -429,7 +435,8 @@ public class ParchisBoardService {
         parchisDiceService.save(parchisDice1, parchisDice2);
     }
 
-    private ParchisPiece SetParchisPieceInitialPx(ParchisPiece parchisPiece) {
+
+    private ParchisPiece setParchisPieceInitialPx(ParchisPiece parchisPiece) {
 
         if (parchisPiece.getColour().equals(Colour.RED)) {
             parchisPiece.setXPosition(56);
@@ -453,6 +460,7 @@ public class ParchisBoardService {
 
         return parchisPiece;
     }
+
 
     private void setParchisPiecePositionPx(ParchisPiece parchisPiece, int position) {
 
@@ -677,5 +685,103 @@ public class ParchisBoardService {
         }
         
     }
+
+    private void setParchisPieceFinalPositionPx (ParchisPiece parchisPiece, int position) {
+
+        if (parchisPiece.getColour() == Colour.GREEN && position == 51) {
+            parchisPiece.setXPosition(10);
+            parchisPiece.setYPosition(300);
+            // Horizontal derecha
+            Integer positionRow = position - 9;
+            if (positionRow == 1) {
+                parchisPiece.setXPosition(parchisPiece.getXPosition() + 28);
+            } else if (positionRow == 2) {
+                parchisPiece.setXPosition(parchisPiece.getXPosition() + 55);
+            } else if (positionRow == 3) {
+                parchisPiece.setXPosition(parchisPiece.getXPosition() + 85);
+            } else if (positionRow == 4) {
+                parchisPiece.setXPosition(parchisPiece.getXPosition() + 115);
+            } else if (positionRow == 5) {
+                parchisPiece.setXPosition(parchisPiece.getXPosition() + 146);
+            } else if (positionRow == 6) {
+                parchisPiece.setXPosition(parchisPiece.getXPosition() + 179);
+            } else if (positionRow == 7) {
+                parchisPiece.setXPosition(parchisPiece.getXPosition() + 213);
+            } else if (positionRow == 8) {
+                parchisPiece.setXPosition(parchisPiece.getXPosition() + 250);
+            }
+
+        } else if (parchisPiece.getColour() == Colour.YELLOW && position == 68) {
+            parchisPiece.setXPosition(300);
+            parchisPiece.setYPosition(610);
+            // Vertical subiendo
+            Integer positionRow = position - 1;
+            if (positionRow == 1) {
+                parchisPiece.setYPosition(parchisPiece.getYPosition() - 28);
+            } else if (positionRow == 2) {
+                parchisPiece.setYPosition(parchisPiece.getYPosition() - 55);
+            } else if (positionRow == 3) {
+                parchisPiece.setYPosition(parchisPiece.getYPosition() - 85);
+            } else if (positionRow == 4) {
+                parchisPiece.setYPosition(parchisPiece.getYPosition() - 117);
+            } else if (positionRow == 5) {
+                parchisPiece.setYPosition(parchisPiece.getYPosition() - 147);
+            } else if (positionRow == 6) {
+                parchisPiece.setYPosition(parchisPiece.getYPosition() - 178);
+            } else if (positionRow == 7) {
+                parchisPiece.setYPosition(parchisPiece.getYPosition() - 213);
+            } else if (positionRow == 8) {
+                parchisPiece.setYPosition(parchisPiece.getYPosition() - 250);
+            }
+        } else if (parchisPiece.getColour() == Colour.BLUE && position == 17) {
+                parchisPiece.setXPosition(610);
+                parchisPiece.setYPosition(300);
+                //Horizontal izquierda
+                Integer positionRow = position - 44;
+                if (positionRow == 1) {
+                    parchisPiece.setXPosition(parchisPiece.getXPosition() - 33);
+                } else if (positionRow == 2) {
+                    parchisPiece.setXPosition(parchisPiece.getXPosition() - 64);
+                } else if (positionRow == 3) {
+                    parchisPiece.setXPosition(parchisPiece.getXPosition() - 94);
+                } else if (positionRow == 4) {
+                    parchisPiece.setXPosition(parchisPiece.getXPosition() - 124);
+                } else if (positionRow == 5) {
+                    parchisPiece.setXPosition(parchisPiece.getXPosition() - 151);
+                } else if (positionRow == 6) {
+                    parchisPiece.setXPosition(parchisPiece.getXPosition() - 180);
+                } else if (positionRow == 7) {
+                    parchisPiece.setYPosition(parchisPiece.getYPosition() - 215);
+                } else if (positionRow == 8) {
+                    parchisPiece.setYPosition(parchisPiece.getYPosition() - 252);
+                }
+            } else if (parchisPiece.getColour() == Colour.RED && position == 34) {
+                parchisPiece.setXPosition(610);
+                parchisPiece.setYPosition(300);
+                //Horizontal izquierda
+                Integer positionRow = position - 44;
+                if (positionRow == 1) {
+                    parchisPiece.setXPosition(parchisPiece.getXPosition() - 33);
+                } else if (positionRow == 2) {
+                    parchisPiece.setXPosition(parchisPiece.getXPosition() - 64);
+                } else if (positionRow == 3) {
+                    parchisPiece.setXPosition(parchisPiece.getXPosition() - 94);
+                } else if (positionRow == 4) {
+                    parchisPiece.setXPosition(parchisPiece.getXPosition() - 124);
+                } else if (positionRow == 5) {
+                    parchisPiece.setXPosition(parchisPiece.getXPosition() - 151);
+                } else if (positionRow == 6) {
+                    parchisPiece.setXPosition(parchisPiece.getXPosition() - 180);
+                } else if (positionRow == 7) {
+                    parchisPiece.setYPosition(parchisPiece.getYPosition() - 215);
+                } else if (positionRow == 8) {
+                    parchisPiece.setYPosition(parchisPiece.getYPosition() - 252);
+                }
+            }
+
+    }
+
+
+    
 
 }
