@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -89,6 +90,16 @@ public class UserServiceTest {
         us.saveUser(u1);
         
         assertThat(u1.getAuthorities().equals(authorities));
+    }
+
+    @Test
+    public void shouldDontSaveAuthorities(){
+        Integer i = null;
+        try{
+            authSer.saveAuthorities(i, "player", "userTest");
+        }catch(DataAccessException a){
+            System.out.println("User with id: '"+ i + "' not found!");
+        }
     }
 
 

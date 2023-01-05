@@ -66,5 +66,11 @@ public class BoxesParchisTest {
         assertTrue(boxesParchis.getPiecesInBox().size() != 0);
 
     }
+
+    @Test
+    void shouldTestSpecialBoxesParchis(){
+        assertTrue(SpecialBoxesParchis.valueOf("ENTRY") != null);
+
+    }
     
 }

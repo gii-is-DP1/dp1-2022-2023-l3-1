@@ -15,7 +15,6 @@ import org.springframework.samples.parchisoca.dice.ParchisDice;
 import org.springframework.samples.parchisoca.dice.ParchisDiceService;
 import org.springframework.samples.parchisoca.game.Game;
 import org.springframework.samples.parchisoca.game.GameService;
-import org.springframework.samples.parchisoca.piece.Colour;
 import org.springframework.samples.parchisoca.piece.ParchisPiece;
 import org.springframework.samples.parchisoca.piece.ParchisPieceService;
 import org.springframework.samples.parchisoca.player.Player;
