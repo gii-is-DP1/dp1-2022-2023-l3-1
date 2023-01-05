@@ -9,7 +9,6 @@ import org.springframework.samples.parchisoca.player.Player;
 import org.springframework.samples.parchisoca.statistic.Stat;
 import org.springframework.samples.parchisoca.statistic.StatService;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import java.util.ArrayList;

@@ -46,6 +46,7 @@ public class AchievementsServiceTest {
         List<Achievement> ls = new ArrayList<>();
         ls.add(achievement);
         assertThat(ls.size() == 1);
+        assertTrue(a.toString().equals(a.getName()));
     }
 
     @Test

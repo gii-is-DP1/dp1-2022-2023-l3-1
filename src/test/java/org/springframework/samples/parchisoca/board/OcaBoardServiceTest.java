@@ -1,9 +1,6 @@
 package org.springframework.samples.parchisoca.board;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-
 import java.util.ArrayList;
 import java.util.List;
 

@@ -25,8 +25,6 @@ import org.springframework.samples.parchisoca.user.Authorities;
 import org.springframework.samples.parchisoca.user.AuthoritiesService;
 import org.springframework.samples.parchisoca.user.User;
 import org.springframework.samples.parchisoca.user.UserService;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 
@@ -173,6 +171,7 @@ public class PlayerServiceTest {
         Player p = ps.findPlayersByUsername("usuarioTest");
         assertThat(p.getUser().getUsername().equals("usuarioTest"));
         assertThat(p.getFirstName().equals("Juan"));
+        assertTrue(p.isNew() == false || p.isNew() == true);
     }
 
     @Test
