@@ -122,7 +122,6 @@ public class OcaBoardServiceTest {
       Integer afterAdd = ocaBoardTest.getPieces().size();
 
       assertTrue(beforeAdd < afterAdd);
-
     }
 
 
