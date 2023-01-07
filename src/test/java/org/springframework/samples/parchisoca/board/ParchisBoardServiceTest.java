@@ -106,6 +106,10 @@ public class ParchisBoardServiceTest {
         p.setBackground("resources/images/ParchisBoard.png");
         p.setWidth(950);
         p.setHeight(800);
+        p.setGame(game);
+        p.setTurn(0);
+        p.setBoxes(new ArrayList<>());
+        p.setFinishBoxes(new ArrayList<>());
 
         parchisBoardService.save(p);
         ParchisBoard newP = parchisBoardService.findById(p.getId());
@@ -113,6 +117,10 @@ public class ParchisBoardServiceTest {
         ls.add(newP);
         assertTrue(ls.size()==1);
         assertTrue(newP.getWidth() == 950);
+        assertTrue(newP.getGame() != null);
+        assertTrue(newP.getBoxes() != null);
+        assertTrue(newP.getTurn() != null);
+        assertTrue(newP.getFinishBoxes() != null);
 	}
 
     @Test
