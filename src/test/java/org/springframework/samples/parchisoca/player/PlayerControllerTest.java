@@ -1,32 +1,30 @@
 package org.springframework.samples.parchisoca.player;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.samples.parchisoca.badWord.BadWordsService;
-import org.springframework.samples.parchisoca.board.OcaBoardService;
-import org.springframework.samples.parchisoca.board.ParchisBoardService;
 import org.springframework.samples.parchisoca.configuration.SecurityConfiguration;
 import org.springframework.samples.parchisoca.notification.NotificationService;
-import org.springframework.samples.parchisoca.player.Player;
-import org.springframework.samples.parchisoca.player.PlayerService;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.test.web.servlet.MockMvc;
+
+
 import org.springframework.security.test.context.support.WithMockUser;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 //Añadiremos esta etiqueta a la clase para poder lanzar el test de forma aislada.
     //estas propiedades excluye las propiedades de seguridad de spring
@@ -133,6 +131,42 @@ public class PlayerControllerTest {
         andExpect(status().isOk()).
         andExpect(view().name("players/playerProfile"));
 	}
+
+    @Test
+    @WithMockUser
+    void testEditLoggedPlayer() throws Exception {
+        Integer playerId = 1;
+        when(playerService.getUserIdByName(anyString())).thenReturn(playerId);
+        when(playerService.findById(anyInt())).thenReturn(new Player());
+        mockMvc.perform(get("/players/{playerId}/edit",playerId))
+        .andExpect(status().isOk()).
+        andExpect(model().attributeExists("player")).
+        andExpect(view().name("players/editPlayer"));
+    }
+
+    @Test
+    @WithMockUser
+    void testEditLoggedPlayerNotEqual() throws Exception {
+        Integer playerId = 1;
+        String MESSAGE = "message";
+        when(playerService.getUserIdByName(anyString())).thenReturn(3);
+        when(playerService.findById(anyInt())).thenReturn(new Player());
+        mockMvc.perform(get("/players/{playerId}/edit",playerId))
+        .andExpect(status().isOk()).
+        andExpect(model().attributeExists(MESSAGE)).
+        andExpect(view().name("players/editPlayer"));
+    }
+
+    @Test
+    @WithMockUser
+    void testEditPlayerAdmin() throws Exception {
+        when(playerService.findById(anyInt())).thenReturn(new Player());
+        mockMvc.perform(get("/admin/{playerId}/edit",1)).
+        andExpect(status().isOk()).
+        andExpect(model().attributeExists("player")).
+        andExpect(view().name("players/editPlayer"));
+    }
+
 
     
 
