@@ -17,6 +17,7 @@ import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.security.test.context.support.WithMockUser;
 
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -56,7 +57,4 @@ public class StatControllerTest {
             andExpect(model().attributeExists("ratio"));
     }
 
-
-
-    
 }
