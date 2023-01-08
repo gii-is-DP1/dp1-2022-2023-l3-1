@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.security.test.context.support.WithMockUser;
 
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -102,6 +103,26 @@ public class gameControllerTest {
         mockMvc.perform(get("/games/instructions/ocaInstructions")).
             andExpect(status().isOk()).
             andExpect(view().name("games/OcaInstructions"));
+    }
+
+    @WithMockUser
+    @Test
+    void testGameWinner() throws Exception {
+        String code = "ASDFG";
+        when(gameService.findGameByCode(code)).thenReturn(new Game());
+        mockMvc.perform(get("/games/lobby/{code}/winner", code)).
+            andExpect(status().isOk()).
+            andExpect(model().attributeExists("game")).
+            andExpect(view().name("games/GameFinished"));
+    }
+
+    @WithMockUser
+    @Test
+    void testGameRoom() throws Exception {
+        String code = "ASDFG";
+        when(gameService.findGameByCode(code)).thenReturn(new Game());
+        mockMvc.perform(get("/games/lobby/{code}/board", code)).
+            andExpect(status().isOk());
     }
 
 
