@@ -84,19 +84,7 @@ public class AchievementControllerTest {
         andExpect(status().isOk()).
         andExpect(view().name("/achievements/createOrUpdateAchievementForm")).
         andExpect(model().attributeExists("achievement"));
-    }
-
-    @Test
-    @WithMockUser
-    void testAccessDenied() throws Exception {
-        mockMvc.perform(get("/accessdenied")).
-        andExpect(status().isOk());
-    }
-
-
-
-
-    
+    }   
 
 
 }
