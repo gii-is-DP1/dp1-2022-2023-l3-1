@@ -59,6 +59,7 @@ public class OcaBoardServiceTest {
         ocaDice.setPlayer(player);
         ocaDice.setOcaBoard(ocaBoard);
         ocaDiceService.save(ocaDice);
+
         List<OcaDice> ls = new ArrayList<>();
         ls.add(ocaDice);
 
@@ -159,8 +160,4 @@ public class OcaBoardServiceTest {
       OcaBoard ocaBoardInit = ocaBoardService.initBoard(game);
       assertThat(ocaBoardInit != null);
     }
-
-
-
-
 }
