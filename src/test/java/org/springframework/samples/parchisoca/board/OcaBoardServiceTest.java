@@ -17,6 +17,7 @@ import org.springframework.samples.parchisoca.game.Game;
 import org.springframework.samples.parchisoca.oca.BoxesOca;
 import org.springframework.samples.parchisoca.oca.BoxesOcaService;
 import org.springframework.samples.parchisoca.oca.SpecialBoxesOca;
+import org.springframework.samples.parchisoca.piece.Colour;
 import org.springframework.samples.parchisoca.piece.OcaPiece;
 import org.springframework.samples.parchisoca.piece.OcaPieceService;
 import org.springframework.samples.parchisoca.player.Player;
@@ -61,18 +62,25 @@ public class OcaBoardServiceTest {
         List<OcaDice> ls = new ArrayList<>();
         ls.add(ocaDice);
 
+        BoxesOca boxOca = new BoxesOca();
+        boxOca.setOcaBoard(ocaBoard);
+        boxOca.setPositionBoard(50);
+        boxOca.setSpecialBoxOca(SpecialBoxesOca.BRIDGE);
+
+        List<BoxesOca> listBoxesOca = new ArrayList<>();
+        listBoxesOca.add(boxOca);
+
        
         player.setOcaDice(ls);
         playerService.save(player);
 
-        ocaBoard.setBoxes(new ArrayList<>());
+        ocaBoard.setBoxes(listBoxesOca);
         ocaBoard.setGame(new Game());
         ocaBoard.setPieces(new ArrayList<OcaPiece>());
         ocaBoard.setTurn(0);
         ocaBoard.setBackground("backGround");
         ocaBoard.setWidth(10);
         ocaBoard.setHeight(10);
-
     }
 
     @Test
@@ -124,7 +132,33 @@ public class OcaBoardServiceTest {
       assertTrue(beforeAdd < afterAdd);
     }
 
+    @Test
+    void shouldGiveNextPosition() {
+      ocaBoardService.save(ocaBoard);
 
+      OcaPiece ocaPieceTest = new OcaPiece();
+      ocaPieceTest.setColour(Colour.BLUE);
+      ocaPieceTest.setOcaBoard(ocaBoard);
+      ocaPieceTest.setPenalizationTurn(0);
+      ocaPieceTest.setPlayer(player);
+      ocaPieceTest.setPosition(10);
+      ocaPieceTest.setXPosition(50);
+      ocaPieceTest.setYPosition(50);
+      ocaPieceService.save(ocaPieceTest);
+
+      Integer nextPosition = ocaBoardService.nextPosition(ocaBoard, ocaPieceTest, 1);
+      assertTrue(nextPosition != 0);
+    }
+
+    @Test
+    void shouldInitBoard() {
+      Game game = new Game();
+      List<Player> playerList = new ArrayList<>();
+      playerList.add(player);
+      game.setPlayers(playerList);
+      OcaBoard ocaBoardInit = ocaBoardService.initBoard(game);
+      assertThat(ocaBoardInit != null);
+    }
 
 
 
