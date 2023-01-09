@@ -8,7 +8,7 @@
 
 
 
-<game:layout pageName = "Oca Board">
+<game:layoutWithoutMenu pageName = "Oca Board">
 
     <h2 style="text-align: center;">Oca Board</h2>
 
@@ -29,6 +29,8 @@
             <tr>
                 <th scope ="col">Player</th>
                 <th scope ="col">Position</th>
+                <th scope = "col">Color</th>
+                <th scope = "col">Penalization</th>
             </tr>
         </thead>
         <tbody>
@@ -36,6 +38,8 @@
                 <tr>
                     <td>${piece.player.user.username}
                     <td>${piece.position} 
+                    <td>${piece.colour}
+                    <td>${piece.penalizationTurn}
                 </tr>
             </c:forEach>
         </tbody>
@@ -47,4 +51,4 @@
     <h2 style="text-align: center;">${error}</h2>
     <a style="text-align:center" class="btn btn-warning btn-lg active" href="/boards/ocaBoard/${ocaBoard.id}/dice">Roll</a> 
     <a style="text-align:center" class="btn btn-warning btn-lg active" href="/games/lobby/${ocaBoard.game.code}/exit">Exit</a> 
-</game:layout> 
+</game:layoutWithoutMenu> 

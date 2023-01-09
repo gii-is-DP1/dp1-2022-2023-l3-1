@@ -3,6 +3,7 @@ package org.springframework.samples.parchisoca.oca;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.parchisoca.board.OcaBoard;
 import org.springframework.samples.parchisoca.piece.OcaPiece;
 import org.springframework.samples.parchisoca.piece.OcaPieceService;
 
@@ -13,21 +14,25 @@ public class Action {
 
     static List<Integer> ocasList = List.of(5,9,14,18,23,27,32,36,41,45,50,54,59);
 
-    public Integer bridge(Integer postion){
+    public Integer bridge(Integer postion, OcaPiece ocaPiece){
         Integer pos;
         if (postion.equals(6)) {
             pos = 12;
         } else {
             pos = 6;
         }
+        OcaBoard ocaBoard = ocaPiece.getOcaBoard();
+        Integer turn = ocaBoard.getTurn();
+        ocaBoard.setTurn(turn-1);
         return pos;
+        
     }
 
     public Integer death(Integer position) {
         return 1;
     }
 
-    public Integer dices(Integer position) {
+    public Integer dices(Integer position,OcaPiece ocaPiece) {
         Integer pos =0;
 
         if (position.equals(26)) {
@@ -36,6 +41,9 @@ public class Action {
         } else {
             pos = 23;
         }
+        OcaBoard ocaBoard = ocaPiece.getOcaBoard();
+        Integer turn = ocaBoard.getTurn();
+        ocaBoard.setTurn(turn-1);
         return pos;
     }
 
@@ -48,13 +56,16 @@ public class Action {
         return 30;
     }
 
-    public Integer oca(Integer position) {
+    public Integer oca(Integer position,OcaPiece ocaPiece) {
         Integer pos;
         if (position == 59) {
             pos = position;
         } else {
             pos =ocasList.get(ocasList.indexOf(position) +1);
         }
+        OcaBoard ocaBoard = ocaPiece.getOcaBoard();
+        Integer turn = ocaBoard.getTurn();
+        ocaBoard.setTurn(turn-1);
         return pos;
     }
 

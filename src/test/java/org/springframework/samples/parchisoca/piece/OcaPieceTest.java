@@ -1,58 +1,55 @@
 package org.springframework.samples.parchisoca.piece;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-
-import javax.validation.ConstraintViolationException;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
-
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import javax.validation.ConstraintViolationException;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.samples.parchisoca.board.OcaBoard;
+import org.springframework.samples.parchisoca.board.OcaBoardService;
+import org.springframework.samples.parchisoca.player.Player;
+import org.springframework.samples.parchisoca.player.PlayerService;
 import org.springframework.stereotype.Service;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 public class OcaPieceTest {
 
-    @Autowired(required = false)
-    OcaPieceRepository or;
+    @Autowired
+    OcaPieceService ocaPieceService;
 
-    @Autowired(required = false)
-    OcaPieceService os;
+    @Autowired
+    PlayerService playerService;
 
-    ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-    Validator validator = factory.getValidator();
+    @Autowired
+    OcaBoardService ocaBoardService;
+
+    OcaPiece op = new OcaPiece();
+
+    @BeforeEach
+    void setUp(){
+        OcaBoard ocaBoard = ocaBoardService.findById(1);
+        op.setOcaBoard(ocaBoard);
+        op.setPosition(1);
+        op.setPenalizationTurn(1);
+        Player player = playerService.findById(1);
+        op.setPlayer(player);
+
+    }
 
     @Test
-    public void testNewOcaPiece(){
-        testConstraints();
-    }
+    public void testColourConstraint(){
+        op.setColour(null);
+        op.setXPosition(100);
+        op.setYPosition(100);
 
-    void testConstraints() {
-        OcaPiece o = new OcaPiece();
-        o.setId(5);
-        o.setXPosition(100);
-        o.setYPosition(6);
-        o.setColour(Colour.RED);
-
-        assertThrows(ConstraintViolationException.class,() -> or.save(o),
-        "You are not constraining "+ "X position can not be < 7");  
-        
-        
-        OcaPiece o2 = new OcaPiece();
-        o.setId(7);
-        o.setXPosition(6);
-        o.setYPosition(100);
-        o.setColour(Colour.RED);
-
-        assertThrows(ConstraintViolationException.class,() -> or.save(o2),
-        "You are not constraining "+ "Y position can not be < 7"); 
-
+        assertThrows(ConstraintViolationException.class,() -> ocaPieceService.save(op),
+        "You are not constraining "+ "colour can not be null");
     }
 
 
-    
+   
 }

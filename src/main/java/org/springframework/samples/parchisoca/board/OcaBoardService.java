@@ -42,7 +42,6 @@ public class OcaBoardService {
     @Autowired
     BoxesOcaService boxesOcaService;
 
-
     @Transactional(readOnly = true)
     public OcaBoard findById(Integer id){
         return ocaBoardRepository.findById(id).get();
@@ -53,91 +52,171 @@ public class OcaBoardService {
         ocaBoardRepository.save(ocaBoard);
     }
 
-   // Calculates the actual position on board
-    public OcaPiece actualPosition(OcaBoard ocaBoard, OcaPiece piece){
+    @Transactional
+    public OcaPiece makeMovement(OcaBoard ocaBoard, OcaPiece piece){
         Player player = piece.getPlayer();
         OcaDice dice = ocaBoardRepository.getOcaDiceByPlayer(player, ocaBoard);
         Integer diceNumber = dice.getNumber();
         Integer suma = piece.getPosition() + diceNumber;
-        Integer position = ocaBoard.reboteTirada(suma);
+        Integer position = ocaBoard.bounceBack(suma);
         Integer newPosition = nextPosition(ocaBoard, piece, position);
         piece.setPosition(newPosition);
+        List<BoxesOca> ls = ocaBoard.getBoxes();
+        BoxesOca boxOca = ls.get(newPosition-1);
+        piece.setXPosition(boxOca.getXPosition());
+        piece.setYPosition(boxOca.getYPosition());
         ocaPieceService.save(piece);
         return piece;
     }
 
+    @Transactional
     public Integer nextPosition(OcaBoard ocaBoard,OcaPiece ocaPiece,Integer position){
         List<BoxesOca> ls = ocaBoard.getBoxes();
         BoxesOca box = ls.get(position-1);
         Integer  newPosition = ocaBoard.action(box,ocaPiece);
+        ocaBoardRepository.save(ocaBoard);
         return newPosition;
     }
     
-     //Inititate board with piece and dice
-     public OcaBoard initBoard(Game game){
-        OcaBoard oca = new OcaBoard();
-        ocaBoardRepository.save(oca);
+    //Inititate board with piece and dice
+    @Transactional
+    public OcaBoard initBoard(Game game) {
+        OcaBoard ocaBoard = new OcaBoard();
+        ocaBoardRepository.save(ocaBoard);
         List<Player> players = game.getPlayers();
+        initPlayers(players,ocaBoard);
+        List<BoxesOca> ls = initBoxes(ocaBoard);
+        ocaBoard.setBoxes(ls);
+        ocaBoardRepository.save(ocaBoard);
+        
+        return ocaBoard;
+
+    }
+
+    private void initPlayers(List<Player> players,OcaBoard ocaBoard) {
+        int i = 0;
+        List<Colour> colours = List.of(Colour.RED,Colour.BLUE,Colour.YELLOW,Colour.GREEN);
         for(Player p : players){
             OcaPiece piece = new OcaPiece();
             piece.setPlayer(p);
-            piece.setColour(Colour.RED);
-            piece.setOcaBoard(oca); 
+            Colour color = colours.get(i);
+            piece.setColour(color);
+            piece.setOcaBoard(ocaBoard); 
             ocaPieceService.save(piece);
             OcaDice dice = new OcaDice();
             ocaDiceService.save(dice);
-            dice.setOcaBoard(oca);
+            dice.setOcaBoard(ocaBoard);
             p.addDice(dice);
             dice.setPlayer(p);
             playerService.save(p);
             ocaDiceService.save(dice);
+            i++;
         }
-        
-        List<BoxesOca> ls = initBoxes();
-        oca.setBoxes(ls);
-        ocaBoardRepository.save(oca);
-        
-        return oca;
-
     }
 
     // Initiates the boxes of a board
-    public List<BoxesOca>  initBoxes() {
-        List<BoxesOca> normalBoxesOca = new ArrayList<BoxesOca>(63);
+    @Transactional
+    public List<BoxesOca> initBoxes(OcaBoard ocaBoard) {
+        List<BoxesOca> boxesOca = new ArrayList<BoxesOca>(63);
         for (int i=1; i<=63; i++) {
-            BoxesOca res = new BoxesOca();
+            BoxesOca box = new BoxesOca();
             if(i==5 || i==9 || i==14 || i==18 || i== 23 || i==27 
             || i== 32 || i==36 || i==41 || i==45 || i==50 || i==54 || i== 59) {
-                res.setSpecialBoxOca(SpecialBoxesOca.OCA);
+                box.setSpecialBoxOca(SpecialBoxesOca.OCA);
             } else if (i==6 || i==12) {
-                res.setSpecialBoxOca(SpecialBoxesOca.BRIDGE);
+                box.setSpecialBoxOca(SpecialBoxesOca.BRIDGE);
             } else if (i==26 || i==53) {
-                res.setSpecialBoxOca(SpecialBoxesOca.DICES);
+                box.setSpecialBoxOca(SpecialBoxesOca.DICES);
             } else if (i==19) {
-                res.setSpecialBoxOca(SpecialBoxesOca.HOSTAL);
+                box.setSpecialBoxOca(SpecialBoxesOca.HOSTAL);
             } else if (i==31) {
-                res.setSpecialBoxOca(SpecialBoxesOca.WELL);
+                box.setSpecialBoxOca(SpecialBoxesOca.WELL);
             } else if (i==42) {
-                res.setSpecialBoxOca(SpecialBoxesOca.LABYRINTH);
+                box.setSpecialBoxOca(SpecialBoxesOca.LABYRINTH);
             } else if (i==58) {
-                res.setSpecialBoxOca(SpecialBoxesOca.DEATH);
+                box.setSpecialBoxOca(SpecialBoxesOca.DEATH);
             } else if (i==63) {
-                res.setSpecialBoxOca(SpecialBoxesOca.GOAL);
+                box.setSpecialBoxOca(SpecialBoxesOca.GOAL);
+            }else if (i==52){
+                box.setSpecialBoxOca(SpecialBoxesOca.PRISON);
             } else {
-                res.setSpecialBoxOca(SpecialBoxesOca.NORMAL);
+                box.setSpecialBoxOca(SpecialBoxesOca.NORMAL);
             }
-            res.setPositionBoard(i);
-            normalBoxesOca.add(res);
-            boxesOcaService.save(res);
+            box.setPositionBoard(i);
+            box.setOcaBoard(ocaBoard);
+            boxesOca.add(box);
+            boxesOcaService.save(box);
+            box = SetOcaBoxPositionPx(box,i);
+            boxesOcaService.save(box);
         }
-        return normalBoxesOca;
+        return boxesOca;
     }
 
-    public OcaPiece nextTurn(OcaBoard ocaBoard, Integer turn){
+    @Transactional
+    private BoxesOca SetOcaBoxPositionPx(BoxesOca res, int position) {
+        
+        if (position == 1){
+            res.setXPosition(100);
+            res.setYPosition(580);
+            return res;  
+        }
+             
+        if(position >= 2 && position <= 8 ){
+            res.setXPosition(225);
+            res.setYPosition(580);
+            res.setXPosition(res.getXPosition() + ((position-2) * 54 ));
+            return res;
+        }
+        if (position >= 9 && position <= 18){
+            res.setXPosition(590);
+            res.setYPosition(550);
+            res.setYPosition(res.getYPosition() - ((position-9) * 54 ));
+        }
+        if (position >= 19 && position <= 28){
+            res.setXPosition(550);
+            res.setYPosition(25);
+            res.setXPosition(res.getXPosition() - ((position-19) * 54 ));
+        }
+        if (position >= 29 && position <= 36){
+            res.setXPosition(30);
+            res.setYPosition(80);
+            res.setYPosition(res.getYPosition() + ((position-29) * 54 ));
+        }
+        if (position >= 37 && position <= 44){
+            res.setXPosition(80);
+            res.setYPosition(500);
+            res.setXPosition(res.getXPosition() + ((position-37) * 54 ));
+        }
+        if (position >= 45 && position <= 50){
+            res.setXPosition(500);
+            res.setYPosition(450);
+            res.setYPosition(res.getYPosition() - ((position-45) * 54 ));
+        }
+        if (position >= 51 && position <= 56){
+            res.setXPosition(450);
+            res.setYPosition(115);
+            res.setXPosition(res.getXPosition() - ((position-51) * 54 ));
+        }  
+        if (position >= 57 && position <= 60){
+            res.setXPosition(120);
+            res.setYPosition(185);
+            res.setYPosition(res.getYPosition() + ((position-57) * 54 ));
+        }   
+        if (position >= 61 && position <= 63){
+            res.setXPosition(180);
+            res.setYPosition(405);
+            res.setXPosition(res.getXPosition() + ((position-61) * 54 ));
+        }   
+        return res;
+    }
+    
+    @Transactional
+    public OcaPiece nextTurn(OcaBoard ocaBoard){
 
         List <OcaPiece> pieces  = ocaBoard.getPieces();
+        Integer turn = ocaBoard.getTurn();
         if (turn == pieces.size()-1){
-            ocaBoard.setTurn(0);;
+            ocaBoard.setTurn(0);
         }else{
             turn +=1;
             ocaBoard.setTurn(turn);
@@ -146,11 +225,13 @@ public class OcaBoardService {
 
     }
 
-    public OcaDice findOcaDiceByPlayer(Player player, OcaBoard ocaBoard) {
+    @Transactional(readOnly = true)
+    public OcaDice findOcaDiceByPlayerAndBoard(Player player, OcaBoard ocaBoard) {
         OcaDice result = ocaBoardRepository.getOcaDiceByPlayer(player, ocaBoard);
         return result;
     }
     
+    @Transactional(readOnly = true)
     public Boolean isActualPlayer(Player piecePlayer){
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

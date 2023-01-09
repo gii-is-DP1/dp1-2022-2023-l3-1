@@ -2,22 +2,31 @@ package org.springframework.samples.parchisoca.dice;
 
 import lombok.Getter;
 import lombok.Setter;
+
+import org.springframework.samples.parchisoca.board.ParchisBoard;
 import org.springframework.samples.parchisoca.model.BaseEntity;
+import org.springframework.samples.parchisoca.player.Player;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 @Entity
 @Getter
 @Setter
 public class ParchisDice extends BaseEntity {
 
-    private Integer dice1;
-    private Integer dice2;
-    private final Integer MAX = 6;
+    private Integer number;
 
-    public void rollDices(){
-        this.dice1 = (int) (Math.random() * MAX ) + 1;
-        this.dice2 = (int) (Math.random() * MAX ) + 1;
+    private final static Integer MAX = 6;
+
+    @ManyToOne
+    private ParchisBoard parchisBoard;
+
+    @ManyToOne
+    private Player player;
+
+    public void rollDice(){
+        this.number = (int) (Math.random() * MAX ) + 1;
     }
 
 }

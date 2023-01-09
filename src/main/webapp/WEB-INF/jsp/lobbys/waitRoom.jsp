@@ -8,8 +8,9 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <link rel="stylesheet" type="text/css" href="/resources/style.css" media="screen" />
 
-<parchisoca:layout pageName="waitRoom">
-    <jsp:body>
+
+<parchisoca:layoutWithoutMenu pageName="waitRoom">
+    <body>
     <div class = "container">
         <div class = "row">
             <div class = "col-sm-4">
@@ -39,11 +40,11 @@
             </tbody>
         </table>
         <div class="col text-center">
-            <a class="btn btn-default" href='<spring:url value="/games/lobby/${games.code}/board" htmlEscape="true"/>'>Start</a>
+            <a class="btn btn-default" href='<spring:url value="/games/lobby/${games.code}/inviteFriends" htmlEscape="true"/>'>Invite Friends</a>
             <a class="btn btn-default" href='<spring:url value="/games/lobby/${games.code}/exitWaitRoom" htmlEscape="true"/>'>Exit</a>
         </div>
 
     </div>       
-    </jsp:body>
+    </body>
 
-</parchisoca:layout>
+</parchisoca:layoutWithoutMenu>

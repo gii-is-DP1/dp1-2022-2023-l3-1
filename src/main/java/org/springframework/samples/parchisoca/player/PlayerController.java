@@ -13,13 +13,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.samples.parchisoca.user.User;
-import org.springframework.samples.parchisoca.user.UserService;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.samples.parchisoca.badWord.BadWordsService;
+import org.springframework.samples.parchisoca.notification.NotificationService;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,6 +31,9 @@ public class PlayerController {
 
     @Autowired
     private BadWordsService badWordsService;
+
+    @Autowired
+    private NotificationService notificationService;
 
     private final String PLAYERS_LISTING_VIEW = "players/playersListing";
     private final String PLAYERS_FOUND_LISTING_VIEW = "players/playersFoundListing";
@@ -85,8 +84,7 @@ public class PlayerController {
                 } else {
                     message = "There is no player known as '" + username+"'.";
                 }
-            }
-            if (playersFound.size() > 0) {
+            } if (playersFound.size() > 0) {
                 direction = PLAYERS_FOUND_LISTING_VIEW;
             }
 
@@ -167,6 +165,7 @@ public class PlayerController {
         result.addObject("player", new Player());
         return result;
     }
+    
 
     @PostMapping(value = "/players/create")
 	public String processCreationForm(@Valid Player player, BindingResult result) {
@@ -263,6 +262,7 @@ public class PlayerController {
         Player currentPlayer = playerService.findById(playerId);
 
         List<Player> friends = currentPlayer.getFriends();
+        
         ModelAndView mav = new ModelAndView(PLAYER_FRIENDS);
         mav.addObject("friends", friends);
         return mav;
@@ -282,13 +282,54 @@ public class PlayerController {
         String username = auth.getName();
         Integer currentPlayerId = this.playerService.getUserIdByName(username);
         Player currentPlayer = playerService.findById(currentPlayerId);
-
+        
         Player playerToAdd = playerService.findById(playerId);
+
         if (!currentPlayer.getFriends().contains(playerToAdd)) {
-            currentPlayer.getFriends().add(playerToAdd);
-            playerService.savePlayer(currentPlayer);
+            playerService.makeFriends(currentPlayer, playerToAdd);
         }
+
         return "redirect:/players/myFriends";
+    }
+
+    // Sends a friend request to the player with the id of the path
+    @GetMapping("/players/{playerId}/sendFriendRequest")
+    public ModelAndView sendFriendRequest(@PathVariable("playerId") Integer playerId) {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        Integer currentPlayerId = this.playerService.getUserIdByName(username);
+        Player currentPlayer = playerService.findById(currentPlayerId);
+        
+        List<Player> friends = currentPlayer.getFriends();
+        ModelAndView mav = new ModelAndView(PLAYER_FRIENDS);
+        mav.addObject("friends", friends);
+        Player playerToAdd = playerService.findById(playerId);
+
+        if (!currentPlayer.getFriends().contains(playerToAdd)) {
+            String notificationMessage = currentPlayer.getUser().getUsername() + " sent you a friend request!";
+            notificationService.sendFriendRequest(playerToAdd, notificationMessage, currentPlayerId);
+            String message = "Friend request sent.";
+            mav.addObject("message", message);
+        }
+    
+        return mav;
+    }
+
+    @GetMapping("/players/{playerId}/sendGameInvitation/{code}")
+    public String sendGameInvitation(@PathVariable("playerId") Integer playerId, @PathVariable("code") String code) {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        Integer currentPlayerId = this.playerService.getUserIdByName(username);
+        Player currentPlayer = playerService.findById(currentPlayerId);
+
+        Player playerToInvite = playerService.findById(playerId);
+        String notificationMessage = currentPlayer.getUser().getUsername() + " sent you a game invitation!";
+
+        notificationService.sendGameInvitation(playerToInvite, notificationMessage, currentPlayerId, code);
+        return "redirect:/games/lobby/" + code + "/waitRoom";
+
     }
 
     @GetMapping("/players/friends/{playerId}/delete")

@@ -33,20 +33,22 @@ INSERT INTO players_friends(player_id,friends_id) VALUES (3,2);
 
 INSERT INTO games(id,creator_id,winner_id,name,jugadores,code,privacity,game_type_id, in_progress) VALUES (1,1,1,'prueba',4,'ASDFG','PUBLIC',1,FALSE);
 INSERT INTO games(id,creator_id,winner_id,name,jugadores,code,privacity,game_type_id, in_progress) VALUES (2,2,2,'prueba',4,'FMNJF','PRIVATE',1,FALSE);
-INSERT INTO games(id,creator_id,name,code,privacity,game_type_id, in_progress,started) VALUES (3,2,'partida vacia parchis','JDSKL','PUBLIC',2,TRUE,FALSE);
-INSERT INTO games(id,creator_id,name,code,privacity,game_type_id, in_progress,started) VALUES (4,2,'partida vacia oca','KFLSO','PRIVATE',2,TRUE,FALSE);
-
+INSERT INTO games(id,creator_id,name,code,privacity,game_type_id, in_progress, started) VALUES (3,2,'partida vacia parchis','JDSKL','PUBLIC',1,TRUE,FALSE);
+INSERT INTO games(id,creator_id,name,code,privacity,game_type_id, in_progress, started) VALUES (4,2,'partida vacia oca','KFLSO','PRIVATE',2,TRUE,FALSE);
 
 INSERT INTO games_players (game_id, players_id) VALUES (1,1);
 INSERT INTO games_players (game_id, players_id) VALUES (1,2);
 INSERT INTO games_players (game_id, players_id) VALUES (2,2);
 INSERT INTO games_players (game_id, players_id) VALUES (3,2);
 
+INSERT INTO stats (id, player_id, played_games, won_games, lost_games) VALUES (1, 1, 4, 3, 1);
+INSERT INTO stats (id, player_id, played_games, won_games, lost_games) VALUES (2, 2, 0, 0, 0);
+INSERT INTO stats (id, player_id, played_games, won_games, lost_games) VALUES (3, 3, 0, 0, 0);
+INSERT INTO stats (id, player_id, played_games, won_games, lost_games) VALUES (4, 4, 0, 0, 0);
 
-INSERT INTO oca_boards (id, background, height, width) VALUES (1,'resources/images/tablero-oca.png', 800,800);
+INSERT INTO oca_boards (id, background, height, width) VALUES (1,'/resources/images/tablero-oca.png', 800,800);
 
-
-INSERT INTO parchis_boards (id,background,height,width) VALUES (1,'resources/images/ParchisBoard.png',800,800);
+INSERT INTO parchis_boards (id,background,height,width) VALUES (1,'/resources/images/ParchisBoard.png',800,800);
 
 INSERT INTO oca_pieces(id,colour,x_position,y_position,oca_board_id) VALUES (1,'RED',1,7,1);
 

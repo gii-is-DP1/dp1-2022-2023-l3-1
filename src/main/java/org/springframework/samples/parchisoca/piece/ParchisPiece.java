@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.samples.parchisoca.board.ParchisBoard;
 import org.springframework.samples.parchisoca.model.BaseEntity;
+import org.springframework.samples.parchisoca.player.Player;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -22,18 +23,29 @@ public class ParchisPiece extends BaseEntity {
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    private Colour colour;
+    public Colour colour;
 
-    @Range(min=0,max=18)
     @NotNull
     private int xPosition;
 
-    @Range(min=0,max=18)
     @NotNull
     private int yPosition;
 
+    private Integer position = 0;
+
     @ManyToOne
     private ParchisBoard parchisBoard;
+
+    @ManyToOne
+    private Player player;
+
+    private Integer finishPosition;
+
+    private Boolean inGoal = false;
+
+    private Boolean justAte = false;
+
+    private Boolean justInGoal = false;
 
     public Integer getPositionXInPixels(Integer size) {
     	return (xPosition)*size;
@@ -42,6 +54,7 @@ public class ParchisPiece extends BaseEntity {
     public Integer getPositionYInPixels(Integer size) {
     	return (yPosition)*size;
     }
-    
+
+
 }
 

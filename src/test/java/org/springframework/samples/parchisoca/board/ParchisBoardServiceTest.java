@@ -5,12 +5,20 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.samples.parchisoca.dice.ParchisDice;
+import org.springframework.samples.parchisoca.dice.ParchisDiceService;
+import org.springframework.samples.parchisoca.game.Game;
+import org.springframework.samples.parchisoca.game.GameService;
+import org.springframework.samples.parchisoca.piece.ParchisPiece;
+import org.springframework.samples.parchisoca.piece.ParchisPieceService;
+import org.springframework.samples.parchisoca.player.Player;
+import org.springframework.samples.parchisoca.player.PlayerService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +28,75 @@ import org.springframework.transaction.annotation.Transactional;
 public class ParchisBoardServiceTest {
 
     @Autowired
-    ParchisBoardService ps;
+    ParchisBoardService parchisBoardService;
+
+    @Autowired
+    ParchisPieceService parchisPieceService;
+
+    @Autowired
+    ParchisDiceService parchisDiceService;
+
+    @Autowired
+    PlayerService playerService;
+
+    @Autowired
+    GameService gameService;
+
+    Player player = null;
+
+    Player player2 = null;
+
+    Player player3 = null;
+
+    Player player4 = null;
+
+    Game game = null;
+
+    ParchisBoard parchisBoardTest = null;
+
+    @BeforeEach
+    void setUp(){
+        player = playerService.findById(1);
+        player2 = playerService.findById(1);
+        player3 = playerService.findById(1);
+        player4 = playerService.findById(1);
+
+
+        List<Player> playerList = new ArrayList<>();
+        playerList.add(player);
+        playerList.add(player2);
+        playerList.add(player3);
+        playerList.add(player4);
+
+        game = gameService.findGameById(1);
+        game.setPlayers(playerList);
+        gameService.save(game);
+
+        ParchisPiece parchisPiece = parchisPieceService.findById(1);
+        parchisPiece.setFinishPosition(63);
+        parchisPiece.setInGoal(false);
+        parchisPieceService.save(parchisPiece);
+
+
+        List<ParchisPiece> parchisPieceList = new ArrayList<>();
+        parchisPieceList.add(parchisPiece);
+
+
+        ParchisDice parchisDice1 = new ParchisDice();
+        parchisDice1.setNumber(0);
+        parchisDice1.setParchisBoard(parchisBoardTest);
+        parchisDice1.setPlayer(player);
+        parchisDiceService.save(parchisDice1);
+
+        List<ParchisDice> parchisDiceList = new ArrayList<>();
+        parchisDiceList.add(parchisDice1);
+
+        parchisBoardTest = parchisBoardService.findById(1);
+        parchisBoardTest.setParchisDices(parchisDiceList);
+        parchisBoardTest.setPieces(parchisPieceList);
+        parchisBoardService.save(parchisBoardTest);
+
+    }
 
     @Test
 	@Transactional
@@ -30,20 +106,81 @@ public class ParchisBoardServiceTest {
         p.setBackground("resources/images/ParchisBoard.png");
         p.setWidth(950);
         p.setHeight(800);
+        p.setGame(game);
+        p.setTurn(0);
+        p.setBoxes(new ArrayList<>());
+        p.setFinishBoxes(new ArrayList<>());
 
-        ps.save(p);
-        ParchisBoard newP = ps.findById(p.getId()).get();
+        parchisBoardService.save(p);
+        ParchisBoard newP = parchisBoardService.findById(p.getId());
         List<ParchisBoard> ls = new ArrayList<>();
         ls.add(newP);
         assertTrue(ls.size()==1);
         assertTrue(newP.getWidth() == 950);
+        assertTrue(newP.getGame() != null);
+        assertTrue(newP.getBoxes() != null);
+        assertTrue(newP.getTurn() != null);
+        assertTrue(newP.getFinishBoxes() != null);
 	}
 
     @Test
     void shouldFindBoardById(){
-        Optional <ParchisBoard> p = ps.findById(1);
-        assertThat(p.get().getId()==1);
+        ParchisBoard p = parchisBoardService.findById(1);
+        assertThat(p.getId()==1);
+    }
+
+    @Test
+    void ShouldInitBoard(){
+        ParchisBoard parchisBoard = parchisBoardService.initBoard(game);
+        assertThat(parchisBoard != null);
+        assertThat(parchisBoard.getPieces() != null);
+        assertThat(parchisBoard.getCasillasParchis() != null);
+    }
+
+    @Test
+    void shouldNextTurn(){
+        Player playerTestFirstCondition = parchisBoardService.nextTurn(parchisBoardTest, game, 3);
+        assertThat(playerTestFirstCondition != null);
+
+        Player playerTestSecondCondition = parchisBoardService.nextTurn(parchisBoardTest, game, 1);
+        assertThat(playerTestSecondCondition != null);
+    }
+
+    @Test
+    void shouldFindParchisDiceByPlayer(){
+        List<ParchisDice> parchisDiceList = parchisBoardService.findParchisDiceByPlayer(player, parchisBoardTest);
+        assertThat(parchisDiceList != null);
+    }
+
+    @Test
+    void shouldMovementPieceFirstBranch(){
+        ParchisPiece parchisPiece = parchisBoardTest.getPieces().get(0);
+        ParchisDice parchisDice = parchisBoardTest.getParchisDices().get(0);
+
+        ParchisPiece parchisPieceTest = parchisBoardService.movementPiece(parchisBoardTest, parchisPiece, parchisDice);
+        assertThat(parchisPieceTest != null);
 
     }
+
+    // @Test
+    // void shouldMovementPieceSecondBranch(){
+    //     ParchisPiece parchisPiece2 = parchisPieceService.findById(1);
+    //     parchisPiece2.setFinishPosition(63);
+    //     parchisPiece2.setInGoal(true);
+    //     parchisPiece2.setPosition(10);
+    //     parchisPieceService.save(parchisPiece2);
+
+    //     List<ParchisPiece> parchisPieceList = new ArrayList<>();
+    //     parchisPieceList.add(parchisPiece2);
+    //     parchisBoardTest.setPieces(parchisPieceList);
+
+    //     ParchisPiece parchisPiece = parchisBoardTest.getPieces().get(0);
+    //     ParchisDice parchisDice = parchisBoardTest.getParchisDices().get(0);
+
+    //     ParchisPiece parchisPieceTest = parchisBoardService.movementPiece(parchisBoardTest, parchisPiece, parchisDice);
+    //     assertThat(parchisPieceTest != null);
+    // }
+
+
     
 }

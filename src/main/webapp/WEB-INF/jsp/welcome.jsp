@@ -34,7 +34,7 @@
             </a>
         </sec:authorize>    
     </div>
-    <body>
+    </body>
 </parchisoca:layout>
 
 <style>

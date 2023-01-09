@@ -2,10 +2,10 @@
  description="ParchisBoard to be rendered" %>
 <canvas id="canvas" width="${parchisBoard.width}" height="${parchisBoard.height}"></canvas>
 <img id="source" src="${parchisBoard.background}" style="display:none">
-<img id="RED" src="resources/images/RED.png" style="display:none">
-<img id="BLUE" src="resources/images/BLUE.png" style="display:none">
-<img id="GREEN" src="resources/images/GREEN.png" style="display:none">
-<img id="YELLOW" src="resources/images/YELLOW.png" style="display:none">
+<img id="RED" src="/resources/images/RED.png" style="display:none">
+<img id="BLUE" src="/resources/images/BLUE.png" style="display:none">
+<img id="GREEN" src="/resources/images/GREEN.png" style="display:none">
+<img id="YELLOW" src="/resources/images/YELLOW.png" style="display:none">
 <script>
 function drawBoard(){ 
     var canvas = document.getElementById("canvas");

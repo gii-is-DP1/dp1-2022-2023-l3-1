@@ -5,35 +5,13 @@
 <%@ taglib prefix="parchisoca" tagdir="/WEB-INF/tags" %>
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 
-<parchisoca:layout pageName="games">
+<parchisoca:layoutWithoutMenu pageName="games">
     <h2>You are the winner of the game, CONGRATULATIONS ${game.winner.user.username}! </h2>
     
     <spring:url value="/resources/images/winner.gif" var="winner"/>
-    
-    <table id="gamesTable" class="table table-striped">
-        <thead>
-        <tr>
-            <th>Game</th>
-            <th>Name</th>
-            <th>Winner</th>
-        </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                    <c:out value="${game.gameType.name}"/>
-                </td>
-                <td>
-                    <c:out value="${game.name}"/>
-                </td>
-                <td>                    
-                    <c:out value="${game.winner.user.username}"/>                                        
-                </td>
-            </tr>
-        </tbody>
-    </table>
 
     <p> &nbsp </p>
+    
     <div class="col text-center"> 
         <a href = "/games/lobbys">
             <img src="${winner}" width="204"/>
@@ -41,7 +19,8 @@
     </div>
 
     <p> &nbsp </p>
-        <div class="col text-center">
-            <a class="btn btn-default" href='<spring:url value="/" htmlEscape="true"/>'>Exit</a>
-        </div>
-</parchisoca:layout>
+
+    <div class="col text-center">
+        <a class="btn btn-default" href='<spring:url value="/" htmlEscape="true"/>'>Exit</a>
+    </div>
+</parchisoca:layoutWithoutMenu>

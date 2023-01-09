@@ -52,11 +52,6 @@ public class AchievementController {
         return result;
     }
 
-    @RequestMapping("/accessdenied")
-    public String accessdenied(Achievement model) {
-        return "denegado";
-    }
-
     @Transactional()
     @GetMapping("/{id}/delete")
     public ModelAndView deleteAchievement(@PathVariable int id){

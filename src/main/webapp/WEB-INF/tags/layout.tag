@@ -10,7 +10,6 @@
 <parchisoca:htmlHeader/>
 
 <body  style ="background-image: url('/resources/images/background.png')"> 
-<%-- <body style = "background: linear-gradient(315deg, #737ad3 0%, #db9ebb 100%)"> --%>
 <parchisoca:bodyHeader menuName="${pageName}"/>
 
 <div class="container-fluid">

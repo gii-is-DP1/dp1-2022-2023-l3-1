@@ -14,5 +14,10 @@ public class BoxesOcaService  {
     public void save(BoxesOca boxe){
         boRepository.save(boxe);
     }
+
+    @Transactional(readOnly = true)
+    public BoxesOca findBoxByPosition(Integer ocaBoardId, Integer position){
+        return boRepository.getBoxByPosition(ocaBoardId, position);
+    }
     
 }
