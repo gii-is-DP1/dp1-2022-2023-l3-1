@@ -11,7 +11,7 @@
         <p>
             Search private game:
             </br>
-            <input placeholder ="Insert a code" type="text" name="code" id="code"/>
+            <input style = "color:black;" placeholder ="Insert a code" type="text" name="code" id="code"/>
             <input style = "color:black;" type="button" value="Search" onclick="privateGame()" />
         </p>
         </br>
