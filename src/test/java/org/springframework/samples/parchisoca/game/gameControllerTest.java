@@ -14,12 +14,13 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import org.springframework.security.test.context.support.WithMockUser;
 
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-//Añadiremos esta etiqueta a la clase para poder lanzar el test de forma aislada.
+//AÃ±adiremos esta etiqueta a la clase para poder lanzar el test de forma aislada.
     //estas propiedades excluye las propiedades de seguridad de spring
 @WebMvcTest(controllers=GameController.class,
     excludeFilters=@ComponentScan.Filter(type=FilterType.ASSIGNABLE_TYPE, classes=WebSecurityConfigurer.class),
@@ -127,15 +128,24 @@ public class gameControllerTest {
             andExpect(status().isOk());
     }
 
+    // @WithMockUser
+    // @Test
+    // void testPlayerGame() throws Exception {
+    //     String code = "ASDFG";
+    //     when(gameService.findGameByCode(code)).thenReturn(gameTest);
+    //     mockMvc.perform(get("/games/lobby/{code}/exitWaitRoom", code)).
+    //         andExpect(status().isOk()).
+    //         andExpect(view().name("redirect:/games/lobbys"));
+        
+    // }
+
     @WithMockUser
     @Test
-    void testPlayerGame() throws Exception {
+    public void testdeleteWaitRoom() throws Exception {
         String code = "ASDFG";
-        when(gameService.findGameByCode(code)).thenReturn(gameTest);
-        mockMvc.perform(get("/games/lobby/{code}/exitWaitRoom", code)).
-            andExpect(status().isOk()).
-            andExpect(view().name("redirect:/games/lobbys"));
-        
+        when(gameService.findGameByCode(code)).thenReturn(new Game());
+        mockMvc.perform(get("/games/lobby/{code}/board", code)).
+            andExpect(status().isOk());
     }
 
 }

@@ -21,9 +21,11 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 
 @WebMvcTest(controllers=AchievementController.class,
     excludeFilters=@ComponentScan.Filter(type=FilterType.ASSIGNABLE_TYPE, classes=WebSecurityConfigurer.class),
@@ -86,5 +88,20 @@ public class AchievementControllerTest {
         andExpect(model().attributeExists("achievement"));
     }   
 
+    @Test
+    @WithMockUser
+    void testSaveAchievement() throws Exception {
+        mockMvc.perform(post("/statistics/achievements/{id}/edit", 1)
+        .with(csrf()))
+        .andExpect(status().isOk());
+    }
+
+    @Test
+    @WithMockUser
+    void testSaveNewAchievement() throws Exception {
+        mockMvc.perform(post("/statistics/achievements/new")
+        .with(csrf()))
+        .andExpect(status().isOk());
+    }
 
 }

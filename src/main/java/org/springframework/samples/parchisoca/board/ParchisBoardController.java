@@ -189,6 +189,7 @@ public class ParchisBoardController {
         mav.addObject("dice", dice);
         mav.addObject("parchisBoard", currentParchisBoard);
         mav.addObject("pieces", pieces);
+        mav.addObject("players", players);
         mav.addObject("piece1", piecesPlayer.get(0));
         mav.addObject("piece2", piecesPlayer.get(1));
         mav.addObject("piece3", piecesPlayer.get(2));
