@@ -8,10 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.parchisoca.board.OcaBoard;
-import org.springframework.samples.parchisoca.board.OcaBoardService;
-import org.springframework.samples.parchisoca.board.ParchisBoard;
-import org.springframework.samples.parchisoca.board.ParchisBoardService;
 import org.springframework.samples.parchisoca.player.Player;
 import org.springframework.samples.parchisoca.player.PlayerService;
 import org.springframework.security.core.Authentication;
@@ -46,12 +42,6 @@ public class GameController {
 
     @Autowired
     private PlayerService playerService;
-
-    @Autowired
-    private OcaBoardService ocaBoardService;
-
-    @Autowired
-    private ParchisBoardService parchisBoardService;
 
     // Shows the games list
     @GetMapping("/list")
@@ -206,37 +196,14 @@ public class GameController {
         Game currentGame = gameService.findGameByCode(code);
         GameType currentGameType = currentGame.getGameType();
 
-        String result  = selectGame(currentGameType, currentGame);
+        String result  = gameService.selectGame(currentGameType, currentGame);
         return result; 
         
     }
 
-    private String selectGame(GameType currentGameType, Game currentGame) {
-
-        if (currentGameType.getName().equals("PARCHIS")) {
-            ParchisBoard newParchisBoard = parchisBoardService.initBoard(currentGame);
-            currentGame.setStarted(true);
-            currentGame.setParchisBoard(newParchisBoard);
-            newParchisBoard.setGame(currentGame);
-            parchisBoardService.save(newParchisBoard);
-            gameService.save(currentGame);
-            int parchisBoardId = newParchisBoard.getId();
-            return "redirect:/boards/parchisBoard/"+parchisBoardId;
-        } else {
-            OcaBoard newOcaBoard = ocaBoardService.initBoard(currentGame);
-            currentGame.setStarted(true);
-            currentGame.setOcaBoard(newOcaBoard);
-            newOcaBoard.setGame(currentGame);
-            ocaBoardService.save(newOcaBoard);
-            gameService.save(currentGame);
-            int ocaBoardId = newOcaBoard.getId();
-            return "redirect:/boards/ocaBoard/"+ocaBoardId;
-        }
-    }
-
     // Exit the player from the wait room, therefore it will be deleted from the game too
     @GetMapping("/lobby/{code}/exitWaitRoom")
-    public String exitPlayerGame(@PathVariable("code") String code) {
+    public ModelAndView exitPlayerGame(@PathVariable("code") String code) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         Integer id = playerService.getUserIdByName(username);
@@ -248,7 +215,7 @@ public class GameController {
         ls.remove(currentPlayer);
         currentGame.setPlayers(ls);
         gameService.save(currentGame);
-        return "redirect:/games/lobbys";
+        return new ModelAndView("redirect:/games/lobbys");
     }
 
     // Deletes the game, kicking all the players
