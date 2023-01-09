@@ -58,6 +58,7 @@ public class OcaBoardServiceTest {
         player = playerService.findById(1);
         ocaDice.setPlayer(player);
         ocaDice.setOcaBoard(ocaBoard);
+        ocaDice.setNumber(3);
         ocaDiceService.save(ocaDice);
 
         List<OcaDice> ls = new ArrayList<>();
@@ -78,7 +79,7 @@ public class OcaBoardServiceTest {
         ocaBoard.setBoxes(listBoxesOca);
         ocaBoard.setGame(new Game());
         ocaBoard.setPieces(new ArrayList<OcaPiece>());
-        ocaBoard.setTurn(0);
+        ocaBoard.setTurn(1);
         ocaBoard.setBackground("backGround");
         ocaBoard.setWidth(10);
         ocaBoard.setHeight(10);
@@ -160,4 +161,35 @@ public class OcaBoardServiceTest {
       OcaBoard ocaBoardInit = ocaBoardService.initBoard(game);
       assertThat(ocaBoardInit != null);
     }
+
+    @Test
+    void shouldNextTurn() {
+      ocaBoardService.save(ocaBoard);
+
+      OcaPiece ocaPieceTest = new OcaPiece();
+      ocaPieceTest.setColour(Colour.BLUE);
+      ocaPieceTest.setOcaBoard(ocaBoard);
+      ocaPieceTest.setPenalizationTurn(0);
+      ocaPieceTest.setPlayer(player);
+      ocaPieceTest.setPosition(10);
+      ocaPieceTest.setXPosition(50);
+      ocaPieceTest.setYPosition(50);
+      ocaPieceService.save(ocaPieceTest);
+
+      List<OcaPiece> listOcaPiece = new ArrayList<>();
+      listOcaPiece.add(ocaPieceTest);
+      listOcaPiece.add(ocaPieceTest);
+      ocaBoard.setPieces(listOcaPiece);
+
+
+      OcaPiece ocaPieceUnderTest = ocaBoardService.nextTurn(ocaBoard);
+      assertTrue(ocaPieceUnderTest != null);
+
+      listOcaPiece.add(ocaPieceTest);
+      OcaPiece ocaPieceUnderTest2 = ocaBoardService.nextTurn(ocaBoard);
+      assertTrue(ocaPieceUnderTest2 != null);
+
+    }
+
+
 }

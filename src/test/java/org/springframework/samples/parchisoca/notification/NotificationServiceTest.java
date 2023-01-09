@@ -130,7 +130,14 @@ public class NotificationServiceTest {
         notificationService.initNotifications(p);
         assertThat(p.getNotifications().size() == 0);
     }
-
+    
+    @Test
+    public void saveTest() {
+        Notification notificationTest = new Notification();
+        notificationTest.setText("Tests");
+        notificationService.save(notificationTest);
+        assertTrue(notificationTest.getText().equals("Tests"));
+    }
 
 
 

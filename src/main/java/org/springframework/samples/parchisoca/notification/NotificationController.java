@@ -47,14 +47,14 @@ public class NotificationController {
     }
 
     @GetMapping(value="/{notificationId}/delete")
-    public String deleteNotification(@PathVariable("notificationId") Integer notificationId) {
+    public ModelAndView deleteNotification(@PathVariable("notificationId") Integer notificationId) {
         Notification notification = notificationService.findById(notificationId);
         Player player = playerService.findById(notification.getPlayer().getId());
 
         playerService.deleteNotification(player, notification);
         notificationService.deleteNotification(notification);
 
-        return "redirect:/notifications/myNotifications";
+        return new ModelAndView("redirect:/notifications/myNotifications");
     }
     
 }

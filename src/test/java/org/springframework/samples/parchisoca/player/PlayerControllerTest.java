@@ -167,12 +167,20 @@ public class PlayerControllerTest {
         andExpect(view().name("players/editPlayer"));
     }
 
+    @WithMockUser
+    @Test
+    public void testPostSaveLoggedPlayer() throws Exception {
+        mockMvc.perform(post("/players/{playerId}/edit", 1)
+        .with(csrf()))
+        .andExpect(status().isOk());
+    }
 
-    
-
-
-
-    
-    
+    @WithMockUser
+    @Test
+    public void testPostPlayer() throws Exception {
+        mockMvc.perform(post("/admin/{playerId}/edit", 1)
+        .with(csrf()))
+        .andExpect(status().isOk());
+    }
     
 }

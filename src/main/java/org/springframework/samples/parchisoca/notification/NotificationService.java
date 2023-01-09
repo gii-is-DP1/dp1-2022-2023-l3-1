@@ -78,7 +78,13 @@ public class NotificationService {
         notificationRepository.delete(notification);
     }
 
+    @Transactional(readOnly = true)
     public List<Notification> findAll() {
         return notificationRepository.getAll();
+    }
+
+    @Transactional
+    public void save(Notification notification) {
+        notificationRepository.save(notification);
     }
 }
