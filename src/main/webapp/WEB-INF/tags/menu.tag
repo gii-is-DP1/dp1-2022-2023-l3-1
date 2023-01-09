@@ -112,11 +112,13 @@
                             </ul>
                     </parchisoca:menuItem>
 
+                    <sec:authorize access="hasAuthority('player')">
                     <parchisoca:menuItem active="${name eq 'Stats'}" url="/stats/playerStats"
                         title="Stats">
                         <span class="glyphicon glyphicon-signal" aria-hidden="true"></span>
                         <span>Stats</span>
                     </parchisoca:menuItem>
+                    </sec:authorize>
 
                 </ul>
 
