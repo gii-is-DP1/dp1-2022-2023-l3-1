@@ -23,15 +23,14 @@ import lombok.Setter;
 @Setter
 @Table(name = "parchis_boards")
 public class ParchisBoard extends BaseEntity {
-    
     String background;
 
     @Enumerated(EnumType.STRING)
-    private SpecialBoxesParchis casillasParchis; 
+    private SpecialBoxesParchis casillasParchis;
 
     @Positive
     int width;
-    
+
     @Positive
     int height;
 
@@ -42,7 +41,7 @@ public class ParchisBoard extends BaseEntity {
     }
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "parchisBoard")
-    List<ParchisPiece> pieces; 
+    List<ParchisPiece> pieces;
 
     @OneToOne
     private Game game;
