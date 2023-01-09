@@ -64,7 +64,6 @@ public class PlayerController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = auth.getName();
         Player currentPlayer = playerService.findPlayersByUsername(currentUsername);
-        List<Player> currentPlayersFriends = currentPlayer.getFriends();
 
         ModelAndView mav = new ModelAndView();
         Player player = playerService.findPlayersByUsername(username);
@@ -93,7 +92,7 @@ public class PlayerController {
 
             message = "You can't search yourself.";
 
-        } else if (currentPlayersFriends.contains(player)) {
+        } else if (auth != null && auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("player")) && currentPlayer.getFriends().contains(player)) {
             direction = FRIEND_PROFILE;
         } else {
             direction = PLAYER_PROFILE;
@@ -165,7 +164,7 @@ public class PlayerController {
         result.addObject("player", new Player());
         return result;
     }
-    
+
 
     @PostMapping(value = "/players/create")
 	public String processCreationForm(@Valid Player player, BindingResult result) {
@@ -262,7 +261,7 @@ public class PlayerController {
         Player currentPlayer = playerService.findById(playerId);
 
         List<Player> friends = currentPlayer.getFriends();
-        
+
         ModelAndView mav = new ModelAndView(PLAYER_FRIENDS);
         mav.addObject("friends", friends);
         return mav;
@@ -282,7 +281,7 @@ public class PlayerController {
         String username = auth.getName();
         Integer currentPlayerId = this.playerService.getUserIdByName(username);
         Player currentPlayer = playerService.findById(currentPlayerId);
-        
+
         Player playerToAdd = playerService.findById(playerId);
 
         if (!currentPlayer.getFriends().contains(playerToAdd)) {
@@ -300,7 +299,7 @@ public class PlayerController {
         String username = auth.getName();
         Integer currentPlayerId = this.playerService.getUserIdByName(username);
         Player currentPlayer = playerService.findById(currentPlayerId);
-        
+
         List<Player> friends = currentPlayer.getFriends();
         ModelAndView mav = new ModelAndView(PLAYER_FRIENDS);
         mav.addObject("friends", friends);
@@ -312,7 +311,7 @@ public class PlayerController {
             String message = "Friend request sent.";
             mav.addObject("message", message);
         }
-    
+
         return mav;
     }
 
