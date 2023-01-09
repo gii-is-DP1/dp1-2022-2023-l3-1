@@ -1,17 +1,17 @@
 package org.springframework.samples.parchisoca.game;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
-import org.springframework.samples.parchisoca.board.OcaBoardService;
-import org.springframework.samples.parchisoca.board.ParchisBoardService;
 import org.springframework.samples.parchisoca.configuration.SecurityConfiguration;
 import org.springframework.samples.parchisoca.player.PlayerService;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.test.web.servlet.MockMvc;
+
 import org.springframework.security.test.context.support.WithMockUser;
 
 import static org.mockito.Mockito.when;
@@ -26,7 +26,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     excludeAutoConfiguration=SecurityConfiguration.class)
 public class gameControllerTest {
 
-
     @Autowired
     private MockMvc mockMvc;
 
@@ -34,13 +33,16 @@ public class gameControllerTest {
     private GameService gameService;
 
     @MockBean
-    private OcaBoardService ocaBoardService;
-
-    @MockBean
     private PlayerService playerService;
 
-    @MockBean
-    private ParchisBoardService parchisBoardService;
+    Game gameTest = new Game();
+    GameType gameTypeTest = new GameType();
+
+    @BeforeEach
+    private void setUp() {
+        gameTypeTest.setName("PARCHIS");
+        gameTest.setGameType(gameTypeTest);
+    }
    
     @WithMockUser
     @Test
@@ -107,7 +109,7 @@ public class gameControllerTest {
 
     @WithMockUser
     @Test
-    void testGameWinner() throws Exception {
+    public void testGameWinner() throws Exception {
         String code = "ASDFG";
         when(gameService.findGameByCode(code)).thenReturn(new Game());
         mockMvc.perform(get("/games/lobby/{code}/winner", code)).
@@ -118,12 +120,22 @@ public class gameControllerTest {
 
     @WithMockUser
     @Test
-    void testGameRoom() throws Exception {
+    public void testGameRoom() throws Exception {
         String code = "ASDFG";
-        when(gameService.findGameByCode(code)).thenReturn(new Game());
+        when(gameService.findGameByCode(code)).thenReturn(gameTest);
         mockMvc.perform(get("/games/lobby/{code}/board", code)).
             andExpect(status().isOk());
     }
 
+    @WithMockUser
+    @Test
+    void testPlayerGame() throws Exception {
+        String code = "ASDFG";
+        when(gameService.findGameByCode(code)).thenReturn(gameTest);
+        mockMvc.perform(get("/games/lobby/{code}/exitWaitRoom", code)).
+            andExpect(status().isOk()).
+            andExpect(view().name("redirect:/games/lobbys"));
+        
+    }
 
 }
