@@ -27,23 +27,24 @@ import lombok.Setter;
 @Setter
 @Table(name = "parchis_boards")
 public class ParchisBoard extends BaseEntity {
-    
     String background;
 
     @Enumerated(EnumType.STRING)
-    private SpecialBoxesParchis casillasParchis; 
+    private SpecialBoxesParchis casillasParchis;
 
     @Positive
     int width;
-    
+
     @Positive
     int height;
 
     public ParchisBoard(){
+
         this.background = "/resources/images/ParchisBoard.png";
         this.width = 650;
         this.height = 650;
-    } 
+    }
+
 
     @OneToOne
     private Game game;
@@ -74,7 +75,7 @@ public class ParchisBoard extends BaseEntity {
         }
     }
 
-    public Integer bounceBack(Integer position) {  
+    public Integer bounceBack(Integer position) {
         if (position > 8) {
             position = 2 * 8 - position;
         }

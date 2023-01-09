@@ -21,7 +21,7 @@
         
     </div>
 
-    <table class="table" style = "background: white;">
+    <table class="table">
         <tr>
             <th>Name</th>
             <td><b><c:out value="${player.firstName} ${player.lastName}"/></b></td>

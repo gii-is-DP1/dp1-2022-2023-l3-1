@@ -292,7 +292,7 @@ public class ParchisBoardService {
         setParchisPieceFinalPositionPx(parchisPiece, parchisPiece.getFinishPosition());
         parchisPieceService.save(parchisPiece);
         boxesParchisService.save(lastBox);
-        
+
     }
 
 
@@ -352,7 +352,7 @@ public class ParchisBoardService {
         }
         setParchisPieceFinalPositionPx(parchisPiece, parchisPiece.getFinishPosition());
         parchisPieceService.save(parchisPiece);
-        
+
     }
 
     // Salida de casa
@@ -453,7 +453,7 @@ public class ParchisBoardService {
         if (parchisPiece.getColour().equals(Colour.BLUE)) {
             parchisPiece.setXPosition(490);
             parchisPiece.setYPosition(52);
-        } 
+        }
 
         if (parchisPiece.getColour().equals(Colour.YELLOW)) {
             parchisPiece.setXPosition(490);
@@ -692,7 +692,7 @@ public class ParchisBoardService {
                 parchisPiece.setYPosition(610);
             }
         }
-        
+
     }
 
     private void setParchisPieceFinalPositionPx (ParchisPiece parchisPiece, int position) {
@@ -779,6 +779,6 @@ public class ParchisBoardService {
     }
 
 
-    
+
 
 }

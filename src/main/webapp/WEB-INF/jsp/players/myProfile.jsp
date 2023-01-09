@@ -11,7 +11,7 @@
     <a href="/players/${player.id}/edit">
         Editar mi perfil
     </a>
-    <table class="table table-striped">
+    <table class="table">
          <tr>
             <th>Nombre</th>
             <td><b><c:out value="${player.firstName} ${player.lastName}"/></b></td>
