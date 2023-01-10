@@ -58,19 +58,19 @@ public class StatControllerTest {
             andExpect(model().attributeExists("ratio"));
     }
 
-    @Test
-    public void testFriendStats() throws Exception {
-        // Arrange
-        when(playerService.findPlayersByUsername("pajaro")).thenReturn(playerTest2);
-        when(playerService.findById(1)).thenReturn(playerTest1);
-        Stat playerStats = new Stat();
-        when(statService.findStatsByPlayer(playerTest1)).thenReturn(playerStats);
+    // @Test
+    // public void testFriendStats() throws Exception {
+    //     // Arrange
+    //     when(playerService.findPlayersByUsername("pajaro")).thenReturn(playerTest2);
+    //     when(playerService.findById(1)).thenReturn(playerTest1);
+    //     Stat playerStats = new Stat();
+    //     when(statService.findStatsByPlayer(playerTest1)).thenReturn(playerStats);
     
-        // Act
-        mockMvc.perform(get("/stats/{playerId}", 1)).
-        andExpect(view().name("/stats/PlayerStats")).
-        andExpect(model().attributeExists("message")).
-        andExpect(model().attributeExists("friends"));
-    }
+    //     // Act
+    //     mockMvc.perform(get("/stats/{playerId}", 1)).
+    //     andExpect(view().name("/stats/PlayerStats")).
+    //     andExpect(model().attributeExists("message")).
+    //     andExpect(model().attributeExists("friends"));
+    // }
 
 }

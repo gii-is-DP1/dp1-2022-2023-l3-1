@@ -50,7 +50,7 @@
     </table>
 
     <div class="col text-center">
-            <a class="btn btn-default" href='<spring:url value="/" htmlEscape="true"/>'>Go Back</a>
+            <a class="btn btn-default" href='<spring:url value="/players/find" htmlEscape="true"/>'>Go Back</a>
         </div>
     
 </parchisoca:layout>
