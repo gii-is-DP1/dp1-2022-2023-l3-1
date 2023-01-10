@@ -29,6 +29,7 @@ INSERT INTO players_achievements(player_id,achievements_id) VALUES (1,2);
 INSERT INTO players_achievements(player_id,achievements_id) VALUES (2,2);
 
 INSERT INTO players_friends(player_id,friends_id) VALUES (1,2);
+INSERT INTO players_friends(player_id,friends_id) VALUES (2,1);
 INSERT INTO players_friends(player_id,friends_id) VALUES (3,2);
 
 INSERT INTO games(id,creator_id,winner_id,name,jugadores,code,privacity,game_type_id, in_progress) VALUES (1,1,1,'prueba',4,'ASDFG','PUBLIC',1,FALSE);
