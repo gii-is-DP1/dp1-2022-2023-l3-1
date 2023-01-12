@@ -1,4 +1,4 @@
-package org.springframework.samples.parchisoca.oca;
+package org.springframework.samples.parchisoca.Oca;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

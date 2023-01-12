@@ -1,4 +1,4 @@
-package org.springframework.samples.parchisoca.oca;
+package org.springframework.samples.parchisoca.Oca;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
