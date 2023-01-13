@@ -1,6 +1,5 @@
 package org.springframework.samples.parchisoca.statics;
 
-import static org.junit.Assert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

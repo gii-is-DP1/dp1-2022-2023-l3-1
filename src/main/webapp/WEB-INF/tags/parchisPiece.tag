@@ -5,5 +5,3 @@
 
  image = document.getElementById('${piece.colour}');
  ctx.drawImage(image,${piece.getXPosition()},${piece.getYPosition()},30,30);
-
-

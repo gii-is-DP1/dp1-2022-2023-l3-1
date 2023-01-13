@@ -17,7 +17,7 @@ import lombok.Setter;
 @Setter
 @Table(name = "stats")
 public class Stat extends BaseEntity {
-    
+
     @OneToOne(cascade = CascadeType.ALL)
     private Player player;
 
@@ -34,5 +34,4 @@ public class Stat extends BaseEntity {
         Double result = ((double) lostGames/ (double) wonGames) * 100;
         return (double)Math.round(result * 100d) / 100d;
     }
-
 }

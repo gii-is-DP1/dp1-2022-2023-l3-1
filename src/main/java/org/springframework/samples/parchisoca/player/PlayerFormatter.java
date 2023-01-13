@@ -19,7 +19,6 @@ public class PlayerFormatter implements Formatter<Player> {
 
     @Override
     public Player parse(String text, Locale locale) throws ParseException {
-        // TODO Auto-generated method stub
         return null;
     }
 
