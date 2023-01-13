@@ -16,3 +16,6 @@ El jugador lanzará un dado por cada turno, debiendo avanzar tantos movimientos 
 # Documento de Requisitos y Análisis del Sistema
 
 [Documento_de_Requisitos_y_Analisis_del_sistema_3.pdf](https://github.com/gii-is-DP1/dp1-2022-2023-l3-1/files/10025283/DP1-2022-_Plantilla_para_Entregable_2_-_Documento_de_Requisitos_y_Analisis_del_sistema_3.pdf)
+
+# Video Prueba Funcionamiento Parchis&Oca
+https://youtu.be/1-d2Hny4FpA
