@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.parchisoca.dice.ParchisDice;
 import org.springframework.samples.parchisoca.dice.ParchisDiceService;
 import org.springframework.samples.parchisoca.game.Game;
+import org.springframework.samples.parchisoca.game.GameService;
 import org.springframework.samples.parchisoca.piece.ParchisPiece;
 import org.springframework.samples.parchisoca.piece.ParchisPieceService;
 import org.springframework.samples.parchisoca.player.Player;
@@ -33,6 +34,9 @@ public class ParchisBoardController {
 
     @Autowired
 	ParchisPieceService parchisPieceService;
+    
+    @Autowired 
+    GameService gameService;
 
 	private final String PARCHISBOARD = "boards/parchisBoard";
 	private final String GAMES_FINISHED = "games/GameFinished";
@@ -239,5 +243,21 @@ public class ParchisBoardController {
         } 
         return mav;
         
+    }
+
+    @GetMapping("games/lobby/parchis/{code}/exit")
+    public String exitPlayerGame(@PathVariable("code") String code, HttpServletResponse response) {
+
+        Player currentPlayer = playerService.getCurrentPlayer();
+
+        Game currentGame = gameService.findGameByCode(code);
+        List<Player> ls = currentGame.getPlayers();
+
+        ls.remove(currentPlayer);
+        currentGame.setPlayers(ls);
+        gameService.save(currentGame);
+
+        return "redirect:/games/lobbys";
+
     }
 }
