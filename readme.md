@@ -18,7 +18,8 @@ El jugador lanzará un dado por cada turno, debiendo avanzar tantos movimientos 
 [DP1-2022-_Plantilla_para_Entregable_2_-_Documento_de_Requisitos_y_Analisis_del_sistema.pdf](https://github.com/gii-is-DP1/dp1-2022-2023-l3-1/files/10411400/DP1-2022-_Plantilla_para_Entregable_2_-_Documento_de_Requisitos_y_Analisis_del_sistema.pdf)
 
 # Documento de Requisitos y Análisis del Sistema
-[DP1-2022- Plantilla para Entregable 3 - Documento de Diseño del sistema.docx (1).pdf](https://github.com/gii-is-DP1/dp1-2022-2023-l3-1/files/10411410/DP1-2022-.Plantilla.para.Entregable.3.-.Documento.de.Diseno.del.sistema.docx.1.pdf)
+[DP1-2022- Plantilla para Entregable 3 - Documento de Diseño del sistema.pdf](https://github.com/gii-is-DP1/dp1-2022-2023-l3-1/files/10411416/DP1-2022-.Plantilla.para.Entregable.3.-.Documento.de.Diseno.del.sistema.pdf)
+
 
 
 # Video Prueba Funcionamiento Parchis&Oca
